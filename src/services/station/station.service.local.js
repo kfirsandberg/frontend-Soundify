@@ -1,71 +1,62 @@
 import { storageService } from '../async-storage.service'
 import { makeId } from '../util.service'
 import { userService } from '../user'
-const STORAGE_KEY = 'playlist'
-export const playlistService = {
+
+const STORAGE_KEY = 'station'
+
+export const stationLocalService = {
     query,
     getById,
-    save,
-    remove,
-    addPlaylist,
-    removePlaylist
+    saveStation,
+    removeStation,
+    addStation
 }
 
-window.ps = playlistService
 async function query(filterBy = { txt: '', genre: '' }) {
-    var playlists = await storageService.query(STORAGE_KEY)
+    var stations = await storageService.query(STORAGE_KEY)
     const { txt, genre, sortField, sortDir } = filterBy
+
     if (txt) {
         const regex = new RegExp(txt, 'i')
-        playlists = playlists.filter(playlist => regex.test(playlist.name) || regex.test(playlist.description))
+        stations = stations.filter(station => regex.test(station.name) || regex.test(station.description))
     }
     if (genre) {
-        playlists = playlists.filter(playlist => playlist.genre === genre)
+        stations = stations.filter(station => station.genre === genre)
     }
-    if (sortField === 'name' || sortField === 'owner') {
-        playlists.sort((p1, p2) =>
-            p1[sortField].localeCompare(p2[sortField]) * +sortDir)
+    if (sortField === 'name' || sortField === 'artist') {
+        stations.sort((s1, s2) => s1[sortField].localeCompare(s2[sortField]) * +sortDir)
     }
-    playlists = playlists.map(({ _id, name, genre, owner }) => ({ _id, name, genre, owner }))
-    return playlists
+
+    return stations.map(({ _id, name, genre, owner }) => ({ _id, name, genre, owner }))
 }
-function getById(playlistId) {
-    return storageService.get(STORAGE_KEY, playlistId)
+
+function getById(stationId) {
+    return storageService.get(STORAGE_KEY, stationId)
 }
-async function remove(playlistId) {
-    await storageService.remove(STORAGE_KEY, playlistId)
+
+async function removeStation(stationId) {
+    await storageService.remove(STORAGE_KEY, stationId)
 }
-async function save(playlist) {
-    var savedPlaylist
-    if (playlist._id) {
-        const playlistToSave = {
-            _id: playlist._id,
-            name: playlist.name,
-            genre: playlist.genre
-        }
-        savedPlaylist = await storageService.put(STORAGE_KEY, playlistToSave)
-    } else {
-        const playlistToSave = {
-            name: playlist.name,
-            genre: playlist.genre,
-            owner: userService.getLoggedinUser()
-        }
-        savedPlaylist = await storageService.post(STORAGE_KEY, playlistToSave)
+
+async function saveStation(station) {
+    const stationToSave = {
+        _id: station._id || makeId(),
+        name: station.name,
+        genre: station.genre,
+        owner: station.owner || userService.getLoggedinUser()
     }
-    return savedPlaylist
+    return station._id
+        ? await storageService.put(STORAGE_KEY, stationToSave)
+        : await storageService.post(STORAGE_KEY, stationToSave)
 }
-async function addPlaylist(name, genre) {
-    const newPlaylist = {
+
+async function addStation(name, genre) {
+    const newStation = {
         _id: makeId(),
         name,
         genre,
         owner: userService.getLoggedinUser()
     }
-    await storageService.post(STORAGE_KEY, newPlaylist)
-    return newPlaylist
+    await storageService.post(STORAGE_KEY, newStation)
+    return newStation
 }
-
-
-
-
-
