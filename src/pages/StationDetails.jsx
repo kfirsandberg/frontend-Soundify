@@ -1,11 +1,11 @@
-import { StationHeader } from "../cmps/StationHeader"
-import { SongsList } from "../cmps/SongsList"
+import { StationHeader } from "../cmps/StationHeader.jsx"
+import { SongList } from "../cmps/SongsList.jsx"
 export function StationDetails() {
 
   return (
     <section className="station-container">
       <StationHeader />
-      <SongsList />
+      <SongList />
     </section>
   )
 }

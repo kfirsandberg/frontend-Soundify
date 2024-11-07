@@ -27,7 +27,7 @@ async function query(filterBy = { txt: '', genre: '' }) {
         stations.sort((s1, s2) => s1[sortField].localeCompare(s2[sortField]) * +sortDir)
     }
 
-    return stations.map(({ _id, name, genre, owner }) => ({ _id, name, genre, owner }))
+    return stations.map(({ _id, name, genre, artist }) => ({ _id, name, genre, artist }))
 }
 
 function getById(stationId) {
@@ -43,7 +43,7 @@ async function saveStation(station) {
         _id: station._id || makeId(),
         name: station.name,
         genre: station.genre,
-        owner: station.owner || userService.getLoggedinUser()
+        artist: station.artist || userService.getLoggedinUser()
     }
     return station._id
         ? await storageService.put(STORAGE_KEY, stationToSave)
@@ -55,7 +55,7 @@ async function addStation(name, genre) {
         _id: makeId(),
         name,
         genre,
-        owner: userService.getLoggedinUser()
+        artist: userService.getLoggedinUser()
     }
     await storageService.post(STORAGE_KEY, newStation)
     return newStation
