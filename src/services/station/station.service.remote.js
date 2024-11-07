@@ -30,8 +30,7 @@ async function saveStation(station) {
 async function addStation(name, genre) {
     const newStation = {
         name,
-        genre,
-        owner: userService.getLoggedinUser()
+        genre
     }
     return await httpService.post('station', newStation)
 }
