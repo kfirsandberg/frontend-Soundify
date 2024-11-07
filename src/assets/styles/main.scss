@@ -20,11 +20,16 @@
 @import 'pages/LoginSignup';
 
 // Components
+@import 'pages/StationDetails';
 @import 'cmps/StationList';
 @import 'cmps/StationPreview';
 
 @import 'cmps/SongList';
 @import 'cmps/SongPreview';
+
+@import 'cmps/ArtistPreview';
+@import 'cmps/AlbumPreview';
+
 
 @import 'cmps/AppHeader';
 @import 'cmps/AppPlayer';
