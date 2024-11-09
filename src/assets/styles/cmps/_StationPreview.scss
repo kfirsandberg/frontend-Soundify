@@ -1,11 +1,13 @@
 .station-preview {
-  background-color: $spotify-preview-bg; 
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 1em;
   text-align: center;
   color: $spotify-gray;
-  position: relative; 
+  position: relative;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+
 
   img {
     width: 100%;
@@ -13,32 +15,44 @@
     aspect-ratio: 1;
     object-fit: cover;
     transition: transform 0.2s ease;
-
+    border-radius: 6px;
   }
 
   .play-button-container {
-    position: absolute;
-    bottom: 10px;  
-    right: 10px;   
-    display: none; 
-    z-index: 1;    
+    position: absolute    ;
+    bottom: 1em;
+    right: 1em;
+    top: 9.5rem;
+    display: none;
+    z-index: 1;
+    width: 5.5em;
+    height:4.5em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 
     .play-button {
-      background-color: rgba(0, 0, 0, 0.5); 
+      background-color: rgba(0, 0, 0, 0.5);
       color: $spotify-light;
       font-size: 2rem;
       border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 50%;  
+      padding:  1rem;
+      border-radius: 50%;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-      background-color: $spotify-green;  
+      transition: background-color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+      background-color: $spotify-green;
+
+      &:hover {
+        background-color: lighten($spotify-green, 10%);
+        filter: brightness(1  );
+        transform: scale(1.1);
+      }
     }
   }
 
   &:hover {
     .play-button-container {
-      display: block; 
+      display: block;
+      opacity: 1;
     }
   }
 
@@ -49,3 +63,4 @@
     font-weight: 500;
   }
 }
+

@@ -1,22 +1,70 @@
-.song-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 0.5em;
-
-    li {
-        display: grid;
-        grid-template-columns: max-content auto;
-        padding: 0.5em;
-        background-color: $clr2;
-
-        color: $clr6;
-
-        .actions {
-            justify-self: end;
-
-            button {
-                padding: 0.3em 0.5em;
-            }
-        }
-    }
-}
+section {
+    padding: 20px;
+    background-color: $spotify-preview-bg;
+    border-radius: 8px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .song-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+  }
+  
+  .song-item:hover {
+    background-color: $spotify-hover-light;
+  }
+  
+  .song-index {
+    background-color: transparent;
+    color: $spotify-light;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0;
+    margin-right: 20px;
+  }
+  
+  .song-index .play-icon {
+    font-size: 2rem;
+    color: $spotify-green;
+  }
+  
+  .song-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .song-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: $spotify-gray;
+    flex: 1;
+  }
+  
+  .song-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $spotify-light;
+  }
+  
+  .play-link {
+    font-size: 0.9rem;
+    color: $spotify-green;
+    transition: color 0.2s;
+  }
+  
+  .play-link:hover {
+    color: darken($spotify-green, 5%);
+  }
+  
