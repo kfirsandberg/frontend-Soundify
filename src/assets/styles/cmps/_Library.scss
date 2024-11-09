@@ -195,6 +195,7 @@
     width: 16.5rem; /* 264px in rem (264 / 16px = 16.5rem) */
     height: 4rem; /* 64px in rem (64 / 16px = 4rem) */
     position: relative; /* Needed for positioning the name and artist */
+    cursor: pointer;
 }
 
 /* Hover Effect on Card */
