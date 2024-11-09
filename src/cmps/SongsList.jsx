@@ -4,9 +4,7 @@ import { useState } from 'react';
 export function SongList({ station }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   function handlePlayClick(songId){
-    console.log(songId);
-    
-
+   
   }
   return (
     <section>

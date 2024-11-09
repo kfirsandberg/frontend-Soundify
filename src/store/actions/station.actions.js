@@ -24,7 +24,7 @@ export async function loadStations(filterBy) {
 export async function loadStation(stationId) {
     try {
         const station = await stationLocalService.getById(stationId)
-        const station = await stationLocalService.getById(stationId)
+        // const station = await stationLocalService.getById(stationId)
         store.dispatch(getCmdSetStation(station))
     } catch (err) {
         console.log('Cannot load station', err)
