@@ -12,18 +12,18 @@ export function AppHeader() {
 					<img src="/assets/home header.svg" alt="Home" className="home-icon" />
 				</button>
 				<div className="input-wrapper">
-				<button className="header-search-btn">
-                         <img src="/assets/search2.svg" alt="Browse" className="search-icon" />
-                    </button>
-                    <input 
-                        type="text" 
-                        placeholder="Search..."
-                        className="header-search-input"
-                    />
-                    <button className="header-browse-btn">
-                         <img src="/assets/browse.svg" alt="Browse" className="browse-icon" />
-                    </button>
-                </div>
+					<button className="header-search-btn">
+						<img src="/assets/search2.svg" alt="Browse" className="search-icon" />
+					</button>
+					<input
+						type="text"
+						placeholder="Search..."
+						className="header-search-input"
+					/>
+					<button className="header-browse-btn">
+						<img src="/assets/browse.svg" alt="Browse" className="browse-icon" />
+					</button>
+				</div>
 			</div>
 
 			{/* Icon buttons on the right */}
@@ -33,7 +33,7 @@ export function AppHeader() {
 					<img src="/assets/notifiction header.svg" alt="Browse" className="browse-icon" />
 				</button>
 				<button className="header-icon-btn">
-					<i className="header-icon">⚙️</i> {/* Example icon */}
+					<img src="/assets/user.svg" alt="User Icon" className="header-icon" />
 				</button>
 			</div>
 		</header>
