@@ -17,7 +17,7 @@ export function stationReducer(state = initialState, action) {
     var stations
     switch (action.type) {
         case SET_STATIONS:
-            newState = { ...state, station: action.stations }
+            newState = { ...state, stations: action.stations }
             break
         case SET_STATION:
             newState = { ...state, station: action.station }
