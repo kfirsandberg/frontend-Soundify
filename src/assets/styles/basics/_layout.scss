@@ -1,8 +1,15 @@
 .main-container {
     display: grid;
-    grid-template-columns: 1rem 1fr 1rem;
+    grid-template-columns: 0.9fr 1.5fr 0.6fr;
+    grid-template-rows: 0.1fr 2.6fr 0.1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        ". . ."
+        "library main main"
+        ". . .";
 
-    > * {
+    >* {
         grid-column: 2;
 
         &.full {
@@ -10,28 +17,23 @@
         }
     }
 
-    // @include for-narrow-layout {
-    //     grid-template-columns: 
-    //         minmax(20px, 1fr)
-    //         minmax(auto, $mobile-breakpoint)
-    //         minmax(20px, 1fr);
-    // }
-    // @include for-normal-layout {
-    //     grid-template-columns: 
-    //         minmax(20px, 1fr)
-    //         minmax(auto, $narrow-breakpoint)
-    //         minmax(20px, 1fr);
-    // }
-    // @include for-wide-layout {
-    //     grid-template-columns: 
-    //         minmax(20px, 1fr)
-    //         minmax(auto, $normal-breakpoint)
-    //         minmax(20px, 1fr);
-    // }
+
+}
+.content {
+    display: contents; /* This lets `library-route` and `station-index-route` follow the `main-container` grid layout */
+}
+.library-route {
+    grid-area: library;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-right: 1px solid #ddd;
 }
 
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 20px;
+.station-index-route {
+    grid-area: main;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
 }
