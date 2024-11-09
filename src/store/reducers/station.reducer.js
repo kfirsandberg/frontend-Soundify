@@ -4,15 +4,17 @@ export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
 export const ADD_STATION_MSG = 'ADD_STATION_MSG'
+export const SET_SONG = 'SET_SONG'
 
 const initialState = {
     stations: [],
-    station: null
+    station: null,
+    currentSong: null,
 }
 
 export function stationReducer(state = initialState, action) {
     var newState = state
-    var station
+    var stations
     switch (action.type) {
         case SET_STATIONS:
             newState = { ...state, station: action.stations }
@@ -29,11 +31,14 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: [...state.stations, action.station] }
             break
         case UPDATE_STATION:
-            stations = state.stations.map(station => (station._id === action.station._id) ? action.station : station)
+            stations = state.stations.map(station => (station._id === action.station._id ? action.station : station))
             newState = { ...state, stations }
             break
         case ADD_STATION_MSG:
-            newState = { ...state, station: { ...state.station, msgs: [...state.station.msgs || [], action.msg] } }
+            newState = { ...state, station: { ...state.station, msgs: [...(state.station.msgs || []), action.msg] } }
+            break
+        case SET_SONG:
+            newState = { ...state, currentSong: action.song }
             break
         default:
     }
@@ -44,26 +49,18 @@ export function stationReducer(state = initialState, action) {
 
 function unitTestReducer() {
     var state = initialState
-    const car1 = { _id: 'b101', vendor: 'Car ' + parseInt(Math.random() * 10), msgs: [] }
-    const car2 = { _id: 'b102', vendor: 'Car ' + parseInt(Math.random() * 10), msgs: [] }
+    const station1 = { _id: 'b101', name: 'station ' + parseInt(Math.random() * 10) }
+    const station2 = { _id: 'b102', name: 'station ' + parseInt(Math.random() * 10) }
 
-    state = carReducer(state, { type: SET_CARS, cars: [car1] })
-    console.log('After SET_CARS:', state)
+    state = stationReducer(state, { type: SET_STATIONS, stations: [station1] })
+    console.log('After SET_STATIONS:', state)
 
-    state = carReducer(state, { type: ADD_CAR, car: car2 })
-    console.log('After ADD_CAR:', state)
+    state = stationReducer(state, { type: ADD_STATION, station: station2 })
+    console.log('After ADD_STATION:', state)
 
-    state = carReducer(state, { type: UPDATE_CAR, car: { ...car2, vendor: 'Good' } })
-    console.log('After UPDATE_CAR:', state)
+    state = stationReducer(state, { type: UPDATE_STATION, station: { ...station2, name: 'Updated Station' } })
+    console.log('After UPDATE_STATION:', state)
 
-    state = carReducer(state, { type: REMOVE_CAR, carId: car2._id })
-    console.log('After REMOVE_CAR:', state)
-
-    const msg = { id: 'm' + parseInt(Math.random() * 100), txt: 'Some msg' }
-    state = carReducer(state, { type: ADD_CAR_MSG, carId: car1._id, msg })
-    console.log('After ADD_CAR_MSG:', state)
-
-    state = carReducer(state, { type: REMOVE_CAR, carId: car1._id })
-    console.log('After REMOVE_CAR:', state)
+    state = stationReducer(state, { type: REMOVE_STATION, stationId: station2._id })
+    console.log('After REMOVE_STATION:', state)
 }
-
