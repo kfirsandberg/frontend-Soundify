@@ -11,9 +11,7 @@ export function StationIndex() {
         loadStations()
     }, [])
     if (!stations) {
-        return (
-            <div>loading...</div>
-        )
+        return <div>loading...</div>
     }
     return (
         <main className="station-index">
