@@ -1,9 +1,7 @@
 .station-list {
   display: flex;
-  overflow-x: auto;  // Enables horizontal scrolling if the items overflow
-  gap: 1rem;  // Space between items
-  
-  padding: 1rem 0;  // Vertical padding for spacing
+  overflow-x: auto;  
+  gap: 1rem;  
 
   button {
     background: none;
@@ -13,8 +11,7 @@
     color: inherit;
     
     &:hover {
-      background-color: $spotify-hover-light; // Lighten on hover
-
+      background-color: $spotify-hover-light; 
       transition: transform 0.2s ease;
     }
   }
