@@ -1,10 +1,51 @@
 .station-preview {
-    a {
-        color: $clr4;
-        padding: 0;
-    }    
-	p {
-		margin-block: 0 0.2rem;
-        font-size: .85em;
-	}
+  background-color: $spotify-preview-bg; 
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: $spotify-gray;
+  position: relative; 
+
+  img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+
+  }
+
+  .play-button-container {
+    position: absolute;
+    bottom: 10px;  
+    right: 10px;   
+    display: none; 
+    z-index: 1;    
+
+    .play-button {
+      background-color: rgba(0, 0, 0, 0.5); 
+      color: $spotify-light;
+      font-size: 2rem;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 50%;  
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      background-color: $spotify-green;  
+    }
+  }
+
+  &:hover {
+    .play-button-container {
+      display: block; 
+    }
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: $spotify-light;
+    font-weight: 500;
+  }
 }

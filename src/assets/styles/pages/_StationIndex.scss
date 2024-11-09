@@ -1,18 +1,16 @@
 .station-index {
-    header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        padding-block: .3em;
+    background-color: $spotify-dark; // Spotify dark theme background
+    color: $spotify-light;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    section {
+      width: 100%;
+      max-width: 1200px;
+      padding: 1rem;
     }
-
-    h2 {
-        margin: 0;
-        font-size: 1.3em;
-    }
-
-    button {
-        margin-inline-end: 0;
-    }
-}
+  }

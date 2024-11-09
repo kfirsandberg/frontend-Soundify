@@ -6,7 +6,7 @@ export function StationList({ stations }) {
     const navigate = useNavigate()
 
     function onClickStation(station) {
-        // console.log('Station clicked:', station);
+
         navigate(`/station/${station._id}`)
         loadStation(station._id)
     }
@@ -16,7 +16,7 @@ export function StationList({ stations }) {
             {stations.map(station => (
                 <button
                     key={station._id}
-                    onClick={() => onClickStation(station)} // Pass the station's _id to the click handler
+                    onClick={() => onClickStation(station)} 
                 >
                     <StationPreview station={station} />
                 </button>

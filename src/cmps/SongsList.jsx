@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { loadSong } from '../store/actions/station.actions.js'
 
 
 export function SongList({ station }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   function handlePlayClick(songId){
-   
+    loadSong(songId)
   }
   return (
     <section>
