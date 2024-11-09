@@ -1,3 +1,4 @@
+
 export function makeId(length = 6) {
     var txt = ''
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -51,3 +52,16 @@ export function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
 }
+
+export async function readJsonFile(path) {
+    try {
+        const response = await fetch(path)
+        if (!response.ok) throw new Error(`Failed to fetch file: ${response.statusText}`)
+        const json = await response.json()
+        return json
+    } catch (error) {
+        console.error("Error reading JSON file:", error)
+        throw error
+    }
+}
+

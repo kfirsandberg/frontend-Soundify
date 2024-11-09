@@ -1,0 +1,190 @@
+[
+    {
+        "_id": "5cksxjas89xjsa8xjsa8jxs09",
+        "name": "Funky Monks",
+        "createdBy": {
+            "_id": "u101",
+            "imgUrl": "http://some-photo/",
+            "fullname": "Puki Ben David"
+        },
+        "tags": [
+            "Funk",
+            "Happy",
+            "Groovy"
+        ],
+        "likedByUsers": [
+            "u102",
+            "u103"
+        ],
+        "songs": [
+            {
+                "id": "s1001",
+                "title": "The Meters - Cissy Strut",
+                "url": "https://www.youtube.com/watch?v=4_iC0MyIykM",
+                "imgUrl": "https://i.ytimg.com/vi/4_iC0MyIykM/mqdefault.jpg",
+                "addedBy": "u101",
+                "likedBy": [
+                    "u102",
+                    "u104"
+                ],
+                "addedAt": 1625217652623
+            },
+            {
+                "id": "s1002",
+                "title": "The JB's - Pass The Peas",
+                "url": "https://www.youtube.com/watch?v=mUkfiLjooxs",
+                "imgUrl": "https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg",
+                "addedBy": "u102",
+                "likedBy": [
+                    "u101",
+                    "u103"
+                ],
+                "addedAt": 1625317652623
+            },
+            {
+                "id": "s1003",
+                "title": "Stevie Wonder - Superstition",
+                "url": "https://www.youtube.com/watch?v=0CFuCYNx-1g",
+                "imgUrl": "https://i.ytimg.com/vi/0CFuCYNx-1g/mqdefault.jpg",
+                "addedBy": "u103",
+                "likedBy": [
+                    "u101",
+                    "u104",
+                    "u105"
+                ],
+                "addedAt": 1625417652623
+            }
+        ],
+        "msgs": [
+            {
+                "id": "m101",
+                "from": "u102",
+                "txt": "Loving these funky vibes!",
+                "sentAt": 1625417612623
+            },
+            {
+                "id": "m102",
+                "from": "u103",
+                "txt": "This playlist is fire!",
+                "sentAt": 1625417812623
+            }
+        ]
+    },
+    {
+        "_id": "5cksxjas89xjsa8xjsa8jxs10",
+        "name": "Rock Legends",
+        "tags": [
+            "Rock",
+            "Classic",
+            "Legends"
+        ],
+        "createdBy": {
+            "_id": "u104",
+            "fullname": "John Doe",
+            "imgUrl": "http://another-photo/"
+        },
+        "likedByUsers": [
+            "u101",
+            "u105"
+        ],
+        "songs": [
+            {
+                "id": "s2001",
+                "title": "Led Zeppelin - Stairway to Heaven",
+                "url": "https://www.youtube.com/watch?v=QkF3oxziUI4",
+                "imgUrl": "https://i.ytimg.com/vi/QkF3oxziUI4/mqdefault.jpg",
+                "addedBy": "u104",
+                "likedBy": [
+                    "u101",
+                    "u105",
+                    "u102"
+                ],
+                "addedAt": 1625517652623
+            },
+            {
+                "id": "s2002",
+                "title": "Queen - Bohemian Rhapsody",
+                "url": "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
+                "imgUrl": "https://i.ytimg.com/vi/fJ9rUzIMcZQ/mqdefault.jpg",
+                "addedBy": "u105",
+                "likedBy": [
+                    "u103",
+                    "u104"
+                ],
+                "addedAt": 1625617652623
+            }
+        ],
+        "msgs": [
+            {
+                "id": "m201",
+                "from": "u105",
+                "txt": "Can't get enough of these classics!",
+                "sentAt": 1625517612623
+            },
+            {
+                "id": "m202",
+                "from": "u101",
+                "txt": "Rock on!",
+                "sentAt": 1625617812623
+            }
+        ]
+    },
+    {
+        "_id": "5cksxjas89xjsa8xjsa8jxs11",
+        "name": "Chill Beats",
+        "tags": [
+            "Chill",
+            "Relax",
+            "Ambient"
+        ],
+        "createdBy": {
+            "_id": "u106",
+            "fullname": "Lily Moon",
+            "imgUrl": "http://cool-photo/"
+        },
+        "likedByUsers": [
+            "u103",
+            "u106"
+        ],
+        "songs": [
+            {
+                "id": "s3001",
+                "title": "Bonobo - Cirrus",
+                "url": "https://www.youtube.com/watch?v=WF34N4gJAKE",
+                "imgUrl": "https://i.ytimg.com/vi/WF34N4gJAKE/mqdefault.jpg",
+                "addedBy": "u106",
+                "likedBy": [
+                    "u101",
+                    "u104"
+                ],
+                "addedAt": 1625717652623
+            },
+            {
+                "id": "s3002",
+                "title": "Tycho - A Walk",
+                "url": "https://www.youtube.com/watch?v=mehLx_Fjv_c",
+                "imgUrl": "https://i.ytimg.com/vi/mehLx_Fjv_c/mqdefault.jpg",
+                "addedBy": "u103",
+                "likedBy": [
+                    "u106",
+                    "u102"
+                ],
+                "addedAt": 1625817652623
+            }
+        ],
+        "msgs": [
+            {
+                "id": "m301",
+                "from": "u103",
+                "txt": "Perfect for unwinding.",
+                "sentAt": 1625717612623
+            },
+            {
+                "id": "m302",
+                "from": "u106",
+                "txt": "So relaxing!",
+                "sentAt": 1625817812623
+            }
+        ]
+    }
+]

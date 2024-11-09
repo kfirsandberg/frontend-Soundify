@@ -6,8 +6,8 @@ export const UPDATE_STATION = 'UPDATE_STATION'
 export const ADD_STATION_MSG = 'ADD_STATION_MSG'
 
 const initialState = {
-    cars: [],
-    car: null
+    stations: [],
+    station: null
 }
 
 export function stationReducer(state = initialState, action) {
@@ -15,25 +15,25 @@ export function stationReducer(state = initialState, action) {
     var station
     switch (action.type) {
         case SET_STATIONS:
-            newState = { ...state, cars: action.cars }
+            newState = { ...state, station: action.stations }
             break
         case SET_STATION:
-            newState = { ...state, car: action.car }
+            newState = { ...state, station: action.station }
             break
         case REMOVE_STATION:
-            const lastRemovedCar = state.cars.find(car => car._id === action.carId)
-            cars = state.cars.filter(car => car._id !== action.carId)
-            newState = { ...state, cars, lastRemovedCar }
+            const lastRemovedCar = state.stations.find(car => car._id === action.carId)
+            stations = state.stations.filter(car => car._id !== action.carId)
+            newState = { ...state, stations, lastRemovedCar }
             break
         case ADD_STATION:
-            newState = { ...state, cars: [...state.cars, action.car] }
+            newState = { ...state, stations: [...state.stations, action.station] }
             break
         case UPDATE_STATION:
-            cars = state.cars.map(car => (car._id === action.car._id) ? action.car : car)
-            newState = { ...state, cars }
+            stations = state.stations.map(station => (station._id === action.station._id) ? action.station : station)
+            newState = { ...state, stations }
             break
         case ADD_STATION_MSG:
-            newState = { ...state, car: { ...state.car, msgs: [...state.car.msgs || [], action.msg] } }
+            newState = { ...state, station: { ...state.station, msgs: [...state.station.msgs || [], action.msg] } }
             break
         default:
     }
