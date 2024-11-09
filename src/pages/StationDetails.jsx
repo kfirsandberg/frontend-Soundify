@@ -1,11 +1,18 @@
 import { StationHeader } from "../cmps/StationHeader.jsx"
 import { SongList } from "../cmps/SongsList.jsx"
-export function StationDetails() {
+import { useSelector } from 'react-redux'
 
+export function StationDetails() {
+  const station = useSelector(state => state.stationModule.station)
+
+  if (!station) {
+    return <div>No station ID provided</div>
+  }
+  
   return (
     <section className="station-container">
-      <StationHeader />
-      <SongList />
+       <StationHeader station={station} />
+       <SongList station={station} />
     </section>
   )
 }

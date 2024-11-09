@@ -7,7 +7,7 @@ export const ADD_STATION_MSG = 'ADD_STATION_MSG'
 
 const initialState = {
     stations: [],
-    station: null
+    station: null,
 }
 
 export function stationReducer(state = initialState, action) {
@@ -15,7 +15,7 @@ export function stationReducer(state = initialState, action) {
     var station
     switch (action.type) {
         case SET_STATIONS:
-            newState = { ...state, station: action.stations }
+            newState = { ...state, stations: action.stations }
             break
         case SET_STATION:
             newState = { ...state, station: action.station }

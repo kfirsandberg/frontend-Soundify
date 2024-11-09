@@ -16,10 +16,10 @@ export function RootCmp() {
                     <Library />
                 </aside>
                 <main className="station-index-route">
-                    <h2>aviv kfir amit</h2>
+
                     <Routes>
-                        <Route path="/" element={<StationIndex />} />
-                        <Route path="playlist/:playlistId" element={<StationDetails />} />
+                    <Route path="/" element={<StationIndex />} />
+                    <Route path="/station/:stationId" element={<StationDetails />} />
                     </Routes>
                 </main>
             </div>

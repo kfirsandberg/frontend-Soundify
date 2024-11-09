@@ -1,10 +1,11 @@
-import { stationService } from '../../services/station.js'
+import { stationLocalService } from '../../services/station/station.service.local.js'
 import { store } from '../store.js'
 import { ADD_STATION, REMOVE_STATION, SET_STATIONS, SET_STATION, UPDATE_STATION} from '../reducers/station.reducer'
 
 export async function loadStations(filterBy) {
     try {
-        const stations = await stationService.query(filterBy)
+        // const stations = await stationService.query(filterBy)
+        const stations =  await stationLocalService.query()
         store.dispatch(getCmdSetStations(stations))
     } catch (err) {
         console.log('Cannot load stations', err)
@@ -14,7 +15,7 @@ export async function loadStations(filterBy) {
 
 export async function loadStation(stationId) {
     try {
-        const station = await stationService.getById(stationId)
+        const station = await stationLocalService.getById(stationId)
         store.dispatch(getCmdSetStation(station))
     } catch (err) {
         console.log('Cannot load station', err)

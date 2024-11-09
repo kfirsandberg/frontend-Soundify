@@ -1,24 +1,15 @@
 
 import { useEffect, useState } from "react"
 import { StationList } from "../cmps/StationList"
-import { stationLocalService } from "../services/station/station.service.local"
+import { loadStations } from "../store/actions/station.actions.js";
 
+import { useSelector } from 'react-redux'
 
 export function StationIndex() {
-
-    const [stations, setStations] = useState(null)
+    const stations = useSelector(storeState => storeState.stationModule.stations) 
     useEffect(() => {
-        loadStation()
+        loadStations()
     }, [])
-    function loadStation() {
-        stationLocalService.query().then(data => {
-            setStations(data)
-
-        }).catch(error => {
-            console.error('error from cmp :', error)
-        })
-    }
-
     if (!stations) {
         return (
             <div>loading...</div>
@@ -27,7 +18,7 @@ export function StationIndex() {
     return (
         <main className="station-index">
             <section>
-                <StationList  stations = {stations}/>
+                <StationList stations={stations} />
             </section>
         </main>
     )
