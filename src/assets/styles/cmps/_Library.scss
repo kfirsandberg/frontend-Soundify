@@ -188,9 +188,9 @@
     display: flex;
     align-items: flex-start;
     background-color: #1e1e1e;
-    border-radius: 0.5rem; /* Using rem for border-radius */
-    padding: 0.625rem; /* Padding in rem, which is 10px */
-    margin-bottom: 0.5rem; /* Reduced margin */
+    border-radius: 0.5rem; 
+    padding: 0.625rem; 
+    margin-bottom: 0.5rem; 
     transition: transform 0.2s ease-in-out;
     width: 16.5rem; /* 264px in rem (264 / 16px = 16.5rem) */
     height: 4rem; /* 64px in rem (64 / 16px = 4rem) */
