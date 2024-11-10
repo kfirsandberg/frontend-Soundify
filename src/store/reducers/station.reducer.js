@@ -17,9 +17,9 @@ const initialState = {
     station: null,
     currentSong: null,
     currentTime: 0,
-    songDuration: 293,
-    volume: 50,
-    prevVolume: 50,
+    songDuration: 0,
+    volume: 5,
+    prevVolume: 5,
     isPlaying: false,
 }
 

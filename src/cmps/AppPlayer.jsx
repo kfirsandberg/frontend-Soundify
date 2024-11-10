@@ -15,7 +15,7 @@ export function AppPlayer() {
     const [isHoverPlayer, setIsHoverPlayer] = useState(false)
 
     const currentTime = useSelector(state => state.stationModule.currentTime) || 0
-    const songDuration = useSelector(state => state.stationModule.songDuration) || 293
+    const songDuration = useSelector(state => state.stationModule.songDuration)
     const volume = useSelector(state => state.stationModule.volume)
     const prevVolume = useSelector(state => state.stationModule.prevVolume)
     const isPlaying = useSelector(state => state.stationModule.isPlaying)
@@ -31,11 +31,19 @@ export function AppPlayer() {
     }, [currentSong])
 
     useEffect(() => {
-        intervalRef.current = setInterval(() => {
-            if (currentTime < songDuration && isPlaying) {
-                updateCurrentTime(currentTime + 1)
-            }
-        }, 1000)
+        if (isPlaying) {
+            intervalRef.current = setInterval(() => {
+                console.log('isPlaying:', isPlaying)
+                console.log('currentTime:', currentTime)
+                console.log('songDuration:', songDuration)
+
+                if (currentTime < songDuration) {
+                    console.log('check')
+
+                    updateCurrentTime(parseInt(currentTime) + 1)
+                }
+            }, 1000)
+        }
         return () => clearInterval(intervalRef.current)
     }, [currentTime, songDuration, isPlaying])
 
@@ -48,6 +56,9 @@ export function AppPlayer() {
     function handleProgressChange(ev) {
         const newTime = ev.target.value
         updateCurrentTime(newTime)
+        console.log(playerRef)
+        console.log(playerRef.current)
+
         console.log('Current time changed to:', newTime)
     }
 
@@ -174,7 +185,7 @@ export function AppPlayer() {
                             }%, #b3b3b3 ${(currentTime / songDuration) * 100}%)`,
                         }}
                     />
-                    <span className="duration">{formatTime(songDuration - currentTime)}</span>
+                    <span className="duration">{songDuration ? formatTime(songDuration - currentTime) : '0:00'}</span>
                 </div>
             </div>
 

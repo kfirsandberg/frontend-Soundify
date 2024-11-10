@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import YouTube from 'react-youtube'
 import { useSelector } from 'react-redux'
-import { setIsPlaying } from '../store/actions/station.actions'
+import { setIsPlaying, updateSongDuration } from '../store/actions/station.actions'
 
 export function YouTubeAudioPlayer({}) {
     const [songID, setSongID] = useState(null)
@@ -10,6 +10,7 @@ export function YouTubeAudioPlayer({}) {
     const [isReady, setIsReady] = useState(false)
     const playerRef = useRef(null)
     const volume = useSelector(state => state.stationModule.volume)
+    const currentTime = useSelector(state => state.stationModule.currentTime) || 0
 
     useEffect(() => {
         if (currentSong) {
@@ -31,13 +32,43 @@ export function YouTubeAudioPlayer({}) {
         }
     }, [isPlaying, isReady, songID, volume])
 
+    useEffect(() => {
+        console.log('currentTime:', currentTime)
+
+        if (isReady && playerRef.current) {
+            playerRef.current.seekTo(currentTime, true)
+        }
+    }, [currentTime, isReady])
+
     function onPlayerReady(event) {
+        console.log('Player is ready')
         playerRef.current = event.target
         setIsReady(true)
+
+        const duration = event.target.getDuration()
+        console.log('Duration:', duration)
+        if (duration) {
+            updateSongDuration(duration)
+        } else {
+            console.error('Failed to get duration from YouTube player')
+        }
+
         if (isPlaying) {
             event.target.playVideo()
         }
     }
+
+    function onPlayerStateChange(event) {
+        if (event.data === YouTube.PlayerState.PLAYING && !isReady) {
+            const duration = event.target.getDuration()
+            console.log('Duration after playing starts:', duration)
+            if (duration) {
+                updateSongDuration(duration)
+            }
+            setIsReady(true)
+        }
+    }
+
     function playAudio() {
         if (playerRef.current) playerRef.current.playVideo()
         setIsPlaying(true)
@@ -63,6 +94,7 @@ export function YouTubeAudioPlayer({}) {
                     },
                 }}
                 onReady={onPlayerReady}
+                onStateChange={onPlayerStateChange}
             />
             <button onClick={playAudio}>play</button>
             <button onClick={pauseAudio}>pause</button>
