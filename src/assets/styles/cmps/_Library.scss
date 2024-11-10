@@ -6,7 +6,7 @@
 }
 
 .library-route {
-    background-color: #282828;
+    background-color: #1f1f1f;
     width: 17.5rem;
     transition: background-color 0.3s ease;
 }
@@ -20,8 +20,9 @@
     height: 3.70vh;
     width: 14.8rem;
     display: flex;
+    gap: 10px;
     justify-content: space-between;
-    background-color: #282828;
+    background-color: #1f1f1f;
     align-items: center;
     margin-bottom: 16px;
     transition: width 0.3s ease;
@@ -59,7 +60,7 @@
 
 /* Create Playlist Button */
 .create-playlist {
-    background-color: #282828;
+    background-color: #1f1f1f;
     border: none;
     padding: 0;
     cursor: pointer;
@@ -82,7 +83,7 @@
     color: #b3b3b3;
     height: 2.8vh;
     width: 2.8vh;
-    background-color: #282828;
+    background-color: #1f1f1f;
     border: none;
     border-radius: 50%;
     padding: 0;
@@ -114,7 +115,7 @@
 }
 
 .sort-buttons button {
-    background-color: #282828;
+    background-color: #1f1f1f;
     border: none;
     color: white;
     padding: 0.625rem;
@@ -137,7 +138,7 @@
 }
 
 .toggle-search-btn {
-    background-color: #282828;
+    background-color: #1f1f1f;
     color: #b3b3b3;
     border: none;
     cursor: pointer;
@@ -159,7 +160,7 @@
     height: 3.5vh;
     padding: 0 12px;
     border-radius: 50px;
-    border: 1px solid #282828;
+    border: 1px solid #1f1f1f;
     background-color: #434343a4;
     color: #838282;
     font-size: 15px;
@@ -184,12 +185,12 @@
     opacity: 1;
 }
 
-.search-icon {
+.lib-search-icon {
     width: 20px;
     /* Adjust the size as needed */
     height: 20px;
     object-fit: contain;
-    transform: translateX(-25px);
+    transform: translateX(-20px);
 }
 
 .sort-container {
@@ -213,7 +214,7 @@
 }
 
 .hamburger-menu {
-    background-color: #282828;
+    background-color: #1f1f1f;
     position: relative;
     width: 36px;
     justify-content: center;
@@ -221,7 +222,7 @@
 }
 
 .hamburger-btn {
-    background-color: #282828;
+    background-color: #1f1f1f;
     border: none;
     color: #b3b3b3;
     cursor: pointer;
@@ -241,7 +242,7 @@
 
 
 .modal {
-    background-color: #282828;
+    background-color: #1f1f1f;
     position: absolute;
     top: 100%;
     right: 0;
@@ -261,7 +262,7 @@
 
 .modal button {
     border-radius: 2px;
-    background-color: #282828;
+    background-color: #1f1f1f;
     color: white;
     border: none;
     padding: 8px;
@@ -282,7 +283,7 @@
 .station-card {
     display: flex;
     align-items: center;
-    background-color: #282828;
+    background-color: #1f1f1f;
     padding: 0.625rem;
     transition: transform 0.2s ease-in-out;
     width: 16.5rem;
