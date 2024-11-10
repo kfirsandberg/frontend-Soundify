@@ -9,6 +9,7 @@
     align-items: center;
     padding: 10px 20px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
 
     /* Player Container */
     .player-container {
@@ -16,7 +17,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 560px;
+        width: 100%;
     }
 
     /* Song Info Section */
