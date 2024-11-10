@@ -7,13 +7,21 @@
 
 .library-route {
     background-color: #1f1f1f;
-    width: 17.5rem;
+    width: auto;
     transition: background-color 0.3s ease;
 }
 
 .library-route.active {
     background-color: #121212;
 }
+
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Adjust spacing between buttons */
+    align-items: center;
+    transform: translateX(45px);
+}
+
 
 /* Action Button Container */
 .action-btns- {
@@ -180,22 +188,24 @@
 
 .search-input.open {
     max-width: 70px;
-    min-width: 70px;
+    min-width: 90px;
     /* Adjust this value as needed */
     opacity: 1;
+    transform: translateX(-30px)
 }
 
 .lib-search-icon {
-    width: 20px;
+    width: 32px;
     /* Adjust the size as needed */
-    height: 20px;
+    height: 32px;
     object-fit: contain;
-    transform: translateX(-20px);
+    
 }
 
 .sort-container {
     display: flex;
     align-items: center;
+    
     
     
 }

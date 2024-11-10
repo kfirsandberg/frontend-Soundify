@@ -8,6 +8,7 @@
     align-items: center;
     padding: 10px 20px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+
     .player-container {
         display: flex;
         flex-direction: column;
@@ -48,6 +49,7 @@
         display: flex;
         align-items: center;
         margin: auto;
+        justify-content: space-between;
 
         .next-btn,
         .back-btn {
@@ -86,14 +88,22 @@
 
     .volume-control {
         margin-left: auto;
+
         .volume-btn {
-            background-color: #fff;
-            fill: #fff;
+            background: none;
             border: none;
-            width: 32px;
-            height: 32px;
-            margin: 0 10px;
+        }
+
+        .svg-fill {
+            fill: #b3b3b3;
+            border: none;
+            width: em(20px);
+            height: em(20px);
             cursor: pointer;
+
+            &:hover {
+                fill: #fff;
+            }
         }
     }
 
@@ -129,5 +139,10 @@
                 opacity: 1;
             }
         }
+    }
+
+    .duration {
+        white-space: nowrap;
+        margin-bottom: 5px;
     }
 }
