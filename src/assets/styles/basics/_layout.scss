@@ -25,15 +25,12 @@
 .library-route {
     grid-area: library;
     background-color: #f4f4f4;
-    padding: 20px;
+    padding: rem(10px);
 
 }
 
 .station-index-route {
-    padding: 1em;
     grid-area: main;
-
     align-items: center;
-
     overflow-y: auto;
 }
