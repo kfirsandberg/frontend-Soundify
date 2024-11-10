@@ -6,7 +6,7 @@ import backIcon from '../../public/assets/player/back.svg'
 import nextIcon from '../../public/assets/player/next.svg'
 import muteIcon from '../../public/assets/mute.svg'
 import unmuteIcon from '../../public/assets/unmute.svg'
-import { updateCurrentTime, updateSongDuration, updateVolume } from '../store/actions/station.actions'
+import { updateCurrentTime, updateSongDuration, updateVolume , setIsPlaying } from '../store/actions/station.actions'
 
 export function AppPlayer() {
     const currentSong = useSelector(state => state.stationModule.currentSong)
@@ -82,8 +82,7 @@ export function AppPlayer() {
                             role="img"
                             aria-hidden="true"
                             viewBox="0 0 16 16"
-                            class="Svg-sc-ytk21e-0 dYnaPI"
-                            className="svg-fill"
+                            className="svg-fill Svg-sc-ytk21e-0 dYnaPI"
                         >
                             <path
                                 className="svg-path"
@@ -99,7 +98,7 @@ export function AppPlayer() {
                             role="img"
                             aria-hidden="true"
                             viewBox="0 0 24 24"
-                            class="Svg-sc-ytk21e-0 bneLcE"
+                            className="Svg-sc-ytk21e-0 bneLcE"
                         >
                             <path
                                 className="svg-path"
@@ -114,8 +113,7 @@ export function AppPlayer() {
                             role="img"
                             aria-hidden="true"
                             viewBox="0 0 16 16"
-                            class="Svg-sc-ytk21e-0 dYnaPI"
-                            className="svg-fill"
+                            className="svg-fill Svg-sc-ytk21e-0 dYnaPI"
                         >
                             <path
                                 className="svg-path"

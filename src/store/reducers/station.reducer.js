@@ -10,6 +10,7 @@ export const SET_SONG = 'SET_SONG'
 export const SET_CURRENT_TIME = 'SET_CURRENT_TIME'
 export const SET_SONG_DURATION = 'SET_SONG_DURATION'
 export const SET_VOLUME = 'SET_VOLUME'
+export const SET_IS_PLAYING = 'SET_IS_PLAYING'
 
 const initialState = {
     stations: [],
@@ -18,6 +19,7 @@ const initialState = {
     currentTime: 0,
     songDuration: 293,
     volume: 50,
+    isPlaying: false,
 }
 
 export function stationReducer(state = initialState, action) {
@@ -49,11 +51,17 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, currentSong: action.song }
             break
         case SET_CURRENT_TIME:
-            return { ...state, currentTime: action.currentTime }
+            newState = { ...state, currentTime: action.currentTime }
+            break
         case SET_SONG_DURATION:
-            return { ...state, songDuration: action.songDuration }
+            newState = { ...state, songDuration: action.songDuration }
+            break
         case SET_VOLUME:
-            return { ...state, volume: action.volume }
+            newState = { ...state, volume: action.volume }
+            break
+        case SET_IS_PLAYING:
+            newState = { ...state, isPlaying: action.isPlaying }
+            break
         default:
     }
     return newState

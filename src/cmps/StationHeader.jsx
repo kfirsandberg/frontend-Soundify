@@ -1,6 +1,5 @@
 
 export function StationHeader({ station }) {
-    console.log(station);
 
     return (
         <section className="station-details">

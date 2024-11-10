@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { loadSong } from '../store/actions/station.actions.js'
+import { loadSong,setIsPlaying } from '../store/actions/station.actions.js'
 
-
-export function SongList({ station }) {
+export function SongList({ station , }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  function handlePlayClick(songId){
+  
+  function handlePlayClick(songId) {
     loadSong(songId)
+    setIsPlaying(true)
   }
+
   return (
     <section>
       <ul>
@@ -18,7 +20,7 @@ export function SongList({ station }) {
             onMouseLeave={() => setHoveredIndex(null)}
           >
             <button className="song-index"
-             onClick={() => handlePlayClick(song.id)} >
+              onClick={() => handlePlayClick(song.id)} >
               {hoveredIndex === idx ? (
                 <span className="play-icon">▶</span>
               ) : (

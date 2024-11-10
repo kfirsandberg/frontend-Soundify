@@ -108,24 +108,30 @@ function getEmptyStation(name = '') {
     }
 }
 
+function getVideoIdFromUrl(url) {
+    // Extract the video ID from the YouTube URL
+    const urlObj = new URL(url);
+    return urlObj.searchParams.get("v");
+}
+
 function getSongsForStation(playlistName) {
     const songLibrary = {
         'Funky Monks': [
             {
                 title: 'The Meters - Cissy Strut',
-                URL: 'https://www.youtube.com/watch?v=4_iC0MyIykM',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=4_iC0MyIykM'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/4_iC0MyIykM/mqdefault.jpg',
             },
             {
                 title: "The JB's - Pass The Peas",
-                URL: 'https://www.youtube.com/watch?v=mUkfiLjooxs',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=mUkfiLjooxs'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg',
             },
             {
                 title: 'James Brown - Funky President',
-                URL: 'https://www.youtube.com/watch?v=OZCFd0zP5BU',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=OZCFd0zP5BU'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/OZCFd0zP5BU/mqdefault.jpg',
             },
@@ -133,19 +139,19 @@ function getSongsForStation(playlistName) {
         'Rock Vibes': [
             {
                 title: 'Led Zeppelin - Whole Lotta Love',
-                URL: 'https://www.youtube.com/watch?v=HQmmM_qwG4k',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=HQmmM_qwG4k'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/HQmmM_qwG4k/mqdefault.jpg',
             },
             {
                 title: 'AC/DC - Back In Black',
-                URL: 'https://www.youtube.com/watch?v=pAgnJDJN4VA',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=pAgnJDJN4VA'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/pAgnJDJN4VA/mqdefault.jpg',
             },
             {
                 title: 'Queen - Bohemian Rhapsody',
-                URL: 'https://www.youtube.com/watch?v=fJ9rUzIMcZQ',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=fJ9rUzIMcZQ'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/fJ9rUzIMcZQ/mqdefault.jpg',
             },
@@ -153,19 +159,19 @@ function getSongsForStation(playlistName) {
         'Chill Beats': [
             {
                 title: 'Jinsang - Affection',
-                URL: 'https://www.youtube.com/watch?v=T5o_0BoTvWg',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=T5o_0BoTvWg'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/T5o_0BoTvWg/mqdefault.jpg',
             },
             {
                 title: 'Idealism - Controlla',
-                URL: 'https://www.youtube.com/watch?v=E5Z3CJZ7Sg0',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=E5Z3CJZ7Sg0'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/E5Z3CJZ7Sg0/mqdefault.jpg',
             },
             {
                 title: 'Aso - Seasons',
-                URL: 'https://www.youtube.com/watch?v=Cy8x0RRlnOM',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Cy8x0RRlnOM'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/Cy8x0RRlnOM/mqdefault.jpg',
             },
@@ -173,19 +179,19 @@ function getSongsForStation(playlistName) {
         'Hip Hop Essentials': [
             {
                 title: 'Wu-Tang Clan - C.R.E.A.M.',
-                URL: 'https://www.youtube.com/watch?v=PBwAxmrE194',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=PBwAxmrE194'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/PBwAxmrE194/mqdefault.jpg',
             },
             {
                 title: 'Nas - N.Y. State of Mind',
-                URL: 'https://www.youtube.com/watch?v=hI2hK94_Sms',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=hI2hK94_Sms'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/hI2hK94_Sms/mqdefault.jpg',
             },
             {
                 title: 'A Tribe Called Quest - Electric Relaxation',
-                URL: 'https://www.youtube.com/watch?v=WHRnvjCkTsw',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=WHRnvjCkTsw'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/WHRnvjCkTsw/mqdefault.jpg',
             },
@@ -193,24 +199,25 @@ function getSongsForStation(playlistName) {
         'Electronic Escape': [
             {
                 title: 'Deadmau5 - Strobe',
-                URL: 'https://www.youtube.com/watch?v=tKi9Z-f6qX4',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=tKi9Z-f6qX4'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/tKi9Z-f6qX4/mqdefault.jpg',
             },
             {
                 title: 'Daft Punk - One More Time',
-                URL: 'https://www.youtube.com/watch?v=FGBhQbmPwH8',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=FGBhQbmPwH8'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/FGBhQbmPwH8/mqdefault.jpg',
             },
             {
                 title: 'The Chemical Brothers - Galvanize',
-                URL: 'https://www.youtube.com/watch?v=Xu3FTEmN-eg',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Xu3FTEmN-eg'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/Xu3FTEmN-eg/mqdefault.jpg',
             },
         ],
-    }
+    };
 
-    return songLibrary[playlistName] || []
+    return songLibrary[playlistName] || [];
 }
+
