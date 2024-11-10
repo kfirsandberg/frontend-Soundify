@@ -10,7 +10,6 @@ import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
 export function RootCmp() {
     return (
         <div className="main-container">
-            <YouTubeAudioPlayer />
             <AppHeader className="header" />
             <div className="content">
                 <aside className="library-route">
@@ -25,6 +24,7 @@ export function RootCmp() {
                 </main>
             </div>
             <AppPlayer className="player" />
+            <YouTubeAudioPlayer />
         </div>
     )
 }

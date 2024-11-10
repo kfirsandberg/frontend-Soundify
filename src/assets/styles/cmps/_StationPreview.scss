@@ -9,6 +9,7 @@
   transition: transform 0.3s ease;
 
 
+
   img {
     width: 100%;
     height: auto;
@@ -42,7 +43,6 @@
       background-color: $spotify-green;
 
       &:hover {
-        background-color: lighten($spotify-green, 10%);
         filter: brightness(1  );
         transform: scale(1.1);
       }
