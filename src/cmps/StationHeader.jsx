@@ -4,9 +4,9 @@ import userIcon from '../../public/assets/user.svg';
 
 export function StationHeader({ station }) {
     return (
-        <section className="station-details">
-            <div className="station-container">
-                <img src={station.imgURL} alt="" className="playlist-image" />
+        <section className="upper-station-details">
+            <div className="upper-station-container">
+                <img className="playlist-image" src={station.imgURL} alt="playlist image" />
                 <section className="playlist-details">
                     <span className="spanlaylist-label">Playlist</span>
                     <h2 className="playlist-title">{station.name}</h2>

@@ -5,10 +5,7 @@ $row-count: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax($min-column-width, 1fr));
   grid-template-rows: repeat($row-count, minmax(0, 1fr));
-  overflow-x: auto;  
-  
-
-  
+  overflow-x: auto;   
 
   button {
     background: none;
