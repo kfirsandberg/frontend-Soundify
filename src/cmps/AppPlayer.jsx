@@ -102,37 +102,16 @@ export function AppPlayer() {
                     </button>
                     <button className="play-btn" onClick={togglePlayPause}>
                         {isPlaying ? (
-                            // Pause Icon
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                data-encore-id="icon"
-                                role="img"
-                                aria-hidden="true"
-                                viewBox="0 0 16 16"
-                                className="Svg-sc-ytk21e-0 dYnaPI"
-                            >
-                                <path
-                                    className="svg-path"
-                                    d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"
-                                />
+                            <svg className="icon" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 16 16">
+                                <path className="svg-path" d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z" />
                             </svg>
                         ) : (
-                            // Play Icon
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                data-encore-id="icon"
-                                role="img"
-                                aria-hidden="true"
-                                viewBox="0 0 24 24"
-                                className="Svg-sc-ytk21e-0 bneLcE"
-                            >
-                                <path
-                                    className="svg-path"
-                                    d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"
-                                />
+                            <svg className="icon" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 24 24">
+                                <path className="svg-path" d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" />
                             </svg>
                         )}
                     </button>
+
                     <button className="next-btn">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -162,9 +141,8 @@ export function AppPlayer() {
                         onMouseLeave={() => setIsHoverPlayer(false)}
                         className="progress-slider"
                         style={{
-                            background: `linear-gradient(to right,  ${isHoverPlayer ? '#1ED760' : '#fff'}  ${
-                                (currentTime / songDuration) * 100
-                            }%, #B3B3B3 ${(currentTime / songDuration) * 100}%)`,
+                            background: `linear-gradient(to right,  ${isHoverPlayer ? '#1ED760' : '#fff'}  ${(currentTime / songDuration) * 100
+                                }%, #B3B3B3 ${(currentTime / songDuration) * 100}%)`,
                         }}
                     />
                     <span className="duration">{songDuration ? formatTime(songDuration - currentTime) : '0:00'}</span>
@@ -212,9 +190,8 @@ export function AppPlayer() {
                     onMouseLeave={() => setIsHoverVolume(false)}
                     className="volume-slider slider"
                     style={{
-                        background: `linear-gradient(to right, ${
-                            isHoverVolume ? '#1ED760' : '#fff'
-                        } ${volume}%, #B3B3B3 ${volume}%)`,
+                        background: `linear-gradient(to right, ${isHoverVolume ? '#1ED760' : '#fff'
+                            } ${volume}%, #B3B3B3 ${volume}%)`,
                     }}
                 />
             </div>
