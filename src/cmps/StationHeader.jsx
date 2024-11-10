@@ -14,7 +14,9 @@ export function StationHeader({ station }) {
 
                     <div className="playlist-creator">
                         {station.creatorImgURL && (
-                            <img src={station.creatorImgURL} alt="Creator" className="creator-image" />
+                            <div className="creator-image-container">
+                                <img src={station.creatorImgURL} alt="Creator" className="creator-image" />
+                            </div>
                         )}
                         <span className="creator-name">
                             <img src={userIcon} alt="" /> By {station.creatorName || "Spotify"}
@@ -22,6 +24,8 @@ export function StationHeader({ station }) {
                         <span className="saves-count">{station.saves || ''} saves</span>
                         <span className="playlist-duration">{station.totalDuration}</span>
                     </div>
+
+
                 </section>
             </div>
             <div className="playlist-actions">
