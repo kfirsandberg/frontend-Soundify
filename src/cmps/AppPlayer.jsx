@@ -56,8 +56,6 @@ export function AppPlayer() {
     function handleProgressChange(ev) {
         const newTime = ev.target.value
         updateCurrentTime(newTime)
-        console.log(playerRef)
-        console.log(playerRef.current)
 
         console.log('Current time changed to:', newTime)
     }
@@ -82,8 +80,6 @@ export function AppPlayer() {
             .padStart(2, '0')
         return `${mins}:${secs}`
     }
-
-	
 
     if (!currentSong) {
         return (
