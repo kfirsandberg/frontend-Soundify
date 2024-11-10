@@ -1,33 +1,32 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Make sure you import useNavigate from react-router-dom
+import { useNavigate } from "react-router-dom";
 import { stationLocalService } from "../services/station/station.service.local";
-import { loadStation } from "../store/actions/station.actions.js"
+import { loadStation } from "../store/actions/station.actions.js";
 
 export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     const [stations, setStations] = useState(null);
-    const navigate = useNavigate(); // Initialize navigate
-    const [loading, setLoading] = useState(true); // Optional loading state
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadStations();
     }, []);
 
-    function loadStations() {
-        stationLocalService.query()
-            .then(data => {
-                setStations(data);
-                setLoading(false); // Set loading to false when data is fetched
-            })
-            .catch(error => {
-                console.error('Error fetching stations:', error);
-                setLoading(false); // Ensure loading is false even on error
-            });
-    }
+    const loadStations = async () => {
+        try {
+            const data = await stationLocalService.query();
+            setStations(data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching stations:', error);
+            setLoading(false);
+        }
+    };
 
-    function onClickStation(station) {
-        navigate(`/station/${station._id}`); // Navigate to station page
-        loadStation(station._id); // Load the station data (implement this function as needed)
-    }
+    const onClickStation = (station) => {
+        navigate(`/station/${station._id}`);
+        loadStation(station._id);
+    };
 
     let filteredStations = stations;
 
@@ -48,7 +47,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     }
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="loading">Loading...</div>;
     }
 
     return (
@@ -58,18 +57,13 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                     <li
                         key={station._id}
                         className="station-card"
-                        onClick={() => onClickStation(station)} // Bind the click handler
+                        onClick={() => onClickStation(station)}
                     >
-                        {/* Show only the image if collapsed */}
-                        <img
-                            src={station.imgURL}
-                            alt={station.name}
-                            className="station-image"
-                        />
+                        <img src={station.imgURL} alt={station.name} className="station-image" />
                         {!isCollapsed && (
                             <div className="station-info">
                                 <h3 className="station-name">{station.name}</h3>
-                                <p className="station-artist">{station.artist}</p> {/* Add artist name here */}
+                                <p className="station-artist">{station.artist}</p>
                             </div>
                         )}
                     </li>
