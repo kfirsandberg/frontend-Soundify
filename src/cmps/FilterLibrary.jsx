@@ -34,7 +34,7 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
           <img
             src="/assets/search.svg"
             alt="Toggle search visibility"
-            className="search-icon"
+            className="lib-search-icon"
           />
         </button>
 

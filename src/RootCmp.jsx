@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-<<<<<<< HEAD
+
+
 import { StationIndex } from './pages/StationIndex.jsx'
 import { AppHeader } from './cmps/AppHeader'
 import { AppPlayer } from './cmps/AppPlayer.jsx'
 import { StationDetails } from './pages/StationDetails.jsx'
 import { Library } from "./cmps/Library.jsx"
 import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
-=======
-import { StationIndex } from './pages/StationIndex.jsx';
-import { AppHeader } from './cmps/AppHeader';
-import { AppPlayer } from './cmps/AppPlayer.jsx';
-import { StationDetails } from './pages/StationDetails.jsx';
-import { Library } from './cmps/Library.jsx';
 
->>>>>>> f-library-branch
+
 export function RootCmp() {
     const [isLibraryActive, setIsLibraryActive] = useState(false); // Track the active state of the library
 
@@ -24,7 +19,7 @@ export function RootCmp() {
 
     return (
         <div className="main-container">
-            <YouTubeAudioPlayer />
+            
             <AppHeader className="header" />
             <div className="content">
                 <aside className={`library-route ${isLibraryActive ? 'active' : ''}`}> {/* Apply active class conditionally */}
@@ -38,6 +33,7 @@ export function RootCmp() {
                 </main>
             </div>
             <AppPlayer className="player" />
+            <YouTubeAudioPlayer />
         </div>
     );
 }
