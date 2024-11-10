@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-=======
+
 import React, { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
->>>>>>> main
+
 
 import { StationIndex } from './pages/StationIndex.jsx'
 import { AppHeader } from './cmps/AppHeader'
@@ -12,12 +9,6 @@ import { AppPlayer } from './cmps/AppPlayer.jsx'
 import { StationDetails } from './pages/StationDetails.jsx'
 import { Library } from './cmps/Library.jsx'
 import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> main
 export function RootCmp() {
     const [isLibraryActive, setIsLibraryActive] = useState(false) // Track the active state of the library
 
