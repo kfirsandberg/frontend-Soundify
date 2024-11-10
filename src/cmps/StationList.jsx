@@ -14,7 +14,7 @@ export function StationList({ stations }) {
     return (
         <section className="station-list">
             {stations.map(station => (
-                <button
+                <button className="station-preview"
                     key={station._id}
                     onClick={() => onClickStation(station)} 
                 >

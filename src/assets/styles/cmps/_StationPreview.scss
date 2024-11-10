@@ -7,12 +7,13 @@
   position: relative;
   border-radius: 6px;
   transition: transform 0.3s ease;
+  height: 236px;
+  width: 178px;
 
 
 
   img {
     width: 100%;
-    height: auto;
     aspect-ratio: 1;
     object-fit: cover;
     transition: transform 0.2s ease;
