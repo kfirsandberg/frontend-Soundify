@@ -15,6 +15,14 @@
     background-color: #121212;
 }
 
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Adjust spacing between buttons */
+    align-items: center;
+    transform: translateX(50px);
+}
+
+
 /* Action Button Container */
 .action-btns- {
     height: 3.70vh;
@@ -196,6 +204,7 @@
 .sort-container {
     display: flex;
     align-items: center;
+    transform: translateX(2px)
     
     
 }
