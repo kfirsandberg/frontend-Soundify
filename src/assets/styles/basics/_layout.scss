@@ -26,13 +26,13 @@
     grid-area: library;
     background-color: #f4f4f4;
     padding: 20px;
-    border-right: 1px solid #ddd;
+
 }
 
 .station-index-route {
+    padding: 1em;
     grid-area: main;
-    display: flex;
-    justify-content: center;
+
     align-items: center;
 
     overflow-y: auto;

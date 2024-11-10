@@ -12,6 +12,7 @@
 
 .action-btns {
     height: 3.70vh;
+    width: 14.8rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,7 +25,7 @@
     background-color: transparent;
     border: none;
     color: #fff;
-    font-size: 0.875rem; /* Reduced font size */
+    font-size: 0.875rem; /* Reduced font size for the button text */
     font-weight: bold;
     display: flex;
     justify-content: center; /* Center horizontally */
@@ -32,29 +33,48 @@
     padding: 0 0.3rem; /* Adjust padding */
 }
 
-/* Center h3 inside the button */
+.library-icon {
+    
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Ensure the icon fits inside the button */
+    object-fit: contain; /* Ensure the icon stays within its container */
+}
+
+/* Style the h3 element */
 .toggle-lib-btn h3 {
+    width: 7rem;
     margin: 0; /* Remove any default margin */
     padding: 0; /* Remove any default padding */
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
+    font-size: 0.8rem; /* Reduced font size for the h3 */
 }
+
 
 
 /* Create Playlist Button */
 .create-playlist {
-    color: #b3b3b3;
-    height: 3.10vh;
-    width: 3.10vh; /* Set width equal to height to make it a perfect circle */
-    background-color: #121212;
-    border-radius: 50%; /* Ensures the button is round */
-    font-size: 1.5rem;
+    
+    background-color: #181818; /* Dark background */
+    border: none;
+    padding: 0;
     cursor: pointer;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Circular button */
+    width: 32px;  /* Adjust to your desired size */
+    height: 32px; /* Same height as other icon buttons */
 }
+
+/* Icon inside the create playlist button */
+.create-playlist-icon {
+    width: 16px; /* Adjust based on the icon size */
+    height: 16px; /* Ensure the icon fits within the button */
+    object-fit: contain; /* Make sure the icon is properly contained within the button */
+}
+
 
 /* Show More Button */
 .show-more {
@@ -70,6 +90,13 @@
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
+}
+
+/* Right Arrow Icon */
+.right-arrow-icon {
+    width: 16px; /* Adjust based on the icon size */
+    height: 16px; /* Ensure the icon fits within the button */
+    object-fit: contain; /* Make sure the icon is properly contained within the button */
 }
 
 /* Filter Section */
@@ -93,7 +120,7 @@
     padding: 0.625rem; /* Adjusted padding for consistency */
     font-size: 0.875rem; /* Adjusted font size */
     cursor: pointer;
-    border-radius: 0.3125rem; /* Adjusted border-radius */
+    border-radius: 0.8rem; /* Adjusted border-radius */
     flex: 1;
     margin: 0 0.3125rem; /* Adjusted margin */
     display: flex;
@@ -140,7 +167,7 @@
 .hamburger-btn {
     background-color: #121212;
     border: none;
-    color: white;
+    color: #b3b3b3;
     font-size: 24px;
     cursor: pointer;
     margin-left: 16px; /* Reduced margin */

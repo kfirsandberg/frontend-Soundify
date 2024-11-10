@@ -15,12 +15,17 @@ export function Library() {
 		<div className="library">
 			<section className="action-btns">
 				<button className="toggle-lib-btn" onClick={toggleLibrary}>
-					<h3>{isLibraryCollapsed ? "Expand Library" : "Your Library"}</h3>
+					<img src="/assets/library.svg" alt="Library" className="library-icon" />
+					<h3>{isLibraryCollapsed ? "" : "Your Library"}</h3>
 				</button>
 				{!isLibraryCollapsed && (
 					<>
-						<button className="create-playlist">+</button>
-						<button className="show-more">⟶</button>
+						<button className="create-playlist">
+							<img src="/assets/add playlist.svg" alt="Create Playlist" className="create-playlist-icon" />
+						</button>
+						<button className="show-more">
+							<img src="/assets/right_arrow.svg" alt="Right Arrow" className="right-arrow-icon" />
+						</button>
 					</>
 				)}
 			</section>

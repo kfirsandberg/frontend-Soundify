@@ -1,3 +1,4 @@
+/* App Header Container */
 .app-header.full {
     display: flex;
     bottom: 0;
@@ -5,61 +6,166 @@
     height: 48px;
     background-color: #121212;
     color: #fff;
-    display: flex;
     align-items: center;
     padding: 10px 20px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Logo Styles */
 .logo {
-    width: 72px;
-    height: 72px;
-    margin-right: 1rem; /* Space between logo and center elements */
+    width: 32px;
+    height: 32px;
 }
 
+/* Header Center Content (Search Bar + Button) */
 .header-center-content {
     display: flex;
     align-items: center;
     flex: 1;
-    justify-content: center; /* Center align button and search bar */
+    justify-content: center;
+    /* Center align button and search bar */
 }
 
-.header-home-btn {
-    background-color: #1f1f1f;
-    color: #ffffff;
+/* Input Wrapper for Search */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 474px;
+    height: 32px;
     font-size: 16px;
+    color: #ffffff;
+    background-color: #1f1f1f;
     border: none;
     border-radius: 500px;
-    height: 48px;
     padding: 0 1rem;
-    margin-right: 8px; /* Space between button and search input */
 }
 
+/* Search Input Field */
 .header-search-input {
     width: 474px;
-    height: 48px;
+    height: 24px;
     font-size: 16px;
     color: #ffffff;
     background-color: #1f1f1f;
     border: none;
-    border-radius: 500px;
+    border-right: 1px solid #b3b3b3;
+    /* Border on the right side */
     padding: 0 1rem;
 }
 
+/* Search Button (Magnifying Glass) */
+.header-search-btn {
+    background-color: #1f1f1f;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+.search-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* Browse Button (to the right of Search Input) */
+.header-browse-btn {
+    background-color: #1f1f1f;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+    /* Space between input and button */
+}
+
+.browse-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Home Button */
+.header-home-btn {
+    background-color: #1f1f1f;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+.home-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* Icon Buttons on the Right (e.g., Notification, Settings) */
 .header-icon-btns {
     display: flex;
-    gap: 1rem; /* Space between icon buttons */
+    gap: 1rem;
+    /* Space between icon buttons */
 }
 
 .header-icon-btn {
     width: 32px;
     height: 32px;
-    background-color: #000000;
+    background-color: #1f1f1f;
     color: #b3b3b3;
     border: none;
-    border-radius: 50%; /* Circular shape */
+    border-radius: 50%;
+    /* Circular shape */
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+.header-icon {
+    width: 22px;
+    /* Adjust the icon size as needed */
+    height: 22px;
+    /* Adjust to match the desired size */
+    object-fit: contain;
+    /* Make sure the icon fits within the button */
+}
+
+
+
+/* Notification Button */
+.notification-btn {
+    background-color: #1f1f1f;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 32px;
+    /* Same size as other icon buttons */
+    height: 32px;
+    /* Match the height with other icon buttons */
+}
+
+.notification-icon {
+    width: 18px;
+    /* Adjust based on your icon size */
+    height: 18px;
+    object-fit: contain;
+    /* Ensures the icon is contained within the button */
 }

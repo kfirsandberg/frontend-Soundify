@@ -1,5 +1,5 @@
 .station-index {
-    background-color: $spotify-dark; // Spotify dark theme background
+    background-color: $spotify-dark; 
     color: $spotify-light;
     min-height: 100vh;
     display: flex;
@@ -9,6 +9,6 @@
     section {
       width: 100%;
       max-width: 1200px;
-      padding: 1rem;
+
     }
   }
