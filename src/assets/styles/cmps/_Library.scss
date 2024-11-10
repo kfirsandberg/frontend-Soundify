@@ -1,22 +1,31 @@
 /* General Layout */
 .library {
-  background-color: #121212;
-  color: #fff;
-  padding: 16px;
-}
-
-.library-route{
     background-color: #121212;
-    width: 17.5rem;
+    color: #fff;
+    padding: 16px;
 }
 
-.action-btns {
+.library-route {
+    background-color: #1f1f1f;
+    width: 17.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.library-route.active {
+    background-color: #121212;
+}
+
+/* Action Button Container */
+.action-btns- {
     height: 3.70vh;
     width: 14.8rem;
     display: flex;
+    gap: 10px;
     justify-content: space-between;
+    background-color: #1f1f1f;
     align-items: center;
-    margin-bottom: 16px; /* Reduced margin */
+    margin-bottom: 16px;
+    transition: width 0.3s ease;
 }
 
 /* Toggle Library Button */
@@ -25,178 +34,239 @@
     background-color: transparent;
     border: none;
     color: #fff;
-    font-size: 0.875rem; /* Reduced font size for the button text */
+    font-size: 0.875rem;
     font-weight: bold;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    padding: 0 0.3rem; /* Adjust padding */
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.3rem;
 }
 
 .library-icon {
-    
-    width: 20px; /* Adjust icon size */
-    height: 20px; /* Ensure the icon fits inside the button */
-    object-fit: contain; /* Ensure the icon stays within its container */
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
-/* Style the h3 element */
 .toggle-lib-btn h3 {
     width: 7rem;
-    margin: 0; /* Remove any default margin */
-    padding: 0; /* Remove any default padding */
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    font-size: 0.8rem; /* Reduced font size for the h3 */
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
 }
-
-
 
 /* Create Playlist Button */
 .create-playlist {
-    
-    background-color: #181818; /* Dark background */
+    background-color: #1f1f1f;
     border: none;
     padding: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%; /* Circular button */
-    width: 32px;  /* Adjust to your desired size */
-    height: 32px; /* Same height as other icon buttons */
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
 }
 
-/* Icon inside the create playlist button */
 .create-playlist-icon {
-    width: 16px; /* Adjust based on the icon size */
-    height: 16px; /* Ensure the icon fits within the button */
-    object-fit: contain; /* Make sure the icon is properly contained within the button */
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
 }
-
 
 /* Show More Button */
 .show-more {
     color: #b3b3b3;
-    height: 3.10vh;
-    width: 3.10vh; /* Set width equal to height for a perfect circle */
-    background-color: #121212;
+    height: 2.8vh;
+    width: 2.8vh;
+    background-color: #1f1f1f;
     border: none;
-    border-radius: 50%; /* Ensures the button is round */
-    padding: 0; /* Remove padding to ensure equal width and height */
-    font-size: 1.2rem; /* Adjust font size to fit */
+    border-radius: 50%;
+    padding: 0;
+    font-size: 1.0rem;
     cursor: pointer;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center;
+    align-items: center;
 }
 
-/* Right Arrow Icon */
 .right-arrow-icon {
-    width: 16px; /* Adjust based on the icon size */
-    height: 16px; /* Ensure the icon fits within the button */
-    object-fit: contain; /* Make sure the icon is properly contained within the button */
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 /* Filter Section */
 .filter-library {
     display: flex;
     flex-direction: column;
-    margin-bottom: 16px; /* Reduced margin */
+    margin-bottom: 16px;
 }
 
 .sort-buttons {
     height: 2.96vh;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px; /* Reduced margin */
+    margin-bottom: 12px;
 }
 
 .sort-buttons button {
-    background-color: #282828;
+    background-color: #1f1f1f;
     border: none;
     color: white;
-    padding: 0.625rem; /* Adjusted padding for consistency */
-    font-size: 0.875rem; /* Adjusted font size */
+    padding: 0.625rem;
+    font-size: 0.875rem;
     cursor: pointer;
-    border-radius: 0.8rem; /* Adjusted border-radius */
+    border-radius: 0.8rem;
     flex: 1;
-    margin: 0 0.3125rem; /* Adjusted margin */
+    margin: 0 0.3125rem;
     display: flex;
-    justify-content: center; /* Centers content horizontally */
-    align-items: center; /* Centers content vertically */
+    justify-content: center;
+    align-items: center;
 }
 
 .search-and-menu {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 8px; /* Reduced margin */
+    gap: 10px;
+    
 }
 
-/* Search Input */
+.toggle-search-btn {
+    background-color: #1f1f1f;
+    color: #b3b3b3;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 10px;
+    flex-shrink: 0; /* Prevents the button from shrinking */
+   
+}
+
+
 .search-container {
     flex: 1;
 }
 
 .search-input {
     margin-top: 5px;
-    width: 100%;
-    height: 2.96vh; /* Set height to 2.96vh */
-    padding: 0 15px; /* Adjusted padding to match height */
+    width: 50%;
+    height: 3.5vh;
+    padding: 0 12px;
     border-radius: 50px;
-    border: 1px solid #282828;
-    background-color: #282828;
-    color: #fff;
-    font-size: 16px;
+    border: 1px solid #1f1f1f;
+    background-color: #434343a4;
+    color: #838282;
+    font-size: 15px;
     outline: none;
+    transition: max-width 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    max-width: 0;
+    /* Start with hidden input */
+    opacity: 0;
+    transform: translateX(-65px); /* Move 30px to the left */
 }
 
-/* Hamburger Menu */
+
+.search-input:focus {
+    opacity: 0.7;
+    /* Adjust opacity when the input is focused */
+}
+
+.search-input.open {
+    max-width: 70px;
+    min-width: 70px;
+    /* Adjust this value as needed */
+    opacity: 1;
+}
+
+.lib-search-icon {
+    width: 20px;
+    /* Adjust the size as needed */
+    height: 20px;
+    object-fit: contain;
+    transform: translateX(-20px);
+}
+
 .sort-container {
     display: flex;
     align-items: center;
+    
+    
+}
+
+.selected-sort {
+    color: #b3b3b3;
+    font-size: 14px;
+    white-space: nowrap;
+    /* Prevents selected sort text from wrapping */
+    overflow: hidden;
+    /* Clips long text */
+    text-overflow: ellipsis;
+    /* Adds '...' for clipped text */
+    max-width: 50px;
+    /* Limits the width to avoid pushing the button */
 }
 
 .hamburger-menu {
-    background-color: #121212;
-    position: relative; /* Add relative positioning to the parent container */
+    background-color: #1f1f1f;
+    position: relative;
+    width: 36px;
+    justify-content: center;
+    align-items: center;
 }
 
 .hamburger-btn {
-    background-color: #121212;
+    background-color: #1f1f1f;
     border: none;
     color: #b3b3b3;
-    font-size: 24px;
     cursor: pointer;
-    margin-left: 16px; /* Reduced margin */
-    height: 2.96vh; /* Set height to 2.96vh */
-    width: auto; /* Ensure button width adjusts automatically */
-    padding: 0 15px; /* Adjust padding for proper button sizing */
+    margin-left: 8px;
+    height: 3.8vh;
+    width: 36px;
+    /* Fixed width for the button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Modal for Sorting */
+.hamburger-icon {
+    width: 16px;
+    height: 16px;
+}
+
+
 .modal {
-    background-color: #282828;
+    background-color: #1f1f1f;
     position: absolute;
-    top: 100%; /* Position the modal below the hamburger button */
+    top: 100%;
     right: 0;
-    padding: 8px; /* Reduced padding */
+    padding: 8px;
     border-radius: 10px;
-    display: flex;
     flex-direction: column;
-    width: max-content; /* Ensure the modal width adjusts to its content */
-    z-index: 10; /* Ensure the modal appears above other content */
+    width: max-content;
+    z-index: 10;
+    display: none;
+    /* Default to hidden */
+}
+
+.modal.open {
+    display: flex;
+    /* Only display the modal when 'open' class is applied */
 }
 
 .modal button {
     border-radius: 2px;
-    background-color: #282828;
+    background-color: #1f1f1f;
     color: white;
     border: none;
-    padding: 8px; /* Reduced padding */
-    margin-bottom: 6px; /* Reduced margin */
+    padding: 8px;
+    margin-bottom: 6px;
 }
 
 .modal button:hover {
@@ -207,64 +277,50 @@
 .library-list {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the cards horizontally */
+    align-items: center;
 }
 
-/* Station Card */
 .station-card {
     display: flex;
-    align-items: flex-start;
-    background-color: #1e1e1e;
-    border-radius: 0.5rem; 
-    padding: 0.625rem; 
-    margin-bottom: 0.5rem; 
+    align-items: center;
+    background-color: #1f1f1f;
+    padding: 0.625rem;
     transition: transform 0.2s ease-in-out;
-    width: 16.5rem; /* 264px in rem (264 / 16px = 16.5rem) */
-    height: 4rem; /* 64px in rem (64 / 16px = 4rem) */
-    position: relative; /* Needed for positioning the name and artist */
+    width: 16.5rem;
+    height: 4rem;
     cursor: pointer;
 }
 
-/* Hover Effect on Card */
 .station-card:hover {
     transform: scale(1.05);
 }
 
 /* Image Size */
 .station-image {
-    width: 100%; /* Make the image fill the width of its container */
-    height: auto; /* Ensure the aspect ratio is preserved */
-    max-width: 5rem; /* Limit the max size if needed */
-    object-fit: cover; /* Crop to fit the container */
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
 }
 
-/* Station Info Container */
 .station-info {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 7.5rem; /* Adjust if necessary */
-    right: 0.625rem;
-    bottom: 0.625rem;
-    padding: 0.625rem;
+    margin-left: 0.625rem;
     color: #fff;
 }
 
-/* Station Name */
 .station-name {
-    font-size: 1rem; /* 16px in rem */
+    font-size: 1rem;
     font-weight: bold;
     text-align: right;
 }
 
-/* Artist Name */
 .station-artist {
-    font-size: 0.875rem; /* 14px in rem */
+    font-size: 0.875rem;
     color: #bbb;
-    margin-top: auto; /* Position the artist name at the bottom */
+    margin-top: auto;
 }
 
 /* Loading State */
@@ -272,20 +328,42 @@
     color: #1db954;
     font-size: 20px;
     text-align: center;
-    margin-top: 40px; /* Reduced margin */
+    margin-top: 40px;
 }
 
-/* Collapsed Mode (Only Images) */
+/* Collapsed State for Library Route */
+.library-content-collapsed .library-list-wrapper {
+    padding: 0;
+    width: 4rem;
+    background-color: #121212;
+}
+
+.library-content-collapsed {
+    background-color: #121212;
+}
+
+.action-btns-collapsed {
+    background-color: #121212;
+}
+
+/* Collapsed Mode */
 .library-list.collapsed {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 10px;
+    background-color: #121212;
 }
 
 .library-list.collapsed .station-card {
-    width: auto; /* Automatically adjust width based on the image */
-    height: auto; /* Adjust height based on image aspect ratio */
-    margin: 10px;
+    background: none;
+    border-radius: 50%;
+    margin: 5px;
+    padding: 0;
 }
 
-
+.library-list.collapsed .station-card .station-image {
+    width: 48px;
+    height: 48px;
+    background-color: #121212;
+}

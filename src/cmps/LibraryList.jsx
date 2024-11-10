@@ -4,7 +4,7 @@ import { stationLocalService } from "../services/station/station.service.local";
 import { loadStation } from "../store/actions/station.actions.js";
 
 export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
-    const [stations, setStations] = useState(null);
+    const [stations, setStations] = useState([]);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
@@ -28,15 +28,16 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
         loadStation(station._id);
     };
 
+    // Check if stations are loaded before attempting to filter or sort
     let filteredStations = stations;
 
-    if (filterCriteria) {
+    if (stations && filterCriteria) {
         filteredStations = stations.filter(station =>
             station.name.toLowerCase().includes(filterCriteria.toLowerCase())
         );
     }
 
-    if (sortBy) {
+    if (stations && sortBy) {
         if (sortBy === "recents") {
             filteredStations.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         } else if (sortBy === "recentlyAdded") {
