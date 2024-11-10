@@ -1,44 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import YouTube from 'react-youtube';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect, useRef } from 'react'
+import YouTube from 'react-youtube'
+import { useSelector } from 'react-redux'
+import { setIsPlaying } from '../store/actions/station.actions'
 
-export function YouTubeAudioPlayer({ }) {
+export function YouTubeAudioPlayer({}) {
     const [play, setPlay] = useState(null)
     const [songID, setSongID] = useState(null)
     const currentSong = useSelector(state => state.stationModule.currentSong)
     const isPlaying = useSelector(state => state.stationModule.isPlaying)
     const [isReady, setIsReady] = useState(false)
+    const playerRef = useRef(null)
 
     useEffect(() => {
-        console.log("play", play)
         if (currentSong) {
+            setIsPlaying(false)
             setSongID(currentSong.videoId)
+            setIsPlaying(true)
         }
-        if (isPlaying && play.videoTitle) {
-            console.log(isPlaying);
-            playAudio()
-        }
-        if (!isPlaying) {
-            pauseAudio()
-        }
-    }, [currentSong, isPlaying, play]);
+    }, [currentSong])
 
-    useEffect(()=>{
-        if(isReady && isPlaying){
-            playAudio()
+    useEffect(() => {
+        console.log('isPlaying updated:', isPlaying)
+    }, [isPlaying])
+
+    useEffect(() => {
+        if (isReady && play) {
+            if (isPlaying) {
+                playerRef.current.playVideo().playVideo()
+            } else {
+                playerRef.current.pauseVideo().pauseVideo()
+            }
         }
-    },[isReady])
+    }, [isPlaying, isReady, play, songID])
 
     function onPlayerReady(event) {
+        playerRef.current = event.target
         setIsReady(true)
-        setPlay(event.target);
+        if (isPlaying) {
+            event.target.playVideo()
+        }
     }
     function playAudio() {
-        if (play) play.playVideo();
+        // if (play) play.playVideo()
+        setIsPlaying(true)
     }
 
     function pauseAudio() {
-        if (play) play.pauseVideo();
+        // if (play) play.pauseVideo()
+        setIsPlaying(false)
     }
 
     return (
@@ -57,8 +66,8 @@ export function YouTubeAudioPlayer({ }) {
                 }}
                 onReady={onPlayerReady}
             />
-            
+            <button onClick={playAudio}>play</button>
+            <button onClick={pauseAudio}>pause</button>
         </div>
-
-    );
+    )
 }

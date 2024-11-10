@@ -19,6 +19,7 @@ const initialState = {
     currentTime: 0,
     songDuration: 293,
     volume: 50,
+    prevVolume: 50,
     isPlaying: false,
 }
 
@@ -33,9 +34,8 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, station: action.station }
             break
         case REMOVE_STATION:
-            const lastRemovedCar = state.stations.find(car => car._id === action.carId)
-            stations = state.stations.filter(car => car._id !== action.carId)
-            newState = { ...state, stations, lastRemovedCar }
+            stations = state.stations.filter(station => station._id !== action.stationId)
+            newState = { ...state, stations }
             break
         case ADD_STATION:
             newState = { ...state, stations: [...state.stations, action.station] }
@@ -57,7 +57,11 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, songDuration: action.songDuration }
             break
         case SET_VOLUME:
-            newState = { ...state, volume: action.volume }
+            newState = {
+                ...state,
+                prevVolume: state.volume,
+                volume: action.volume,
+            }
             break
         case SET_IS_PLAYING:
             newState = { ...state, isPlaying: action.isPlaying }

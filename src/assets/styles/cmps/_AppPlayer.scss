@@ -87,13 +87,20 @@
     .volume-control {
         margin-left: auto;
         .volume-btn {
-            background-color: #fff;
-            fill: #fff;
+            background: none;
             border: none;
-            width: 32px;
-            height: 32px;
-            margin: 0 10px;
+        }
+
+        .svg-fill {
+            fill: #b3b3b3;
+            border: none;
+            width: em(20px);
+            height: em(20px);
             cursor: pointer;
+
+            &:hover {
+                fill: #fff;
+            }
         }
     }
 
