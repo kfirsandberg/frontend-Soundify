@@ -7,12 +7,15 @@ import {
     SET_STATION,
     UPDATE_STATION,
     SET_SONG,
+    SET_CURRENT_TIME,
+    SET_SONG_DURATION,
+    SET_VOLUME,
 } from '../reducers/station.reducer'
 
 export async function loadStations(filterBy) {
     try {
         // const stations = await stationService.query(filterBy)
-        const stations =  await stationLocalService.query()
+        const stations = await stationLocalService.query()
         store.dispatch(getCmdSetStations(stations))
     } catch (err) {
         console.log('Cannot load stations', err)
@@ -73,6 +76,32 @@ export async function loadSong(songId) {
     }
 }
 
+export function updateCurrentTime(currentTime) {
+    try {
+        store.dispatch(getCmdSetCurrentTime(currentTime))
+    } catch (err) {
+        console.log('Cannot set current time', err)
+        throw err
+    }
+}
+
+export function updateSongDuration(songDuration) {
+    try {
+        store.dispatch(getCmdSetSongDuration(songDuration))
+    } catch (err) {
+        console.log('Cannot set song duration', err)
+        throw err
+    }
+}
+
+export function updateVolume(volume) {
+    try {
+        store.dispatch(getCmdSetVolume(volume))
+    } catch (err) {
+        console.log('Cannot set volume', err)
+        throw err
+    }
+}
 // Command Creators:
 function getCmdSetStations(stations) {
     return {
@@ -108,6 +137,24 @@ function getCmdSetSong(song) {
     return {
         type: SET_SONG,
         song,
+    }
+}
+function getCmdSetCurrentTime(currentTime) {
+    return {
+        type: SET_CURRENT_TIME,
+        currentTime,
+    }
+}
+function getCmdSetSongDuration(songDuration) {
+    return {
+        type: SET_SONG_DURATION,
+        songDuration,
+    }
+}
+function getCmdSetVolume(volume) {
+    return {
+        type: SET_VOLUME,
+        volume,
     }
 }
 

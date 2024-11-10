@@ -4,12 +4,20 @@ export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
 export const ADD_STATION_MSG = 'ADD_STATION_MSG'
+
+// Player
 export const SET_SONG = 'SET_SONG'
+export const SET_CURRENT_TIME = 'SET_CURRENT_TIME'
+export const SET_SONG_DURATION = 'SET_SONG_DURATION'
+export const SET_VOLUME = 'SET_VOLUME'
 
 const initialState = {
     stations: [],
     station: null,
     currentSong: null,
+    currentTime: 0,
+    songDuration: 293,
+    volume: 50,
 }
 
 export function stationReducer(state = initialState, action) {
@@ -40,6 +48,12 @@ export function stationReducer(state = initialState, action) {
         case SET_SONG:
             newState = { ...state, currentSong: action.song }
             break
+        case SET_CURRENT_TIME:
+            return { ...state, currentTime: action.currentTime }
+        case SET_SONG_DURATION:
+            return { ...state, songDuration: action.songDuration }
+        case SET_VOLUME:
+            return { ...state, volume: action.volume }
         default:
     }
     return newState
