@@ -188,9 +188,10 @@
 
 .search-input.open {
     max-width: 70px;
-    min-width: 70px;
+    min-width: 90px;
     /* Adjust this value as needed */
     opacity: 1;
+    transform: translateX(-30px)
 }
 
 .lib-search-icon {
