@@ -6,7 +6,7 @@ import backIcon from '../../public/assets/player/back.svg'
 import nextIcon from '../../public/assets/player/next.svg'
 import muteIcon from '../../public/assets/mute.svg'
 import unmuteIcon from '../../public/assets/unmute.svg'
-import { updateCurrentTime, updateSongDuration, updateVolume , setIsPlaying } from '../store/actions/station.actions'
+import { updateCurrentTime, updateSongDuration, updateVolume, setIsPlaying } from '../store/actions/station.actions'
 
 export function AppPlayer() {
     const currentSong = useSelector(state => state.stationModule.currentSong)
@@ -15,7 +15,8 @@ export function AppPlayer() {
 
     const currentTime = useSelector(state => state.stationModule.currentTime) || 0
     const songDuration = useSelector(state => state.stationModule.songDuration) || 293
-    const volume = useSelector(state => state.stationModule.volume) || 50
+    const volume = useSelector(state => state.stationModule.volume)
+    const prevVolume = useSelector(state => state.stationModule.prevVolume)
 
     const intervalRef = useRef(null)
 
@@ -46,6 +47,15 @@ export function AppPlayer() {
         const newTime = ev.target.value
         updateCurrentTime(newTime)
         console.log('Current time changed to:', newTime)
+    }
+
+    function handleMuteToggle() {
+        if (volume > 0) {
+            updateVolume(0)
+        } else {
+            updateVolume(prevVolume)
+        }
+        console.log('Volume toggled to:', volume)
     }
 
     function formatTime(seconds) {
@@ -146,14 +156,43 @@ export function AppPlayer() {
             </div>
 
             <div className="volume-control">
-                <button className="volume-btn" onClick={() => setVolume(volume > 0 ? 0 : 50)}>
-                    <img src={volume > 0 ? muteIcon : unmuteIcon} alt="Volume Icon" />
+                <button className="volume-btn" onClick={handleMuteToggle}>
+                    {volume > 0 ? (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            data-encore-id="icon"
+                            role="presentation"
+                            aria-label="Volume medium"
+                            aria-hidden="true"
+                            id="volume-icon"
+                            viewBox="0 0 16 16"
+                            className="svg-fill Svg-sc-ytk21e-0 kcUFwU"
+                        >
+                            <path d="M9.741.85a.75.75 0 0 1 .375.65v13a.75.75 0 0 1-1.125.65l-6.925-4a3.642 3.642 0 0 1-1.33-4.967 3.639 3.639 0 0 1 1.33-1.332l6.925-4a.75.75 0 0 1 .75 0zm-6.924 5.3a2.139 2.139 0 0 0 0 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 6.087a4.502 4.502 0 0 0 0-8.474v1.65a2.999 2.999 0 0 1 0 5.175v1.649z" />
+                        </svg>
+                    ) : (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            data-encore-id="icon"
+                            role="presentation"
+                            aria-label="Volume off"
+                            aria-hidden="true"
+                            id="volume-icon"
+                            viewBox="0 0 16 16"
+                            className="svg-fill Svg-sc-ytk21e-0 kcUFwU"
+                        >
+                            <path d="M13.86 5.47a.75.75 0 0 0-1.061 0l-1.47 1.47-1.47-1.47A.75.75 0 0 0 8.8 6.53L10.269 8l-1.47 1.47a.75.75 0 1 0 1.06 1.06l1.47-1.47 1.47 1.47a.75.75 0 0 0 1.06-1.06L12.39 8l1.47-1.47a.75.75 0 0 0 0-1.06z" />
+                            <path d="M10.116 1.5A.75.75 0 0 0 8.991.85l-6.925 4a3.642 3.642 0 0 0-1.33 4.967 3.639 3.639 0 0 0 1.33 1.332l6.925 4a.75.75 0 0 0 1.125-.649v-1.906a4.73 4.73 0 0 1-1.5-.694v1.3L2.817 9.852a2.141 2.141 0 0 1-.781-2.92c.187-.324.456-.594.78-.782l5.8-3.35v1.3c.45-.313.956-.55 1.5-.694V1.5z" />
+                        </svg>
+                    )}
                 </button>
+
                 <input
                     type="range"
                     min="0"
                     max="100"
                     step="5"
+                    value={volume}
                     onChange={handleVolumeChange}
                     onMouseEnter={() => setIsHoverVolume(true)}
                     onMouseLeave={() => setIsHoverVolume(false)}
