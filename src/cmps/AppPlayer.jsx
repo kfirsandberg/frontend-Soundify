@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import playIcon from '../../public/assets/player/play.svg'
+import pauseIcon from '../../public/assets/player/pause.svg'
 import backIcon from '../../public/assets/player/back.svg'
 import nextIcon from '../../public/assets/player/next.svg'
 import muteIcon from '../../public/assets/mute.svg'
@@ -17,6 +18,7 @@ export function AppPlayer() {
     const songDuration = useSelector(state => state.stationModule.songDuration) || 293
     const volume = useSelector(state => state.stationModule.volume)
     const prevVolume = useSelector(state => state.stationModule.prevVolume)
+    const isPlaying = useSelector(state => state.stationModule.isPlaying)
 
     const intervalRef = useRef(null)
 
@@ -30,12 +32,12 @@ export function AppPlayer() {
 
     useEffect(() => {
         intervalRef.current = setInterval(() => {
-            if (currentTime < songDuration) {
+            if (currentTime < songDuration && isPlaying) {
                 updateCurrentTime(currentTime + 1)
             }
         }, 1000)
         return () => clearInterval(intervalRef.current)
-    }, [currentTime, songDuration])
+    }, [currentTime, songDuration, isPlaying])
 
     function handleVolumeChange(ev) {
         const newVolume = ev.target.value
@@ -56,6 +58,10 @@ export function AppPlayer() {
             updateVolume(prevVolume)
         }
         console.log('Volume toggled to:', volume)
+    }
+
+    function togglePlayPause() {
+        setIsPlaying(!isPlaying)
     }
 
     function formatTime(seconds) {
@@ -100,21 +106,38 @@ export function AppPlayer() {
                             />
                         </svg>
                     </button>
-
-                    <button className="play-btn">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            data-encore-id="icon"
-                            role="img"
-                            aria-hidden="true"
-                            viewBox="0 0 24 24"
-                            className="Svg-sc-ytk21e-0 bneLcE"
-                        >
-                            <path
-                                className="svg-path"
-                                d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"
-                            />
-                        </svg>
+                    <button className="play-btn" onClick={togglePlayPause}>
+                        {isPlaying ? (
+                            // Pause Icon
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                data-encore-id="icon"
+                                role="img"
+                                aria-hidden="true"
+                                viewBox="0 0 16 16"
+                                className="Svg-sc-ytk21e-0 dYnaPI"
+                            >
+                                <path
+                                    className="svg-path"
+                                    d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"
+                                />
+                            </svg>
+                        ) : (
+                            // Play Icon
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                data-encore-id="icon"
+                                role="img"
+                                aria-hidden="true"
+                                viewBox="0 0 24 24"
+                                className="Svg-sc-ytk21e-0 bneLcE"
+                            >
+                                <path
+                                    className="svg-path"
+                                    d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"
+                                />
+                            </svg>
+                        )}
                     </button>
                     <button className="next-btn">
                         <svg
