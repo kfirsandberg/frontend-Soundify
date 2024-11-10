@@ -83,6 +83,8 @@ export function AppPlayer() {
         return `${mins}:${secs}`
     }
 
+	
+
     if (!currentSong) {
         return (
             <footer className="app-player full">
