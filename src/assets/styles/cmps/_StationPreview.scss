@@ -5,14 +5,12 @@
   text-align: center;
   color: $spotify-gray;
   position: relative;
-  border-radius: 6px;
+
   transition: transform 0.3s ease;
   height: 236px;
   width: 178px;
 
-
-
-  img {
+  .station-preview-img {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
@@ -21,42 +19,41 @@
   }
 
   .play-button-container {
-    position: absolute    ;
-    bottom: 1em;
-    right: 1em;
-    top: 9.5rem;
-    display: none;
+    position: absolute;
+    bottom: 0.5em; /* Adjusted to bottom-left corner */
+    left: 0.5em;
+    display: block;
     z-index: 1;
-    width: 5.5em;
-    height:4.5em;
+
     opacity: 0;
     transition: opacity 0.3s ease;
-
+    transform: translateY(-65px) translateX(102px); 
+  
     .play-button {
       background-color: rgba(0, 0, 0, 0.5);
       color: $spotify-light;
-      font-size: 2rem;
+      font-size: 0.2; /* Increased font size for larger icon */
       border: none;
-      padding:  1rem;
+      padding: 0.5rem; /* Increased padding for a bigger button */
       border-radius: 50%;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
       background-color: $spotify-green;
-
+  
       &:hover {
-        filter: brightness(1  );
-        transform: scale(1.1);
+        filter: brightness(1);
+        transform: scale(1.15); /* Increased scale on hover */
       }
     }
   }
-
+  
   &:hover {
     .play-button-container {
       display: block;
       opacity: 1;
     }
   }
-
+  
   h3 {
     font-size: 1rem;
     margin: 0.5rem 0;
@@ -65,3 +62,8 @@
   }
 }
 
+.play-button img {
+  width:27px; /* Adjust image size */
+ 
+  object-fit: contain; /* Ensure it fits inside the button */
+}

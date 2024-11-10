@@ -6,7 +6,9 @@ $row-count: 1;
   grid-template-columns: repeat(auto-fill, minmax($min-column-width, 1fr));
   grid-template-rows: repeat($row-count, minmax(0, 1fr));
   overflow-x: auto;  
-  gap: 1rem;
+  
+
+  
 
   button {
     background: none;
@@ -52,4 +54,21 @@ $row-count: 1;
 /* Change SVG color when the song item is hovered */
 .song-item:hover .add-btn svg {
   fill: #ffffff; /* Example color, change as needed */
+}
+
+
+.station-list-header {
+  display: flex;
+  justify-content: space-between;
+  position: relative; 
+}
+
+
+
+.station-list-header p {
+  position: absolute;
+  bottom: 0;  /* Position it at the bottom */
+  right: 0;   /* Position it at the right */
+  font-size: 11px;
+  font-weight: bold;
 }
