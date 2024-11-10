@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux'
 import { setIsPlaying } from '../store/actions/station.actions'
 
 export function YouTubeAudioPlayer({}) {
-    const [play, setPlay] = useState(null)
     const [songID, setSongID] = useState(null)
     const currentSong = useSelector(state => state.stationModule.currentSong)
     const isPlaying = useSelector(state => state.stationModule.isPlaying)
     const [isReady, setIsReady] = useState(false)
     const playerRef = useRef(null)
+    const volume = useSelector(state => state.stationModule.volume)
 
     useEffect(() => {
         if (currentSong) {
@@ -20,18 +20,16 @@ export function YouTubeAudioPlayer({}) {
     }, [currentSong])
 
     useEffect(() => {
-        console.log('isPlaying updated:', isPlaying)
-    }, [isPlaying])
+        if (isReady) {
+            playerRef.current.setVolume(volume)
 
-    useEffect(() => {
-        if (isReady && play) {
             if (isPlaying) {
-                playerRef.current.playVideo().playVideo()
+                playerRef.current.playVideo()
             } else {
-                playerRef.current.pauseVideo().pauseVideo()
+                playerRef.current.pauseVideo()
             }
         }
-    }, [isPlaying, isReady, play, songID])
+    }, [isPlaying, isReady, songID, volume])
 
     function onPlayerReady(event) {
         playerRef.current = event.target
@@ -41,12 +39,12 @@ export function YouTubeAudioPlayer({}) {
         }
     }
     function playAudio() {
-        // if (play) play.playVideo()
+        if (playerRef.current) playerRef.current.playVideo()
         setIsPlaying(true)
     }
 
     function pauseAudio() {
-        // if (play) play.pauseVideo()
+        if (playerRef.current) playerRef.current.pauseVideo()
         setIsPlaying(false)
     }
 
