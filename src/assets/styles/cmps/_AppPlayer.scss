@@ -2,12 +2,12 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #121212;
+    background-color: $player-background;
     color: #fff;
     display: flex;
-    height: 72px;
+    height: 82;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 10px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
     justify-content: space-between;
 
@@ -26,58 +26,72 @@
         align-items: center;
         flex-shrink: 1; /* Allows it to shrink */
         max-width: 60%; /* Limits maximum width so it doesn’t overlap */
-        overflow: hidden;
-    
-        .song-img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            border-radius: 4px;
-            flex-shrink: 0; /* Prevents the image from shrinking */
+        position: relative;
+
+        .image-container {
+            width: 55px;
+            height: 65px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 10px;
+            margin: 10px 15px 0px 5px;
+            .song-img {
+                border-radius: 4px;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                flex-shrink: 0; /* Prevents the image from shrinking */
+            }
         }
-    
+
         .song-details {
-            overflow: hidden; /* Ensures text does not overflow */
-            white-space: nowrap; /* Prevents wrapping */
-            text-overflow: ellipsis; /* Adds '...' for overflow text */
-    
-            h4, p {
-                margin: 0;
-                font-size: 14px;
+            position: absolute;
+            left: 75px;
+            white-space: nowrap;
+            overflow: visible;
+            p {
                 font-weight: 600;
+                font-size: 12px;
+            }
+
+            h4 {
+                font-size: 14px;
+                font-weight: 700;
+                margin: 0;
             }
         }
     }
-    
 
     /* Player Controls Section */
     .player-controls {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 5px;
-    
+        gap: em(15px);
+        margin-inline-start: rem(178px);
+
         .next-btn,
         .back-btn {
             background-color: #121212;
             border: none;
         }
-    
+
         .svg-fill {
             fill: #b3b3b3;
             width: 16px;
             height: 16px;
             cursor: pointer;
             border: none;
-    
+
             &:hover {
                 fill: #fff;
-                width: 17px;
-                height: 17px;
+                transform: scale(1.1);
+                transition: transform 0.2s ease;
             }
         }
-    
+
         .play-btn {
             background-color: #fff;
             border-radius: 50%;
@@ -86,31 +100,31 @@
             padding: 3px;
             border: none;
             cursor: pointer;
-    
+
             &:hover {
                 background-color: #ffffffc5;
+                transform: scale(1.05);
+                transition: transform 0.2s ease;
             }
-    
+
             .icon {
-                font-size: 5px; 
+                font-size: 5px;
                 display: inline-block;
                 width: 18px;
                 height: 25px;
-                
             }
         }
     }
-    
 
     /* Volume Control Section */
     .volume-control {
         margin-left: auto;
-        margin-right: 30px;
+        margin-right: em(18px);
         display: flex;
         align-items: center;
         width: 15em;
         transform: translateX(65px);
-        flex-shrink: 1; 
+        flex-shrink: 1;
 
         .volume-btn {
             background: none;
@@ -131,13 +145,12 @@
         .volume-slider {
             -webkit-appearance: none;
             appearance: none;
-            width: 125px;
-            height: 0.2rem;
-            background: #6464649c;
-            border-radius: 2px;
+            width: em(110px);
+            height: 0.26rem;
+            background: $slider-background;
+            border-radius: 4px;
             outline: none;
             cursor: pointer;
-
 
             &::-webkit-slider-thumb {
                 -webkit-appearance: none;
@@ -146,7 +159,6 @@
                 background-color: #fff;
                 border-radius: 50%;
                 opacity: 0;
-                cursor: pointer;
             }
 
             &:hover::-webkit-slider-thumb {
@@ -157,30 +169,30 @@
 
     /* Progress Bar Section */
     .progress-bar {
+        margin-inline-start: rem(185px);
         display: flex;
         align-items: center;
-        width: 15em;
-        gap: 8px;
-
+        width: rem(690px);
+        gap: 6px;
+        margin-bottom: -10px;
 
         .progress-slider {
             -webkit-appearance: none;
             appearance: none;
             width: 100%;
-            height: 0.25rem;
             background: #6464649c;
-            border-radius: 2px;
             outline: none;
             cursor: pointer;
+            height: 0.26rem;
+            border-radius: 4px;
 
             &::-webkit-slider-thumb {
                 -webkit-appearance: none;
                 height: 12px;
                 width: 12px;
-                background-color: #fff;
+                background-color: #ffffff;
                 border-radius: 50%;
                 opacity: 0;
-                cursor: pointer;
             }
 
             &:hover::-webkit-slider-thumb {
@@ -188,24 +200,18 @@
             }
         }
 
-        .duration {
-            font-size: 14px;
-        }
-
+        .duration,
         .current-time {
-            font-size: 14px;
+            font-size: em(10px);
         }
     }
-
-
-
 }
 
 @media (max-width: 1067px) {
     .song-info {
         display: flex;
         align-items: center;
-       
+
         min-width: 180;
     }
 }
