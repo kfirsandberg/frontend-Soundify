@@ -8,8 +8,6 @@ import { AppPlayer } from './cmps/AppPlayer.jsx'
 import { StationDetails } from './pages/StationDetails.jsx'
 import { Library } from './cmps/Library.jsx'
 import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
-import { AddStation } from './cmps/AddStation.jsx'
-import { StationEdit } from './cmps/StationEdit.jsx'
 
 export function RootCmp() {
     const [isLibraryActive, setIsLibraryActive] = useState(false) // Track the active state of the library
@@ -29,14 +27,10 @@ export function RootCmp() {
                 <main className="station-index-route">
                     <Routes>
                         <Route path="/" element={<StationIndex />} />
-                        <Route path="/station/:stationId" element={<StationDetails />} />
-                        <Route path="/station/add" element={<AddStation />}>
-                            <Route path="/station/add/edit" element={<StationEdit />} />
-                        </Route>
+                        <Route path="/playlist/:stationId" element={<StationDetails />} />
                     </Routes>
                 </main>
             </div>
-            <YouTubeAudioPlayer />
             <YouTubeAudioPlayer />
             <AppPlayer className="player" />
         </div>

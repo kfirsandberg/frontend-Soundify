@@ -40,7 +40,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     }
 
     function onClickStation(station) {
-        navigate(`/station/${station._id}`)
+        navigate(`/playlist/${station._id}`)
         loadStation(station._id)
     }
 
