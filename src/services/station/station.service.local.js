@@ -11,6 +11,7 @@ export const stationLocalService = {
     saveStation,
     removeStation,
     addStation,
+    getEmptyStation,
 }
 
 _createStations()
@@ -96,6 +97,7 @@ async function _createStations() {
 function _createStation(name) {
     const station = getEmptyStation(name)
     station._id = makeId()
+    station.imgURL = station.songs[0].imgURL // Use the first song's imgURL
     return station
 }
 
@@ -103,15 +105,15 @@ function getEmptyStation(name = '') {
     const songs = getSongsForStation(name)
     return {
         name,
-        imgURL: songs[0].imgURL, // Use the first song's imgURL
+        imgURL: null,
         songs,
     }
 }
 
 function getVideoIdFromUrl(url) {
     // Extract the video ID from the YouTube URL
-    const urlObj = new URL(url);
-    return urlObj.searchParams.get("v");
+    const urlObj = new URL(url)
+    return urlObj.searchParams.get('v')
 }
 
 function getSongsForStation(playlistName) {
@@ -216,8 +218,7 @@ function getSongsForStation(playlistName) {
                 imgURL: 'https://i.ytimg.com/vi/Xu3FTEmN-eg/mqdefault.jpg',
             },
         ],
-    };
+    }
 
-    return songLibrary[playlistName] || [];
+    return songLibrary[playlistName] || []
 }
-

@@ -53,6 +53,7 @@ export function AppPlayer() {
     function handleProgressChange(ev) {
         const newTime = ev.target.value
         updateCurrentTime(newTime)
+
         console.log('Current time changed to:', newTime)
     }
 

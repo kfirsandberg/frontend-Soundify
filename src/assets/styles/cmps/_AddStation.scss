@@ -1,0 +1,77 @@
+.add-station-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #121212;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    color: #fff;
+    position: relative;
+
+    .station-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .station-icon svg {
+        width: 100px;
+        height: 100px;
+        fill: #535353;
+        background-color: #333;
+        border-radius: 8px;
+        margin-right: 20px;
+    }
+
+    .station-info h1 {
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .station-info p {
+        color: #b3b3b3;
+        margin-top: 5px;
+    }
+
+    .station-content {
+        width: 100%;
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+
+    .station-content p {
+        color: #b3b3b3;
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+        position: relative;
+        width: 100%;
+    }
+
+    .search-bar input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+    }
+
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        background: none;
+        border: none;
+        color: #b3b3b3;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+}
