@@ -1,37 +1,65 @@
 .station-preview {
+  position: relative;
   border-radius: 8px;
   text-align: center;
   color: $spotify-gray;
-  position: relative;
   transition: transform 0.3s ease;
   height: 236px;
   width: 178px;
 
+  // Hover effects and background overlay
+  &:hover {
+    .play-button-container {
+      display: block;
+      opacity: 1;
+    }
 
+    &:before {
+      opacity: 1; // On hover, show the background overlay
+    }
+  }
+
+  // Pseudo-element for background opacity on hover
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1); // 10% opacity
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 8px;
+  }
+
+  // Station image and container styles
   .station-preview-container {
     max-height: 236px;
     max-width: 178px;
     min-height: 236px;
-    min-width: 160px;
-
+    min-width: 178px;
+    overflow: hidden;
+    padding: 10px;
+    z-index: 1; // Ensure container stays above the overlay
   }
 
-
-  img {
+  .station-preview-img {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
     transition: transform 0.2s ease;
     border-radius: 6px;
+    z-index: 1; // Keep the image above the background overlay
   }
 
+  // Play button container styles
   .play-button-container {
     position: absolute;
-    bottom: 1em;
-    right: 2.2em;
-    top: 6.0rem;
+    transform: translateX(105px) translateY(-50px);
     display: none;
-    z-index: 1;
+    z-index: 2; // Ensure button stays above the overlay and image
     width: 48px;
     height: 48px;
     opacity: 0;
@@ -39,33 +67,26 @@
     background-color: #1ed760;
     border-radius: 50%;
 
-
     .play-button {
+      transform: translateY(11px);
       width: 24px;
       height: 24px;
       color: $spotify-light;
       border: none;
       border-radius: 50%;
       cursor: pointer;
-      transform: translateY(11px);
       background-color: $spotify-green;
-      transition: background-color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
-
-     
+      transition: background-color 0.3s ease;
     }
   }
 
-  &:hover {
-    .play-button-container {
-      display: block;
-      opacity: 1;
-    }
-  }
-
-  h3 {
+  // Station title styles
+  .play-button-title {
     font-size: 1rem;
     margin: 0.5rem 0;
-    color: $spotify-light;
+    text-align: start;
+    color: #b3b3b3;
     font-weight: 500;
+    z-index: 1; // Ensure title stays above the background overlay
   }
 }
