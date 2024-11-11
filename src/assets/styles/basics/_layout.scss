@@ -1,23 +1,21 @@
 .main-container {
     display: grid;
-    grid-template-columns: 1fr 17fr; 
-    grid-template-rows: 0.09fr 6fr; 
+    grid-template-columns: 1fr 10fr;
+    grid-template-rows: 0.09fr 6fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-        ". . "
-        "library main "
-        ". . ";
+        '. . '
+        'library main '
+        '. . ';
 
-    >* {
+    > * {
         grid-column: 2;
 
         &.full {
             grid-column: 1 / -1;
         }
     }
-
-
 }
 .content {
     display: contents; /* This lets `library-route` and `station-index-route` follow the `main-container` grid layout */
@@ -26,7 +24,6 @@
     grid-area: library;
     background-color: #f4f4f4;
     padding: rem(10px);
-
 }
 
 .station-index-route {
