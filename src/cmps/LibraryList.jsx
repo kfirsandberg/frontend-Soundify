@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { stationLocalService } from '../services/station/station.service.local'
 import { loadStation, removeStation } from '../store/actions/station.actions.js'
+import loaderIcon from '../../public/assets/loader.svg'
 
 export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     const [stations, setStations] = useState([])
@@ -84,8 +85,8 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
         }
     }
 
-    if (loading) {
-        return <div className="loading">Loading...</div>
+if (loading) {
+    <img src={loaderIcon} alt="Loading..." className="loader-icon" />
     }
 
     return (
