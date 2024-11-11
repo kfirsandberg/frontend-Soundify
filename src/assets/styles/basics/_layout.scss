@@ -16,6 +16,7 @@
             grid-column: 1 / -1;
         }
     }
+    background-color: $player-background;
 }
 .content {
     display: contents; /* This lets `library-route` and `station-index-route` follow the `main-container` grid layout */
