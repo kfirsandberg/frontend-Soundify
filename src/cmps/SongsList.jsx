@@ -25,6 +25,7 @@ export function SongList({ station }) {
 
 
       <ul className="song-list">
+        <hr />
         {station.songs.map((song, idx) => (
           <li
             key={song.id}
@@ -66,11 +67,12 @@ export function SongList({ station }) {
                 </svg>
               </span>
             </section>
-
+{/* 
             <section className='duration'>
                 <span className="song-album">{song.album}</span>
                 <span className="song-duration">{song.duration}</span>
-            </section>
+           
+            </section> */}
 
 
           </li>

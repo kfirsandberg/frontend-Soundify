@@ -54,7 +54,7 @@ section {
       display: flex;
       align-items: center;
       padding: rem(14px);
-      
+
     }
 
     .duration {}
@@ -84,12 +84,11 @@ ul {
   margin: 0;
 
   & :hover {
-    .song-index{
-      padding: 0;
-      margin: 0;
-    }
+    background-color: rgb(144, 144, 144);
   }
+
 }
+
 
 .song-index,
 .play-icon {
@@ -152,11 +151,6 @@ ul {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.song-plays,
-.song-album,
-.song-duration {
-  padding: 0 10px;
-}
 
 .songs-nav {
   display: flex;
