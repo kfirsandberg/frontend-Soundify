@@ -2,6 +2,7 @@ $min-column-width: 160px;
 $row-count: 1;
 
 .station-list-container{
+  width: auto;
 
   .station-list {
     display: grid;
