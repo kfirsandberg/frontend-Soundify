@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import playIcon from '../../public/assets/player/play.svg'
-import pauseIcon from '../../public/assets/player/pause.svg'
-import backIcon from '../../public/assets/player/back.svg'
-import nextIcon from '../../public/assets/player/next.svg'
-import muteIcon from '../../public/assets/mute.svg'
-import unmuteIcon from '../../public/assets/unmute.svg'
+
 import { updateCurrentTime, updateSongDuration, updateVolume, setIsPlaying } from '../store/actions/station.actions'
 
 export function AppPlayer() {
@@ -77,7 +72,7 @@ export function AppPlayer() {
             </footer>
         )
     }
-    
+
     return (
         <footer className="app-player full">
             <div className="song-info">
@@ -170,9 +165,7 @@ export function AppPlayer() {
                             }%, #2a2a2a ${(currentTime / songDuration) * 100}%)`,
                         }}
                     />
-                    <span className="duration">
-                        '-'{songDuration ? formatTime(songDuration - currentTime) : '0:00'}
-                    </span>
+                    <span className="duration">{songDuration ? formatTime(songDuration - currentTime) : '0:00'}</span>
                 </div>
             </div>
             <div className="volume-control">

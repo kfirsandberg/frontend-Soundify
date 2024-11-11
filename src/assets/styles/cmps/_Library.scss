@@ -52,6 +52,17 @@
     color: #fff;
     display: flex;
     align-items: center;
+    padding: 0;
+
+    h3 {
+        color: $spotify-gray;
+    }
+}
+
+.toggle-lib-btn:hover h3,
+.toggle-lib-btn:hover .library-icon {
+    fill: $spotify-light;
+    color: $spotify-light;
 }
 
 .library-icon {
@@ -60,7 +71,7 @@
 }
 
 .toggle-lib-btn h3 {
-    width: 7rem;
+    width: 6rem;
     margin: 0;
     padding: 0;
     display: flex;
@@ -76,14 +87,11 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+
     display: flex;
 }
 
 .create-playlist-icon {
-    width: 18px;
-    height: 18px;
     object-fit: contain;
 }
 
@@ -129,25 +137,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 1s;
+}
+
+.sort-buttons button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .search-and-menu {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+    gap: 89px;
 }
 
-.toggle-search-btn {
-    background-color: #181818;
-    color: #b3b3b3;
-    border: none;
-    cursor: pointer;
-    padding: 8px 16px;
-    border-radius: 50px;
-    font-size: 10px;
-    flex-shrink: 0;
-}
+// .toggle-search-btn {
+//     background-color: #181818;
+//     color: #b3b3b3;
+//     border: none;
+//     cursor: pointer;
+//     padding: 8px 16px;
+//     border-radius: 50px;
+//     font-size: 10px;
+//     flex-shrink: 0;
+// }
 
 .search-container {
     flex: 1;
@@ -164,7 +176,6 @@
     color: #838282;
     font-size: 15px;
     outline: none;
-    transition: max-width 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
     max-width: 0;
     /* Start with hidden input */
     opacity: 0;
@@ -185,15 +196,10 @@
     transform: translateX(-35px);
 }
 
-.lib-search-icon {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-}
-
 .sort-container {
     display: flex;
     align-items: center;
+    max-width: 100px;
 }
 
 .selected-sort {
@@ -202,7 +208,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 50px;
 }
 
 .hamburger-menu {
@@ -211,24 +216,6 @@
     width: 36px;
     justify-content: center;
     align-items: center;
-}
-
-.hamburger-btn {
-    background-color: #181818;
-    border: none;
-    color: #b3b3b3;
-    cursor: pointer;
-    margin-left: 5px;
-    height: 3.8vh;
-    width: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hamburger-icon {
-    width: 16px;
-    height: 16px;
 }
 
 /* Modal */
@@ -390,4 +377,109 @@
     height: 48px;
     background-color: #121212;
     max-width: 64px;
+}
+
+.toggle-lib-btn {
+    cursor: pointer;
+}
+
+.library-icon {
+    fill: $spotify-gray;
+}
+
+.collapsed {
+    transform: translateY(-11px);
+}
+
+.create-playlist,
+.show-more,
+.toggle-search-btn {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: relative;
+}
+
+.create-playlist:hover,
+.show-more:hover,
+.toggle-search-btn:hover {
+    background-color: #312f2f70;
+}
+
+.create-playlist-icon,
+.right-arrow-icon,
+.lib-search-icon {
+    width: 16px;
+    height: 16px;
+    fill: $spotify-gray;
+}
+
+.create-playlist:hover .create-playlist-icon,
+.show-more:hover .right-arrow-icon,
+.toggle-search-btn:hover .lib-search-icon {
+    fill: $spotify-light;
+}
+
+.hamburger-btn {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+
+    h3 {
+        color: $spotify-gray;
+    }
+}
+
+.hamburger-btn:hover .selected-sort,
+.hamburger-btn:hover .hamburger-icon {
+    fill: $spotify-light;
+    color: $spotify-light;
+}
+
+.hamburger-icon {
+    width: 20px;
+    height: 20px;
+    fill: $spotify-gray;
+}
+
+.hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: transparent;
+    border: none;
+    p {
+        color: $spotify-gray;
+    }
+}
+
+.hamburger-btn:hover .selected-sort,
+.hamburger-btn:hover .hamburger-icon {
+    fill: $spotify-light;
+    color: $spotify-light;
+}
+
+.hamburger-btn:hover .hamburger-icon {
+    scale: 1.1;
+}
+
+.hamburger-btn:hover .selected-sort {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.selected-sort {
+    max-width: max-content;
 }

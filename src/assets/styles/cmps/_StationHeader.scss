@@ -43,6 +43,7 @@
                 line-height: 1.2;
                 transition: transform 0.3s ease;
                 margin-bottom: 15px;
+                cursor: pointer;
             }
 
             /* Shrink the title when the container is too small */
@@ -70,8 +71,6 @@
                 gap: 0.5rem;
                 font-size: 1rem;
                 color: #b3b3b3;
-
-
             }
         }
 
@@ -95,6 +94,12 @@
             display: flex;
             align-items: center;
 
+            img {
+                width: 1rem;
+                height: 1rem;
+                margin-right: 0.25rem;
+            }
+        }
             img {
                 width: 1rem;
                 height: 1rem;
@@ -163,7 +168,7 @@
             }
         }
     }
-}
+
 
 .station-img-btn {
     all: unset;
@@ -254,10 +259,10 @@
     grid-template-columns: 180px 1fr;
     grid-template-rows: auto auto auto auto;
     grid-template-areas:
-        "album-image title"
-        "album-image description"
-        ". save-button"
-        "disclaimer disclaimer";
+        'album-image title'
+        'album-image description'
+        '. save-button'
+        'disclaimer disclaimer';
     grid-gap: 16px;
 
     .album-image {
@@ -299,7 +304,6 @@
             resize: none;
         }
     }
-
     .form-footer save-button {
         margin: 0;
     }
@@ -311,6 +315,7 @@
 
         button {
             padding: rem(10px) rem(20px);
+            font-size: 14px;
             font-size: 14px;
             font-weight: 700;
             color: #000000;
