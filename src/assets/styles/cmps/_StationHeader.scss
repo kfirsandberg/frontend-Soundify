@@ -164,7 +164,7 @@
     align-items: center;
     justify-content: center;
     background-color: 282828;
-    border-radius: 50%;
+
     overflow: hidden;
 }
 
@@ -205,9 +205,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     font-size: 18px;
     font-weight: bold;
+    padding:  rem(10px);
+    h2{
+        margin: 0;
+
+    }
 }
 
 .close-modal-btn {
@@ -216,6 +220,11 @@
     font-size: 20px;
     color: #fff;
     cursor: pointer;
+    svg {
+        width: 1em;
+        height: 1em;
+        fill: #b3b3b3;;
+    }
 }
 
 .edit-form {

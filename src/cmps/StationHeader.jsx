@@ -25,7 +25,6 @@ export function StationHeader({ station }) {
     }
 
     function handleSave() {
-        console.log("Saved Station:", editedStation);
         setIsModalOpen(false);
     }
 
@@ -83,44 +82,52 @@ export function StationHeader({ station }) {
             </div>
 
             {isModalOpen && (
-    <div className="modal-overlay">
-        <section className='modal-details'>
-            <div className='modal-header'>
-                <h2>Edit details</h2>
-                <button onClick={onCloseModal} className="close-modal-btn">x</button>
-            </div>
+                <div className="modal-overlay">
+                    <section className='modal-details'>
+                        <div className='modal-header'>
+                            <h2>Edit details</h2>
+                            <button onClick={onCloseModal} className="close-modal-btn">
 
-            <form className="edit-form">
-                <div className="album-image">
-                    <img src={station.imgURL} alt="" />
-                </div>
-                <div className="form-group title">
-                    <input
-                        type="text"
-                        name="name"
-                        value={editedStation.name || ''}
-                        onChange={handleInputChange}
-                        placeholder="Enter Station Name"
-                    />
-                </div>
-                <div className="form-group description">
-                    <textarea
-                        name="description"
-                        value={editedStation.description || ''}
-                        onChange={handleInputChange}
-                        placeholder="Add an optional description"
-                    />
-                </div>
-                <div className="form-footer save-button">
-                    <button type="button" onClick={handleSave} className="save-btn">Save</button>
-                </div>
-                <div className="disclaimer">
-                    <span>By proceeding, you agree to give Spotify access to the image you choose to upload. Please make sure you have the right to upload the image.</span>
-                </div>
-            </form>
-        </section>
-    </div>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    data-encore-id="icon"
+                                    role="img"
+                                    aria-label="Close"
+                                    aria-hidden="true"
+                                    viewBox="0 0 16 16"
+                                    class="Svg-sc-ytk21e-0 kcUFwU"><path d="M2.47 2.47a.75.75 0 0 1 1.06 0L8 6.94l4.47-4.47a.75.75 0 1 1 1.06 1.06L9.06 8l4.47 4.47a.75.75 0 1 1-1.06 1.06L8 9.06l-4.47 4.47a.75.75 0 0 1-1.06-1.06L6.94 8 2.47 3.53a.75.75 0 0 1 0-1.06Z" /></svg>
+                            </button>
+                        </div>
 
+                        <form className="edit-form">
+                            <div className="album-image">
+                                <img src={station.imgURL} alt="" />
+                            </div>
+                            <div className="form-group title">
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={editedStation.name || ''}
+                                    onChange={handleInputChange}
+                                    placeholder="Enter Station Name"
+                                />
+                            </div>
+                            <div className="form-group description">
+                                <textarea
+                                    name="description"
+                                    value={editedStation.description || ''}
+                                    onChange={handleInputChange}
+                                    placeholder="Add an optional description"
+                                />
+                            </div>
+                            <div className="form-footer save-button">
+                                <button type="button" onClick={handleSave} className="save-btn">Save</button>
+                            </div>
+                            <div className="disclaimer">
+                                <span>By proceeding, you agree to give Spotify access to the image you choose to upload. Please make sure you have the right to upload the image.</span>
+                            </div>
+                        </form>
+                    </section>
+                </div>
             )}
 
         </section>

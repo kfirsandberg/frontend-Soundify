@@ -18,10 +18,10 @@ ul {
   border-radius: 8px;
   transition: background-color 0.2s;
   position: relative;
-
 }
 
-.song-index, .play-icon {
+.song-index,
+.play-icon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +88,8 @@ ul {
   margin-bottom: 10px;
   opacity: 0.6;
 
-  .song-nav-header, .song-nav-duration {
+  .song-nav-header,
+  .song-nav-duration {
     display: flex;
     width: 50%;
 
@@ -114,4 +115,17 @@ ul {
 
 hr {
   opacity: 0.2;
+}
+
+.find-more-btn{
+  background: none;
+  border: none;
+  padding: 0;
+  color: white; 
+  font-size: 1rem; 
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none; 
+  display: flex;
+  justify-content: flex-end;
 }
