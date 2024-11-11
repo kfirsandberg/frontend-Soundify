@@ -12,6 +12,8 @@ export const stationLocalService = {
     removeStation,
     addStation,
     getEmptyStation,
+    removeSong,
+    addSong,
 }
 
 _createStations()
@@ -67,6 +69,36 @@ async function saveStation(station) {
         : await storageService.post(STORAGE_KEY, stationToSave)
 }
 
+async function removeSong(song, stationId) {
+    let stations = await storageService.query(STORAGE_KEY)
+
+    const stationIdx = stations.findIndex(station => station._id === stationId)
+    if (stationIdx === -1) throw new Error('Station not found')
+
+    const songIdx = stations[stationIdx].songs.findIndex(song => song.id === songId)
+    if (songIdx === -1) throw new Error('Song not found in station')
+
+    stations[stationIdx].songs.splice(songIdx, 1)
+
+    await saveToStorage(STORAGE_KEY, stations)
+    return stations[stationIdx]
+
+}
+
+async function addSong(song, stationId) {
+    let stations = await storageService.query(STORAGE_KEY)
+
+    const stationIdx = stations.findIndex(station => station._id === stationId)
+    if (stationIdx === -1) throw new Error('Station not found')
+
+    stations[stationIdx].songs.push(song)
+    await saveToStorage(STORAGE_KEY, stations)
+
+    return stations[stationIdx]
+
+
+}
+
 async function addStation(name, genre) {
     const newStation = {
         _id: makeId(),
@@ -96,22 +128,21 @@ async function _createStations() {
 
 function _createStation(name) {
     const station = getEmptyStation(name)
-    station._id = makeId()
     station.imgURL = station.songs[0].imgURL // Use the first song's imgURL
     return station
 }
 
-function getEmptyStation(name = '') {
+function getEmptyStation(name = 'My Playlist') {
     const songs = getSongsForStation(name)
     return {
         name,
         imgURL: null,
         songs,
+        _id:makeId()
     }
 }
 
 function getVideoIdFromUrl(url) {
-    // Extract the video ID from the YouTube URL
     const urlObj = new URL(url)
     return urlObj.searchParams.get('v')
 }

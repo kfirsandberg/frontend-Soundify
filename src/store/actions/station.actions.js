@@ -45,11 +45,21 @@ export async function removeStation(stationId) {
     }
 }
 
-export async function addStation(station) {
+export async function addStation() {
     try {
         const savedStation = await stationLocalService.saveStation(station)
         store.dispatch(getCmdAddStation(savedStation))
         return savedStation
+    } catch (err) {
+        console.log('Cannot add station', err)
+        throw err
+    }
+}
+export async function addNewStation() {
+    try {
+        const newStation = await stationLocalService.getEmptyStation()
+        store.dispatch(getCmdSetStation(newStation))
+        return newStation
     } catch (err) {
         console.log('Cannot add station', err)
         throw err
@@ -144,6 +154,7 @@ function getCmdUpdateStation(station) {
         station,
     }
 }
+
 function getCmdSetSong(song) {
     return {
         type: SET_SONG,
