@@ -6,29 +6,29 @@ export function StationList({ stations }) {
     const navigate = useNavigate()
 
     function onClickStation(station) {
-
         navigate(`/playlist/${station._id}`)
         loadStation(station._id)
     }
 
     return (
-        <section className="station-list-container"> 
-        <header className="station-list-header">
-            <h2 >Created for you</h2>
+        <section className="station-list-container">
+            <header className="station-list-header">
+                <h2 >Created for you</h2>
 
-            <p className="station-list-header">Show all </p>
-        </header>
+                <p className="station-list-header">Show all </p>
+            </header>
             <section className="station-list">
-            {stations.map(station => (
-                <button className="station-preview"
-                    key={station._id}
-                    onClick={() => onClickStation(station)}
-                >
-                    <StationPreview station={station} />
-                </button>
-            ))}
+                {stations.map(station => (
+                    <button className="station-preview"
+                        key={station._id}
+                        onClick={() => onClickStation(station)}
+                    >
+                        <StationPreview station={station} />
+                    </button>
+                ))}
 
-        </section></section>
+            </section>
+        </section>
 
     )
 }
