@@ -85,34 +85,40 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
         }
     }
 
-if (loading) {
-    <img src={loaderIcon} alt="Loading..." className="loader-icon" />
+    if (loading) {
+        return <img src={loaderIcon} alt="Loading..." className="loader-icon" />
     }
 
     return (
         <div className={`library-list ${isCollapsed ? 'collapsed' : ''}`}>
-        <ul>
-            {filteredStations.map(station => (
-                <li
-                    key={station._id}
-                    className="station-card"
-                    onClick={() => onClickStation(station)}
-                >
-                    <img src={station.imgURL} alt={station.name} className="station-image" />
-                    {!isCollapsed && (
-                        <div className="station-info">
-                            <h3 className="station-name">{station.name}</h3>
-                            <p className="station-artist">{station.artist}</p>
+            <ul>
+                {filteredStations.map(station => (
+                    <li
+                        key={station._id}
+                        className="station-card"
+                        onClick={() => onClickStation(station)}
+                        onContextMenu={ev => handleContextMenu(ev, station)}
+                    >
+                        <img src={station.imgURL} alt={station.name} className="station-image" />
+                        {!isCollapsed && (
+                            <div className="station-info">
+                                <h3 className="station-name">{station.name}</h3>
+                                <p className="station-artist">{station.artist}</p>
+                            </div>
+                        )}
+                        {/* SVG Icon overlay */}
+                        <div className="overlay-icon">
+                            <img src="/assets/lib_player_btn.svg" alt="Play" />
                         </div>
-                    )}
-                    {/* SVG Icon overlay */}
-                    <div className="overlay-icon">
-                        <img src="/assets/lib_player_btn.svg" alt="Play" />
-                    </div>
-                </li>
-            ))}
-        </ul>
-    </div>
-    
-    );
+                    </li>
+                ))}
+            </ul>
+
+            {contextMenu && (
+                <div className="context-menu" ref={contextMenuRef}>
+                    <button onClick={handleDeleteStation}>Delete</button>
+                </div>
+            )}
+        </div>
+    )
 }
