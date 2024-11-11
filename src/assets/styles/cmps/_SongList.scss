@@ -1,5 +1,5 @@
 section {
-  padding: 20px;
+  padding: 15px;
   background-color: $spotify-preview-bg;
   border-radius: 8px;
 }
@@ -14,22 +14,26 @@ section {
     'songs ';
 
   padding: 0;
-
+  hr{
+    width: auto;
+    margin : 0 0 0 1.3em;;
+}
   .songs-nav {
     grid-area: nav;
     display: grid;
     grid-template-areas: 'count title duration';
     grid-template-columns: auto 1fr 1fr;
     grid-gap: 1em;
-
+    padding-top: 20px;
     .song-count {
+      padding-left: 1em;
       grid-area: count;
-      margin-left: rem(25px);
+      margin-left: 1.8em;
     }
 
     .song-title {
       grid-area: title;
-      padding-left: rem(10px);
+      padding-left: 0.2em;
       margin: 0;
 
     }
@@ -46,15 +50,15 @@ section {
     margin: 0;
 
     .song-idx {
-      margin-left: rem(24px);
+      padding-left: 1em;
+      margin-left: 1.9em;
       padding: 0;
     }
 
     .details {
       display: flex;
       align-items: center;
-      padding: rem(14px);
-
+      padding: 0.5em 0 0 1em;
     }
 
     .duration {}
@@ -84,7 +88,7 @@ ul {
   margin: 0;
 
   & :hover {
-    background-color: rgb(144, 144, 144);
+    background-color:  rgb(144, 144, 144);
   }
 
 }
@@ -118,8 +122,8 @@ ul {
 }
 
 .song-item img {
-  width: 50px;
-  height: 50px;
+  width: rem(40px);
+  height: rem(40px);
   border-radius: 8px;
   object-fit: cover;
 }
@@ -136,7 +140,7 @@ ul {
   font-size: 1rem;
   font-weight: 600;
   color: $spotify-light;
-  padding-left: rem(10px);
+  padding-left:1em;
 }
 
 .song-artist {
@@ -155,7 +159,7 @@ ul {
 .songs-nav {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: rem(7px);
   opacity: 0.6;
 
   .song-nav-header,
