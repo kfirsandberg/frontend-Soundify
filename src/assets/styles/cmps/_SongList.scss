@@ -4,6 +4,71 @@ section {
   border-radius: 8px;
 }
 
+
+.contentSpacing {
+  display: grid;
+  // grid-template-columns: 1fr 1fr ;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'nav'
+    'songs ';
+
+  padding: 0;
+
+  .songs-nav {
+    grid-area: nav;
+    display: grid;
+    grid-template-areas: 'count title duration';
+    grid-template-columns: auto 1fr 1fr;
+    grid-gap: 1em;
+
+    .song-count {
+      grid-area: count;
+      margin-left: rem(25px);
+    }
+
+    .song-title {
+      grid-area: title;
+      padding-left: rem(10px);
+      margin: 0;
+
+    }
+
+
+    .song-duration {
+      grid-area: duration;
+    }
+
+  }
+
+  .song-list {
+    grid-area: songs;
+    margin: 0;
+
+    .song-idx {
+      margin-left: rem(24px);
+      padding: 0;
+    }
+
+    .details {
+      display: flex;
+      align-items: center;
+      padding: rem(14px);
+      
+    }
+
+    .duration {}
+
+  }
+
+  .song-nav-duration {
+    justify-self: end;
+  }
+}
+
+
+
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -12,12 +77,18 @@ ul {
 .song-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  padding: 10px;
   border-radius: 8px;
   transition: background-color 0.2s;
   position: relative;
+  padding: 0;
+  margin: 0;
+
+  & :hover {
+    .song-index{
+      padding: 0;
+      margin: 0;
+    }
+  }
 }
 
 .song-index,
@@ -25,22 +96,26 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: rem(100px);
-  height: rex(100px);
   border-radius: 50%;
   font-weight: 600;
+  width: rem(20px);
   color: white;
   background-color: transparent;
   transition: background-color 0.2s, opacity 0.2s;
+
 }
 
 .song-index {
   opacity: 0.3;
+  padding: 0;
 }
 
 .play-icon {
   cursor: pointer;
   opacity: 1;
+  max-width: fit-content;
+
+
 }
 
 .song-item img {
@@ -62,6 +137,7 @@ ul {
   font-size: 1rem;
   font-weight: 600;
   color: $spotify-light;
+  padding-left: rem(10px);
 }
 
 .song-artist {
@@ -91,7 +167,7 @@ ul {
   .song-nav-header,
   .song-nav-duration {
     display: flex;
-    width: 50%;
+    padding: 0;
 
     span {
       font-size: 0.875rem;
@@ -117,15 +193,15 @@ hr {
   opacity: 0.2;
 }
 
-.find-more-btn{
+.find-more-btn {
   background: none;
   border: none;
   padding: 0;
-  color: white; 
-  font-size: 1rem; 
+  color: white;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  text-decoration: none; 
+  text-decoration: none;
   display: flex;
   justify-content: flex-end;
 }
