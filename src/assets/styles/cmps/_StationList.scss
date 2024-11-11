@@ -1,78 +1,89 @@
 $min-column-width: 160px;
 $row-count: 1;
 
-.station-list-container{
+.station-index-route {
   width: auto;
 
-  .station-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax($min-column-width, 1fr));
-    grid-template-rows: repeat($row-count, minmax(0, 1fr));
-    overflow-x: auto;   
-  
-    button {
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      color: inherit;
+
+
+  .station-index {
+    width: 100%;
+
+
+
+
+    .station-list-container {
+      width: 100%;
+     
+      max-width: 100%;
       
-      &:hover {
-        transition: transform 0.2s ease;
+
+      .station-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax($min-column-width, 1fr));
+        grid-template-rows: repeat($row-count, minmax(0, 1fr));
+        overflow-x: auto;
+
+        button {
+          background: none;
+          border: none;
+          padding: 0;
+          cursor: pointer;
+          color: inherit;
+
+          &:hover {
+            transition: transform 0.2s ease;
+          }
+        }
+
+        /* Adjust column width for larger screens */
+        @media (min-width: auto) {
+          $min-column-width: 260px;
+          grid-template-columns: repeat(auto-fill, minmax($min-column-width, 1fr));
+        }
+      }
+
+      /* Initially hide the add button */
+      .add-btn {
+        display: none;
+      }
+
+      /* Show the add button when the song item is hovered */
+      .song-item:hover .add-btn {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+
+      /* Optional: Add styles for the add button icon */
+      .add-btn svg {
+        fill: white;
+        transition: fill 0.3s ease;
+      }
+
+      /* Change SVG color on hover */
+      .song-item:hover .add-btn svg {
+        fill: #ffffff;
+      }
+
+      .station-list-header {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      .station-list-header p {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        font-size: 11px;
+        font-weight: bold;
       }
     }
-  
-    // Media query for larger screens (min-width: 1650px)
-    @media (min-width: 1650px) {
-      $min-column-width: 260px; // Change column width on larger screens
-      grid-template-columns: repeat(auto-fill, minmax($min-column-width, 1fr));
-    }
   }
-  
-  
-  /* Initially, hide the add button */
-  .add-btn {
-    display: none;
-  }
-  
-  /* Show the add button when the song item is hovered */
-  .song-item:hover .add-btn {
-    display: block;
-    position: absolute; /* Adjust positioning as needed */
-    top: 50%;
-    right: 10px; /* Adjust for alignment */
-    transform: translateY(-50%); /* Vertically center */
-    cursor: pointer;
-  }
-  
-  /* Optional: Add styles for the add button (icon) */
-  .add-btn svg {
-    fill: white; /* Default color for the icon */
-    transition: fill 0.3s ease;
-  }
-  
-  /* Change SVG color when the song item is hovered */
-  .song-item:hover .add-btn svg {
-    fill: #ffffff; /* Example color, change as needed */
-  }
-  
-  
-  .station-list-header {
-    display: flex;
-    justify-content: space-between;
-    position: relative; 
-  }
-  
-  
-  
-  .station-list-header p {
-    position: absolute;
-    bottom: 0;  /* Position it at the bottom */
-    right: 0;   /* Position it at the right */
-    font-size: 11px;
-    font-weight: bold;
-  }
+
 
 }
-
-
