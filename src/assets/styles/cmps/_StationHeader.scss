@@ -10,8 +10,8 @@
         flex-direction: row;
 
         .playlist-image {
-            width: 212px;
-            height: 212px;
+            width: rem(212px);
+            height: rem(212px);
             object-fit: cover;
             border-radius: 4px;
         }
@@ -20,7 +20,7 @@
         .playlist-details {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: end;
             padding: 0 0 0 1em;
 
             h2{
@@ -195,6 +195,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+
+
 }
 
 .modal-overlay {
@@ -324,4 +326,32 @@
         color: #888;
         line-height: 1.5;
     }
+}
+
+.edit-icon {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 11%;
+    left: 27.2%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.792);
+    width: rem(214px);
+    height: rem(219px);
+    border-radius: 2%;
+    transition: none;
+}
+.edit-btn{
+    fill: white !important;
+}
+.station-img:hover:hover .edit-icon {
+    opacity: 1;
+}
+
+/* Optional SVG Icon Styling */
+.edit-icon img {
+
 }
