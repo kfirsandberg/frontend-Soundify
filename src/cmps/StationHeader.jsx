@@ -86,7 +86,7 @@ export function StationHeader({ station }) {
     <div className="modal-overlay">
         <section className='modal-details'>
             <div className='modal-header'>
-                <h2>Edit Details</h2>
+                <h2>Edit details</h2>
                 <button onClick={onCloseModal} className="close-modal-btn">x</button>
             </div>
 

@@ -196,7 +196,7 @@
 .modal-details {
     background-color: #1e1e1e;
     color: #fff;
-    width: 524px;
+    width: rem(524px);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -205,7 +205,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px;
+
     font-size: 18px;
     font-weight: bold;
 }
@@ -228,13 +228,12 @@
         ". save-button"
         "disclaimer disclaimer";
     grid-gap: 16px;
-    padding: 0 24px 24px;
 
     .album-image {
         grid-area: album-image;
         img {
-            width: 100%;
-            height: auto;
+            width: rem(180px);
+            height: rem(180px);
             border-radius: 8px;
         }
     }
@@ -266,17 +265,22 @@
             resize: none;
         }
     }
+    .form-footer save-button{
+        margin: 0;
+    }
 
     .save-button {
         grid-area: save-button;
         display: flex;
-        justify-content: flex-start;
+        justify-content: flex-end;
+
         button {
-            padding: 10px 20px;
-            font-size: 14px;
-            color: #fff;
+            padding: rem(10px) rem(20px);
+            font-size: 14px ;
+            font-weight: 700;
+            color: #000000;
             border: none;
-            border-radius: 4px;
+            border-radius: 2em;
             cursor: pointer;
         }
     }
