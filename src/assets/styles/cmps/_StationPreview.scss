@@ -1,16 +1,26 @@
 .station-preview {
   border-radius: 8px;
-  overflow: hidden;
+  // overflow: hidden;
   padding: 1em;
   text-align: center;
   color: $spotify-gray;
   position: relative;
-
+  border-radius: 6px;
   transition: transform 0.3s ease;
   height: 236px;
   width: 178px;
 
-  .station-preview-img {
+
+  .station-preview-container {
+    max-height: 236px;
+    max-width: 178px;
+    min-height: 236px;
+    min-width: 160px;
+
+  }
+
+
+  img {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
@@ -20,50 +30,45 @@
 
   .play-button-container {
     position: absolute;
-    bottom: 0.5em; /* Adjusted to bottom-left corner */
-    left: 0.5em;
-    display: block;
+    bottom: 1em;
+    right: 2.2em;
+    top: 6.0rem;
+    display: none;
     z-index: 1;
-
+    width: 48px;
+    height: 48px;
     opacity: 0;
     transition: opacity 0.3s ease;
-    transform: translateY(-65px) translateX(102px); 
-  
+    background-color: #1ed760;
+    border-radius: 50%;
+
+
     .play-button {
-      background-color: rgba(0, 0, 0, 0.5);
+      width: 24px;
+      height: 24px;
       color: $spotify-light;
-      font-size: 0.2; /* Increased font size for larger icon */
       border: none;
-      padding: 0.5rem; /* Increased padding for a bigger button */
       border-radius: 50%;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+      transform: translateY(11px);
       background-color: $spotify-green;
-  
-      &:hover {
-        filter: brightness(1);
-        transform: scale(1.15); /* Increased scale on hover */
-      }
+      transition: background-color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+
+     
     }
   }
-  
+
   &:hover {
     .play-button-container {
       display: block;
       opacity: 1;
     }
   }
-  
+
   h3 {
     font-size: 1rem;
     margin: 0.5rem 0;
     color: $spotify-light;
     font-weight: 500;
   }
-}
-
-.play-button img {
-  width:27px; /* Adjust image size */
- 
-  object-fit: contain; /* Ensure it fits inside the button */
 }
