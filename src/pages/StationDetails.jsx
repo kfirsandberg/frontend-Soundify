@@ -1,5 +1,5 @@
 import { StationHeader } from '../cmps/StationHeader.jsx'
-import { SongList } from '../cmps/SongsList.jsx'
+import { SongList } from '../cmps/SongList.jsx'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import loaderIcon from '../../public/assets/loader.svg'
