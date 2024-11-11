@@ -1,9 +1,7 @@
-.main-container main {
+.main-container {
     min-height: calc(100vh - 7rem);
-    overflow: hidden; // Quick fix for JSONs in <pre>
-}
-
-
-.station-index{
+    gap: 5px;
     width: auto;
+   
 }
+

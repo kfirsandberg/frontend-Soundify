@@ -1,13 +1,13 @@
 .main-container {
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr; 
-    grid-template-rows: 0.09fr 6fr 0.09fr; 
+    grid-template-columns: 1fr 17fr; 
+    grid-template-rows: 0.09fr 6fr; 
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-        ". . ."
-        "library main main"
-        ". . .";
+        ". . "
+        "library main "
+        ". . ";
 
     >* {
         grid-column: 2;
