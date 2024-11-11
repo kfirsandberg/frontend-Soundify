@@ -67,12 +67,12 @@ export function SongList({ station }) {
                 </svg>
               </span>
             </section>
-{/* 
+
             <section className='duration'>
                 <span className="song-album">{song.album}</span>
                 <span className="song-duration">{song.duration}</span>
            
-            </section> */}
+            </section>
 
 
           </li>

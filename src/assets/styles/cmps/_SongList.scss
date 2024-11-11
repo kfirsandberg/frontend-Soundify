@@ -14,7 +14,10 @@ section {
     'songs ';
 
   padding: 0;
-
+  hr{
+    width: auto;
+    margin-left:1em;
+}
   .songs-nav {
     grid-area: nav;
     display: grid;
@@ -23,13 +26,14 @@ section {
     grid-gap: 1em;
 
     .song-count {
+      padding-left: 1em;
       grid-area: count;
-      margin-left: rem(25px);
+      margin-left: 2em;
     }
 
     .song-title {
       grid-area: title;
-      padding-left: rem(10px);
+      padding-left: 1em;
       margin: 0;
 
     }
@@ -46,14 +50,15 @@ section {
     margin: 0;
 
     .song-idx {
-      margin-left: rem(24px);
+      padding-left: 1em;
+      margin-left: 2.3em;
       padding: 0;
     }
 
     .details {
       display: flex;
       align-items: center;
-      padding: rem(14px);
+      padding-left: 1.5em;
 
     }
 
@@ -136,7 +141,7 @@ ul {
   font-size: 1rem;
   font-weight: 600;
   color: $spotify-light;
-  padding-left: rem(10px);
+  padding-left:1em;
 }
 
 .song-artist {
