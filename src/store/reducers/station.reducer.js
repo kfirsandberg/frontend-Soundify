@@ -3,7 +3,6 @@ export const SET_STATION = 'SET_STATION'
 export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
-export const ADD_STATION_MSG = 'ADD_STATION_MSG'
 
 // Player
 export const SET_SONG = 'SET_SONG'
@@ -44,9 +43,6 @@ export function stationReducer(state = initialState, action) {
             stations = state.stations.map(station => (station._id === action.station._id ? action.station : station))
             newState = { ...state, stations }
             break
-        case ADD_STATION_MSG:
-            newState = { ...state, station: { ...state.station, msgs: [...(state.station.msgs || []), action.msg] } }
-            break
         case SET_SONG:
             newState = { ...state, currentSong: action.song }
             break
@@ -66,6 +62,7 @@ export function stationReducer(state = initialState, action) {
         case SET_IS_PLAYING:
             newState = { ...state, isPlaying: action.isPlaying }
             break
+
         default:
     }
     return newState

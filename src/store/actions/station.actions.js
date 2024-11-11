@@ -10,7 +10,7 @@ import {
     SET_CURRENT_TIME,
     SET_SONG_DURATION,
     SET_VOLUME,
-    SET_IS_PLAYING
+    SET_IS_PLAYING,
 } from '../reducers/station.reducer'
 
 export async function loadStations(filterBy) {
@@ -47,7 +47,7 @@ export async function removeStation(stationId) {
 
 export async function addStation(station) {
     try {
-        const savedStation = await stationLocalService.save(station)
+        const savedStation = await stationLocalService.saveStation(station)
         store.dispatch(getCmdAddStation(savedStation))
         return savedStation
     } catch (err) {
@@ -104,10 +104,10 @@ export function updateVolume(volume) {
     }
 }
 
-export function setIsPlaying(isPlaying){
+export function setIsPlaying(isPlaying) {
     try {
         store.dispatch(getCmdSetIsPlaying(isPlaying))
-    }catch(err){
+    } catch (err) {
         console.log('Cannot set is playing', err)
         throw err
     }
@@ -168,9 +168,9 @@ function getCmdSetVolume(volume) {
         volume,
     }
 }
-function getCmdSetIsPlaying(isPlaying){
+function getCmdSetIsPlaying(isPlaying) {
     return {
-        type : SET_IS_PLAYING,
+        type: SET_IS_PLAYING,
         isPlaying,
     }
 }
@@ -185,4 +185,3 @@ async function unitTestActions() {
     })
     await removeStation('m1oC7')
 }
-
