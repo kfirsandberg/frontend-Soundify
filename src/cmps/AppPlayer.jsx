@@ -9,15 +9,18 @@ import muteIcon from '../../public/assets/mute.svg'
 import unmuteIcon from '../../public/assets/unmute.svg'
 import { updateCurrentTime, updateSongDuration, updateVolume, setIsPlaying } from '../store/actions/station.actions'
 export function AppPlayer() {
-    const currentSong = useSelector(state => state.stationModule.currentSong)
     const [isHoverVolume, setIsHoverVolume] = useState(false)
     const [isHoverPlayer, setIsHoverPlayer] = useState(false)
+
+    const currentSong = useSelector(state => state.stationModule.currentSong)
     const currentTime = useSelector(state => state.stationModule.currentTime) || 0
     const songDuration = useSelector(state => state.stationModule.songDuration)
     const volume = useSelector(state => state.stationModule.volume)
     const prevVolume = useSelector(state => state.stationModule.prevVolume)
     const isPlaying = useSelector(state => state.stationModule.isPlaying)
+
     const intervalRef = useRef(null)
+
     useEffect(() => {
         if (currentSong) {
             const duration = currentSong.duration
@@ -25,6 +28,7 @@ export function AppPlayer() {
             updateCurrentTime(0)
         }
     }, [currentSong])
+
     useEffect(() => {
         if (isPlaying) {
             intervalRef.current = setInterval(() => {
@@ -39,16 +43,19 @@ export function AppPlayer() {
         }
         return () => clearInterval(intervalRef.current)
     }, [currentTime, songDuration, isPlaying])
+
     function handleVolumeChange(ev) {
         const newVolume = ev.target.value
         updateVolume(newVolume)
         console.log('Volume changed to:', volume)
     }
+
     function handleProgressChange(ev) {
         const newTime = ev.target.value
         updateCurrentTime(newTime)
         console.log('Current time changed to:', newTime)
     }
+
     function handleMuteToggle() {
         if (volume > 0) {
             updateVolume(0)
@@ -57,9 +64,11 @@ export function AppPlayer() {
         }
         console.log('Volume toggled to:', volume)
     }
+
     function togglePlayPause() {
         setIsPlaying(!isPlaying)
     }
+
     function formatTime(seconds) {
         const mins = Math.floor(seconds / 60)
         const secs = Math.floor(seconds % 60)
@@ -67,6 +76,7 @@ export function AppPlayer() {
             .padStart(2, '0')
         return `${mins}:${secs}`
     }
+
     if (!currentSong) {
         return (
             <footer className="app-player full">
@@ -74,6 +84,7 @@ export function AppPlayer() {
             </footer>
         )
     }
+    
     return (
         <footer className="app-player full">
             <div className="song-info">
