@@ -1,59 +1,62 @@
 /* General Layout */
 .library {
-    background-color: #121212;
+    background-color: #181818;
     color: #fff;
     padding: 16px;
+    width: 512px;
+    /* Fixed width */
+    max-width: 380px;
+    /* Ensure it doesn’t exceed this width */
 }
 
+/* Library Route */
 .library-route {
-    background-color: #1f1f1f;
-    width: auto;
+    background-color: #181818;
+    width: 344px;
+    /* Fixed width */
     transition: background-color 0.3s ease;
+    border-radius: 8px;
 }
 
 .library-route.active {
     background-color: #121212;
+    max-width: 64px;
+    /* Set width to 64px when library is collapsed */
 }
-
-.action-buttons {
-    display: flex;
-    gap: 10px; /* Adjust spacing between buttons */
-    align-items: center;
-    transform: translateX(45px);
-}
-
 
 /* Action Button Container */
 .action-btns- {
     height: 3.70vh;
     width: 14.8rem;
     display: flex;
-    gap: 10px;
-    justify-content: space-between;
-    background-color: #1f1f1f;
+    background-color: #181818;
     align-items: center;
     margin-bottom: 16px;
     transition: width 0.3s ease;
 }
 
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    /* Adjust spacing between buttons */
+    align-items: center;
+    transform: translateX(105px);
+
+}
+
 /* Toggle Library Button */
 .toggle-lib-btn {
-    height: 3.10vh;
     background-color: transparent;
     border: none;
     color: #fff;
-    font-size: 0.875rem;
-    font-weight: bold;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 0 0.3rem;
 }
 
 .library-icon {
     width: 20px;
     height: 20px;
-    object-fit: contain;
 }
 
 .toggle-lib-btn h3 {
@@ -62,22 +65,21 @@
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
     font-size: 0.8rem;
+
 }
 
 /* Create Playlist Button */
 .create-playlist {
-    background-color: #1f1f1f;
+    background-color: #181818;
     border: none;
-    padding: 0;
     cursor: pointer;
-    display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     width: 32px;
     height: 32px;
+    display: flex;
 }
 
 .create-playlist-icon {
@@ -91,11 +93,10 @@
     color: #b3b3b3;
     height: 2.8vh;
     width: 2.8vh;
-    background-color: #1f1f1f;
+    background-color: #181818;
     border: none;
     border-radius: 50%;
     padding: 0;
-    font-size: 1.0rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -105,31 +106,28 @@
 .right-arrow-icon {
     width: 16px;
     height: 16px;
-    object-fit: contain;
 }
 
 /* Filter Section */
-.filter-library {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-}
 
 .sort-buttons {
     height: 2.96vh;
     display: flex;
     justify-content: space-between;
     margin-bottom: 12px;
+    width: 72px;
+
+
+
 }
 
 .sort-buttons button {
-    background-color: #1f1f1f;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 13px;
     border: none;
     color: white;
-    padding: 0.625rem;
-    font-size: 0.875rem;
     cursor: pointer;
-    border-radius: 0.8rem;
+    border-radius: 9999px;
     flex: 1;
     margin: 0 0.3125rem;
     display: flex;
@@ -142,21 +140,18 @@
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    
 }
 
 .toggle-search-btn {
-    background-color: #1f1f1f;
+    background-color: #181818;
     color: #b3b3b3;
     border: none;
     cursor: pointer;
     padding: 8px 16px;
     border-radius: 50px;
     font-size: 10px;
-    flex-shrink: 0; /* Prevents the button from shrinking */
-   
+    flex-shrink: 0;
 }
-
 
 .search-container {
     flex: 1;
@@ -168,7 +163,7 @@
     height: 3.5vh;
     padding: 0 12px;
     border-radius: 50px;
-    border: 1px solid #1f1f1f;
+    border: 1px solid #181818;
     background-color: #434343a4;
     color: #838282;
     font-size: 15px;
@@ -177,9 +172,9 @@
     max-width: 0;
     /* Start with hidden input */
     opacity: 0;
-    transform: translateX(-65px); /* Move 30px to the left */
+    transform: translateX(-65px);
+    /* Move 30px to the left */
 }
-
 
 .search-input:focus {
     opacity: 0.7;
@@ -188,43 +183,34 @@
 
 .search-input.open {
     max-width: 70px;
-    min-width: 90px;
-    /* Adjust this value as needed */
+    min-width: 188px;
+    padding: 8px;
     opacity: 1;
-    transform: translateX(-30px)
+    transform: translateX(-35px);
 }
 
 .lib-search-icon {
     width: 32px;
-    /* Adjust the size as needed */
     height: 32px;
     object-fit: contain;
-    
 }
 
 .sort-container {
     display: flex;
     align-items: center;
-    
-    
-    
 }
 
 .selected-sort {
     color: #b3b3b3;
     font-size: 14px;
     white-space: nowrap;
-    /* Prevents selected sort text from wrapping */
     overflow: hidden;
-    /* Clips long text */
     text-overflow: ellipsis;
-    /* Adds '...' for clipped text */
     max-width: 50px;
-    /* Limits the width to avoid pushing the button */
 }
 
 .hamburger-menu {
-    background-color: #1f1f1f;
+    background-color: #181818;
     position: relative;
     width: 36px;
     justify-content: center;
@@ -232,14 +218,13 @@
 }
 
 .hamburger-btn {
-    background-color: #1f1f1f;
+    background-color: #181818;
     border: none;
     color: #b3b3b3;
     cursor: pointer;
-    margin-left: 8px;
+    margin-left: 5px;
     height: 3.8vh;
     width: 36px;
-    /* Fixed width for the button */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -250,19 +235,18 @@
     height: 16px;
 }
 
-
+/* Modal */
 .modal {
-    background-color: #1f1f1f;
+    background-color: #282828;
     position: absolute;
     top: 100%;
     right: 0;
-    padding: 8px;
-    border-radius: 10px;
+
+    border-radius: 4px;
     flex-direction: column;
     width: max-content;
     z-index: 10;
     display: none;
-    /* Default to hidden */
 }
 
 .modal.open {
@@ -271,16 +255,20 @@
 }
 
 .modal button {
-    border-radius: 2px;
-    background-color: #1f1f1f;
+    font-size: 13px;
+    background-color: #282828;
     color: white;
     border: none;
     padding: 8px;
     margin-bottom: 6px;
+    box-shadow: box-shadow rgba(0, 0, 0, 0.3) 0px 16px 24px 0px, rgba(0, 0, 0, 0.2) 0px 6px 8px 0px;
 }
 
 .modal button:hover {
-    background-color: #1db954;
+    color: #1ed760;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* White with 10% opacity */
+    padding: 8px;
 }
 
 /* Library List */
@@ -291,18 +279,53 @@
 }
 
 .station-card {
+    position: relative;
+    /* Needed for overlay positioning */
     display: flex;
     align-items: center;
-    background-color: #1f1f1f;
+    background-color: #181818;
     padding: 0.625rem;
     transition: transform 0.2s ease-in-out;
-    width: 16.5rem;
+    width: 20.5rem;
     height: 4rem;
     cursor: pointer;
+    overflow: hidden;
 }
 
-.station-card:hover {
-    transform: scale(1.05);
+/* Add a white overlay with 10% opacity on hover */
+.station-card:hover::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* White with 10% opacity */
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+/* Overlay Icon on Hover */
+.overlay-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateX(-130.2px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 12px;
+}
+
+.station-card:hover .overlay-icon {
+    opacity: 1;
+}
+
+/* Optional SVG Icon Styling */
+.overlay-icon img {
+    width: 24px;
+    height: 24px;
 }
 
 /* Image Size */
@@ -346,14 +369,19 @@
     padding: 0;
     width: 4rem;
     background-color: #121212;
+    width: 64px;
 }
+
+
 
 .library-content-collapsed {
     background-color: #121212;
+    width: 64px;
 }
 
 .action-btns-collapsed {
     background-color: #121212;
+    max-width: 64px;
 }
 
 /* Collapsed Mode */
@@ -363,17 +391,17 @@
     justify-content: center;
     padding: 10px;
     background-color: #121212;
+    max-width: 64px;
 }
 
 .library-list.collapsed .station-card {
     background: none;
-    border-radius: 50%;
-    margin: 5px;
-    padding: 0;
+    max-width: 64px;
 }
 
 .library-list.collapsed .station-card .station-image {
     width: 48px;
     height: 48px;
     background-color: #121212;
+    max-width: 64px;
 }

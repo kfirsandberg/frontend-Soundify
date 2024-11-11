@@ -21,7 +21,9 @@ export function StationHeader({ station }) {
                         <span className="creator-name">
                             <img src={userIcon} alt="" /> By {station.creatorName || "Spotify"}
                         </span>
-                        <span className="saves-count">{station.saves || ''} saves</span>
+                        {/* <span className="saves-count">{station.saves || ''} saves</span> */}
+                        <span className="song-counter">{station.songs?.length || 0} songs</span>
+
                         <span className="playlist-duration">{station.totalDuration}</span>
                     </div>
 

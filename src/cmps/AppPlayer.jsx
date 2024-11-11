@@ -77,6 +77,7 @@ export function AppPlayer() {
             </footer>
         )
     }
+    
     return (
         <footer className="app-player full">
             <div className="song-info">
