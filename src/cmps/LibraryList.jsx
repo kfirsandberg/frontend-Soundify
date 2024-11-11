@@ -86,7 +86,15 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     }
 
     if (loading) {
-        return <img src={loaderIcon} alt="Loading..." className="loader-icon" />
+        return (
+            <div>
+                {!isCollapsed ? (
+                    <img src={loaderIcon} alt="Loading..." className="loader-icon-2" />
+                ) : (
+                    <img src={loaderIcon} alt="Loading..." className="loader-icon-3" />
+                )}
+            </div>
+        )
     }
 
     return (

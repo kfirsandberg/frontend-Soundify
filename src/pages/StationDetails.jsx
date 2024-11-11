@@ -7,9 +7,7 @@ export function StationDetails() {
     const station = useSelector(state => state.stationModule.station)
 
     if (!station) {
-        return (
-                <img src={loaderIcon} alt="Loading..." className="loader-icon"/>
-        )
+        return <img src={loaderIcon} alt="Loading..." className="loader-icon" />
     }
 
     return (
