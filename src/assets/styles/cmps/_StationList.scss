@@ -11,7 +11,6 @@ $row-count: 1;
 
     .station-list-container {
       width: 100%;
-
       max-width: 100%;
 
 
@@ -69,6 +68,9 @@ $row-count: 1;
         display: flex;
         justify-content: space-between;
         position: relative;
+      }
+      .station-list-header h2 {
+        justify-self: center;;
       }
 
       .station-list-header p {
