@@ -10,7 +10,7 @@ export function StationDetails() {
   }
   
   return (
-    <section className="station-container">
+    <section className="station-details-main">
        <StationHeader station={station} />
        <SongList station={station} />
     </section>

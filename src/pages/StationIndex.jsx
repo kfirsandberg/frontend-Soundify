@@ -15,9 +15,7 @@ export function StationIndex() {
     }
     return (
         <main className="station-index">
-            <section>
                 <StationList stations={stations} />
-            </section>
         </main>
     )
 }

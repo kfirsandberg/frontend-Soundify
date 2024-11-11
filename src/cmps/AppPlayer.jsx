@@ -1,6 +1,6 @@
+
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-
 import playIcon from '../../public/assets/player/play.svg'
 import pauseIcon from '../../public/assets/player/pause.svg'
 import backIcon from '../../public/assets/player/back.svg'
@@ -8,20 +8,16 @@ import nextIcon from '../../public/assets/player/next.svg'
 import muteIcon from '../../public/assets/mute.svg'
 import unmuteIcon from '../../public/assets/unmute.svg'
 import { updateCurrentTime, updateSongDuration, updateVolume, setIsPlaying } from '../store/actions/station.actions'
-
 export function AppPlayer() {
     const currentSong = useSelector(state => state.stationModule.currentSong)
     const [isHoverVolume, setIsHoverVolume] = useState(false)
     const [isHoverPlayer, setIsHoverPlayer] = useState(false)
-
     const currentTime = useSelector(state => state.stationModule.currentTime) || 0
     const songDuration = useSelector(state => state.stationModule.songDuration)
     const volume = useSelector(state => state.stationModule.volume)
     const prevVolume = useSelector(state => state.stationModule.prevVolume)
     const isPlaying = useSelector(state => state.stationModule.isPlaying)
-
     const intervalRef = useRef(null)
-
     useEffect(() => {
         if (currentSong) {
             const duration = currentSong.duration
@@ -29,37 +25,31 @@ export function AppPlayer() {
             updateCurrentTime(0)
         }
     }, [currentSong])
-
     useEffect(() => {
         if (isPlaying) {
             intervalRef.current = setInterval(() => {
                 console.log('isPlaying:', isPlaying)
                 console.log('currentTime:', currentTime)
                 console.log('songDuration:', songDuration)
-
                 if (currentTime < songDuration) {
                     console.log('check')
-
                     updateCurrentTime(parseInt(currentTime) + 1)
                 }
             }, 1000)
         }
         return () => clearInterval(intervalRef.current)
     }, [currentTime, songDuration, isPlaying])
-
     function handleVolumeChange(ev) {
         const newVolume = ev.target.value
         updateVolume(newVolume)
         console.log('Volume changed to:', volume)
     }
-
     function handleProgressChange(ev) {
         const newTime = ev.target.value
         updateCurrentTime(newTime)
 
         console.log('Current time changed to:', newTime)
     }
-
     function handleMuteToggle() {
         if (volume > 0) {
             updateVolume(0)
@@ -68,11 +58,9 @@ export function AppPlayer() {
         }
         console.log('Volume toggled to:', volume)
     }
-
     function togglePlayPause() {
         setIsPlaying(!isPlaying)
     }
-
     function formatTime(seconds) {
         const mins = Math.floor(seconds / 60)
         const secs = Math.floor(seconds % 60)
@@ -88,7 +76,6 @@ export function AppPlayer() {
             </footer>
         )
     }
-
     return (
         <footer className="app-player full">
             <div className="song-info">
@@ -117,37 +104,16 @@ export function AppPlayer() {
                     </button>
                     <button className="play-btn" onClick={togglePlayPause}>
                         {isPlaying ? (
-                            // Pause Icon
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                data-encore-id="icon"
-                                role="img"
-                                aria-hidden="true"
-                                viewBox="0 0 16 16"
-                                className="Svg-sc-ytk21e-0 dYnaPI"
-                            >
-                                <path
-                                    className="svg-path"
-                                    d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"
-                                />
+                            <svg className="icon" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 16 16">
+                                <path className="svg-path" d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z" />
                             </svg>
                         ) : (
-                            // Play Icon
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                data-encore-id="icon"
-                                role="img"
-                                aria-hidden="true"
-                                viewBox="0 0 24 24"
-                                className="Svg-sc-ytk21e-0 bneLcE"
-                            >
-                                <path
-                                    className="svg-path"
-                                    d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"
-                                />
+                            <svg className="icon" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 24 24">
+                                <path className="svg-path" d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" />
                             </svg>
                         )}
                     </button>
+
                     <button className="next-btn">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +130,6 @@ export function AppPlayer() {
                         </svg>
                     </button>
                 </div>
-
                 <div className="progress-bar">
                     <span className="current-time">{formatTime(currentTime)}</span>
                     <input
@@ -178,15 +143,13 @@ export function AppPlayer() {
                         onMouseLeave={() => setIsHoverPlayer(false)}
                         className="progress-slider"
                         style={{
-                            background: `linear-gradient(to right,  ${isHoverPlayer ? '#1ed760' : '#fff'}  ${
-                                (currentTime / songDuration) * 100
-                            }%, #b3b3b3 ${(currentTime / songDuration) * 100}%)`,
+                            background: `linear-gradient(to right,  ${isHoverPlayer ? '#1ED760' : '#fff'}  ${(currentTime / songDuration) * 100
+                                }%, #B3B3B3 ${(currentTime / songDuration) * 100}%)`,
                         }}
                     />
                     <span className="duration">{songDuration ? formatTime(songDuration - currentTime) : '0:00'}</span>
                 </div>
             </div>
-
             <div className="volume-control">
                 <button className="volume-btn" onClick={handleMuteToggle}>
                     {volume > 0 ? (
@@ -218,7 +181,6 @@ export function AppPlayer() {
                         </svg>
                     )}
                 </button>
-
                 <input
                     type="range"
                     min="0"
@@ -230,9 +192,8 @@ export function AppPlayer() {
                     onMouseLeave={() => setIsHoverVolume(false)}
                     className="volume-slider slider"
                     style={{
-                        background: `linear-gradient(to right, ${
-                            isHoverVolume ? '#1ed760' : '#fff'
-                        } ${volume}%, #b3b3b3 ${volume}%)`,
+                        background: `linear-gradient(to right, ${isHoverVolume ? '#1ED760' : '#fff'
+                            } ${volume}%, #B3B3B3 ${volume}%)`,
                     }}
                 />
             </div>

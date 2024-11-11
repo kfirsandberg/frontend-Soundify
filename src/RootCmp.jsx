@@ -13,8 +13,10 @@ import { StationEdit } from './cmps/StationEdit.jsx'
 
 export function RootCmp() {
     const [isLibraryActive, setIsLibraryActive] = useState(false) // Track the active state of the library
+    const [isLibraryActive, setIsLibraryActive] = useState(false) // Track the active state of the library
 
     // Toggle the library route active state
+    const toggleLibraryActive = () => setIsLibraryActive(prev => !prev)
     const toggleLibraryActive = () => setIsLibraryActive(prev => !prev)
 
     return (
@@ -37,7 +39,9 @@ export function RootCmp() {
                 </main>
             </div>
             <YouTubeAudioPlayer />
+            <YouTubeAudioPlayer />
             <AppPlayer className="player" />
         </div>
+    )
     )
 }

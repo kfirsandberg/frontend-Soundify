@@ -12,16 +12,23 @@ export function StationList({ stations }) {
     }
 
     return (
-        <section className="station-list">
+        <section className="station-list-container"> 
+        <header className="station-list-header">
+            <h2 >Created for you</h2>
+
+            <p className="station-list-header">Show all </p>
+        </header>
+            <section className="station-list">
             {stations.map(station => (
-                <button
+                <button className="station-preview"
                     key={station._id}
-                    onClick={() => onClickStation(station)} 
+                    onClick={() => onClickStation(station)}
                 >
                     <StationPreview station={station} />
                 </button>
             ))}
 
-        </section>
+        </section></section>
+
     )
 }

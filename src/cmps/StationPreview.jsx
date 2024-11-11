@@ -11,8 +11,8 @@ export function StationPreview({ station }) {
 
   }
   return (
-    <section className="station-preview">
-      <img src={imgURL} alt={name} />
+    <section className="station-preview-container">
+      <img className="station-preview-img" src={imgURL} alt={name} />
       <div className="play-button-container">
         <button className="play-button"><img className='play' src={playIcon} onClick={onPlay} /></button>
       </div>
