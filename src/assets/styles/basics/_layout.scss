@@ -1,6 +1,6 @@
 .main-container {
     display: grid;
-    grid-template-columns: 1fr 24fr;
+    grid-template-columns: 1fr 19fr;
     grid-template-rows: 0.09fr 6fr;
     gap: 0px 0px;
     grid-auto-flow: row;
@@ -16,9 +16,11 @@
             grid-column: 1 / -1;
         }
     }
+    background-color: $player-background;
+
 }
 .content {
-    display: contents; /* This lets `library-route` and `station-index-route` follow the `main-container` grid layout */
+    display: contents; 
 }
 .library-route {
     grid-area: library;

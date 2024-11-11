@@ -1,8 +1,77 @@
 section {
-  padding: 20px;
+  padding: 15px;
   background-color: $spotify-preview-bg;
   border-radius: 8px;
 }
+
+
+.contentSpacing {
+  display: grid;
+  // grid-template-columns: 1fr 1fr ;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'nav'
+    'songs ';
+
+  padding: 0;
+  hr{
+    width: auto;
+    margin : 0 0 0 1.3em;;
+}
+  .songs-nav {
+    grid-area: nav;
+    display: grid;
+    grid-template-areas: 'count title duration';
+    grid-template-columns: auto 1fr 1fr;
+    grid-gap: 1em;
+    padding-top: 20px;
+    .song-count {
+      padding-left: 1em;
+      grid-area: count;
+      margin-left: 1.8em;
+    }
+
+    .song-title {
+      grid-area: title;
+      padding-left: 0.2em;
+      margin: 0;
+
+    }
+
+
+    .song-duration {
+      grid-area: duration;
+    }
+
+  }
+
+  .song-list {
+    grid-area: songs;
+    margin: 0;
+
+    .song-idx {
+      padding-left: 1em;
+      margin-left: 1.9em;
+      padding: 0;
+    }
+
+    .details {
+      display: flex;
+      align-items: center;
+      padding: 0.5em 0 0 1em;
+    }
+
+    .duration {}
+
+  }
+
+  .song-nav-duration {
+    justify-self: end;
+  }
+}
+
+
+
 
 ul {
   list-style-type: none;
@@ -12,40 +81,49 @@ ul {
 .song-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  padding: 10px;
   border-radius: 8px;
   transition: background-color 0.2s;
   position: relative;
+  padding: 0;
+  margin: 0;
+
+  & :hover {
+    background-color:  rgb(144, 144, 144);
+  }
 
 }
 
-.song-index, .play-icon {
+
+.song-index,
+.play-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: rem(100px);
-  height: rex(100px);
   border-radius: 50%;
   font-weight: 600;
+  width: rem(20px);
   color: white;
   background-color: transparent;
   transition: background-color 0.2s, opacity 0.2s;
+
 }
 
 .song-index {
   opacity: 0.3;
+  padding: 0;
 }
 
 .play-icon {
   cursor: pointer;
   opacity: 1;
+  max-width: fit-content;
+
+
 }
 
 .song-item img {
-  width: 50px;
-  height: 50px;
+  width: rem(40px);
+  height: rem(40px);
   border-radius: 8px;
   object-fit: cover;
 }
@@ -62,6 +140,7 @@ ul {
   font-size: 1rem;
   font-weight: 600;
   color: $spotify-light;
+  padding-left:1em;
 }
 
 .song-artist {
@@ -76,21 +155,17 @@ ul {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.song-plays,
-.song-album,
-.song-duration {
-  padding: 0 10px;
-}
 
 .songs-nav {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: rem(7px);
   opacity: 0.6;
 
-  .song-nav-header, .song-nav-duration {
+  .song-nav-header,
+  .song-nav-duration {
     display: flex;
-    width: 50%;
+    padding: 0;
 
     span {
       font-size: 0.875rem;
@@ -114,4 +189,17 @@ ul {
 
 hr {
   opacity: 0.2;
+}
+
+.find-more-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-end;
 }
