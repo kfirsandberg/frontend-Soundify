@@ -5,41 +5,37 @@ $row-count: 1;
   width: auto;
 
 
-
   .station-index {
     width: 100%;
 
 
-
-
     .station-list-container {
       width: 100%;
-     
+
       max-width: 100%;
-      
+
 
       .station-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax($min-column-width, 1fr));
-        grid-template-rows: repeat($row-count, minmax(0, 1fr));
-        overflow-x: auto;
-
-        button {
-          background: none;
-          border: none;
-          padding: 0;
-          cursor: pointer;
-          color: inherit;
-
-          &:hover {
-            transition: transform 0.2s ease;
-          }
+        display: flex;
+        flex-wrap: nowrap; 
+        width: auto; 
+        overflow: hidden; 
+    
+        .station-item {
+            flex: 1 1 $min-column-width; /* Ensures each item has a minimum width and flexes */
+            max-width: $min-column-width; /* Prevents items from growing beyond the minimum column width */
         }
-
-        /* Adjust column width for larger screens */
-        @media (min-width: auto) {
-          $min-column-width: 260px;
-          grid-template-columns: repeat(auto-fill, minmax($min-column-width, 1fr));
+    
+        button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            color: inherit;
+    
+            &:hover {
+                transition: transform 0.2s ease;
+            }
         }
       }
 

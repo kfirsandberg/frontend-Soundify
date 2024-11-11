@@ -9,6 +9,11 @@
     align-items: center;
     padding: 10px 20px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+
+    input::placeholder {
+        color: #888888;
+        opacity: 1;
+    }
 }
 
 /* Logo Styles */
@@ -39,7 +44,6 @@
     border: none;
     border-radius: 500px;
     padding: 0 1rem;
-   
 }
 
 /* Apply focus styles to the input wrapper when the input is focused */
@@ -47,8 +51,11 @@
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Adds a subtle glow effect */
     border: 2px solid #fffdfd; /* Optional: Adds a border when focused */
     padding: 0.9rem; /* Ensure padding remains consistent */
-}
 
+    .search-icon {
+        fill: $spotify-light;
+    }
+}
 
 /* Search Input Field */
 .header-search-input {
@@ -61,6 +68,7 @@
     border-right: 1px solid #b3b3b3; /* Border on the right side */
     padding: 0 1rem;
     outline: none; /* Remove default focus outline */
+    cursor: pointer;
 }
 
 /* Search Button (Magnifying Glass) */
@@ -81,6 +89,16 @@
     width: 32px;
     height: 32px;
     object-fit: contain;
+    fill: $spotify-gray;
+}
+.browse-icon {
+    fill: $spotify-light;
+}
+
+.input-wrapper:hover {
+    .search-icon {
+        fill: $spotify-light;
+    }
 }
 
 /* Browse Button (to the right of Search Input) */
@@ -115,7 +133,12 @@
     border-radius: 50%;
     width: 48px;
     height: 48px;
-    margin-right: 20px;
+    margin-right: 10px;
+
+    &:hover {
+        transform: scale(1.1);
+        transition: transform 0.2s ease;
+    }
 }
 
 .home-icon {
@@ -158,11 +181,10 @@
     justify-content: center;
     border-radius: 50%;
     width: 48px;
-    height: 48px;/* Match the height with other icon buttons */
+    height: 48px; /* Match the height with other icon buttons */
 }
 
 .notification-icon {
-    width:15px;
-    height: 15px;
-    
+    width: 16px;
+    height: 16px;
 }
