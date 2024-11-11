@@ -12,10 +12,10 @@ export function StationList({ stations }) {
 
     return (
         <section className="station-list-container">
-            <header className="station-list-header">
-                <h2 >Created for you</h2>
+            <header className="station-list-header-container">
+                <h2 className="station-list-header" >Created for you</h2>
 
-                <p className="station-list-header">Show all </p>
+                <p className="station-list-header-2">Show all </p>
             </header>
             <section className="station-list">
                 {stations.map(station => (

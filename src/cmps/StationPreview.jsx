@@ -12,13 +12,13 @@ export function StationPreview({ station }) {
   }
   return (
     <section className="station-preview-container">
-    <img className="station-preview-img" src={imgURL} alt={name} />
-    <div className="play-button-container">
-      <button className="play-button" onClick={onPlay}>
-        <img className="play" src={playIcon} alt="Play" />
-      </button>
-    </div>
-    <h3>{name}</h3>
-  </section>
+      <img className="station-preview-img" src={imgURL} alt={name} />
+      <div className="play-button-container">
+        <button className="play-button" onClick={onPlay}>
+          <img className="play" src={playIcon} alt="Play" />
+        </button>
+      </div>
+      <h3 className="play-button-title" >{name}</h3>
+    </section>
   )
 }
