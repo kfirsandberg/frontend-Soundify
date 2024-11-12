@@ -2,21 +2,27 @@ import React, { useState, useEffect, useRef } from 'react'
 import YouTube from 'react-youtube'
 import { useSelector } from 'react-redux'
 import { setIsPlaying, updateSongDuration } from '../store/actions/station.actions'
+
 export function YouTubeAudioPlayer({ }) {
     const [songID, setSongID] = useState(null)
+    const [isReady, setIsReady] = useState(false)
+
     const currentSong = useSelector(state => state.stationModule.currentSong)
     const isPlaying = useSelector(state => state.stationModule.isPlaying)
-    const [isReady, setIsReady] = useState(false)
-    const playerRef = useRef(null)
     const volume = useSelector(state => state.stationModule.volume)
     const currentTime = useSelector(state => state.stationModule.currentTime) || 0
+
+    const playerRef = useRef(null)
+    const lastSeekTimeRef = useRef(0)
+
     useEffect(() => {
         if (currentSong) {
-            setIsPlaying(false)
+            // setIsPlaying(false)
             setSongID(currentSong.videoId)
             setIsPlaying(true)
         }
     }, [currentSong])
+
     useEffect(() => {
         if (isReady) {
             playerRef.current.setVolume(volume)
@@ -27,12 +33,21 @@ export function YouTubeAudioPlayer({ }) {
             }
         }
     }, [isPlaying, isReady, songID, volume])
-    useEffect(() => {
 
+    useEffect(() => {
         if (isReady && playerRef.current) {
-            playerRef.current.seekTo(currentTime, true)
+            const lastSeekTime = lastSeekTimeRef.current;
+            const timeDifference = Math.abs(currentTime - lastSeekTime);
+
+
+            if (timeDifference > 60) {
+                console.log(timeDifference)
+                playerRef.current.seekTo(currentTime, true);
+                lastSeekTimeRef.current = currentTime;
+            }
         }
-    }, [currentTime, isReady])
+    }, [currentTime, isReady]);
+
     function onPlayerReady(event) {
 
         playerRef.current = event.target
@@ -44,10 +59,11 @@ export function YouTubeAudioPlayer({ }) {
         } else {
             console.error('Failed to get duration from YouTube player')
         }
-        if (isPlaying) {
-            event.target.playVideo()
-        }
+        // if (isPlaying) {
+        //     event.target.playVideo()
+        // }
     }
+
     function onPlayerStateChange(event) {
         if (event.data === YouTube.PlayerState.PLAYING && !isReady) {
             const duration = event.target.getDuration()
@@ -67,7 +83,7 @@ export function YouTubeAudioPlayer({ }) {
                     height: '0',
                     width: '0',
                     playerVars: {
-                        autoplay: 0,
+                        autoplay: 1,
                         controls: 0,
                         modestbranding: 1,
                         loop: 1,

@@ -2,7 +2,7 @@ import { StationHeader } from '../cmps/StationHeader.jsx'
 import { SongList } from '../cmps/SongList.jsx'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import loaderIcon from '../../public/assets/loader.svg'
+import loaderIcon from '/assets/loader.svg'
 
 export function StationDetails() {
     const station = useSelector(state => state.stationModule.station)

@@ -1,4 +1,4 @@
-import playIcon from '../../public/assets/play.svg';
+import playIcon from '/assets/play.svg';
 import { loadSong } from '../store/actions/station.actions.js'
 
 export function StationPreview({ station }) {
