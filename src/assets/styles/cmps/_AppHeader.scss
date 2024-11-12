@@ -92,7 +92,7 @@
 
 /* Search Input Field */
 .header-search-input {
-    width: 400px;
+    width: 430px;
     height: 24px;
     font-size: 14px;
     color: #b3b3b3;
@@ -105,7 +105,7 @@
     transform: translateX(-12px);
 }
 .header-search-input:hover {
-    width: 400px;
+    width: 430px;
     height: 24px;
     font-size: 14px;
     color: #b3b3b3;
@@ -116,6 +116,9 @@
     outline: none; /* Remove default focus outline */
     cursor: pointer;
     transform: translateX(-12px);
+    font-family: SpotifyMix;
+    font-size: large;
+    
 }
 
 /* Search Button (Magnifying Glass) */
@@ -143,9 +146,6 @@
     fill: $spotify-light;
 }
 
-.browse-icon:hover {
-    scale: 1.1;
-}
 
 .input-wrapper:hover {
     .search-icon {
@@ -174,7 +174,13 @@
 .browse-icon {
     width: 25px;
     height: 25px;
+
+    & :hover{
+        background-color: aqua;
+    }   
+  
 }
+
 
 /* Home Button */
 .header-home-btn {
@@ -189,6 +195,7 @@
     margin-right: 10px;
 
     &:hover {
+        
         transform: scale(1.1);
         transition: transform 0.2s ease;
     }
