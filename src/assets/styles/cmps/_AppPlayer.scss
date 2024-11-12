@@ -5,13 +5,12 @@
     background-color: $player-background;
     color: #fff;
     display: flex;
-    height: 82;
+    height: 82px;
     align-items: center;
     padding: 10px 10px;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
     justify-content: space-between;
 
-    /* Player Container */
     .player-container {
         display: flex;
         flex-direction: column;
@@ -20,12 +19,11 @@
         width: 100%;
     }
 
-    /* Song Info Section */
     .song-info {
         display: flex;
         align-items: center;
-        flex-shrink: 1; /* Allows it to shrink */
-        max-width: 60%; /* Limits maximum width so it doesn’t overlap */
+        flex-shrink: 1;
+        max-width: 60%;
         position: relative;
 
         .image-container {
@@ -37,12 +35,13 @@
             justify-content: center;
             padding-bottom: 10px;
             margin: 10px 15px 0px 5px;
+
             .song-img {
                 border-radius: 4px;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                flex-shrink: 0; /* Prevents the image from shrinking */
+                flex-shrink: 0;
             }
         }
 
@@ -51,6 +50,7 @@
             left: 75px;
             white-space: nowrap;
             overflow: visible;
+
             p {
                 font-weight: 600;
                 font-size: 12px;
@@ -64,7 +64,6 @@
         }
     }
 
-    /* Player Controls Section */
     .player-controls {
         display: flex;
         align-items: center;
@@ -119,7 +118,6 @@
         }
     }
 
-    /* Volume Control Section */
     .volume-control {
         margin-left: auto;
         margin-right: em(18px);
@@ -170,7 +168,6 @@
         }
     }
 
-    /* Progress Bar Section */
     .progress-bar {
         margin-inline-start: rem(185px);
         display: flex;
@@ -214,7 +211,6 @@
     .song-info {
         display: flex;
         align-items: center;
-
         min-width: 180;
     }
 }
