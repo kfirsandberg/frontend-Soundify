@@ -28,7 +28,7 @@ export function StationHeader({ station }) {
     const handleSave = () => setIsModalOpen(false)
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, color: '#fff', padding: 5, backgroundColor: '#181818', marginLeft: 10 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, color: '#fff', padding: 5, backgroundColor: '#121212', marginLeft: 10 }}>
             {/* Station Details */}
             <Box sx={{ display: 'flex', gap: 2 }}>
                 {/* Station Image with Edit Icon */}

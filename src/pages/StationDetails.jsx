@@ -29,11 +29,7 @@ export function StationDetails() {
                 </section>
             )
         }
-        return (
-            <button className="find-more-btn" onClick={onFindMore}>
-                Find more
-            </button>
-        )
+       
     }
 
     if (!station) {
