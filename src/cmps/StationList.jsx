@@ -1,16 +1,26 @@
 import { StationPreview } from "../cmps/StationPreview.jsx";
 import { useNavigate } from 'react-router-dom';
-
+import { FastAverageColor } from 'fast-average-color';
 import { loadStation } from "../store/actions/station.actions.js";
 
-export function StationList({ stations }) {
-    const navigate = useNavigate();
+const fac = new FastAverageColor();
 
-    function onClickStation(station) {
-        
+export function StationList({ stations }) {
+
+    const navigate = useNavigate();
+    async function onClickStation(station) {
+        // console.log(station.imgURL)
+        // try {
+        //     const color = await fac.getColorAsync(station.imgURL);
+        //     console.log('Average color:', color.rgb);  
+        // } catch (error) {
+        //     console.error('Error fetching average color:', error);
+        // }
+    
         navigate(`/playlist/${station._id}`);
         loadStation(station._id);
     }
+
 
     function handleShowAll() {
         // Define the behavior when "Show all" is clicked, e.g., navigate to a full list page.

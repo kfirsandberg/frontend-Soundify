@@ -11,6 +11,7 @@ import {
     SET_SONG_DURATION,
     SET_VOLUME,
     SET_IS_PLAYING,
+    SET_BG_COLOR
     
 
 } from '../reducers/station.reducer'
@@ -125,6 +126,15 @@ export function setIsPlaying(isPlaying) {
     }
 }
 
+export function setBgColor(bgColor) {
+    try {
+        store.dispatch(getCmdSetBgColor(bgColor))
+    } catch (err) {
+        console.log('Cannot set is playing', err)
+        throw err
+    }
+}
+
 // Command Creators:
 function getCmdSetStations(stations) {
     return {
@@ -193,6 +203,12 @@ export function setStations(stations) {
         type: 'SET_STATIONS',
         stations
     };
+}
+export function getCmdSetBgColor(bgColor){
+    return{
+        type: SET_BG_COLOR,
+        bgColor
+    }
 }
 
 // unitTestActions()

@@ -8,7 +8,7 @@ import { AppPlayer } from './cmps/AppPlayer.jsx'
 import { StationDetails } from './pages/StationDetails.jsx'
 import { Library } from './cmps/Library.jsx'
 import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
-
+import { setBgColor } from './store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color';
 
 const fac = new FastAverageColor();
@@ -18,15 +18,14 @@ export function RootCmp() {
     // Toggle the library route active state
     const toggleLibraryActive = () => setIsLibraryActive(prev => !prev)
     const stations = useSelector(storeState => storeState.stationModule.stations);
-    const [bgColor, setBgColor] = useState('#121212');
+    const bgColor = useSelector(storeState => storeState.stationModule.bgColor);
 
     useEffect(() => {
         const fetchBackgroundColor = async () => {
             if (stations && stations.length > 0 && stations[0].imgURL) {
                 try {
                     const color = await fac.getColorAsync(stations[0].imgURL);
-
-                    setBgColor(`linear-gradient(to top, #121212 70%,  ${color.rgb}  100%)`);
+                    setBgColor(color.rgb)
                 } catch (error) {
                     console.error('Error fetching average color:', error);
                 }
@@ -46,7 +45,7 @@ export function RootCmp() {
                 </aside>
 
                 <main className="station-index-route"
-                 style={{ background: bgColor }}>
+                 style={{ background: `linear-gradient(to top, #121212 70%,  ${bgColor}  100%)` }}>
                     <Routes>
                         <Route path="/" element={<StationIndex />} />
                         <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
