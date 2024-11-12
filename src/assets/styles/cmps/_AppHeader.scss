@@ -1,250 +1,214 @@
-/* App Header Container */
-.app-header.full {
-    display: flex;
-    bottom: 0;
-    width: 100%;
-    height: 58px;
-    background-color: #000000;
-    color: #fff;
-    align-items: center;
-    padding: 10px 20px;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+.app-header {
+    &.full {
+        display: flex;
+        bottom: 0;
+        width: 100%;
+        height: 58px;
+        background-color: #000000;
+        color: #fff;
+        align-items: center;
+        padding: 10px 20px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 
-    input::placeholder {
-        color: #888888;
-        opacity: 1;
+        input::placeholder {
+            color: #888888;
+            opacity: 1;
+        }
     }
-}
 
-/* Logo Styles */
-.logo {
-    width: 30px;
-    height: 30px;
-    margin-left: 5px;
-    margin-top: 2px;
-    cursor: pointer;
-}
-
-/* Header Center Content (Search Bar + Button) */
-.header-center-content {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    justify-content: center;
-    /* Center align button and search bar */
-}
-
-/* Input Wrapper for Search */
-.input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 474px;
-    height: 46px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #1f1f1f;
-    border: none;
-    border-radius: 500px;
-    padding: 0 1rem;
-    overflow: hidden; /* Ensures pseudo-element stays within rounded edges */
-}
-
-/* Hover effect background overlay */
-.input-wrapper:hover::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.1); /* Light overlay color */
-    border-radius: 500px; /* Match the parent element’s border-radius */
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    z-index: 0; /* Ensure it’s behind the input content */
-}
-
-/* Initial state for the pseudo-element */
-.input-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0); /* No color initially */
-    border-radius: 500px;
-    transition: opacity 0.3s ease;
-    z-index: 0;
-}
-
-/* Apply focus styles to the input wrapper when the input is focused */
-.input-wrapper.focused {
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Adds a subtle glow effect */
-    border: 2px solid #fffdfd; /* Optional: Adds a border when focused */
-    padding: 0.9rem; /* Ensure padding remains consistent */
-
-    .search-icon {
-        fill: $spotify-light;
+    .logo {
+        width: 30px;
+        height: 30px;
+        margin-left: 5px;
+        margin-top: 2px;
+        cursor: pointer;
     }
-}
 
-/* Search Input Field */
-.header-search-input {
-    width: 430px;
-    height: 24px;
-    font-size: 14px;
-    color: #b3b3b3;
-    background-color: #1f1f1f;
-    border: none;
-    border-right: 1px solid #b3b3b3; /* Border on the right side */
-    padding: 0 1rem;
-    outline: none; /* Remove default focus outline */
-    cursor: pointer;
-    transform: translateX(-12px);
-}
-.header-search-input:hover {
-    width: 430px;
-    height: 24px;
-    font-size: 14px;
-    color: #b3b3b3;
-    background-color: rgba(255, 255, 255, 0);
-    border: none;
-    border-right: 1px solid #b3b3b3; /* Border on the right side */
-    padding: 0 1rem;
-    outline: none; /* Remove default focus outline */
-    cursor: pointer;
-    transform: translateX(-12px);
-    font-family: SpotifyMix;
-    font-size: large;
-    
-}
+    .header-center-content {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: center;
 
-/* Search Button (Magnifying Glass) */
-.header-search-btn {
-    background-color: #1f1f1f;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-}
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 474px;
+            height: 46px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #1f1f1f;
+            border: none;
+            border-radius: 500px;
+            padding: 0 1rem;
+            overflow: hidden;
+            cursor: pointer;
 
-.search-icon {
-    width: 23px;
-    height: 24px;
-    object-fit: contain;
-    fill: $spotify-gray;
-    transform: translateX(-8px);
-}
-.browse-icon {
-    fill: $spotify-light;
-}
+            &:hover::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 500px;
+                opacity: 1;
+                transition: opacity 0.3s ease;
+                z-index: 0;
+            }
 
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 255, 255, 0);
+                border-radius: 500px;
+                transition: opacity 0.3s ease;
+                z-index: 0;
+            }
 
-.input-wrapper:hover {
-    .search-icon {
-        fill: $spotify-light;
+            &.focused {
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                border: 2px solid #fffdfd;
+                padding: 0.9rem;
+
+                .search-icon {
+                    fill: $spotify-light;
+                }
+            }
+
+            .search-icon {
+                fill: $spotify-gray;
+                width: 23px;
+                height: 24px;
+                object-fit: contain;
+                transform: translateX(-8px);
+            }
+
+            &:hover .search-icon {
+                fill: $spotify-light;
+            }
+
+            .header-search-input {
+                width: 400px;
+                height: 24px;
+                font-size: 14px;
+                color: #b3b3b3;
+                background-color: #1f1f1f;
+                border: none;
+                border-right: 1px solid #b3b3b3;
+                padding: 0 1rem;
+                outline: none;
+                cursor: pointer;
+                transform: translateX(-12px);
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0);
+                }
+            }
+
+            .header-search-btn {
+                background-color: #1f1f1f;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                width: 32px;
+                height: 32px;
+            }
+        }
+
+        .header-browse-btn {
+            background-color: #1f1f1f;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+
+            .browse-icon {
+                width: 25px;
+                height: 25px;
+                fill: $spotify-light;
+
+                &:hover {
+                    scale: 1.1;
+                }
+            }
+        }
     }
-}
 
-.input-wrapper {
-    cursor: pointer;
-}
+    .header-home-btn {
+        background-color: #1f1f1f;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        margin-right: 10px;
 
-/* Browse Button (to the right of Search Input) */
-.header-browse-btn {
-    background-color: #1f1f1f;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-}
+        &:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
+        }
 
-.browse-icon {
-    width: 25px;
-    height: 25px;
-
-    & :hover{
-        background-color: aqua;
-    }   
-  
-}
-
-
-/* Home Button */
-.header-home-btn {
-    background-color: #1f1f1f;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    margin-right: 10px;
-
-    &:hover {
-        
-        transform: scale(1.1);
-        transition: transform 0.2s ease;
+        .home-icon {
+            width: 25px;
+            height: 25px;
+        }
     }
-}
 
-.home-icon {
-    width: 25px;
-    height: 25px;
-}
+    .header-icon-btns {
+        display: flex;
+        gap: 0.5rem;
 
-/* Icon Buttons on the Right (e.g., Notification, Settings) */
-.header-icon-btns {
-    display: flex;
-    gap: 0.5rem; /* Space between icon buttons */
-}
+        .header-icon-btn {
+            width: 48px;
+            height: 48px;
+            background-color: #1f1f1f;
+            color: #b3b3b3;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
 
-.header-icon-btn {
-    width: 48px;
-    height: 48px;
-    background-color: #1f1f1f;
-    color: #b3b3b3;
-    border: none;
-    border-radius: 50%; /* Circular shape */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
+            .header-icon {
+                width: 25px;
+                height: 25px;
+                object-fit: contain;
+            }
+        }
 
-.header-icon {
-    width: 25px; /* Adjust the icon size as needed */
-    height: 25px; /* Adjust to match the desired size */
-    object-fit: contain; /* Ensure the icon fits within the button */
-}
+        .notification-btn {
+            background-color: #000000;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
 
-/* Notification Button */
-.notification-btn {
-    background-color: #000000;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px; /* Match the height with other icon buttons */
-}
-
-.notification-icon {
-    width: 16px;
-    height: 16px;
+            .notification-icon {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
 }
