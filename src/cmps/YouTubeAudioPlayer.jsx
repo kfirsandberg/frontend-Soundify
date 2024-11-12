@@ -3,7 +3,7 @@ import YouTube from 'react-youtube'
 import { useSelector } from 'react-redux'
 import { setIsPlaying, updateSongDuration } from '../store/actions/station.actions'
 
-export function YouTubeAudioPlayer({ }) {
+export function YouTubeAudioPlayer({}) {
     const [songID, setSongID] = useState(null)
     const [isReady, setIsReady] = useState(false)
 
@@ -36,22 +36,22 @@ export function YouTubeAudioPlayer({ }) {
 
     useEffect(() => {
         if (isReady && playerRef.current) {
-            const lastSeekTime = lastSeekTimeRef.current;
-            const timeDifference = Math.abs(currentTime - lastSeekTime);
-
+            const lastSeekTime = lastSeekTimeRef.current
+            const timeDifference = Math.abs(currentTime - lastSeekTime)
 
             if (timeDifference > 60) {
                 console.log(timeDifference)
-                playerRef.current.seekTo(currentTime, true);
-                lastSeekTimeRef.current = currentTime;
+                playerRef.current.seekTo(currentTime, true)
+                lastSeekTimeRef.current = currentTime
             }
         }
-    }, [currentTime, isReady]);
+    }, [currentTime, isReady])
 
     function onPlayerReady(event) {
-
         playerRef.current = event.target
         setIsReady(true)
+        playerRef.current.setVolume(40)
+
         const duration = event.target.getDuration()
 
         if (duration) {
