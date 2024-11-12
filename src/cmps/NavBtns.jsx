@@ -4,7 +4,7 @@ import Fab from '@mui/material/Fab';
 
 export function NavBtns() {
     return (
-        <Box className="navBtn">
+        <Box className="nav-btns">
             <Fab className="nav-btn-active">All</Fab>
             <Fab className="nav-btn">Music</Fab>
             <Fab className="nav-btn">Podcasts</Fab>

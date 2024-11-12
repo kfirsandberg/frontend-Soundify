@@ -1,4 +1,4 @@
-.navBtn {
+.nav-btns {
     transform: translateX(rem(30px));
     display: flex;
     align-items: center;
@@ -17,6 +17,7 @@
         width: auto;
         text-transform: none;
         box-shadow: none;
+        font-family: SpotifyMix; 
     }
 
     .nav-btn-active {
