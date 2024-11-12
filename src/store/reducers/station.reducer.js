@@ -17,10 +17,9 @@ const initialState = {
     currentSong: null,
     currentTime: 0,
     songDuration: 0,
-    volume: 5,
-    prevVolume: 5,
+    volume: 40,
+    prevVolume: 40,
     isPlaying: false,
-
 }
 
 export function stationReducer(state = initialState, action) {
@@ -63,7 +62,7 @@ export function stationReducer(state = initialState, action) {
         case SET_IS_PLAYING:
             newState = { ...state, isPlaying: action.isPlaying }
             break
-  
+
         default:
     }
     return newState
