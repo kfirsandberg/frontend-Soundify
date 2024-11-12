@@ -1,24 +1,31 @@
 $min-column-width: 160px;
 $row-count: 1;
-.station-list{
+
+.station-list {
   padding: 0 0 0 1em;
+  
 }
+
 .station-index-route {
   width: auto;
   margin-left: 8px;
   margin-right: 8px;
   padding: 0;
-  border-radius:1% ;
+  border-radius: 1%;
+  
+
 
   .station-index {
     width: 100%;
+    background-color: #181818 !important;
 
 
     .station-list-container {
       width: 100%;
       max-width: 100%;
-      padding: 0 ;
-   
+      padding: 0;
+
+
 
       .station-list-header-container {
         display: flex;
@@ -27,27 +34,29 @@ $row-count: 1;
         height: 80px;
         margin: rem(10px) 0 0 1.5em;
 
-        .station-list-header{
-         justify-self: start;
+        .station-list-header {
+          justify-self: start;
 
         }
-  
-        .station-list-header-2{
+
+        .station-list-header-2 {
           font-family: SpotifyMix-bold;
           position: absolute;
           bottom: 0;
           right: 0;
-          font-size: 1em;
+          font-size: 0.8em;
           font-weight: 700;
-          padding-right: 1em;
+          margin-right: 30px;
+          
         }
       }
-      
+
 
       .station-list {
         display: flex;
         flex-wrap: nowrap;
-        width: auto;
+        min-width: 50%;
+        max-width: 100%;
         overflow: hidden;
 
 
@@ -99,7 +108,7 @@ $row-count: 1;
         fill: #ffffff;
       }
 
-    
+
     }
   }
 
