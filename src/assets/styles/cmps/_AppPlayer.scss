@@ -68,7 +68,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: em(15px);
+        gap: em(24px);
         margin-inline-start: rem(178px);
 
         .next-btn,
@@ -119,6 +119,7 @@
     }
 
     .volume-control {
+        
         margin-left: auto;
         margin-right: em(18px);
         display: flex;
@@ -144,6 +145,7 @@
         }
 
         .volume-slider {
+            margin-bottom: rem(6px);
             -webkit-appearance: none;
             appearance: none;
             width: em(110px);
