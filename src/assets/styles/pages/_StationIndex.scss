@@ -1,14 +1,15 @@
 .station-index {
-    background-color: $spotify-dark; 
-    color: $spotify-light;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-    section {
-      width: 100%;
-      max-width: 1200px;
 
-    }
+  color: $spotify-light;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to top, $slider-background 70%,  #71aaff83 100%);
+
+  section {
+    width: 100%;
+    max-width: 1200px;
+
   }
+}

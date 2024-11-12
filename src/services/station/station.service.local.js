@@ -112,6 +112,7 @@ async function _createStations() {
     if (!stations || !stations.length) {
         stations = []
         // Create several example stations
+        stations.push(_createStation('Liked Songs'))
         stations.push(_createStation('Funky Monks'))
         stations.push(_createStation('Rock Vibes'))
         stations.push(_createStation('Hip Hop Essentials'))
@@ -126,7 +127,6 @@ async function _createStations() {
         stations.push(_createStation('Jazz Classics'))
         stations.push(_createStation('Reggae Vibes'))
         stations.push(_createStation('Israeli Vibes'))
-
         saveToStorage(STORAGE_KEY, stations)
     }
     return stations
@@ -134,10 +134,10 @@ async function _createStations() {
 
 function _createStation(name) {
     const station = getEmptyStation(name)
-
+    if (station.name === 'Liked Songs') station.imgURL = 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'
     if (station.songs && station.songs.length > 0) {
         station.imgURL = station.songs[0].imgURL // Use the first song's imgURL if exists
-    } else {
+    } else if (station.name !== 'Liked Songs') {
         station.imgURL =
             'https://res.cloudinary.com/dwzeothxl/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
     }

@@ -1,3 +1,4 @@
+
 import { StationPreview } from "../cmps/StationPreview.jsx"
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +19,7 @@ export function StationList({ stations }) {
                 <p className="station-list-header-2">Show all</p>
             </header>
             <section className="station-list">
-                {stations.slice(0,7).map(station => (
+                {stations.slice(0, 7).map(station => (
                     <button className="station-preview"
                         key={station._id}
                         onClick={() => onClickStation(station)}
