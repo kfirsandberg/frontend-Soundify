@@ -33,11 +33,13 @@ $row-count: 1;
         }
   
         .station-list-header-2{
+          font-family: SpotifyMix-bold;
           position: absolute;
           bottom: 0;
           right: 0;
-          font-size: 11px;
-          font-weight: bold;
+          font-size: 1em;
+          font-weight: 700;
+          padding-right: 1em;
         }
       }
       
