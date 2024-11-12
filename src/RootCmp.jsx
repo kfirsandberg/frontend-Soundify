@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AllStations } from './pages/AllStations.jsx'
@@ -9,11 +9,32 @@ import { StationDetails } from './pages/StationDetails.jsx'
 import { Library } from './cmps/Library.jsx'
 import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
 
+import { FastAverageColor } from 'fast-average-color';
+
+const fac = new FastAverageColor();
 export function RootCmp() {
     const [isLibraryActive, setIsLibraryActive] = useState(false) // Track the active state of the library
 
     // Toggle the library route active state
     const toggleLibraryActive = () => setIsLibraryActive(prev => !prev)
+    const stations = useSelector(storeState => storeState.stationModule.stations);
+    const [bgColor, setBgColor] = useState('#121212');
+
+    useEffect(() => {
+        const fetchBackgroundColor = async () => {
+            if (stations && stations.length > 0 && stations[0].imgURL) {
+                try {
+                    const color = await fac.getColorAsync(stations[0].imgURL);
+
+                    setBgColor(`linear-gradient(to top, #121212 70%,  ${color.rgb}  100%)`);
+                } catch (error) {
+                    console.error('Error fetching average color:', error);
+                }
+            }
+        };
+        
+        fetchBackgroundColor();
+    }, [stations]);
 
     return (
         <div className="main-container">
@@ -24,7 +45,8 @@ export function RootCmp() {
                     <Library toggleLibraryActive={toggleLibraryActive} /> {/* Pass toggle function to Library */}
                 </aside>
 
-                <main className="station-index-route">
+                <main className="station-index-route"
+                 style={{ background: bgColor }}>
                     <Routes>
                         <Route path="/" element={<StationIndex />} />
                         <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}

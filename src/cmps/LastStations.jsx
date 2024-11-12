@@ -1,36 +1,21 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ColorThief from 'colorthief';
-import { useState, useEffect } from 'react';
+import { FastAverageColor } from 'fast-average-color';
 
+const fac = new FastAverageColor();
 
-export function LastStations({ stations }) {
+export function LastStations({ stations}) {
     const darkTheme = createTheme({ palette: { mode: 'dark' } });
     const displayedStations = stations.slice(0, 8);
-    const [dominantColors, setDominantColors] = useState([]);
-
-    // useEffect(() => {
-    //     const fetchDominantColors = async () => {
-    //         const colors = await Promise.all(
-    //             displayedStations.map(station =>
-    //                 ColorThief.getColor(station.imgURL)
-    //                     .then(color => {
-    //                         console.log('Dominant color for', station.name, color); // Print the color for each station
-    //                         return color;
-    //                     })
-    //                     .catch(err => {
-    //                         console.error('Error getting dominant color:', err);
-    //                         return null; // Handle error gracefully
-    //                     })
-    //             )
-    //         );
-    //         setDominantColors(colors);
-    //     };
-
-    //     fetchDominantColors();
-    // }, [displayedStations]);
+    if (!stations) {
+        return (
+            <div>
+                loading...
+            </div>
+        )
+    }
 
     return (
         <Grid container spacing={2}>

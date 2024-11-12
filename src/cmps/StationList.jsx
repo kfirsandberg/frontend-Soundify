@@ -7,6 +7,7 @@ export function StationList({ stations }) {
     const navigate = useNavigate();
 
     function onClickStation(station) {
+        
         navigate(`/playlist/${station._id}`);
         loadStation(station._id);
     }

@@ -1,10 +1,11 @@
 .navBtn {
+    transform: translateX(rem(30px));
     display: flex;
     align-items: center;
     gap: 8px;
     height: 3em;
     padding-top: 10px;
-    margin-right: 48em;
+    margin-right: auto;
     
     .nav-btn, .nav-btn-active {
         font-size: rem(16px);
