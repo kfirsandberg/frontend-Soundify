@@ -51,11 +51,13 @@ export function SongList({ station }) {
                 <span className="song-index song-num">{idx + 1}</span>
               )}
             </section>
-              
+
             <section className='details'>
               <img src={song.imgURL} alt={`${song.title} cover`} className="song-image" />
-              <p className="song-title ">{song.title}</p>
-              <span className="song-artist">{song.artist}</span>
+              <div className='song-title-artist'>
+                <p className="song-title ">{song.title}</p>
+                <span className="song-artist">{song.artist}</span>
+              </div>
               <span className='add-btn'>
                 <svg xmlns="http://www.w3.org/2000/svg"
                   role="img"
@@ -69,9 +71,9 @@ export function SongList({ station }) {
             </section>
 
             <section className='duration'>
-                <span className="song-album">{song.album}</span>
-                <span className="song-duration">{song.duration}</span>
-           
+              <span className="song-album">{song.album}</span>
+              <span className="song-duration">{song.duration}</span>
+
             </section>
 
 

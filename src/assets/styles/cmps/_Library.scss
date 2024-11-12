@@ -1,6 +1,6 @@
 /* General Layout */
 .library {
-    background-color: #181818;
+    background-color: #121212;
     color: #fff;
     padding: 16px;
     width: 512px;
@@ -11,7 +11,7 @@
 
 /* Library Route */
 .library-route {
-    background-color: #181818;
+    background-color: #121212;
     width: 344px;
     /* Fixed width */
     transition: background-color 0.3s ease;
@@ -31,7 +31,7 @@
     height: 3.7vh;
     width: 14.8rem;
     display: flex;
-    background-color: #181818;
+    background-color: #121212;
     align-items: center;
     margin-bottom: 16px;
     margin-top: 5px;
@@ -272,7 +272,7 @@
     /* Needed for overlay positioning */
     display: flex;
     align-items: center;
-    background-color: #181818;
+    background-color: #121212;
     padding: 0.625rem;
     transition: transform 0.2s ease-in-out;
     width: 20.5rem;

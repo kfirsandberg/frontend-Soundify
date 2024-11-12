@@ -44,6 +44,7 @@ section {
     .song-list {
         grid-area: songs;
         margin: 0;
+        
 
         .song-idx {
             padding-left: 1em;
@@ -68,22 +69,21 @@ section {
 }
 
 ul {
+
     list-style-type: none;
     padding: 0;
 }
 
 .song-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
     align-items: center;
-    border-radius: 8px;
-    position: relative;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
+    height: rem(70px);
 
     & :hover,
     &:hover {
         background-color: rgb(144, 144, 144);
+        border-radius: 5px;
     }
 }
 
@@ -101,6 +101,7 @@ ul {
 }
 
 .add-btn {
+    grid-area:  4/5;
     border: none;
 }
 
@@ -127,8 +128,8 @@ ul {
 }
 
 .song-item img {
-    width: rem(40px);
-    height: rem(40px);
+    width: rem(50px);
+    height: rem(50px);
     border-radius: 8px;
     object-fit: cover;
 }
@@ -140,12 +141,15 @@ ul {
     color: $spotify-gray;
     flex: 1;
 }
+.song-title-artist{
+    margin: rem(10px);
+}
 
 .song-title {
     font-size: 1rem;
     font-weight: 600;
     color: $spotify-light;
-    padding-left: 1em;
+    margin: 0;
 }
 
 .song-artist {

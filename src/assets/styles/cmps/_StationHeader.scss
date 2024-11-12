@@ -197,6 +197,7 @@
 }
 
 .station-img img {
+    position: relative;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -335,8 +336,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    top: 11%;
-    left: 27.2%;
+
     opacity: 0;
     transition: opacity 0.3s ease;
     background-color: rgba(0, 0, 0, 0.792);
