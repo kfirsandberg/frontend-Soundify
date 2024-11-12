@@ -28,7 +28,7 @@ export function StationHeader({ station }) {
     const handleSave = () => setIsModalOpen(false)
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, color: '#fff', padding: 5, backgroundColor: '#121212', marginLeft: 10 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0, color: '#fff', padding: 5, backgroundColor: '#121212',marginBottom:-5 }}>
             {/* Station Details */}
             <Box sx={{ display: 'flex', gap: 2 }}>
                 {/* Station Image with Edit Icon */}
@@ -95,7 +95,7 @@ export function StationHeader({ station }) {
                             zIndex: 1, // Ensure the icon is above the overlay
                         }}
                     >
-                        <EditIcon sx={{ fontSize: 80 }} /> {/* Larger icon size */}
+                        <EditIcon sx={{ fontSize: 70 }} /> {/* Larger icon size */}
                     </IconButton>
                 </Box>
 
@@ -108,11 +108,11 @@ export function StationHeader({ station }) {
                             fontWeight: 'bold',
                             cursor: 'pointer',
                             fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '5rem', xl: '6rem' },
-                            lineHeight: { xs: '2.5rem', sm: '3.5rem', md: '5rem' },
+                            // lineHeight: { xs: '2.5rem', sm: '3.5rem', md: '5rem' },
                             letterSpacing: { xs: '0.5px', sm: '1px', md: '1.5px' },
                             textAlign: { xs: 'center', sm: 'left' },
                             whiteSpace: 'nowrap', // Prevents the text from wrapping
-                            marginTop: '15px',
+                            marginTop: '5px',
 
                             marginBottom: '20px',
 
@@ -141,7 +141,7 @@ export function StationHeader({ station }) {
             {/* Playlist Actions */}
             <Box sx={{ display: 'flex', gap: 0, marginTop: 5, }}>
                 <IconButton sx={{ color: '#1ed760', fontSize: '3rem' }}>
-                    <PlayCircleFilledIcon sx={{ fontSize: 64, marginRight: 3, }} />
+                    <PlayCircleFilledIcon sx={{ fontSize: 70, marginRight: 3, }} />
                 </IconButton>
                 <IconButton sx={{ color: 'white' }}>
                     <MoreHoriz />

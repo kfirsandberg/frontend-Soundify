@@ -12,7 +12,7 @@ export function SongList({ station }) {
   }
 
   return (
-    <section style={{ padding: '15px', backgroundColor: '#121212', borderRadius: '8px',marginLeft:100, marginRight:40
+    <section style={{ padding: '15px', backgroundColor: '#121212', borderRadius: '8px',marginLeft:25, marginRight:40
     }}>
       <Box sx={{ display: 'grid', gridTemplateRows: 'auto 1fr', gridTemplateAreas: "'nav' 'songs'", padding: 0 }}>
         {/* Song navigation header */}
