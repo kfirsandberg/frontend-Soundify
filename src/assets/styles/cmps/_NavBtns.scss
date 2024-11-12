@@ -6,8 +6,9 @@
     height: 3em;
     padding-top: 10px;
     margin-right: auto;
-    
-    .nav-btn, .nav-btn-active {
+
+    .nav-btn,
+    .nav-btn-active {
         font-size: rem(16px);
         padding: 0 14px;
         height: 2.3em;
@@ -24,7 +25,13 @@
 
     .nav-btn {
         background-color: rgba(255, 255, 255, 0.1);
-        color: white;
+        color: rgb(255, 255, 255);
         padding: 11px;
+
+        &:hover {
+            color: none;
+            background-color: none;
+        }
     }
+
 }
