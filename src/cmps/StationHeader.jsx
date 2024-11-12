@@ -150,7 +150,7 @@ export function StationHeader({ station }) {
                     variant="contained"
                     color="inherit"
                     sx={{
-                        backgroundColor: '#181818',
+                        backgroundColor: '#121212',
                         marginLeft: 'auto',
                         border: 'none',
                         boxShadow: 'none',
