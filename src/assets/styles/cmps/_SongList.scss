@@ -1,3 +1,9 @@
+section {
+    padding: 15px;
+    background-color: $spotify-preview-bg;
+    border-radius: 8px;
+}
+
 .contentSpacing {
     display: grid;
     // grid-template-columns: 1fr 1fr ;
@@ -7,11 +13,6 @@
         'songs ';
 
     padding: 0;
-
-    section {
-        padding: 15px;
-        border-radius: 8px;
-    }
     hr {
         width: auto;
         margin: 0 0 0 1.3em;
