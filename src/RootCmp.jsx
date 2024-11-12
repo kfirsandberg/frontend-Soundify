@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-
+import { AllStations } from './pages/AllStations.jsx'
 import { StationIndex } from './pages/StationIndex.jsx'
 import { AppHeader } from './cmps/AppHeader'
 import { AppPlayer } from './cmps/AppPlayer.jsx'
@@ -27,6 +27,7 @@ export function RootCmp() {
                 <main className="station-index-route">
                     <Routes>
                         <Route path="/" element={<StationIndex />} />
+                        <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
                         <Route path="/playlist/:stationId" element={<StationDetails />} />
                     </Routes>
                 </main>

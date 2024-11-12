@@ -188,6 +188,13 @@ function getCmdSetIsPlaying(isPlaying) {
     }
 }
 
+export function setStations(stations) {
+    return {
+        type: 'SET_STATIONS',
+        stations
+    };
+}
+
 // unitTestActions()
 async function unitTestActions() {
     await loadStations()

@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { loadSong, setIsPlaying } from '../store/actions/station.actions.js';
+import { Box, Typography, IconButton } from '@mui/material';
+import { PlayArrow } from '@mui/icons-material';
 
 export function SongList({ station }) {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -10,76 +12,143 @@ export function SongList({ station }) {
   }
 
   return (
-    <section className="contentSpacing">
-      <div className="songs-nav">
-        <section className='song-nav-header'>
-          <span className='song-count'>#</span>
-        </section>
-        <section className="song-nav-header">
-          <span className='song-title'>Title</span>
-        </section>
-        <section className="song-nav-duration">
-          <span className='song-duration'>Duration</span>
-        </section>
-      </div>
-
-
-      <ul className="song-list">
-        <hr />
-        {station.songs.map((song, idx) => (
-          <li
-            key={song.id}
-            className="song-item"
-            onMouseEnter={() => setHoveredIndex(idx)}
-            onMouseLeave={() => setHoveredIndex(null)}
+    <section style={{ padding: '15px', backgroundColor: '#181818', borderRadius: '8px',marginLeft:100}}>
+      <Box sx={{ display: 'grid', gridTemplateRows: 'auto 1fr', gridTemplateAreas: "'nav' 'songs'", padding: 0 }}>
+        {/* Song navigation header */}
+        <Box
+          sx={{
+            gridArea: 'nav',
+            display: 'grid',
+            gridTemplateColumns: 'auto 7fr 3fr 1fr',
+            gridGap: 1,
+            paddingTop: 3,
+            '@media (max-width: 768px)': {
+              gridTemplateColumns: 'auto 1fr', // On small screens, stack columns
+              gridTemplateRows: 'auto auto auto', // Ensure each element stays on its own line
+              textAlign: 'center', // Optionally center text on smaller screens
+            },
+          }}
+        >
+          <Typography
+            variant="body2"
+            sx={{
+              paddingRight: '1em',
+              paddingLeft: '1.4em',
+              opacity: 0.6,
+              color: 'white',
+            }}
           >
-            <section className='song-idx'>
-              {hoveredIndex === idx ? (
-                <span className="play-icon song-num" onClick={() => handlePlayClick(song.id)}>
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                    data-encore-id="icon"
-                    role="img"
-                    aria-hidden="true"
-                    className="Svg-sc-ytk21e-0 bneLcE zOsKPnD_9x3KJqQCSmAq"
-                    viewBox="0 0 24 24"
-                    width="24" height="24">
-                    <path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"
-                      style={{ fill: 'white' }} />
-                  </svg>
-                </span>
-              ) : (
-                <span className="song-index song-num">{idx + 1}</span>
-              )}
-            </section>
+            #
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              paddingLeft: '1em',
+              margin: 0,
+              opacity: 0.6,
+              color: 'white',
+            }}
+          >
+            Title
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              opacity: 0.6,
+              color: 'white',
+             
+              '@media (max-width: 768px)': {
+                marginLeft: 0, // Remove gap on smaller screens
+              },
+            }}
+          >
+            Album
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              opacity: 0.6,
+              color: 'white',
+              
+              '@media (max-width: 768px)': {
+                marginLeft: 0, // Remove gap on smaller screens
+              },
+            }}
+          >
+            Duration
+          </Typography>
+        </Box>
 
-            <section className='details'>
-              <img src={song.imgURL} alt={`${song.title} cover`} className="song-image" />
-              <div className='song-title-artist'>
-                <p className="song-title ">{song.title}</p>
-                <span className="song-artist">{song.artist}</span>
-              </div>
-              <span className='add-btn'>
-                <svg xmlns="http://www.w3.org/2000/svg"
-                  role="img"
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  width="24" height="24">
-                  <path d="M11.999 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm-11 9c0-6.075 4.925-11 11-11s11 4.925 11 11-4.925 11-11 11-11-4.925-11-11z" />
-                  <path d="M17.999 12a1 1 0 0 1-1 1h-4v4a1 1 0 1 1-2 0v-4h-4a1 1 0 1 1 0-2h4V7a1 1 0 1 1 2 0v4h4a1 1 0 0 1 1 1z" />
-                </svg>
-              </span>
-            </section>
+        {/* Song list */}
+        <Box sx={{ gridArea: 'songs', marginTop:0 }}>
+          <hr style={{ opacity: 0.2 }} />
+          {station.songs.map((song, idx) => (
+            <Box
+              key={song.id}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                borderRadius: 1,
+                padding: '8px 12px',
+                marginBottom: 1,
+                cursor: 'pointer',
+                width: '100%',  // Default width
+                '&:hover': {
+                  backgroundColor: 'rgba(144, 144, 144, 0.2)',
+                },
+              }}
+              onMouseEnter={() => setHoveredIndex(idx)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {/* Left column with index and play icon */}
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '40px', marginLeft: '-1.5em' }}>
+                {hoveredIndex === idx ? (
+                  <IconButton onClick={() => handlePlayClick(song.id)} sx={{ marginLeft: 4, color: 'white' }}>
+                    <PlayArrow />
+                  </IconButton>
+                ) : (
+                  <Typography variant="body2" sx={{ marginLeft: 4, color: 'white', opacity: 0.7 }}>
+                    {idx + 1}
+                  </Typography>
+                )}
+              </Box>
 
-            <section className='duration'>
-              <span className="song-album">{song.album}</span>
-              <span className="song-duration">{song.duration}</span>
+              {/* Song details (image, title, artist) */}
+              <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: 4 }}>
+                <Box
+                  component="img"
+                  src={song.imgURL}
+                  alt={`${song.title} cover`}
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 1,
+                    objectFit: 'cover',
+                  }}
+                />
+                <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: 1.5 }}>
+                  <Typography variant="body1" sx={{ fontWeight: 600, color: 'white' }}>
+                    {song.title}
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                    {song.artist}
+                  </Typography>
+                </Box>
+              </Box>
 
-            </section>
-
-
-          </li>
-        ))}
-      </ul>
+              {/* Album and Duration columns */}
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: 'auto' }}>
+                <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                  {song.album}
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                  {song.duration}
+                </Typography>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+      </Box>
     </section>
   );
 }

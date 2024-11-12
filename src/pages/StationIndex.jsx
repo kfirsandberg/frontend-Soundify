@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { StationList } from "../cmps/StationList"
+import { StationList } from "../cmps/StationList.jsx"
 import { loadStations } from "../store/actions/station.actions.js";
 import { NavBtns } from "../cmps/NavBtns.jsx";
 import { LastStations } from "../cmps/LastStations.jsx"
