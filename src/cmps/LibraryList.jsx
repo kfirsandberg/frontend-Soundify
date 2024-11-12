@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Scrollbar } from 'react-scrollbars-custom'
 import { stationLocalService } from '../services/station/station.service.local'
 import { loadStation, removeStation } from '../store/actions/station.actions.js'
 import loaderIcon from '/assets/loader.svg'
@@ -8,7 +9,6 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     const [stations, setStations] = useState([])
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
-
     const [contextMenu, setContextMenu] = useState(null)
     const contextMenuRef = useRef(null)
 
@@ -45,13 +45,10 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
         loadStation(station._id)
     }
 
-    // Check if stations are loaded before attempting to filter or sort
     let filteredStations = stations
-
     if (stations && filterCriteria) {
         filteredStations = stations.filter(station => station.name.toLowerCase().includes(filterCriteria.toLowerCase()))
     }
-
     if (stations && sortBy) {
         if (sortBy === 'recents') {
             filteredStations.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -99,28 +96,30 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
 
     return (
         <div className={`library-list ${isCollapsed ? 'collapsed' : ''}`}>
-            <ul>
-                {filteredStations.map(station => (
-                    <li
-                        key={station._id}
-                        className="station-card"
-                        onClick={() => onClickStation(station)}
-                        onContextMenu={ev => handleContextMenu(ev, station)}
-                    >
-                        <img src={station.imgURL} alt={station.name} className="station-image" />
-                        {!isCollapsed && (
-                            <div className="station-info">
-                                <h3 className="station-name">{station.name}</h3>
-                                <p className="station-artist">{station.artist}</p>
+            <Scrollbar style={{ height: '800px' }}>
+                <ul>
+                    {filteredStations.map(station => (
+                        <li
+                            key={station._id}
+                            className="station-card"
+                            onClick={() => onClickStation(station)}
+                            onContextMenu={ev => handleContextMenu(ev, station)}
+                        >
+                            <img src={station.imgURL} alt={station.name} className="station-image" />
+                            {!isCollapsed && (
+                                <div className="station-info">
+                                    <h3 className="station-name">{station.name}</h3>
+                                    <p className="station-artist">{station.artist}</p>
+                                </div>
+                            )}
+                            {/* SVG Icon overlay */}
+                            <div className="overlay-icon">
+                                <img src="/assets/lib_player_btn.svg" alt="Play" />
                             </div>
-                        )}
-                        {/* SVG Icon overlay */}
-                        <div className="overlay-icon">
-                            <img src="/assets/lib_player_btn.svg" alt="Play" />
-                        </div>
-                    </li>
-                ))}
-            </ul>
+                        </li>
+                    ))}
+                </ul>
+            </Scrollbar>
 
             {contextMenu && (
                 <div className="context-menu" ref={contextMenuRef}>
