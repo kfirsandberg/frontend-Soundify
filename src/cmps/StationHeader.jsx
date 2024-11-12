@@ -28,13 +28,13 @@ export function StationHeader({ station }) {
     const handleSave = () => setIsModalOpen(false)
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, color: '#fff', padding: 5, backgroundColor: '#181818', }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, color: '#fff', padding: 5, backgroundColor: '#181818', marginLeft: 10 }}>
             {/* Station Details */}
             <Box sx={{ display: 'flex', gap: 2 }}>
                 {/* Station Image with Edit Icon */}
                 <Box
                     sx={{
-                         display: 'block',
+                        display: 'block',
                         position: 'relative',
                         width: { xs: 128, sm: 128, md: 128, lg: 232, xl: 232 },
                         height: { xs: 128, sm: 128, md: 128, lg: 232, xl: 232 },
@@ -42,7 +42,7 @@ export function StationHeader({ station }) {
                         minHeight: 128, // Prevents the image from becoming too small
                         maxWidth: 232,
                         maxHeight: 232,
-                        
+
                         '&:hover .overlay, &:hover .edit-icon-button': {
                             opacity: 1, // Show overlay and icon button on hover
                         },
@@ -100,7 +100,7 @@ export function StationHeader({ station }) {
                 </Box>
 
                 {/* Playlist Info */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', marginLeft: '10px', }}>
                     <Typography variant="subtitle2" color="white">Playlist</Typography>
                     <Typography
                         variant="h2"
@@ -112,7 +112,10 @@ export function StationHeader({ station }) {
                             letterSpacing: { xs: '0.5px', sm: '1px', md: '1.5px' },
                             textAlign: { xs: 'center', sm: 'left' },
                             whiteSpace: 'nowrap', // Prevents the text from wrapping
-                            marginTop: '5px',
+                            marginTop: '15px',
+
+                            marginBottom: '20px',
+
                             overflow: 'hidden', // Optional: Hides text overflow if the text exceeds the container width
                             textOverflow: 'ellipsis', // Optional: Adds ellipsis if the text is cut off
                         }}
@@ -128,35 +131,35 @@ export function StationHeader({ station }) {
                         <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center' }}>
                             {station.creatorName || 'User'}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" sx={{ paddingX: 1 }}>·</Typography>
-                        <Typography variant="body2">{station.songs?.length || 0} songs</Typography>
+                        
+                        <Typography variant="body2"> •  {station.songs?.length || 0}  songs</Typography>
                         <Typography variant="body2" color="textSecondary">{station.totalDuration}</Typography>
                     </Box>
                 </Box>
             </Box>
 
             {/* Playlist Actions */}
-            <Box sx={{ display: 'flex', gap: 0 }}>
+            <Box sx={{ display: 'flex', gap: 0, marginTop: 5, }}>
                 <IconButton sx={{ color: '#1ed760', fontSize: '3rem' }}>
-                    <PlayCircleFilledIcon sx={{ fontSize: 56, md:48 }} />
+                    <PlayCircleFilledIcon sx={{ fontSize: 64, marginRight: 3, }} />
                 </IconButton>
                 <IconButton sx={{ color: 'white' }}>
                     <MoreHoriz />
                 </IconButton>
                 <Button
                     variant="contained"
-                    color="inherit" 
+                    color="inherit"
                     sx={{
                         backgroundColor: '#181818',
                         marginLeft: 'auto',
                         border: 'none',
-                        boxShadow: 'none', 
+                        boxShadow: 'none',
                         '&:hover': {
-                            boxShadow: 'none', 
+                            boxShadow: 'none',
                         },
                         '&:active': {
-                            boxShadow: 'none', 
-                            backgroundColor: '#181818', 
+                            boxShadow: 'none',
+                            backgroundColor: '#181818',
                         },
                     }}
                 >
