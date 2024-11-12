@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { stationLocalService } from '../services/station/station.service.local'
 import { loadStation, removeStation } from '../store/actions/station.actions.js'
-import loaderIcon from '../../public/assets/loader.svg'
+import loaderIcon from '/assets/loader.svg'
 
 export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     const [stations, setStations] = useState([])

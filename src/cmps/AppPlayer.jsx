@@ -54,6 +54,7 @@ export function AppPlayer() {
     }
 
     function togglePlayPause() {
+        if(!currentSong) return
         setIsPlaying(!isPlaying)
     }
 
@@ -65,25 +66,21 @@ export function AppPlayer() {
         return `${mins}:${secs}`
     }
 
-    if (!currentSong) {
-        return (
-            <footer className="app-player full">
-                <p>No song is currently playing</p>
-            </footer>
-        )
-    }
-
     return (
         <footer className="app-player full">
-            <div className="song-info">
-                <div className="image-container">
-                    <img src={currentSong.imgURL} alt={currentSong.title} className="song-img" />
+            {currentSong && 
+
+                <div className="song-info">
+                    <div className="image-container">
+                        <img src={currentSong.imgURL} alt={currentSong.title} className="song-img" />
+                    </div>
+                    <div className="song-details">
+                        <h4>{currentSong.title}</h4>
+                        <p>{currentSong.artist}</p>
+                    </div>
                 </div>
-                <div className="song-details">
-                    <h4>{currentSong.title}</h4>
-                    <p>{currentSong.artist}</p>
-                </div>
-            </div>
+
+            }
             <div className="player-container">
                 <div className="player-controls">
                     <button className="back-btn ">
@@ -101,7 +98,9 @@ export function AppPlayer() {
                             />
                         </svg>
                     </button>
-                    <button className="play-btn" onClick={togglePlayPause}>
+                    <button 
+                     style={currentSong ? {} : { cursor: 'not-allowed' }}
+                    className="play-btn" onClick={togglePlayPause}>
                         {isPlaying ? (
                             <svg
                                 className="icon"
@@ -160,9 +159,8 @@ export function AppPlayer() {
                         onMouseLeave={() => setIsHoverPlayer(false)}
                         className="progress-slider"
                         style={{
-                            background: `linear-gradient(to right,  ${isHoverPlayer ? '#1ED760' : '#ffffff'}  ${
-                                (currentTime / songDuration) * 100
-                            }%, #2a2a2a ${(currentTime / songDuration) * 100}%)`,
+                            background: `linear-gradient(to right,  ${isHoverPlayer ? '#1ED760' : '#ffffff'}  ${(currentTime / songDuration) * 100
+                                }%, #2a2a2a ${(currentTime / songDuration) * 100}%)`,
                         }}
                     />
                     <span className="duration">{songDuration ? formatTime(songDuration - currentTime) : '0:00'}</span>
@@ -210,9 +208,8 @@ export function AppPlayer() {
                     onMouseLeave={() => setIsHoverVolume(false)}
                     className="volume-slider slider"
                     style={{
-                        background: `linear-gradient(to right, ${
-                            isHoverVolume ? '#1ED760' : '#ffffff'
-                        } ${volume}%, #2a2a2a ${volume}%)`,
+                        background: `linear-gradient(to right, ${isHoverVolume ? '#1ED760' : '#ffffff'
+                            } ${volume}%, #2a2a2a ${volume}%)`,
                     }}
                 />
             </div>

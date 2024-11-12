@@ -1,6 +1,6 @@
-import playIcon from '../../public/assets/play.svg'
-import dotIcon from '../../public/assets/dots.svg'
-import userIcon from '../../public/assets/user.svg'
+import playIcon from '/assets/play.svg'
+import dotIcon from '/assets/dots.svg'
+import userIcon from '/assets/user.svg'
 import { useState } from 'react'
 
 export function StationHeader({ station }) {
