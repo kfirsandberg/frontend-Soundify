@@ -1,14 +1,30 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loadStation } from '../store/actions/station.actions.js';
+import { useDispatch } from 'react-redux';
+import { loadStation, setBgColor } from '../store/actions/station.actions.js';
+import { FastAverageColor } from 'fast-average-color';
+
+const fac = new FastAverageColor();
 
 export function LastStations({ stations }) {
     const displayedStations = stations.slice(0, 8);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     function onClickStation(station) {
         navigate(`/playlist/${station._id}`);
         loadStation(station._id);
+    }
+
+    async function onHoverStation(station) {
+        if (station.imgURL) {
+            try {
+                const color = await fac.getColorAsync(station.imgURL);
+                dispatch(setBgColor(color.rgb)); // Dispatch color to update background
+            } catch (error) {
+                console.error('Error fetching average color:', error);
+            }
+        }
     }
 
     if (!stations) {
@@ -18,7 +34,12 @@ export function LastStations({ stations }) {
     return (
         <div className="last-stations-grid">
             {displayedStations.map((station, index) => (
-                <div className="playlist-card" key={index} onClick={() => onClickStation(station)}>
+                <div
+                    className="playlist-card"
+                    key={index}
+                    onClick={() => onClickStation(station)}
+                    onMouseEnter={() => onHoverStation(station)} // Fetch color on hover
+                >
                     <img src={station.imgURL} alt={station.name} className="playlist-thumbnail" />
                     <div className="playlist-info">
                         <div className="playlist-name">{station.name}</div>
