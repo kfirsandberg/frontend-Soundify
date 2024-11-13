@@ -96,7 +96,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
 
     return (
         <div className={`library-list ${isCollapsed ? 'collapsed' : ''}`}>
-            <Scrollbar style={{ height: '800px' }}>
+            {/* <Scrollbar style={{ height: '800px' }}> */}
                 <ul>
                     {filteredStations.map(station => (
                         <li
@@ -119,7 +119,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                         </li>
                     ))}
                 </ul>
-            </Scrollbar>
+            {/* </Scrollbar> */}
 
             {contextMenu && (
                 <div className="context-menu" ref={contextMenuRef}>
