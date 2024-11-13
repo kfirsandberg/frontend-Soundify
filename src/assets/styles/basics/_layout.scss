@@ -6,21 +6,24 @@
         'library main '
         '. . ';
 
-    > * {
+    >* {
         grid-column: 2;
 
         &.full {
             grid-column: 1 / -1;
         }
     }
+
     background-color: $player-background;
 
 
 
 }
+
 .content {
-    display: contents; 
+    display: contents;
 }
+
 .library-route {
     grid-area: library;
     background-color: #f4f4f4;
@@ -30,9 +33,13 @@
 .station-index-route {
     max-height: 83vh;
     overflow-y: scroll;
-    
+
     // background-color: #121212;
     grid-area: main;
     align-items: center;
     overflow-y: auto;
+
+    transition: background-color 1.4s ease;
+    /* Adjust duration and easing as desired */
+
 }
