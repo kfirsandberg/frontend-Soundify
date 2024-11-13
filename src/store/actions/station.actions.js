@@ -11,9 +11,7 @@ import {
     SET_SONG_DURATION,
     SET_VOLUME,
     SET_IS_PLAYING,
-    SET_BG_COLOR
-    
-
+    SET_BG_COLOR,
 } from '../reducers/station.reducer'
 
 export async function loadStations(filterBy) {
@@ -51,7 +49,6 @@ export async function removeStation(stationId) {
 export async function addStation() {
     try {
         const savedStation = await stationLocalService.saveStation(station)
-        store.dispatch(getCmdAddStation(savedStation))
         return savedStation
     } catch (err) {
         console.log('Cannot add station', err)
@@ -62,6 +59,7 @@ export async function addNewStation() {
     try {
         const newStation = await stationLocalService.getEmptyStation()
         store.dispatch(getCmdSetStation(newStation))
+        store.dispatch(getCmdAddStation(newStation))
         return newStation
     } catch (err) {
         console.log('Cannot add station', err)
@@ -201,13 +199,13 @@ function getCmdSetIsPlaying(isPlaying) {
 export function setStations(stations) {
     return {
         type: 'SET_STATIONS',
-        stations
-    };
+        stations,
+    }
 }
-export function getCmdSetBgColor(bgColor){
-    return{
+export function getCmdSetBgColor(bgColor) {
+    return {
         type: SET_BG_COLOR,
-        bgColor
+        bgColor,
     }
 }
 

@@ -24,7 +24,7 @@ export function StationEdit() {
                 </select>
                 <button>save</button>
                 <p>
-                    By proceeding, you agree to give Spotify access to the image you choose to upload. Please make sure
+                    By proceeding, you agree to give Soundify access to the image you choose to upload. Please make sure
                     you have the right to upload the image.
                 </p>
             </form>

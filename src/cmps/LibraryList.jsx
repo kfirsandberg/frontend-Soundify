@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Scrollbar } from 'react-scrollbars-custom'
 import { stationLocalService } from '../services/station/station.service.local'
-import { loadStation, removeStation } from '../store/actions/station.actions.js'
+import { loadStation, removeStation, loadStations } from '../store/actions/station.actions.js'
 import loaderIcon from '/assets/loader.svg'
+import { useSelector } from 'react-redux'
 
 export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
-    const [stations, setStations] = useState([])
+    const stations = useSelector(storeState => storeState.stationModule.stations)
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     const [contextMenu, setContextMenu] = useState(null)
@@ -14,18 +15,10 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
 
     useEffect(() => {
         loadStations()
-    }, [stations])
+        setLoading(false)
+    }, [])
 
-    async function loadStations() {
-        try {
-            const data = await stationLocalService.query()
-            setStations(data)
-            setLoading(false)
-        } catch (error) {
-            console.error('Error fetching stations:', error)
-            setLoading(false)
-        }
-    }
+
 
     useEffect(() => {
         document.addEventListener('click', handleOutsideClick)
@@ -96,7 +89,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
 
     return (
         <div className={`library-list ${isCollapsed ? 'collapsed' : ''}`}>
-            <Scrollbar style={{ height: '800px' }}>
+            {/* <Scrollbar style={{ height: '800px' }}> */}
                 <ul>
                     {filteredStations.map(station => (
                         <li
@@ -119,7 +112,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                         </li>
                     ))}
                 </ul>
-            </Scrollbar>
+            {/* </Scrollbar> */}
 
             {contextMenu && (
                 <div className="context-menu" ref={contextMenuRef}>
