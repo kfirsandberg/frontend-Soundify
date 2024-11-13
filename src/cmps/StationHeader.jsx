@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import userIcon from '../../public/assets/user.svg'
 import { MoreHoriz } from '@mui/icons-material'
 
-import HamburgerIcon from '../../public/assets/hamburger.svg';
+import HamburgerIcon from '../../public/assets/hamburger.svg'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -17,7 +17,7 @@ export function StationHeader({ station }) {
     const onEditStation = () => setIsModalOpen(true)
     const onCloseModal = () => setIsModalOpen(false)
 
-    const handleInputChange = (event) => {
+    const handleInputChange = event => {
         const { name, value } = event.target
         setEditedStation(prevState => ({
             ...prevState,
@@ -28,7 +28,17 @@ export function StationHeader({ station }) {
     const handleSave = () => setIsModalOpen(false)
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0, color: '#fff', padding: 5, backgroundColor: '#121212',marginBottom:-5 }}>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 0,
+                color: '#fff',
+                padding: 5,
+                backgroundColor: '#121212',
+                marginBottom: -5,
+            }}
+        >
             {/* Station Details */}
             <Box sx={{ display: 'flex', gap: 2 }}>
                 {/* Station Image with Edit Icon */}
@@ -76,7 +86,6 @@ export function StationHeader({ station }) {
                             backgroundColor: 'rgba(0,0,0,0.6)',
                             borderRadius: 1,
                             opacity: 0,
-
                         }}
                     />
 
@@ -100,8 +109,10 @@ export function StationHeader({ station }) {
                 </Box>
 
                 {/* Playlist Info */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', marginLeft: '10px', }}>
-                    <Typography variant="subtitle2" color="white">Playlist</Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', marginLeft: '10px' }}>
+                    <Typography variant="subtitle2" color="white">
+                        Playlist
+                    </Typography>
                     <Typography
                         variant="h2"
                         sx={{
@@ -124,24 +135,26 @@ export function StationHeader({ station }) {
                         {station.name}
                     </Typography>
 
-
-
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Avatar src={station.creatorImgURL || userIcon} alt="Creator" sx={{ width: 24, height: 24 }} />
                         <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center' }}>
                             {station.creatorName || 'User'}
                         </Typography>
-                        
-                        <Typography variant="body2"> •  {station.songs?.length || 0}  songs</Typography>
-                        <Typography variant="body2" color="textSecondary">{station.totalDuration}</Typography>
+
+                        <Typography variant="body2">
+                            • {station.songs?.length || 0} {station.songs?.length === 1 ? 'song' : 'songs'}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                            {station.totalDuration}
+                        </Typography>
                     </Box>
                 </Box>
             </Box>
 
             {/* Playlist Actions */}
-            <Box sx={{ display: 'flex', gap: 0, marginTop: 5, }}>
+            <Box sx={{ display: 'flex', gap: 0, marginTop: 5 }}>
                 <IconButton sx={{ color: '#1ed760', fontSize: '3rem' }}>
-                    <PlayCircleFilledIcon sx={{ fontSize: 70, marginRight: 3, }} />
+                    <PlayCircleFilledIcon sx={{ fontSize: 70, marginRight: 3 }} />
                 </IconButton>
                 <IconButton sx={{ color: 'white' }}>
                     <MoreHoriz />
@@ -150,35 +163,33 @@ export function StationHeader({ station }) {
                     variant="contained"
                     color="inherit"
                     sx={{
-                        backgroundColor: '#121212',
+                        backgroundColor: 'inherit',
                         marginLeft: 'auto',
                         border: 'none',
                         boxShadow: 'none',
                         '&:hover': {
                             boxShadow: 'none',
+                            fill: '#121212',
                         },
                         '&:active': {
                             boxShadow: 'none',
-                            backgroundColor: '#181818',
                         },
                     }}
                 >
-                    <Box
-                        component="img"
-                        src={HamburgerIcon}
-                        alt="Sort Icon"
-                        sx={{ width: 20, height: 20 }}
-                    />
+                    <Box component="img" src={HamburgerIcon} alt="Sort Icon" sx={{ width: 20, height: 20 }} />
                 </Button>
-
-
-
             </Box>
 
             {/* Modal for Editing */}
-            <Modal open={isModalOpen} onClose={onCloseModal} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Modal
+                open={isModalOpen}
+                onClose={onCloseModal}
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
                 <Box sx={{ width: 500, bgcolor: '#1e1e1e', p: 3, borderRadius: 2 }}>
-                    <Typography variant="h6" sx={{ marginBottom: 2 }}>Edit Details</Typography>
+                    <Typography variant="h6" sx={{ marginBottom: 2 }}>
+                        Edit Details
+                    </Typography>
                     <Box component="form">
                         <Grid container spacing={2}>
                             <Grid item xs={4}>
@@ -214,13 +225,7 @@ export function StationHeader({ station }) {
                                 />
                             </Grid>
                         </Grid>
-                        <Button
-                            onClick={handleSave}
-                            fullWidth
-                            variant="contained"
-                            color="success"
-                            sx={{ mt: 2 }}
-                        >
+                        <Button onClick={handleSave} fullWidth variant="contained" color="success" sx={{ mt: 2 }}>
                             Save
                         </Button>
                     </Box>
