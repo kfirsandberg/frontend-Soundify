@@ -1,9 +1,9 @@
 .all-stations-container {
     display: grid;
     grid-template-rows: auto 1fr;
-    
-    
-   
+
+
+
 
 }
 
@@ -14,19 +14,19 @@
     font-size: 32px;
 
     margin-left: 45px;
-    
+
 }
 
 .all-stations-list {
     gap: 20px;
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     min-width: 50%;
     max-width: 100%;
     margin-left: 70px;
-    
-    
-    
+
+
+
 }
 
 // ///////////////////////////////////////////////////////////////////////////
@@ -41,13 +41,9 @@
     height: 236px;
     width: 178px;
     box-shadow: none;
-    
+
 
     // Hover effects and background overlay
-    &:hover {
-        opacity: 0.8; /* Lower opacity for a subtle effect */
-       
-    }
 
     &:hover .all-play-button-container {
         transform: translateY(-55px);
@@ -65,36 +61,58 @@
         min-width: 178px;
         overflow: hidden;
         padding: 10px;
-        z-index: 1; // Ensure container stays above the overlay
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0); // Initially transparent background
+
+        &:hover:before {
+            opacity: 1; // On hover, show the background overlay
+        }
+        // Pseudo-element for background opacity on hover
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1); // 10% opacity
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 8px;
+        }
     }
 
     .all-station-preview-img {
-        width: 100%;
+        width: 95%;
         aspect-ratio: 1;
         object-fit: cover;
-       
         border-radius: 6px;
-        z-index: 1; // Keep the image above the background overlay
+        z-index: 1;
+        
     }
 
     // Play button container styles
     .all-play-button-container {
         position: absolute;
-        right: em(17px);
-        z-index: 2; // Ensure button stays above the overlay and image
+        right: 17px;
+        z-index: 2;
         width: 48px;
         height: 48px;
         opacity: 0;
         transform: translateY(-45px);
-
-      
         background-color: #1ed760;
         border-radius: 50%;
+       
+
+        &:hover {
+            opacity: 1;
+        }
 
         .all-play-button {
             position: absolute;
-            bottom: em(4px);
-            right: em(2px);
+            bottom: 4px;
+            right: 2px;
             width: 42px;
             height: 42px;
             color: $spotify-light;
@@ -102,8 +120,6 @@
             border-radius: 50%;
             cursor: pointer;
             background-color: $spotify-green;
-            
         }
     }
 }
-
