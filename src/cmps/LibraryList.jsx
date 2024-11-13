@@ -89,31 +89,30 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
 
     return (
         <div className={`library-list ${isCollapsed ? 'collapsed' : ''}`}>
-            {/* <Scrollbar style={{ height: '800px' }}> */}
-                <ul>
-                    {filteredStations.map(station => (
-                        <li
-                            key={station._id}
-                            className="station-card"
-                            onClick={() => onClickStation(station)}
-                            onContextMenu={ev => handleContextMenu(ev, station)}
-                        >
-                            <img src={station.imgURL} alt={station.name} className="station-image" />
-                            {!isCollapsed && (
-                                <div className="station-info">
-                                    <h3 className="station-name">{station.name}</h3>
-                                    <h3 >Playlist</h3>
-                                    <p className="station-artist">{station.artist}</p>
-                                </div>
-                            )}
-                            {/* SVG Icon overlay */}
-                            <div className="overlay-icon">
-                                <img src="/assets/lib_player_btn.svg" alt="Play" />
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            {/* </Scrollbar> */}
+
+            <ul>
+                {filteredStations.map(station => (
+                    <li
+                        key={station._id}
+                        className="station-card"
+                        onClick={() => onClickStation(station)}
+                        onContextMenu={ev => handleContextMenu(ev, station)}
+                    >
+                        <img src={station.imgURL} alt={station.name} className="station-image" />
+                        {!isCollapsed && (
+                            <section className="station-info">
+                                <h3 className="station-name">{station.name}</h3>
+                                <h3 >Playlist</h3>
+                                <p className="station-artist">{station.artist}</p>
+                            </section>
+                        )}
+
+                        <div className="overlay-icon">
+                            <img src="/assets/lib_player_btn.svg" alt="Play" />
+                        </div>
+                    </li>
+                ))}
+            </ul>
 
             {contextMenu && (
                 <div className="context-menu" ref={contextMenuRef}>
