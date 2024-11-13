@@ -18,24 +18,31 @@ export const stationLocalService = {
 
 _createStations()
 
-async function query(filterBy = { txt: '', genre: '' }) {
-    let stations = await storageService.query(STORAGE_KEY)
-    // const { txt, genre, sortField, sortDir } = filterBy
+async function query(filterBy = { txt: '', genre: '' }, sortBy = null) {
+    let stations = await storageService.query(STORAGE_KEY);
 
-    // if (txt) {
-    //     const regex = new RegExp(txt, 'i')
-    //     stations = stations.filter(station => regex.test(station.name) || regex.test(station.description))
-    // }
-    // if (genre) {
-    //     stations = stations.filter(station => station.genre === genre)
-    // }
-    // if (sortField === 'name' || sortField === 'artist') {
-    //     stations.sort((s1, s2) => s1[sortField].localeCompare(s2[sortField]) * +sortDir)
-    // }
+    // Apply filter if any text or genre filter is provided
+    if (filterBy.txt || filterBy.genre) {
+        stations = stations.filter(station => {
+            return (!filterBy.txt || station.name.includes(filterBy.txt)) &&
+                   (!filterBy.genre || station.genre === filterBy.genre);
+        });
+    }
 
-    // return stations.map(({ _id, name, genre }) => ({ _id, name, genre }))
-    return stations
+    // Apply sorting if sortBy is provided
+    if (sortBy) {
+        stations = stations.sort((a, b) => {
+            if (a[sortBy] < b[sortBy]) return -1;
+            if (a[sortBy] > b[sortBy]) return 1;
+            return 0;
+        });
+    }
+
+    return stations;
 }
+
+
+
 
 function getById(stationId) {
     return storageService.get(STORAGE_KEY, stationId)
