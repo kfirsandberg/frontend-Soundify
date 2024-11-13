@@ -7,6 +7,7 @@
         background-color: #000000;
         color: #fff;
         align-items: center;
+        justify-content: space-between;
         box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 
         /* App Header Container */
@@ -33,6 +34,10 @@
             flex: 1;
             justify-content: center;
             margin-left: rem(94px);
+            position: absolute;
+            left: 0;
+            right: 0;
+        
 
             .input-wrapper {
                 position: relative;
