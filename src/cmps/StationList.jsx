@@ -36,7 +36,7 @@ export function StationList({ stations }) {
                 </button>
             </header>
             <section className="station-list">
-                {stations.slice(0, 7).map(station => (
+                {stations.slice(0, 8).map(station => (
                     <button className="station-preview"
                         key={station._id}
                         onClick={() => onClickStation(station)}

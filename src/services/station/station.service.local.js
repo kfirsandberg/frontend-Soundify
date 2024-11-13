@@ -116,6 +116,7 @@ async function _createStations() {
         stations.push(_createStation('This is Infected Mushroom'))
         stations.push(_createStation('Daily Mix 2'))
         stations.push(_createStation('Funky Monks'))
+        stations.push(_createStation('Release Radar'))
         stations.push(_createStation('Rock Vibes'))
         stations.push(_createStation('Hip Hop Essentials'))
         stations.push(_createStation('Electronic Escape'))
@@ -359,7 +360,7 @@ function getSongsForStation(playlistName) {
                 duration: '3:05',
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=4_iC0MyIykM'),
                 id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/4_iC0MyIykM/mqdefault.jpg',
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495858/funky_monks_twr0lz.jpg',
             },
             {
                 title: 'Pass The Peas',
@@ -378,8 +379,166 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=3WOZwwRH6XU'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/3WOZwwRH6XU/mqdefault.jpg',
+            },
+            {
+                title: 'Super Freak',
+                artist: 'Rick James',
+                album: 'Street Songs',
+                duration: '3:25',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=QZ6vbkZ-gjM'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/QZ6vbkZ-gjM/mqdefault.jpg',
+            },
+            {
+                title: 'Get Up Offa That Thing',
+                artist: 'James Brown',
+                album: 'Sex Machine',
+                duration: '5:04',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=9Vw1p5n47zE'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/9Vw1p5n47zE/mqdefault.jpg',
+            },
+            {
+                title: 'Brick House',
+                artist: 'The Commodores',
+                album: 'Commodores',
+                duration: '3:30',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=tsbGkUGR9oA'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/tsbGkUGR9oA/mqdefault.jpg',
+            },
+            {
+                title: 'Hollywood Swinging',
+                artist: 'Kool & The Gang',
+                album: 'Wild and Peaceful',
+                duration: '4:50',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=9d8tffULtug'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/9d8tffULtug/mqdefault.jpg',
+            },
+            {
+                title: 'Funky Town',
+                artist: 'Lipps Inc.',
+                album: 'Mouth to Mouth',
+                duration: '4:07',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=9muzy3JXXuE'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/9muzy3JXXuE/mqdefault.jpg',
+            },
+            {
+                title: 'Love Rollercoaster',
+                artist: 'Ohio Players',
+                album: 'Honey',
+                duration: '4:30',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=nAn46DgnNUo'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/nAn46DgnNUo/mqdefault.jpg',
+            },
+            {
+                title: 'I Can Make You Dance',
+                artist: 'The Controllers',
+                album: 'The Controllers',
+                duration: '5:15',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=ZsCEl5sS6pc'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/ZsCEl5sS6pc/mqdefault.jpg',
             }
         ],
+
+
+        'Release Radar': [
+            {
+                title: 'Revival (Original Mix)',
+                artist: 'Meduza',
+                album: 'Revival',
+                duration: '3:35',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Rev12345abc'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Meduza Revival
+            },
+            {
+                title: 'Escape (Radio Edit)',
+                artist: 'Kaskade & Deadmau5',
+                album: 'Kx5',
+                duration: '3:17',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Esc23456def'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Kaskade & Deadmau5
+            },
+            {
+                title: 'Alive',
+                artist: 'RÜFÜS DU SOL',
+                album: 'Surrender',
+                duration: '4:20',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Ali34567ghi'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // RÜFÜS DU SOL Alive
+            },
+            {
+                title: 'Tell Me Why',
+                artist: 'Armin van Buuren & Matisse & Sadko',
+                album: 'Tell Me Why - Single',
+                duration: '3:41',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Tel45678jkl'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Armin van Buuren
+            },
+            {
+                title: 'Wake Me Up (Rework)',
+                artist: 'Vintage Culture & James Hype',
+                album: 'Wake Me Up',
+                duration: '3:52',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Wak56789mno'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Vintage Culture & James Hype
+            },
+            {
+                title: 'Your Mind',
+                artist: 'Adam Beyer & Bart Skils',
+                album: 'Your Mind',
+                duration: '3:33',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=You67890pqr'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Adam Beyer & Bart Skils
+            },
+            {
+                title: 'Sunset Lover (Extended Mix)',
+                artist: 'CamelPhat & ARTBAT',
+                album: 'Sunset Lover',
+                duration: '4:15',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Sun78901stu'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // CamelPhat & ARTBAT
+            },
+            {
+                title: 'On My Mind',
+                artist: 'Diplo & SIDEPIECE',
+                album: 'On My Mind',
+                duration: '3:47',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=OnM89012vwx'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Diplo & SIDEPIECE
+            },
+            {
+                title: 'Heartbeat',
+                artist: 'Above & Beyond',
+                album: 'Heartbeat',
+                duration: '5:12',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Hea90123yz'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Above & Beyond
+            },
+            {
+                title: 'Lights Out',
+                artist: 'FISHER',
+                album: 'Lights Out',
+                duration: '3:54',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Lig01234abc'),
+                id: makeId(),
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // FISHER Lights Out
+            }
+        ],
+
 
         'Rock Vibes': [
             {
@@ -389,7 +548,7 @@ function getSongsForStation(playlistName) {
                 duration: '5:34',
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=HQmmM_qwG4k'),
                 id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/HQmmM_qwG4k/mqdefault.jpg',
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495976/rock_vibes_s9zplp.jpg',
             },
             {
                 title: 'Back In Black',
@@ -408,8 +567,72 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=fJ9rUzIMcZQ'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/fJ9rUzIMcZQ/mqdefault.jpg',
+            },
+            {
+                title: 'Stairway to Heaven',
+                artist: 'Led Zeppelin',
+                album: 'Led Zeppelin IV',
+                duration: '8:02',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=qHFxncb1gRY'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/qHFxncb1gRY/mqdefault.jpg',
+            },
+            {
+                title: 'Hotel California',
+                artist: 'Eagles',
+                album: 'Hotel California',
+                duration: '6:30',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=EqPtz5qN7HM'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/EqPtz5qN7HM/mqdefault.jpg',
+            },
+            {
+                title: 'Sweet Child O’ Mine',
+                artist: 'Guns N’ Roses',
+                album: 'Appetite for Destruction',
+                duration: '5:56',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=1w7OgIMMRc4'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/1w7OgIMMRc4/mqdefault.jpg',
+            },
+            {
+                title: 'Comfortably Numb',
+                artist: 'Pink Floyd',
+                album: 'The Wall',
+                duration: '6:22',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=8pWv_lfJHzs'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/8pWv_lfJHzs/mqdefault.jpg',
+            },
+            {
+                title: 'Born to Run',
+                artist: 'Bruce Springsteen',
+                album: 'Born to Run',
+                duration: '4:30',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Md3A2kZgdXM'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/Md3A2kZgdXM/mqdefault.jpg',
+            },
+            {
+                title: 'Dream On',
+                artist: 'Aerosmith',
+                album: 'Aerosmith',
+                duration: '4:28',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=9b2W5UtggKo'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/9b2W5UtggKo/mqdefault.jpg',
+            },
+            {
+                title: 'Smells Like Teen Spirit',
+                artist: 'Nirvana',
+                album: 'Nevermind',
+                duration: '5:01',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=hTWKbfoikeg'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/hTWKbfoikeg/mqdefault.jpg',
             }
-        ],
+        ]
+        ,
 
         'Hip Hop Essentials': [
             {
@@ -419,7 +642,7 @@ function getSongsForStation(playlistName) {
                 duration: '4:12',
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=PBwAxmrE194'),
                 id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/PBwAxmrE194/mqdefault.jpg',
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731496017/hiphip_buhagx.jpg',
             },
             {
                 title: 'Electric Relaxation',
@@ -438,8 +661,72 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=_JZom_gVfuw'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/_JZom_gVfuw/mqdefault.jpg',
+            },
+            {
+                title: 'Fight the Power',
+                artist: 'Public Enemy',
+                album: 'Fear of a Black Planet',
+                duration: '4:43',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=8PaoLy7PHwk'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/8PaoLy7PHwk/mqdefault.jpg',
+            },
+            {
+                title: 'Nuthin’ But a “G” Thang',
+                artist: 'Dr. Dre feat. Snoop Dogg',
+                album: 'The Chronic',
+                duration: '3:58',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=RPeM61WCU4Y'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/RPeM61WCU4Y/mqdefault.jpg',
+            },
+            {
+                title: 'The Message',
+                artist: 'Grandmaster Flash and the Furious Five',
+                album: 'The Message',
+                duration: '3:15',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Pobr8Cz0t7E'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/Pobr8Cz0t7E/mqdefault.jpg',
+            },
+            {
+                title: 'Gin and Juice',
+                artist: 'Snoop Dogg',
+                album: 'Doggystyle',
+                duration: '3:31',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=DI3yXgS4H_4'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/DI3yXgS4H_4/mqdefault.jpg',
+            },
+            {
+                title: 'Straight Outta Compton',
+                artist: 'N.W.A',
+                album: 'Straight Outta Compton',
+                duration: '4:16',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=TMZi25P6v6w'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/TMZi25P6v6w/mqdefault.jpg',
+            },
+            {
+                title: 'Lose Yourself',
+                artist: 'Eminem',
+                album: '8 Mile Soundtrack',
+                duration: '5:26',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=_Yhyp-_hX2s'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/_Yhyp-_hX2s/mqdefault.jpg',
+            },
+            {
+                title: 'Gold Digger',
+                artist: 'Kanye West feat. Jamie Foxx',
+                album: 'Late Registration',
+                duration: '4:31',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=6vwNcNOTVzY'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/6vwNcNOTVzY/mqdefault.jpg',
             }
-        ],
+        ]
+        ,
 
         'Electronic Escape': [
             {
@@ -449,7 +736,7 @@ function getSongsForStation(playlistName) {
                 duration: '10:37',
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=tKi9Z-f6qX4'),
                 id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/tKi9Z-f6qX4/mqdefault.jpg',
+                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731496052/mqdefault_c0zitj.jpg',
             },
             {
                 title: 'One More Time',
@@ -468,8 +755,72 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Xu3FTEmN-eg'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/Xu3FTEmN-eg/mqdefault.jpg',
+            },
+            {
+                title: 'Titanium',
+                artist: 'David Guetta feat. Sia',
+                album: 'Nothing But the Beat',
+                duration: '4:05',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=JRfuAukYTKg'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/JRfuAukYTKg/mqdefault.jpg',
+            },
+            {
+                title: 'Animals',
+                artist: 'Martin Garrix',
+                album: 'Animals',
+                duration: '5:03',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=gCYcHz2k5x0'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/gCYcHz2k5x0/mqdefault.jpg',
+            },
+            {
+                title: 'Take Over Control',
+                artist: 'Afrojack feat. Eva Simons',
+                album: 'Take Over Control',
+                duration: '4:08',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=9pcKYwXzFgc'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/9pcKYwXzFgc/mqdefault.jpg',
+            },
+            {
+                title: 'Wake Me Up',
+                artist: 'Avicii',
+                album: 'True',
+                duration: '4:09',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=IcrbM1l_BoI'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/IcrbM1l_BoI/mqdefault.jpg',
+            },
+            {
+                title: 'Scary Monsters and Nice Sprites',
+                artist: 'Skrillex',
+                album: 'Scary Monsters and Nice Sprites',
+                duration: '4:03',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=WSeNSzJ2-Jw'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/WSeNSzJ2-Jw/mqdefault.jpg',
+            },
+            {
+                title: 'Sandstorm',
+                artist: 'Darude',
+                album: 'Before the Storm',
+                duration: '7:26',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=k1xDuwER6yI'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/k1xDuwER6yI/mqdefault.jpg',
+            },
+            {
+                title: 'Ghosts ‘n’ Stuff',
+                artist: 'Deadmau5',
+                album: 'For Lack of a Better Name',
+                duration: '5:28',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=6XPA7g9FGtg'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/6XPA7g9FGtg/mqdefault.jpg',
             }
         ]
+
         ,
         'Jazz Classics': [
             {
