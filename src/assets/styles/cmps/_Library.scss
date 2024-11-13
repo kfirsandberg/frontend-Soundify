@@ -68,7 +68,6 @@
         font-weight: bold;
         text-wrap: nowrap;
     }
-
 }
 
 .toggle-lib-btn:hover h3,
@@ -272,6 +271,50 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .context-menu {
+        background-color: #282828;
+        border-radius: 4px;
+        // max-height: calc(100vh - 24px);
+        max-width: 350px;
+        min-width: 180px;
+        overflow-y: auto;
+        padding: 0px 4px;
+        list-style: none;
+        border: 0;
+        margin: 0;
+        // vertical-align: baseline;
+        box-sizing: border-box;
+        display: block;
+        cursor: default;
+        color: #b3b3b3;
+        li {
+            border: 0;
+            border-radius: 2px;
+            color: hsla(0, 0%, 100%, 0.9);
+            gap: 12px;
+            padding: 10px;
+            margin: 0;
+            text-decoration: none;
+            display: flex;
+            line-height: normal;
+            align-items: center;
+            min-height: 40px;
+
+            .delete-icon {
+                fill: #b3b3b3;
+                width: 16px;
+                height: 16px;
+            }
+            span {
+                font-family: spotifyMix;
+                color: #ffffff;
+            }
+            &:hover {
+                background-color: #656565;
+            }
+        }
+    }
 }
 
 .station-card {
@@ -358,12 +401,11 @@
 /* Collapsed State for Library Route */
 .library-content-collapsed .library-list-wrapper {
     padding: 0;
-    
+
     background-color: #121212;
     width: 64px;
     margin-top: 30px;
     transform: translateX(-8px);
-    
 }
 
 .library-content-collapsed {
@@ -381,10 +423,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    
+
     background-color: #121212;
     max-width: 64px;
-    
 }
 
 .library-list.collapsed .station-card {
@@ -399,11 +440,9 @@
     max-width: 64px;
 }
 
-.library-icon.collapsed.Svg-sc-ytk21e-0.bneLcE{
-
+.library-icon.collapsed.Svg-sc-ytk21e-0.bneLcE {
     transform: translateX(3px);
     margin-top: 11px;
-
 }
 
 .toggle-lib-btn {
@@ -416,7 +455,6 @@
 
 .collapsed {
     transform: translateY(-11px);
-    
 }
 
 .create-playlist,
@@ -434,10 +472,8 @@
     position: relative;
 }
 
-.toggle-search-btn{
+.toggle-search-btn {
     transform: translateX(15px);
-
-
 }
 
 .create-playlist:hover,
