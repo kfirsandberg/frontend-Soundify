@@ -27,9 +27,11 @@ $row-count: 1;
                 justify-content: space-between;
                 position: relative;
                 height: 62px;
-                margin: rem(6.8px) 0 0 1.2em;
+                margin: rem(6.8px) 0 0 1.3em;
 
                 .station-list-header {
+                    font-family: SpotifyMix;
+                    font-size: 24px;
                     justify-self: start;
                 }
 
