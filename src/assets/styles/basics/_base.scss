@@ -4,6 +4,7 @@
 
 html {
     line-height: 1.6;
+    max-height: 100vh;
 }
 
 body {
@@ -68,4 +69,8 @@ input {
 
 h3 {
     font-family: SpotifyMix-bold;
+}
+
+main{
+    border-radius: 0.5em;
 }

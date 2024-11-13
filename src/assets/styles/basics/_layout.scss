@@ -18,6 +18,8 @@
     }
     background-color: $player-background;
 
+
+
 }
 .content {
     display: contents; 
@@ -25,7 +27,7 @@
 .library-route {
     grid-area: library;
     background-color: #f4f4f4;
-    padding: rem(10px);
+    // padding: rem(21px);
 }
 
 .station-index-route {

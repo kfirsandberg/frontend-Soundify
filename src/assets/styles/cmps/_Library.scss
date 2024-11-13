@@ -6,13 +6,14 @@
     width: 512px;
     /* Fixed width */
     max-width: 380px;
+
     /* Ensure it doesn’t exceed this width */
 }
 
 /* Library Route */
 .library-route {
     background-color: #121212;
-    width: 344px;
+
     /* Fixed width */
     transition: background-color 0.3s ease;
     border-radius: 8px;
@@ -35,6 +36,7 @@
     align-items: center;
     margin-bottom: 16px;
     margin-top: 5px;
+    margin-left: rem(13px);
     transition: width 0.3s ease;
 }
 
@@ -44,7 +46,7 @@
     gap: 10px;
     /* Adjust spacing between buttons */
     align-items: center;
-    transform: translateX(105px);
+    transform: translateX(43px);
 }
 
 /* Toggle Library Button */
@@ -81,7 +83,7 @@
 }
 
 .toggle-lib-btn h3 {
-    width: 6rem;
+    width: 5.4rem;
     margin: 0;
     padding: 0;
     display: flex;
@@ -127,11 +129,13 @@
 /* Filter Section */
 
 .sort-buttons {
-    height: 2.96vh;
+    height: rem(30px);
     display: flex;
     justify-content: space-between;
     margin-bottom: 12px;
     width: 72px;
+    margin-top: 24px;
+    margin-left: 10px;
 }
 
 .sort-buttons button {
@@ -156,7 +160,7 @@
 .search-and-menu {
     display: flex;
     align-items: center;
-    gap: 89px;
+    gap: 63px;
 }
 
 // .toggle-search-btn {
@@ -276,9 +280,10 @@
     display: flex;
     align-items: center;
     background-color: #121212;
-    padding: 0.625rem;
+
     transition: transform 0.2s ease-in-out;
-    width: 20.5rem;
+    width: rem(279px);
+    padding: rem(16px);
     height: 4rem;
     cursor: pointer;
     overflow: hidden;
@@ -430,8 +435,8 @@
 }
 
 .toggle-search-btn{
-    transform: translateX(8px);
-    margin-top: 5px;
+    transform: translateX(15px);
+
 
 }
 

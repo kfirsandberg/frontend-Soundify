@@ -35,7 +35,6 @@ export function StationHeader({ station }) {
                 gap: 0,
                 color: '#fff',
                 padding: 5,
-                backgroundColor: '#121212',
                 marginBottom: -5,
             }}
         >
@@ -52,6 +51,7 @@ export function StationHeader({ station }) {
                         minHeight: 128, // Prevents the image from becoming too small
                         maxWidth: 232,
                         maxHeight: 232,
+                        
 
                         '&:hover .overlay, &:hover .edit-icon-button': {
                             opacity: 1, // Show overlay and icon button on hover
