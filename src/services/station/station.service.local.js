@@ -18,29 +18,11 @@ export const stationLocalService = {
 
 _createStations()
 
-async function query(filterBy = { txt: '', genre: '' }, sortBy = null) {
-    let stations = await storageService.query(STORAGE_KEY);
-
-    // Apply filter if any text or genre filter is provided
-    if (filterBy.txt || filterBy.genre) {
-        stations = stations.filter(station => {
-            return (!filterBy.txt || station.name.includes(filterBy.txt)) &&
-                   (!filterBy.genre || station.genre === filterBy.genre);
-        });
-    }
-
-    // Apply sorting if sortBy is provided
-    if (sortBy) {
-        stations = stations.sort((a, b) => {
-            if (a[sortBy] < b[sortBy]) return -1;
-            if (a[sortBy] > b[sortBy]) return 1;
-            return 0;
-        });
-    }
-
-    return stations;
+async function query(filterBy = { txt: '', genre: '' }) {
+    let stations = await storageService.query(STORAGE_KEY)
+    
+    return stations
 }
-
 
 
 
