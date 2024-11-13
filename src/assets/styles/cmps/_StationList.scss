@@ -2,12 +2,12 @@ $min-column-width: 160px;
 $row-count: 1;
 
 .station-list {
-    padding: 0 0 0 1em;
+    padding-left: 10px;
 }
 
 .station-index-route {
   width: auto;
-  margin-left: 8px;
+  margin-left: 6px;
   margin-right: 8px;
   padding: 0;
   border-radius: 0.5em;
@@ -26,10 +26,12 @@ $row-count: 1;
                 display: flex;
                 justify-content: space-between;
                 position: relative;
-                height: 80px;
-                margin: rem(10px) 0 0 1.5em;
+                height: 62px;
+                margin: rem(6.8px) 0 0 1.3em;
 
                 .station-list-header {
+                    font-family: SpotifyMix;
+                    font-size: 24px;
                     justify-self: start;
                 }
 

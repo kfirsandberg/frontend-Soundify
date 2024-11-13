@@ -109,6 +109,7 @@ export function StationHeader({ station }) {
                     <Typography
                         variant="h2"
                         sx={{
+                            fontFamily: 'SpotifyMix-Extrabold', // Add this line to specify the font
                             fontWeight: 'bold',
                             cursor: 'pointer',
                             fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '5rem', xl: '6rem' },

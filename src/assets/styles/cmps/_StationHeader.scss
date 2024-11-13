@@ -202,5 +202,154 @@
 //     object-fit: cover;
 // }
 
+// .modal-overlay {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background-color: rgba(0, 0, 0, 0.5);
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     z-index: 9999;
+// }
+
+// .modal-details {
+//     background-color: #1e1e1e;
+//     color: #fff;
+//     width: rem(524px);
+//     border-radius: 8px;
+//     overflow: hidden;
+// }
+
+// .modal-header {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     font-size: 18px;
+//     font-weight: bold;
+//     padding: rem(10px);
+
+//     h2 {
+//         margin: 0;
+//     }
+// }
+
+// .close-modal-btn {
+//     background: none;
+//     border: none;
+//     font-size: 20px;
+//     color: #fff;
+//     cursor: pointer;
+
+//     svg {
+//         width: 1em;
+//         height: 1em;
+//         fill: #b3b3b3;
+//     }
+// }
+
+// .edit-form {
+//     display: grid;
+//     grid-template-columns: 180px 1fr;
+//     grid-template-rows: auto auto auto auto;
+//     grid-template-areas:
+//         'album-image title'
+//         'album-image description'
+//         '. save-button'
+//         'disclaimer disclaimer';
+//     grid-gap: 16px;
+
+//     .album-image {
+//         grid-area: album-image;
+
+//         img {
+//             width: rem(180px);
+//             height: rem(180px);
+//             border-radius: 8px;
+//         }
+//     }
+
+//     .title {
+//         grid-area: title;
+
+//         input {
+//             width: 100%;
+//             padding: 8px;
+//             font-size: 16px;
+//             color: #fff;
+//             background-color: #333;
+//             border: 1px solid #444;
+//             border-radius: 4px;
+//         }
+//     }
+
+//     .description {
+//         grid-area: description;
+
+//         textarea {
+//             width: 100%;
+//             height: 100px;
+//             padding: 8px;
+//             font-size: 14px;
+//             color: #fff;
+//             background-color: #333;
+//             border: 1px solid #444;
+//             border-radius: 4px;
+//             resize: none;
+//         }
+//     }
+//     .form-footer save-button {
+//         margin: 0;
+//     }
+
+//     .save-button {
+//         grid-area: save-button;
+//         display: flex;
+//         justify-content: flex-end;
+
+//         button {
+//             padding: rem(10px) rem(20px);
+//             font-size: 14px;
+//             font-size: 14px;
+//             font-weight: 700;
+//             color: #000000;
+//             border: none;
+//             border-radius: 2em;
+//             cursor: pointer;
+//         }
+//     }
+
+//     .disclaimer {
+//         grid-area: disclaimer;
+//         font-size: 12px;
+//         color: #888;
+//         line-height: 1.5;
+//     }
+// }
+
+// .edit-icon {
+//     position: absolute;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     top: 11%;
+//     left: 27.2%;
+//     opacity: 0;
+//     transition: opacity 0.3s ease;
+//     background-color: rgba(0, 0, 0, 0.792);
+//     width: rem(214px);
+//     height: rem(219px);
+//     border-radius: 2%;
+//     transition: none;
+// }
+// .edit-btn {
+//     fill: white !important;
+// }
+// .station-img:hover:hover .edit-icon {
+//     opacity: 1;
+// }
 
 // /* Optional SVG Icon Styling */

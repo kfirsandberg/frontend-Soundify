@@ -73,6 +73,7 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
                             <button onClick={() => handleSortClick('Recents')}>Recents</button>
                             <button onClick={() => handleSortClick('Recently Added')}>Recently Added</button>
                             <button onClick={() => handleSortClick('Alphabetical')}>Alphabetical</button>
+
                         </div>
                     </div>
                 </div>

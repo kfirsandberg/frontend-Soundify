@@ -1,13 +1,35 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
+import { useState } from 'react';
 
 export function NavBtns() {
+    // State to keep track of the active button
+    const [activeButton, setActiveButton] = useState("All");
+
+    // Handle button click
+    function handleClick(ev) {
+        const clickedButton = ev.target.textContent;
+        setActiveButton(clickedButton); // Update the active button state
+    }
+
     return (
-        <Box className="nav-btns">
-            <Fab className="nav-btn-active">All</Fab>
-            <Fab className="nav-btn">Music</Fab>
-            <Fab className="nav-btn">Podcasts</Fab>
-        </Box>
+        <div className="nav-btns">
+            <button
+                onClick={handleClick}
+                className={`nav-btn${activeButton === "All" ? "-active" : ""}`}
+            >
+                All
+            </button>
+            <button
+                onClick={handleClick}
+                className={`nav-btn${activeButton === "Music" ? "-active" : ""}`}
+            >
+                Music
+            </button>
+            <button
+                onClick={handleClick}
+                className={`nav-btn${activeButton === "Podcasts" ? "-active" : ""}`}
+            >
+                Podcasts
+            </button>
+        </div>
     );
 }
