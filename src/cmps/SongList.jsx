@@ -3,6 +3,8 @@ import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow } from '@mui/icons-material'
 
+
+
 export function SongList({ station }) {
     const [hoveredIndex, setHoveredIndex] = useState(null)
 
@@ -18,7 +20,7 @@ export function SongList({ station }) {
                     sx={{
                         gridArea: 'nav',
                         display: 'grid',
-                        gridTemplateColumns: 'auto 7fr 3fr 1fr',
+                        gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
                         gridGap: 1,
                         paddingTop: 3,
                         '@media (max-width: 768px)': {
@@ -55,7 +57,6 @@ export function SongList({ station }) {
                         sx={{
                             opacity: 0.6,
                             color: 'white',
-
                             '@media (max-width: 768px)': {
                                 marginLeft: 0, // Remove gap on smaller screens
                             },
@@ -68,7 +69,6 @@ export function SongList({ station }) {
                         sx={{
                             opacity: 0.6,
                             color: 'white',
-
                             '@media (max-width: 768px)': {
                                 marginLeft: 0, // Remove gap on smaller screens
                             },
@@ -147,11 +147,25 @@ export function SongList({ station }) {
                             </Box>
 
                             {/* Album and Duration columns */}
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: 'auto' }}>
-                                <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', marginLeft: 'auto', width: '50%' }}>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        textAlign: 'left',
+                                        color: 'rgba(255, 255, 255, 0.6)',
+                                        marginRight: 10,
+                                        marginLeft: -3, // Move album more to the left
+                                    }}
+                                >
                                     {song.album}
                                 </Typography>
-                                <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        color: 'rgba(255, 255, 255, 0.6)',
+                                        marginLeft: -3, // Move duration more to the left
+                                    }}
+                                >
                                     {song.duration}
                                 </Typography>
                             </Box>
