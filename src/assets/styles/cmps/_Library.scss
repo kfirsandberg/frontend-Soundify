@@ -161,19 +161,9 @@
 .search-and-menu {
     display: flex;
     align-items: center;
-    gap: 63px;
+    justify-content: space-between;
+    
 }
-
-// .toggle-search-btn {
-//     background-color: #181818;
-//     color: #b3b3b3;
-//     border: none;
-//     cursor: pointer;
-//     padding: 8px 16px;
-//     border-radius: 50px;
-//     font-size: 10px;
-//     flex-shrink: 0;
-// }
 
 .search-container {
     flex: 1;
@@ -203,32 +193,51 @@
 }
 
 .search-input.open {
-    max-width: 70px;
-    min-width: 188px;
+  
+    top: 0; /* Adjust based on where you want it to appear vertically */
+    left: 0; /* Adjust based on where you want it to appear horizontally */
+    transform: translateX(-35px); /* Moves the input 45px to the left */
+    max-width: 120px; /* Maximum width of the input */
     padding: 15px;
     opacity: 1;
-    transform: translateX(-45px);
+    z-index: 9999; /* Keeps it above all other elements */
 }
+
 
 .sort-container {
     display: flex;
+    position: relative;
     align-items: center;
-    max-width: 100px;
+
+}
+
+
+
+.hamburger-menu {
+    position: relative; /* Static positioning for the entire menu */
+    width: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    z-index: 9999
+}
+
+.hamburger-btn {
+    position: relative; /* Static positioning for the button itself */
 }
 
 .selected-sort {
+    position: absolute; /* Makes it move independently */
+    top: 0; /* Adjust this to control vertical position */
+    right: 100%; /* Position it to the left of the hamburger button */
+    margin-right: 8px; /* Adds spacing between button and selected-sort */
     color: #b3b3b3;
     font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.hamburger-menu {
-    position: relative;
-    width: 36px;
-    justify-content: center;
-    align-items: center;
+    z-index: 9999
 }
 
 /* Modal */
@@ -340,24 +349,54 @@
 .station-info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+    justify-content: flex-start;  /* Align items to the top */
     margin-left: 0.625rem;
     color: #fff;
+    height: auto;  /* Allow dynamic height */
+    padding: 0;  /* Remove any default padding */
+    width: 100%; /* Ensure the width is consistent */
 }
 
 .station-name {
-    font-size: 1rem;
+    font-size: 12px;
     font-weight: bold;
-    text-align: right;
     font-family: SpotifyMix-light;
+    margin: 0;  /* Remove margin to keep it close to the next element */
+    white-space: nowrap;  /* Prevent text from wrapping */
+    overflow: hidden;  /* Hide any overflow text */
+    text-overflow: ellipsis;  /* Add ellipsis (...) if the text overflows */
 }
 
-.station-artist {
-    font-size: 0.875rem;
-    color: #bbb;
-    margin-top: auto;
+.station-details {
+    display: flex;
+    width: 100%;  /* Ensure it takes the full width */
+    margin-top: 0;  /* Remove any space between station-name and station-details */
+    padding: 0;  /* Remove any padding that might add extra space */
 }
+
+.station-kind {
+    font-size: 12px;
+    color: #bbb;
+    margin: 0;  /* Remove margin */
+    white-space: nowrap;  /* Prevent text from wrapping */
+    overflow: hidden;  /* Hide any overflow text */
+    text-overflow: ellipsis;  /* Add ellipsis (...) if the text overflows */
+}
+
+.station-creator {
+    font-size: 12px;
+    color: #bbb;
+    margin: 0;  /* Remove margin */
+    overflow: hidden;  /* Hide any overflow text */
+    text-overflow: ellipsis;  /* Add ellipsis (...) if the text overflows */
+    
+}
+
+
+
+
+
+
 
 /* Collapsed State for Library Route */
 .library-content-collapsed .library-list-wrapper {

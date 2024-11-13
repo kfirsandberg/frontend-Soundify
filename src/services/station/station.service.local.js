@@ -154,6 +154,7 @@ function getEmptyStation(name = 'My Playlist') {
         imgURL: null,
         songs,
         _id: makeId(),
+        
     }
 }
 

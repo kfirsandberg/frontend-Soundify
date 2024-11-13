@@ -100,11 +100,14 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                         >
                             <img src={station.imgURL} alt={station.name} className="station-image" />
                             {!isCollapsed && (
-                                <div className="station-info">
-                                    <h3 className="station-name">{station.name}</h3>
-                                    <h3 >Playlist</h3>
-                                    <p className="station-artist">{station.artist}</p>
-                                </div>
+                              <div className="station-info">
+                              <h3 className="station-name">{station.name}</h3>
+                              <div className="station-details">
+                                  <h3 className="station-kind">Playlist</h3>
+                                  <p className="station-creator"> •Spotify  </p>
+                              </div>
+                          </div>
+                          
                             )}
                             {/* SVG Icon overlay */}
                             <div className="overlay-icon">
