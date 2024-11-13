@@ -102,6 +102,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                             {!isCollapsed && (
                                 <div className="station-info">
                                     <h3 className="station-name">{station.name}</h3>
+                                    <h3 >Playlist</h3>
                                     <p className="station-artist">{station.artist}</p>
                                 </div>
                             )}

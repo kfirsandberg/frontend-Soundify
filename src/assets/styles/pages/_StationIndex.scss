@@ -6,12 +6,12 @@
   flex-direction: column;
   align-items: center;
   // background-color: $slider-background ;
+  max-height: 100vh;
 
   border-radius: 0.5em;
 
   section {
     width: 100%;
     max-width: 1200px;
-
   }
 }

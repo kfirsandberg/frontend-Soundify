@@ -1,33 +1,40 @@
 .nav-btns {
-    transform: translateX(rem(30px));
+    transform: translateX(22px);
     display: flex;
     align-items: center;
     gap: 8px;
     height: 3em;
-    padding-top: 10px;
+    padding-top: 15px;
     margin-right: auto;
 
     .nav-btn,
     .nav-btn-active {
-        font-size: rem(16px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
         padding: 0 14px;
-        height: 2.3em;
-        border-radius: 1.8em;
-        height: rem(40px);
+        height: rem(32px); 
         width: auto;
+        border-radius: 1.8em;
         text-transform: none;
+        font-family: SpotifyMix, sans-serif;
         box-shadow: none;
-        font-family: SpotifyMix;
+        padding: rem(10px);
+        border: none;
+        cursor: pointer;
     }
 
     .nav-btn-active {
+        background-color: white;
         color: black;
     }
 
     .nav-btn {
         background-color: rgba(255, 255, 255, 0.1);
-        color: rgb(255, 255, 255);
+        color: white;
         padding: 11px;
+        transition: background-color 0.3s;
 
         &:hover {
             background-color: rgba(255, 255, 255, 0.2);

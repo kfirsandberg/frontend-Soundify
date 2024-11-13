@@ -1,13 +1,11 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
 
 export function NavBtns() {
     return (
-        <Box className="nav-btns">
-            <Fab className="nav-btn-active">All</Fab>
-            <Fab className="nav-btn">Music</Fab>
-            <Fab className="nav-btn">Podcasts</Fab>
-        </Box>
+        <div class="nav-btns">
+            <button class="nav-btn-active">All</button>
+            <button class="nav-btn">Music</button>
+            <button class="nav-btn">Podcasts</button>
+        </div>
+
     );
 }

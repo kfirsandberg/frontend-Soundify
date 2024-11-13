@@ -1,45 +1,58 @@
-// Wrapper for each station card
-.last-stations-grid{
-    margin-left: 10px;
-    gap: 6px;
+.last-stations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 20px;
+
+    @media (min-width: 600px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 900px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
     .playlist-card {
         display: flex;
         align-items: center;
-        background-color: #282828; 
-        border-radius: 8px;
+        background-color: #28282860;
+        border-radius: 4px;
         color: white;
         gap: 10px;
+        font-size: 2px;
+        height: rem(64px);
         transition: background-color 0.3s;
+        
         &:hover {
             cursor: pointer;
-            background-color: #333333;
+            background-color: #b3b3b356;
         }
-    
-        img {
-            width: 60px;
-            height: 60px;
-            border-radius: 4px; 
+        
+        img.playlist-thumbnail {
+            width: rem(64px);
+            height: rem(64px);
+            border-radius: 4px;
             object-fit: cover;
         }
-    
+
         .playlist-info {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
-    
+
             .playlist-name {
-                font-size: line-height;
-                font-weight: bold;
+                font-size: 15px;
+                font-family: SpotifyMix;
+                margin-left:10px ;
                 color: white;
             }
         }
-    
-    
+
         .playlist-play-btn {
-            width: rem(35px);
-            height: rem(35px);
+            width: 50px;
+            height: 50px;
             margin: 10px;
-            background-color: #1db954; 
+            background-color: #1db954;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -47,14 +60,16 @@
             color: black;
             cursor: pointer;
             visibility: hidden;
-            
-            svg{
-                height: rem(20px);
+
+            svg {
+                width: 28px;
+                height: 28px;
             }
         }
-        
-    
+
         &:hover .playlist-play-btn {
+            box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.5);
+
             visibility: visible;
         }
     }
