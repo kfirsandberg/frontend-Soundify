@@ -313,7 +313,6 @@
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -326,6 +325,8 @@
     position: absolute;
     width: 24px;
     height: 24px;
+    transform: translateX(-99px);
+    margin-top: 12px;
 }
 
 /* Image Size */
