@@ -46,9 +46,10 @@ export async function removeStation(stationId) {
     }
 }
 
-export async function addStation() {
+export async function addStation(station) {
     try {
         const savedStation = await stationLocalService.saveStation(station)
+        store.dispatch(getCmdAddStation(savedStation))
         return savedStation
     } catch (err) {
         console.log('Cannot add station', err)
@@ -57,10 +58,11 @@ export async function addStation() {
 }
 export async function addNewStation() {
     try {
-        const newStation = await stationLocalService.getEmptyStation()
-        store.dispatch(getCmdSetStation(newStation))
-        store.dispatch(getCmdAddStation(newStation))
-        return newStation
+        const newStation = stationLocalService.getEmptyStation()
+        const savedStation = await stationLocalService.saveStation(newStation)
+        store.dispatch(getCmdSetStation(savedStation))
+        store.dispatch(getCmdAddStation(savedStation))
+        return savedStation
     } catch (err) {
         console.log('Cannot add station', err)
         throw err

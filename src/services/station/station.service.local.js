@@ -62,7 +62,8 @@ async function saveStation(station) {
     const stationToSave = {
         _id: station._id || makeId(),
         name: station.name,
-        genre: station.genre,
+        imgURL: station.imgURL || null,
+        songs: station.songs || [],
     }
     return station._id
         ? await storageService.put(STORAGE_KEY, stationToSave)
@@ -100,7 +101,6 @@ async function addStation(name, genre) {
     const newStation = {
         _id: makeId(),
         name,
-        genre,
     }
     await storageService.post(STORAGE_KEY, newStation)
     return newStation
@@ -112,31 +112,34 @@ async function _createStations() {
     if (!stations || !stations.length) {
         stations = []
         // Create several example stations
-        stations.push(_createStation('Liked Songs'))
-        stations.push(_createStation('This is Infected Mushroom'))
-        stations.push(_createStation('Daily Mix 2'))
-        stations.push(_createStation('Funky Monks'))
-        stations.push(_createStation('Rock Vibes'))
-        stations.push(_createStation('Hip Hop Essentials'))
-        stations.push(_createStation('Electronic Escape'))
-        stations.push(_createStation('Jazz Classics'))
-        stations.push(_createStation('Reggae Vibes'))
-        stations.push(_createStation('Israeli Vibes'))
-        stations.push(_createStation('Funky Monks'))
-        stations.push(_createStation('Rock Vibes'))
-        stations.push(_createStation('Hip Hop Essentials'))
-        stations.push(_createStation('Electronic Escape'))
-        stations.push(_createStation('Jazz Classics'))
-        stations.push(_createStation('Reggae Vibes'))
-        stations.push(_createStation('Israeli Vibes'))
+
+        stations.push(_createStation('Liked Songs', makeId()))
+        stations.push(_createStation('This is Infected Mushroom', makeId()))
+        stations.push(_createStation('Daily Mix 2', makeId()))
+        stations.push(_createStation('Funky Monks', makeId()))
+        stations.push(_createStation('Rock Vibes', makeId()))
+        stations.push(_createStation('Hip Hop Essentials', makeId()))
+        stations.push(_createStation('Electronic Escape', makeId()))
+        stations.push(_createStation('Jazz Classics', makeId()))
+        stations.push(_createStation('Reggae Vibes', makeId()))
+        stations.push(_createStation('Israeli Vibes', makeId()))
+        stations.push(_createStation('Funky Monks', makeId()))
+        stations.push(_createStation('Rock Vibes', makeId()))
+        stations.push(_createStation('Hip Hop Essentials', makeId()))
+        stations.push(_createStation('Electronic Escape', makeId()))
+        stations.push(_createStation('Jazz Classics', makeId()))
+        stations.push(_createStation('Reggae Vibes', makeId()))
+        stations.push(_createStation('Israeli Vibes', makeId()))
         saveToStorage(STORAGE_KEY, stations)
     }
+    console.log('station:', stations)
     return stations
 }
 
-function _createStation(name) {
-    const station = getEmptyStation(name)
-    if (station.name === 'Liked Songs') station.imgURL = 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'
+function _createStation(name, _id) {
+    const station = getEmptyStation(name, _id)
+    if (station.name === 'Liked Songs')
+        station.imgURL = 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'
     if (station.songs && station.songs.length > 0) {
         station.imgURL = station.songs[0].imgURL // Use the first song's imgURL if exists
     } else if (station.name !== 'Liked Songs') {
@@ -146,13 +149,17 @@ function _createStation(name) {
     return station
 }
 
-function getEmptyStation(name = 'My Playlist') {
-    const songs = getSongsForStation(name)
+function getEmptyStation(name, _id = '') {
+    let playlistCount = parseInt(localStorage.getItem('playlistCount'), 10) || 0
+    console.log('playlistCount:', playlistCount)
+    playlistCount += 1
+    const newStationName = name || `My Playlist #${playlistCount}`
+    localStorage.setItem('playlistCount', playlistCount)
     return {
-        name,
+        name: newStationName,
         imgURL: null,
-        songs,
-        _id: makeId(),
+        songs: getSongsForStation(newStationName) || [],
+        _id,
     }
 }
 
@@ -163,7 +170,6 @@ function getVideoIdFromUrl(url) {
 
 function getSongsForStation(playlistName) {
     const songLibrary = {
-
         'This is Infected Mushroom': [
             {
                 title: 'Infected Mushroom - I Wish',
@@ -347,9 +353,8 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZaabcdEFG'),
                 id: makeId(),
                 imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489281/liot_narkis_uhcvth.jpg',
-            }
+            },
         ],
-
 
         'Funky Monks': [
             {
@@ -378,7 +383,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=3WOZwwRH6XU'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/3WOZwwRH6XU/mqdefault.jpg',
-            }
+            },
         ],
 
         'Rock Vibes': [
@@ -408,7 +413,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=fJ9rUzIMcZQ'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/fJ9rUzIMcZQ/mqdefault.jpg',
-            }
+            },
         ],
 
         'Hip Hop Essentials': [
@@ -438,7 +443,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=_JZom_gVfuw'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/_JZom_gVfuw/mqdefault.jpg',
-            }
+            },
         ],
 
         'Electronic Escape': [
@@ -468,9 +473,8 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Xu3FTEmN-eg'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/Xu3FTEmN-eg/mqdefault.jpg',
-            }
-        ]
-        ,
+            },
+        ],
         'Jazz Classics': [
             {
                 title: 'John Coltrane - A Love Supreme',
@@ -498,7 +502,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=cb2w2m1JmCY'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/cb2w2m1JmCY/mqdefault.jpg',
-            }
+            },
         ],
         'Reggae Vibes': [
             {
@@ -527,7 +531,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=HrLJ6Saq7u4'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/HrLJ6Saq7u4/mqdefault.jpg',
-            }
+            },
         ],
         'Israeli Vibes': [
             {
@@ -556,9 +560,10 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=psKClFBw5S4'),
                 id: makeId(),
                 imgURL: 'https://i1.sndcdn.com/artworks-sz8gJhk2rZYd3P6W-gDOI4g-t500x500.jpg',
-            }
+            },
         ],
     }
+    console.log('songLibrary[playlistName] :', songLibrary[playlistName])
 
     return songLibrary[playlistName] || []
 }
