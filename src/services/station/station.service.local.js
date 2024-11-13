@@ -142,22 +142,20 @@ function _createStation(name, _id) {
         station.imgURL = 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'
     if (station.songs && station.songs.length > 0) {
         station.imgURL = station.songs[0].imgURL // Use the first song's imgURL if exists
-    } else if (station.name !== 'Liked Songs') {
-        station.imgURL =
-            'https://res.cloudinary.com/dwzeothxl/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
     }
+    console.log('station:', station)
+
     return station
 }
 
 function getEmptyStation(name, _id = '') {
     let playlistCount = parseInt(localStorage.getItem('playlistCount'), 10) || 0
-    console.log('playlistCount:', playlistCount)
     playlistCount += 1
     const newStationName = name || `My Playlist #${playlistCount}`
     localStorage.setItem('playlistCount', playlistCount)
     return {
         name: newStationName,
-        imgURL: null,
+        imgURL: 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png',
         songs: getSongsForStation(newStationName) || [],
         _id,
     }
@@ -563,7 +561,6 @@ function getSongsForStation(playlistName) {
             },
         ],
     }
-    console.log('songLibrary[playlistName] :', songLibrary[playlistName])
 
     return songLibrary[playlistName] || []
 }
