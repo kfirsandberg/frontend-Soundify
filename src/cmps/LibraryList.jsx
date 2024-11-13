@@ -34,23 +34,22 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     }
 
     function onClickStation(station) {
-        navigate(`/playlist/${station._id}`)
-        loadStation(station._id)
+        navigate(`/playlist/${station._id}`);
+        loadStation(station._id);
     }
 
     let filteredStations = stations
     if (stations && filterCriteria) {
         filteredStations = stations.filter(station => station.name.toLowerCase().includes(filterCriteria.toLowerCase()))
     }
-    if (stations && sortBy) {
-        if (sortBy === 'recents') {
-            filteredStations.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        } else if (sortBy === 'recentlyAdded') {
-            filteredStations.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt))
-        } else if (sortBy === 'alphabetical') {
-            filteredStations.sort((a, b) => a.name.localeCompare(b.name))
-        }
+    if (sortBy === 'Recents') { // Correct capitalization
+        filteredStations.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    } else if (sortBy === 'Recently Added') {
+        filteredStations.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt))
+    } else if (sortBy === 'Alphabetical') {
+        filteredStations.sort((a, b) => a.name.localeCompare(b.name))
     }
+    
 
     function handleContextMenu(ev, station) {
         ev.preventDefault()
@@ -89,30 +88,34 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
 
     return (
         <div className={`library-list ${isCollapsed ? 'collapsed' : ''}`}>
-
-            <ul>
-                {filteredStations.map(station => (
-                    <li
-                        key={station._id}
-                        className="station-card"
-                        onClick={() => onClickStation(station)}
-                        onContextMenu={ev => handleContextMenu(ev, station)}
-                    >
-                        <img src={station.imgURL} alt={station.name} className="station-image" />
-                        {!isCollapsed && (
-                            <section className="station-info">
-                                <h3 className="station-name">{station.name}</h3>
-                                <h3 >Playlist</h3>
-                                <p className="station-artist">{station.artist}</p>
-                            </section>
-                        )}
-
-                        <div className="overlay-icon">
-                            <img src="/assets/lib_player_btn.svg" alt="Play" />
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            {/* <Scrollbar style={{ height: '800px' }}> */}
+                <ul>
+                    {filteredStations.map(station => (
+                        <li
+                            key={station._id}
+                            className="station-card"
+                            onClick={() => onClickStation(station)}
+                            onContextMenu={ev => handleContextMenu(ev, station)}
+                        >
+                            <img src={station.imgURL} alt={station.name} className="station-image" />
+                            {!isCollapsed && (
+                              <div className="station-info">
+                              <h3 className="station-name">{station.name}</h3>
+                              <div className="station-details">
+                                  <h3 className="station-kind">Playlist</h3>
+                                  <p className="station-creator"> •Spotify  </p>
+                              </div>
+                          </div>
+                          
+                            )}
+                            {/* SVG Icon overlay */}
+                            <div className="overlay-icon">
+                                <img src="/assets/lib_player_btn.svg" alt="Play" />
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            {/* </Scrollbar> */}
 
             {contextMenu && (
                 <div className="context-menu" ref={contextMenuRef}>
