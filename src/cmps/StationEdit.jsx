@@ -1,33 +1,90 @@
-export function StationEdit() {
+import { useState } from 'react'
 
+export function StationEdit({ station, onClose }) {
+    const [editedStation, setEditedStation] = useState({ ...station })
+
+    function handleInputChange(event) {
+        const { name, value } = event.target
+        setEditedStation(prevState => ({
+            ...prevState,
+            [name]: value,
+        }))
+    }
+
+    function handleSave() {
+        console.log('Saved Station:', editedStation)
+        onClose()
+    }
+
+    function renderStationImage() {
+        if (station.imgURL === null) {
+            return (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-encore-id="icon"
+                    role="img"
+                    aria-hidden="true"
+                    data-testid="track"
+                    viewBox="0 0 24 24"
+                    className="Svg-sc-ytk21e-0 bneLcE"
+                >
+                    <path d="M6 3h15v15.167a3.5 3.5 0 1 1-3.5-3.5H19V5H8v13.167a3.5 3.5 0 1 1-3.5-3.5H6V3zm0 13.667H4.5a1.5 1.5 0 1 0 1.5 1.5v-1.5zm13 0h-1.5a1.5 1.5 0 1 0 1.5 1.5v-1.5z" />
+                </svg>
+            )
+        }
+        return <img className="playlist-image" src={station.imgURL} alt="playlist image" />
+    }
 
     return (
         <div className="station-edit">
-            <form>
-            <h2>Edit details</h2>
-                <div className="station-icon">
+            <div className="modal-header">
+                <h2>Edit details</h2>
+                <button onClick={onClose} className="close-modal-btn">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        data-encore-id="icon"
-                        role="img"
-                        aria-hidden="true"
-                        data-testid="track"
-                        viewBox="0 0 24 24"
-                        class="Svg-sc-ytk21e-0 bneLcE"
+                        width="348.333"
+                        height="348.333"
+                        viewBox="0 0 348.333 348.334"
+                        className="close-btn-icon"
                     >
-                        <path d="M6 3h15v15.167a3.5 3.5 0 1 1-3.5-3.5H19V5H8v13.167a3.5 3.5 0 1 1-3.5-3.5H6V3zm0 13.667H4.5a1.5 1.5 0 1 0 1.5 1.5v-1.5zm13 0h-1.5a1.5 1.5 0 1 0 1.5 1.5v-1.5z" />
+                        <path d="M336.559 68.611L231.016 174.165l105.543 105.549c15.699 15.705 15.699 41.145 0 56.85-7.844 7.844-18.128 11.769-28.407 11.769-10.296 0-20.581-3.919-28.419-11.769L174.167 231.003 68.609 336.563c-7.843 7.844-18.128 11.769-28.416 11.769-10.285 0-20.563-3.919-28.413-11.769-15.699-15.698-15.699-41.139 0-56.85l105.54-105.549L11.774 68.611c-15.699-15.699-15.699-41.145 0-56.844 15.696-15.687 41.127-15.687 56.829 0l105.563 105.554L279.721 11.767c15.705-15.687 41.139-15.687 56.832 0 15.705 15.699 15.705 41.145.006 56.844z" />
                     </svg>
-                </div>
-                <select>
-                    <textarea name="txt">playlist name</textarea>
-                    <textarea name="txt">Add an optional description</textarea>
-                </select>
-                <button>save</button>
-                <p>
-                    By proceeding, you agree to give Soundify access to the image you choose to upload. Please make sure
-                    you have the right to upload the image.
-                </p>
-            </form>
+                </button>
+            </div>
+            <div className="form-container">
+                <form className="edit-form">
+                    <div className="album-image">
+                        <img src={station.imgURL} alt="" />
+                    </div>
+
+                    <div className="form-group title">
+                        <label for="station-name">Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={editedStation.name || ''}
+                            onChange={handleInputChange}
+                            placeholder="Enter Station Name"
+                        />
+                    </div>
+                    <div className="form-group description">
+                        <label for="station-description">Description</label>
+                        <textarea
+                            name="description"
+                            value={editedStation.description || ''}
+                            onChange={handleInputChange}
+                            placeholder="Add an optional description"
+                        />
+                    </div>
+                    <button type="button" onClick={handleSave} className="save-btn">
+                        <span>Save</span>
+                    </button>
+                    <p className="disclaimer">
+                        By proceeding, you agree to give Soundify access to the image you choose to upload. Please make
+                        sure you have the right to upload the image.
+                    </p>
+                </form>
+            </div>
         </div>
     )
 }

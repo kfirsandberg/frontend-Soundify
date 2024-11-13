@@ -5,27 +5,21 @@ import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import userIcon from '../../public/assets/user.svg'
 import { MoreHoriz } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
 
 import HamburgerIcon from '../../public/assets/hamburger.svg'
+import { StationEdit } from './StationEdit'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [editedStation, setEditedStation] = useState({
-        ...station,
-    })
 
-    const onEditStation = () => setIsModalOpen(true)
-    const onCloseModal = () => setIsModalOpen(false)
-
-    const handleInputChange = event => {
-        const { name, value } = event.target
-        setEditedStation(prevState => ({
-            ...prevState,
-            [name]: value,
-        }))
+    function onEditStation() {
+        setIsModalOpen(true)
     }
 
-    const handleSave = () => setIsModalOpen(false)
+    function onCloseModal() {
+        setIsModalOpen(false)
+    }
 
     return (
         <Box
@@ -178,6 +172,11 @@ export function StationHeader({ station }) {
                     <Box component="img" src={HamburgerIcon} alt="Sort Icon" sx={{ width: 20, height: 20 }} />
                 </Button>
             </Box>
+
+            {/* Modal for Station Edit */}
+            <Modal open={isModalOpen} onClose={onCloseModal}>
+                <StationEdit station={station} onClose={onCloseModal} />
+            </Modal>
         </Box>
     )
 }
