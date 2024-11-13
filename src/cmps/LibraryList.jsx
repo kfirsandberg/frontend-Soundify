@@ -34,23 +34,22 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     }
 
     function onClickStation(station) {
-        navigate(`/playlist/${station._id}`)
-        loadStation(station._id)
+        navigate(`/playlist/${station._id}`);
+        loadStation(station._id);
     }
 
     let filteredStations = stations
     if (stations && filterCriteria) {
         filteredStations = stations.filter(station => station.name.toLowerCase().includes(filterCriteria.toLowerCase()))
     }
-    if (stations && sortBy) {
-        if (sortBy === 'recents') {
-            filteredStations.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        } else if (sortBy === 'recentlyAdded') {
-            filteredStations.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt))
-        } else if (sortBy === 'alphabetical') {
-            filteredStations.sort((a, b) => a.name.localeCompare(b.name))
-        }
+    if (sortBy === 'Recents') { // Correct capitalization
+        filteredStations.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    } else if (sortBy === 'Recently Added') {
+        filteredStations.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt))
+    } else if (sortBy === 'Alphabetical') {
+        filteredStations.sort((a, b) => a.name.localeCompare(b.name))
     }
+    
 
     function handleContextMenu(ev, station) {
         ev.preventDefault()
