@@ -55,8 +55,8 @@ export function RootCmp() {
                     </Routes>
                 </main>
             </div>
-            <YouTubeAudioPlayer />
             <AppPlayer className="player" />
+            <YouTubeAudioPlayer />
         </div>
     )
 }

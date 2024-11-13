@@ -269,10 +269,17 @@
 
 /* Library List */
 .library-list {
+    max-height: 62vh;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
+    height: 100vh;
+    margin: 0;   
+}
+.library-list::-webkit-scrollbar,
+.station-index-route::-webkit-scrollbar {
+    display: none;
 }
 
 .station-card {

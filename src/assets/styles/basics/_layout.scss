@@ -28,6 +28,9 @@
 }
 
 .station-index-route {
+    max-height: 82vh;
+    overflow-y: scroll;
+    
     // background-color: #121212;
     grid-area: main;
     align-items: center;
