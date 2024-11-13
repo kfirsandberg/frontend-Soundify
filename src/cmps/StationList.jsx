@@ -31,7 +31,7 @@ export function StationList({ stations }) {
         <section className="station-list-container">
             <header className="station-list-header-container">
                 <h2 className="station-list-header">Created for you</h2>
-                <button className="station-list-header-2" onClick={handleShowAll}>
+                <button className="show-all-btn" onClick={handleShowAll}>
                     Show all
                 </button>
             </header>

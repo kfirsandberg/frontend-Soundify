@@ -2,113 +2,106 @@ $min-column-width: 160px;
 $row-count: 1;
 
 .station-list {
-  padding: 0 0 0 1em;
-  
+    padding: 0 0 0 1em;
 }
 
 .station-index-route {
-  width: auto;
-  margin-left: 8px;
-  margin-right: 8px;
-  padding: 0;
-  border-radius: 1%;
-  
+    width: auto;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 0;
+    border-radius: 1%;
 
+    .station-index {
+        width: 100%;
 
-  .station-index {
-    width: 100%;
+        .station-list-container {
+            width: 100%;
+            max-width: 100%;
+            padding: 0;
 
-    .station-list-container {
-      width: 100%;
-      max-width: 100%;
-      padding: 0;
+            .station-list-header-container {
+                display: flex;
+                justify-content: space-between;
+                position: relative;
+                height: 80px;
+                margin: rem(10px) 0 0 1.5em;
 
+                .station-list-header {
+                    justify-self: start;
+                }
 
+                .show-all-btn {
+                    font-family: SpotifyMix-bold;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    font-size: 0.8em;
+                    font-weight: 700;
+                    margin-right: 30px;
+                    background-color: inherit;
+                    border: none;
+                    color: #fff;
+                    font-size: rem(15px);
+                    cursor: pointer;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
 
-      .station-list-header-container {
-        display: flex;
-        justify-content: space-between;
-        position: relative;
-        height: 80px;
-        margin: rem(10px) 0 0 1.5em;
+            .station-list {
+                display: flex;
+                flex-wrap: nowrap;
+                min-width: 50%;
+                max-width: 100%;
+                overflow: hidden;
 
-        .station-list-header {
-          justify-self: start;
+                .station-item {
+                    flex: 1 1 $min-column-width;
+                    /* Ensures each item has a minimum width and flexes */
+                    max-width: $min-column-width;
+                    /* Prevents items from growing beyond the minimum column width */
+                }
 
+                button {
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    cursor: pointer;
+                    color: inherit;
+
+                    &:hover {
+                        transition: transform 0.2s ease;
+                    }
+                }
+            }
+
+            /* Initially hide the add button */
+            .add-btn {
+                display: none;
+            }
+
+            /* Show the add button when the song item is hovered */
+            .song-item:hover .add-btn {
+                display: block;
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                cursor: pointer;
+            }
+
+            /* Optional: Add styles for the add button icon */
+            .add-btn svg {
+                fill: white;
+                transition: fill 0.3s ease;
+            }
+
+            /* Change SVG color on hover */
+            .song-item:hover .add-btn svg {
+                fill: #ffffff;
+            }
         }
-
-        .station-list-header-2 {
-          font-family: SpotifyMix-bold;
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          font-size: 0.8em;
-          font-weight: 700;
-          margin-right: 30px;
-          
-        }
-      }
-
-
-      .station-list {
-        display: flex;
-        flex-wrap: nowrap;
-        min-width: 50%;
-        max-width: 100%;
-        overflow: hidden;
-
-
-
-
-        .station-item {
-          flex: 1 1 $min-column-width;
-          /* Ensures each item has a minimum width and flexes */
-          max-width: $min-column-width;
-          /* Prevents items from growing beyond the minimum column width */
-        }
-
-        button {
-          background: none;
-          border: none;
-          padding: 0;
-          cursor: pointer;
-          color: inherit;
-
-          &:hover {
-            transition: transform 0.2s ease;
-          }
-        }
-      }
-
-      /* Initially hide the add button */
-      .add-btn {
-        display: none;
-      }
-
-      /* Show the add button when the song item is hovered */
-      .song-item:hover .add-btn {
-        display: block;
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        cursor: pointer;
-      }
-
-      /* Optional: Add styles for the add button icon */
-      .add-btn svg {
-        fill: white;
-        transition: fill 0.3s ease;
-      }
-
-      /* Change SVG color on hover */
-      .song-item:hover .add-btn svg {
-        fill: #ffffff;
-      }
-
-
     }
-  }
-
-
 }
