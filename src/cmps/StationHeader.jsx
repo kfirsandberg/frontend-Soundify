@@ -51,7 +51,6 @@ export function StationHeader({ station }) {
                         minHeight: 128, // Prevents the image from becoming too small
                         maxWidth: 232,
                         maxHeight: 232,
-                        
 
                         '&:hover .overlay, &:hover .edit-icon-button': {
                             opacity: 1, // Show overlay and icon button on hover
@@ -179,58 +178,6 @@ export function StationHeader({ station }) {
                     <Box component="img" src={HamburgerIcon} alt="Sort Icon" sx={{ width: 20, height: 20 }} />
                 </Button>
             </Box>
-
-            {/* Modal for Editing */}
-            <Modal
-                open={isModalOpen}
-                onClose={onCloseModal}
-                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            >
-                <Box sx={{ width: 500, bgcolor: '#1e1e1e', p: 3, borderRadius: 2 }}>
-                    <Typography variant="h6" sx={{ marginBottom: 2 }}>
-                        Edit Details
-                    </Typography>
-                    <Box component="form">
-                        <Grid container spacing={2}>
-                            <Grid item xs={4}>
-                                <Box
-                                    component="img"
-                                    src={station.imgURL || userIcon}
-                                    alt=""
-                                    sx={{ width: '100%', borderRadius: 1 }}
-                                />
-                            </Grid>
-                            <Grid item xs={8}>
-                                <TextField
-                                    fullWidth
-                                    label="Station Name"
-                                    name="name"
-                                    variant="filled"
-                                    value={editedStation.name || ''}
-                                    onChange={handleInputChange}
-                                    InputProps={{ style: { color: '#fff' } }}
-                                    sx={{ bgcolor: '#333', mb: 2 }}
-                                />
-                                <TextField
-                                    fullWidth
-                                    label="Description"
-                                    name="description"
-                                    variant="filled"
-                                    multiline
-                                    rows={3}
-                                    value={editedStation.description || ''}
-                                    onChange={handleInputChange}
-                                    InputProps={{ style: { color: '#fff' } }}
-                                    sx={{ bgcolor: '#333' }}
-                                />
-                            </Grid>
-                        </Grid>
-                        <Button onClick={handleSave} fullWidth variant="contained" color="success" sx={{ mt: 2 }}>
-                            Save
-                        </Button>
-                    </Box>
-                </Box>
-            </Modal>
         </Box>
     )
 }
