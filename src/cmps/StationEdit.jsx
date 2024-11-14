@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { updateStation } from '../store/actions/station.actions'
+import { uploadService } from '../services/upload.service'
 
 export function StationEdit({ station, onClose }) {
     const [editedStation, setEditedStation] = useState({ ...station })
+    const [uploadedImgURL, setUploadedImgURL] = useState(station.imgURL)
 
     function handleInputChange(event) {
         const { name, value } = event.target
@@ -12,9 +14,23 @@ export function StationEdit({ station, onClose }) {
         }))
     }
 
+    async function handleImageUpload(ev) {
+        try {
+            const imgData = await uploadService.uploadImg(ev)
+            const url = imgData.secure_url
+            setUploadedImgURL(url)
+        } catch (err) {
+            console.error('Error uploading image:', err)
+        }
+    }
+
     function handleSave() {
-        console.log('Saved Station:', editedStation)
         updateStation(editedStation)
+        setEditedStation(prevState => ({
+            ...prevState,
+            imgURL: uploadedImgURL,
+        }))
+        updateStation({ ...editedStation, imgURL: uploadedImgURL }) // שמירה ב-Redux
         onClose()
     }
 
@@ -34,7 +50,7 @@ export function StationEdit({ station, onClose }) {
                 </svg>
             )
         }
-        return <img className="playlist-image" src={station.imgURL} alt="playlist image" />
+        return <img className="playlist-image" src={editedStation.imgURL} alt="playlist image" />
     }
 
     return (
@@ -55,12 +71,19 @@ export function StationEdit({ station, onClose }) {
             </div>
             <div className="form-container">
                 <form className="edit-form">
-                    <div className="album-image">
-                        <img src={station.imgURL} alt="" />
+                    <div className="album-image" onClick={() => document.getElementById('imgUpload').click()}>
+                        <img src={uploadedImgURL} alt="" />
+                        <input
+                            type="file"
+                            onChange={handleImageUpload}
+                            accept="image/*"
+                            id="imgUpload"
+                            style={{ display: 'none' }}
+                        />
                     </div>
 
                     <div className="form-group title">
-                        <label for="station-name">Name</label>
+                        <label htmlFor="station-name">Name</label>
                         <input
                             type="text"
                             name="name"
@@ -70,7 +93,7 @@ export function StationEdit({ station, onClose }) {
                         />
                     </div>
                     <div className="form-group description">
-                        <label for="station-description">Description</label>
+                        <label htmlFor="station-description">Description</label>
                         <textarea
                             name="description"
                             value={editedStation.description || ''}
