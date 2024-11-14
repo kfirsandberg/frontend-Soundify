@@ -42,7 +42,7 @@ export function LastStations({ stations }) {
                 >
                     <img src={station.imgURL} alt={station.name} className="playlist-thumbnail" />
                     <div className="playlist-info">
-                        <div className="playlist-name">{station.name}</div>
+                        <p className="playlist-name">{station.name}</p>
                     </div>
                     <div className="playlist-play-btn">
                         <svg

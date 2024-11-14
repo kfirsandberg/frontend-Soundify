@@ -8,19 +8,22 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @media (min-width: 1213px) {
+    @media (min-width: 1200px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media (min-width: 1200px) {
         grid-template-columns: repeat(4, 1fr);
     }
 
     .playlist-card {
-        display: flex;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
         align-items: center;
         background-color: #28282860;
         border-radius: 4px;
         color: white;
         gap: 10px;
         font-size: 2px;
-        height: rem(64px);
         transition: background-color 0.3s;
         
         &:hover {
@@ -29,8 +32,21 @@
         }
         
         img.playlist-thumbnail {
-            width: rem(64px);
-            height: rem(64px);
+            @media (min-width :2100px){
+                width: rem(80px);
+                height: rem(80px);
+
+            }
+            @media (min-width :1500px){
+                width: rem(64px);
+                height: rem(64px);
+
+            }
+            @media (max-width :1500px){
+                width: rem(48px);
+                height: rem(48px);
+
+            }
             border-radius: 4px;
             object-fit: cover;
 
@@ -40,19 +56,30 @@
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            overflow: hidden;
+
 
             .playlist-name {
                 font-size: 15px;
                 font-family: SpotifyMix;
-                margin-left:10px ;
                 color: white;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
         }
 
         .playlist-play-btn {
-            width: rem(50px);
-            height: rem(50px);
-            margin: 10px;
+
+        @media (min-width : 1500px){
+            width: rem(48px);
+            height: rem(48px);
+        }
+        @media (max-width : 1500px){
+            width: rem(32px);
+            height: rem(32px);
+        }
+            margin-right: 5px;
             background-color: #1db954;
             border-radius: 50%;
             display: flex;
@@ -64,8 +91,14 @@
 
 
             svg {
-                width: 28px;
-                height: 28px;
+                @media (min-width : 1500px){
+                    width: rem(24px);
+                    height: rem(24px);
+                }
+                @media (max-width : 1500px){
+                    width: rem(16px);
+                    height: rem(16px);
+                }
             }
         }
 

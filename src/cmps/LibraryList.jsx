@@ -88,7 +88,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     return (
         <div className={`library-list ${isCollapsed ? 'collapsed' : ''}`}>
             {/* <Scrollbar style={{ height: '800px' }}> */}
-            <ul>
+            <ul className='library-ul'>
                 {filteredStations.map(station => (
                     <li
                         key={station._id}

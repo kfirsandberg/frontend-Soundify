@@ -77,7 +77,7 @@ export function YouTubeAudioPlayer({}) {
 
     return (
         <div>
-            <YouTube
+            <YouTube style={{display: 'none'}}
                 videoId={songID}
                 opts={{
                     height: '0',

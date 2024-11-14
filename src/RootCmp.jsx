@@ -38,33 +38,31 @@ export function RootCmp() {
     return (
         <div className="main-container">
             <AppHeader className="header" />
-            <div className="content">
-                <aside className={`library-route ${isLibraryActive ? 'active' : ''}`}>
-                    {/* Apply active class conditionally */}
-                    <Library toggleLibraryActive={toggleLibraryActive} /> {/* Pass toggle function to Library */}
-                </aside>
+            <aside className={`library-route ${isLibraryActive ? 'active' : ''}`}>
+                {/* Apply active class conditionally */}
+                <Library toggleLibraryActive={toggleLibraryActive} /> {/* Pass toggle function to Library */}
+            </aside>
 
-                <main
-                    className="station-index-route"
+            <main
+                className="station-index-route"
+                style={{
+                    backgroundColor: `${bgColor}`,
+                    position: 'relative',
+                    transition: 'background-color 2s ease',
+                }}
+            >
+                <div
                     style={{
-                        backgroundColor: `${bgColor}`,
-                        position: 'relative',
-                        transition: 'background-color 2s ease',
+                        background: `linear-gradient(to top, #121212 72%,  rgba(18, 18, 18, 0) 100%)`,
                     }}
                 >
-                    <div
-                        style={{
-                            background: `linear-gradient(to top, #121212 72%,  rgba(18, 18, 18, 0) 100%)`,
-                        }}
-                    >
-                        <Routes>
-                            <Route path="/" element={<StationIndex />} />
-                            <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
-                            <Route path="/playlist/:stationId" element={<StationDetails />} />
-                        </Routes>
-                    </div>
-                </main>
-            </div>
+                    <Routes>
+                        <Route path="/" element={<StationIndex />} />
+                        <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
+                        <Route path="/playlist/:stationId" element={<StationDetails />} />
+                    </Routes>
+                </div>
+            </main>
             <AppPlayer className="player" />
             <YouTubeAudioPlayer />
         </div>
