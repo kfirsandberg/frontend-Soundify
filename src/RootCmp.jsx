@@ -47,8 +47,6 @@ export function RootCmp() {
                 className="station-index-route"
                 style={{
                     backgroundColor: `${bgColor}`,
-                    position: 'relative',
-                    transition: 'background-color 2s ease',
                 }}
             >
                 <div
