@@ -51,8 +51,7 @@ async function saveStation(station) {
     const stationToSave = {
         _id: station._id || makeId(),
         name: station.name,
-        imgURL: station.imgURL || null,
-        songs: station.songs || [],
+        genre: station.genre,
     }
     return station._id
         ? await storageService.put(STORAGE_KEY, stationToSave)
@@ -90,6 +89,7 @@ async function addStation(name, genre) {
     const newStation = {
         _id: makeId(),
         name,
+        genre,
     }
     await storageService.post(STORAGE_KEY, newStation)
     return newStation
@@ -101,53 +101,49 @@ async function _createStations() {
     if (!stations || !stations.length) {
         stations = []
         // Create several example stations
-
-        stations.push(_createStation('Liked Songs', makeId()))
-        stations.push(_createStation('This is Infected Mushroom', makeId()))
-        stations.push(_createStation('Daily Mix 2', makeId()))
-        stations.push(_createStation('Funky Monks', makeId()))
+        stations.push(_createStation('Liked Songs'))
+        stations.push(_createStation('This is Infected Mushroom'))
+        stations.push(_createStation('Daily Mix 2'))
+        stations.push(_createStation('Funky Monks'))
         stations.push(_createStation('Release Radar'))
-        stations.push(_createStation('Rock Vibes', makeId()))
-        stations.push(_createStation('Hip Hop Essentials', makeId()))
-        stations.push(_createStation('Electronic Escape', makeId()))
-        stations.push(_createStation('Jazz Classics', makeId()))
-        stations.push(_createStation('Reggae Vibes', makeId()))
-        stations.push(_createStation('Israeli Vibes', makeId()))
-        stations.push(_createStation('Funky Monks', makeId()))
-        stations.push(_createStation('Rock Vibes', makeId()))
-        stations.push(_createStation('Hip Hop Essentials', makeId()))
-        stations.push(_createStation('Electronic Escape', makeId()))
-        stations.push(_createStation('Jazz Classics', makeId()))
-        stations.push(_createStation('Reggae Vibes', makeId()))
-        stations.push(_createStation('Israeli Vibes', makeId()))
+        stations.push(_createStation('Rock Vibes'))
+        stations.push(_createStation('Hip Hop Essentials'))
+        stations.push(_createStation('Electronic Escape'))
+        stations.push(_createStation('Jazz Classics'))
+        stations.push(_createStation('Reggae Vibes'))
+        stations.push(_createStation('Israeli Vibes'))
+        stations.push(_createStation('Funky Monks'))
+        stations.push(_createStation('Rock Vibes'))
+        stations.push(_createStation('Hip Hop Essentials'))
+        stations.push(_createStation('Electronic Escape'))
+        stations.push(_createStation('Jazz Classics'))
+        stations.push(_createStation('Reggae Vibes'))
+        stations.push(_createStation('Israeli Vibes'))
         saveToStorage(STORAGE_KEY, stations)
     }
-    console.log('station:', stations)
     return stations
 }
 
-function _createStation(name, _id) {
-    const station = getEmptyStation(name, _id)
-    if (station.name === 'Liked Songs')
-        station.imgURL = 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'
+function _createStation(name) {
+    const station = getEmptyStation(name)
+    if (station.name === 'Liked Songs') station.imgURL = 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'
     if (station.songs && station.songs.length > 0) {
         station.imgURL = station.songs[0].imgURL // Use the first song's imgURL if exists
+    } else if (station.name !== 'Liked Songs') {
+        station.imgURL =
+            'https://res.cloudinary.com/dwzeothxl/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
     }
-    console.log('station:', station)
-
     return station
 }
 
-function getEmptyStation(name, _id = '') {
-    let playlistCount = parseInt(localStorage.getItem('playlistCount'), 10) || 0
-    playlistCount += 1
-    const newStationName = name || `My Playlist #${playlistCount}`
-    localStorage.setItem('playlistCount', playlistCount)
+function getEmptyStation(name = 'My Playlist') {
+    const songs = getSongsForStation(name)
     return {
-        name: newStationName,
-        imgURL: 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png',
-        songs: getSongsForStation(newStationName) || [],
-        _id,
+        name,
+        imgURL: null,
+        songs,
+        _id: makeId(),
+        
     }
 }
 
@@ -158,6 +154,7 @@ function getVideoIdFromUrl(url) {
 
 function getSongsForStation(playlistName) {
     const songLibrary = {
+
         'This is Infected Mushroom': [
             {
                 title: 'Infected Mushroom - I Wish',
@@ -341,8 +338,9 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZaabcdEFG'),
                 id: makeId(),
                 imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489281/liot_narkis_uhcvth.jpg',
-            },
+            }
         ],
+
 
         'Funky Monks': [
             {
@@ -434,7 +432,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=ZsCEl5sS6pc'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/ZsCEl5sS6pc/mqdefault.jpg',
-            },
+            }
         ],
 
 
@@ -622,7 +620,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=hTWKbfoikeg'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/hTWKbfoikeg/mqdefault.jpg',
-            },
+            }
         ]
         ,
 
@@ -653,8 +651,72 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=_JZom_gVfuw'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/_JZom_gVfuw/mqdefault.jpg',
+            },
+            {
+                title: 'Fight the Power',
+                artist: 'Public Enemy',
+                album: 'Fear of a Black Planet',
+                duration: '4:43',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=8PaoLy7PHwk'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/8PaoLy7PHwk/mqdefault.jpg',
+            },
+            {
+                title: 'Nuthin’ But a “G” Thang',
+                artist: 'Dr. Dre feat. Snoop Dogg',
+                album: 'The Chronic',
+                duration: '3:58',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=RPeM61WCU4Y'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/RPeM61WCU4Y/mqdefault.jpg',
+            },
+            {
+                title: 'The Message',
+                artist: 'Grandmaster Flash and the Furious Five',
+                album: 'The Message',
+                duration: '3:15',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Pobr8Cz0t7E'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/Pobr8Cz0t7E/mqdefault.jpg',
+            },
+            {
+                title: 'Gin and Juice',
+                artist: 'Snoop Dogg',
+                album: 'Doggystyle',
+                duration: '3:31',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=DI3yXgS4H_4'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/DI3yXgS4H_4/mqdefault.jpg',
+            },
+            {
+                title: 'Straight Outta Compton',
+                artist: 'N.W.A',
+                album: 'Straight Outta Compton',
+                duration: '4:16',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=TMZi25P6v6w'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/TMZi25P6v6w/mqdefault.jpg',
+            },
+            {
+                title: 'Lose Yourself',
+                artist: 'Eminem',
+                album: '8 Mile Soundtrack',
+                duration: '5:26',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=_Yhyp-_hX2s'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/_Yhyp-_hX2s/mqdefault.jpg',
+            },
+            {
+                title: 'Gold Digger',
+                artist: 'Kanye West feat. Jamie Foxx',
+                album: 'Late Registration',
+                duration: '4:31',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=6vwNcNOTVzY'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/6vwNcNOTVzY/mqdefault.jpg',
             }
-        ],
+        ]
+        ,
 
         'Electronic Escape': [
             {
@@ -683,8 +745,72 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Xu3FTEmN-eg'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/Xu3FTEmN-eg/mqdefault.jpg',
+            },
+            {
+                title: 'Titanium',
+                artist: 'David Guetta feat. Sia',
+                album: 'Nothing But the Beat',
+                duration: '4:05',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=JRfuAukYTKg'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/JRfuAukYTKg/mqdefault.jpg',
+            },
+            {
+                title: 'Animals',
+                artist: 'Martin Garrix',
+                album: 'Animals',
+                duration: '5:03',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=gCYcHz2k5x0'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/gCYcHz2k5x0/mqdefault.jpg',
+            },
+            {
+                title: 'Take Over Control',
+                artist: 'Afrojack feat. Eva Simons',
+                album: 'Take Over Control',
+                duration: '4:08',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=9pcKYwXzFgc'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/9pcKYwXzFgc/mqdefault.jpg',
+            },
+            {
+                title: 'Wake Me Up',
+                artist: 'Avicii',
+                album: 'True',
+                duration: '4:09',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=IcrbM1l_BoI'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/IcrbM1l_BoI/mqdefault.jpg',
+            },
+            {
+                title: 'Scary Monsters and Nice Sprites',
+                artist: 'Skrillex',
+                album: 'Scary Monsters and Nice Sprites',
+                duration: '4:03',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=WSeNSzJ2-Jw'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/WSeNSzJ2-Jw/mqdefault.jpg',
+            },
+            {
+                title: 'Sandstorm',
+                artist: 'Darude',
+                album: 'Before the Storm',
+                duration: '7:26',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=k1xDuwER6yI'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/k1xDuwER6yI/mqdefault.jpg',
+            },
+            {
+                title: 'Ghosts ‘n’ Stuff',
+                artist: 'Deadmau5',
+                album: 'For Lack of a Better Name',
+                duration: '5:28',
+                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=6XPA7g9FGtg'),
+                id: makeId(),
+                imgURL: 'https://i.ytimg.com/vi/6XPA7g9FGtg/mqdefault.jpg',
             }
         ]
+
         ,
         'Jazz Classics': [
             {
@@ -713,7 +839,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=cb2w2m1JmCY'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/cb2w2m1JmCY/mqdefault.jpg',
-            },
+            }
         ],
         'Reggae Vibes': [
             {
@@ -742,7 +868,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=HrLJ6Saq7u4'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/HrLJ6Saq7u4/mqdefault.jpg',
-            },
+            }
         ],
         'Israeli Vibes': [
             {
@@ -771,7 +897,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=psKClFBw5S4'),
                 id: makeId(),
                 imgURL: 'https://i1.sndcdn.com/artworks-sz8gJhk2rZYd3P6W-gDOI4g-t500x500.jpg',
-            },
+            }
         ],
     }
 

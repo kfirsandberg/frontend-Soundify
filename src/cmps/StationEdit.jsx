@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { updateStation } from '../store/actions/station.actions'
 
 export function StationEdit({ station, onClose }) {
     const [editedStation, setEditedStation] = useState({ ...station })
@@ -13,6 +14,7 @@ export function StationEdit({ station, onClose }) {
 
     function handleSave() {
         console.log('Saved Station:', editedStation)
+        updateStation(editedStation)
         onClose()
     }
 
