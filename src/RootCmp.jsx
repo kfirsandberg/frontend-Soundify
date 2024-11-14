@@ -47,7 +47,7 @@
                     <main
                         className="station-index-route"
                         style={{
-                            background: `linear-gradient(to top, #121212 60%, ${bgColor} 100%)`,
+                            background: `linear-gradient(to top, #121212 72%, ${bgColor} 100%)`,
                             transition: 'background 5s ease'  // Add the transition inline
                         }}
                     >
