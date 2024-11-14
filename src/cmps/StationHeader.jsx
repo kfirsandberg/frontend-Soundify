@@ -2,23 +2,32 @@ import { useState } from 'react'
 import { Box, Button, Typography, IconButton, Modal, TextField, Grid, Avatar } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 import userIcon from '../../public/assets/user.svg'
 import { MoreHoriz } from '@mui/icons-material'
-import { useNavigate } from 'react-router-dom'
-
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
+    const [openFileUpload, setOpenFileUpload] = useState(false)
 
     function onEditStation() {
+        setOpenFileUpload(false)
+        setIsModalOpen(true)
+    }
+
+    function onImageClick() {
+        setOpenFileUpload(true)
         setIsModalOpen(true)
     }
 
     function onCloseModal() {
         setIsModalOpen(false)
+    }
+
+    function handleImageUpload(url) {
+        setUpdatedImgURL(url)
     }
 
     return (
@@ -54,6 +63,7 @@ export function StationHeader({ station }) {
                     <Box
                         component="img"
                         src={station.imgURL || userIcon}
+                        onClick={onImageClick}
                         alt="Station"
                         sx={{
                             width: '100%',
@@ -176,7 +186,12 @@ export function StationHeader({ station }) {
 
             {/* Modal for Station Edit */}
             <Modal open={isModalOpen} onClose={onCloseModal}>
-                <StationEdit station={station} onClose={onCloseModal} />
+                <StationEdit
+                    station={station}
+                    onClose={onCloseModal}
+                    onImageUpload={handleImageUpload}
+                    openFileUpload={openFileUpload}
+                />
             </Modal>
         </Box>
     )

@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { updateStation } from '../store/actions/station.actions'
 import { uploadService } from '../services/upload.service'
 
-export function StationEdit({ station, onClose }) {
+export function StationEdit({ station, onClose, onImageUpload, openFileUpload }) {
     const [editedStation, setEditedStation] = useState({ ...station })
     const [uploadedImgURL, setUploadedImgURL] = useState(station.imgURL)
+
+    useEffect(() => {
+        if (openFileUpload) {
+            document.getElementById('imgUpload').click()
+        }
+    }, [openFileUpload])
 
     function handleInputChange(event) {
         const { name, value } = event.target
@@ -19,6 +25,7 @@ export function StationEdit({ station, onClose }) {
             const imgData = await uploadService.uploadImg(ev)
             const url = imgData.secure_url
             setUploadedImgURL(url)
+            onImageUpload(url)
         } catch (err) {
             console.error('Error uploading image:', err)
         }
@@ -30,7 +37,7 @@ export function StationEdit({ station, onClose }) {
             ...prevState,
             imgURL: uploadedImgURL,
         }))
-        updateStation({ ...editedStation, imgURL: uploadedImgURL }) // שמירה ב-Redux
+        updateStation({ ...editedStation, imgURL: uploadedImgURL })
         onClose()
     }
 
