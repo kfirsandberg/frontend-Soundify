@@ -20,11 +20,9 @@ _createStations()
 
 async function query(filterBy = { txt: '', genre: '' }) {
     let stations = await storageService.query(STORAGE_KEY)
-    
+
     return stations
 }
-
-
 
 function getById(stationId) {
     return storageService.get(STORAGE_KEY, stationId)
@@ -60,18 +58,14 @@ async function saveStation(station) {
 }
 
 async function removeSong(song, stationId) {
-    let stations = await storageService.query(STORAGE_KEY)
-
-    const stationIdx = stations.findIndex(station => station._id === stationId)
-    if (stationIdx === -1) throw new Error('Station not found')
-
-    const songIdx = stations[stationIdx].songs.findIndex(song => song.id === songId)
-    if (songIdx === -1) throw new Error('Song not found in station')
-
-    stations[stationIdx].songs.splice(songIdx, 1)
-
-    await saveToStorage(STORAGE_KEY, stations)
-    return stations[stationIdx]
+    // let stations = await storageService.query(STORAGE_KEY)
+    // const stationIdx = stations.findIndex(station => station._id === stationId)
+    // if (stationIdx === -1) throw new Error('Station not found')
+    // const songIdx = stations[stationIdx].songs.findIndex(song => song.id === songId)
+    // if (songIdx === -1) throw new Error('Song not found in station')
+    // stations[stationIdx].songs.splice(songIdx, 1)
+    // await saveToStorage(STORAGE_KEY, stations)
+    // return stations[stationIdx]
 }
 
 async function addSong(song, stationId) {
@@ -437,7 +431,6 @@ function getSongsForStation(playlistName) {
             },
         ],
 
-
         'Release Radar': [
             {
                 title: 'Revival (Original Mix)',
@@ -528,9 +521,8 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Lig01234abc'),
                 id: makeId(),
                 imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // FISHER Lights Out
-            }
+            },
         ],
-
 
         'Rock Vibes': [
             {
@@ -623,9 +615,7 @@ function getSongsForStation(playlistName) {
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/hTWKbfoikeg/mqdefault.jpg',
             },
-        ]
-        ,
-
+        ],
         'Hip Hop Essentials': [
             {
                 title: 'C.R.E.A.M.',
@@ -653,7 +643,7 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=_JZom_gVfuw'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/_JZom_gVfuw/mqdefault.jpg',
-            }
+            },
         ],
 
         'Electronic Escape': [
@@ -683,9 +673,8 @@ function getSongsForStation(playlistName) {
                 videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Xu3FTEmN-eg'),
                 id: makeId(),
                 imgURL: 'https://i.ytimg.com/vi/Xu3FTEmN-eg/mqdefault.jpg',
-            }
-        ]
-        ,
+            },
+        ],
         'Jazz Classics': [
             {
                 title: 'John Coltrane - A Love Supreme',
