@@ -46,15 +46,20 @@ export function RootCmp() {
             <main
                 className="station-index-route"
                 style={{
-                    background: `linear-gradient(to top, #121212 72%, ${bgColor} 100%)`,
-                    transition: 'background 5s ease'  // Add the transition inline
+                    backgroundColor: `${bgColor}`,
                 }}
             >
-                <Routes>
-                    <Route path="/" element={<StationIndex />} />
-                    <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
-                    <Route path="/playlist/:stationId" element={<StationDetails />} />
-                </Routes>
+                <div
+                    style={{
+                        background: `linear-gradient(to top, #121212 72%,  rgba(18, 18, 18, 0) 100%)`,
+                    }}
+                >
+                    <Routes>
+                        <Route path="/" element={<StationIndex />} />
+                        <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
+                        <Route path="/playlist/:stationId" element={<StationDetails />} />
+                    </Routes>
+                </div>
             </main>
             <AppPlayer className="player" />
             <YouTubeAudioPlayer />

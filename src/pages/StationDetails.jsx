@@ -4,14 +4,33 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import loaderIcon from '/assets/loader.svg'
 import { useNavigate, useParams } from 'react-router'
-import { loadStation } from '../store/actions/station.actions.js'
+import { loadStation, setBgColor } from '../store/actions/station.actions.js'
+import { FastAverageColor } from 'fast-average-color'
+import { useDispatch } from 'react-redux'
+
+const fac = new FastAverageColor()
 
 export function StationDetails() {
     const [showFindMoreSection, setShowFindMoreSection] = useState(false)
 
     const [station, setStation] = useState(null)
     const { stationId } = useParams()
-    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        setBgColorDetails(station)
+    }, [station])
+
+    async function setBgColorDetails(station) {
+        if (station && station.imgURL) {
+            try {
+                const color = await fac.getColorAsync(station.imgURL)
+                dispatch(setBgColor(color.rgb)) // Dispatch color to update background
+            } catch (error) {
+                console.error('Error fetching average color:', error)
+            }
+        }
+    }
 
     useEffect(() => {
         async function fetchStation() {

@@ -8,7 +8,6 @@
     max-width: 380px;
 }
 
-
 /* Library Route */
 .library-route {
     background-color: #121212;
@@ -162,7 +161,7 @@
     align-items: center;
     justify-content: space-between;
     margin-left: 7px;
-    margin-right: 9px
+    margin-right: 9px;
 }
 
 .search-container {
@@ -287,12 +286,6 @@
     flex-direction: column;
     align-items: center;
 
-
-    .library-ul {
-        // overflow: auto;
-        // height: 100%;
-    }
-
     .context-menu {
         background-color: #282828;
         border-radius: 4px;
@@ -340,7 +333,6 @@
             }
         }
     }
-
 }
 
 .library-list::-webkit-scrollbar,
@@ -486,7 +478,7 @@
     height: 100%;
     overflow: hidden;
 }
-.library-content-{
+.library-content- {
     height: 100%;
     overflow: hidden;
 }
