@@ -6,24 +6,17 @@
     width: 512px;
     /* Fixed width */
     max-width: 380px;
-
-
 }
 
 
 /* Library Route */
 .library-route {
     background-color: #121212;
-    max-width: rem(280px);
     /* Fixed width */
     transition: background-color 0.3s ease;
     border-radius: 8px;
     margin-left: 8px;
     padding-top: 10px;
-}
-.library-list-wrapper{
-    margin-left: rem(10.2px);
-
 }
 
 .library-route.active {
@@ -34,13 +27,10 @@
 
 /* Action Button Container */
 .action-btns- {
-    height: 3.7vh;
     width: 14.8rem;
     display: flex;
     background-color: #121212;
     align-items: center;
-    margin-top: 6px;
-    margin-left: rem(17.6px);
     transition: width 0.3s ease;
 }
 
@@ -290,17 +280,22 @@
 
 /* Library List */
 .library-list {
-    max-height: 62vh;
-    overflow-y: scroll;
+    overflow-y: auto;
+    height: 100%;
     margin-top: 6.9px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
+
+    .library-ul {
+        // overflow: auto;
+        // height: 100%;
+    }
+
     .context-menu {
         background-color: #282828;
         border-radius: 4px;
-        // max-height: calc(100vh - 24px);
         max-width: 350px;
         min-width: 180px;
         overflow-y: auto;
@@ -346,7 +341,6 @@
         }
     }
 
-    height: 100vh;
 }
 
 .library-list::-webkit-scrollbar,
@@ -486,9 +480,23 @@
     transform: translateX(-8px);
 }
 
+.library-list-wrapper {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    overflow: hidden;
+}
+.library-content-{
+    height: 100%;
+    overflow: hidden;
+}
 .library-content-collapsed {
     background-color: #121212;
     width: 64px;
+    height: 100%;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
 }
 
 .action-btns-collapsed {

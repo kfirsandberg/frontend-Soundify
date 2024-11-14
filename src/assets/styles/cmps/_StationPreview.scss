@@ -3,8 +3,8 @@
     border-radius: 8px;
     text-align: center;
     color: $spotify-gray;
-    height: 236px;
-    width: 178px;
+
+
     transition: opacity 0.3s ease, transform 0.1s ease;
     // Hover effects and background overlay
     &:hover .play-button-container {
@@ -29,10 +29,6 @@
         border-radius: 8px;
     }
     .station-preview-container {
-        max-height: 236px;
-        max-width: 178px;
-        min-height: 236px;
-        min-width: 171px;
         overflow: hidden;
         padding: 10px;
         z-index: 1; // Ensure container stays above the overlay
@@ -79,5 +75,10 @@
         color: #B3B3B3;
         font-weight: 500;
         z-index: 1; // Ensure title stays above the background overlay
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%; // Ensure it fits within the container width
     }
+    
 }

@@ -1,45 +1,37 @@
 .main-container {
     display: grid;
-    grid-template-columns: 1fr 19fr;
+    grid-template-columns: minmax(auto, 280px) 1fr;
     grid-template-areas:
-        '. . '
-        'library main '
-        '. . ';
-
-    >* {
-        grid-column: 2;
-
-        &.full {
-            grid-column: 1 / -1;
-        }
-    }
-
+        'h h '
+        'l m '
+        'p p ';
     background-color: $player-background;
-
-
-
-}
-
-.content {
-    display: contents;
+    height: 100vh;
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+    margin-inline: auto;
 }
 
 .library-route {
-    grid-area: library;
+    grid-area: l;
     background-color: #f4f4f4;
+    height: 100%;
+    overflow: hidden;
     // padding: rem(21px);
 }
 
-.station-index-route {
-    max-height: 83vh;
-    overflow-y: scroll;
+.app-player {
+    grid-area: p;
+}
 
-    // background-color: #121212;
-    grid-area: main;
+.app-header{
+    grid-area: h;
+}
+.station-index-route {
+    overflow-y: scroll;
+    grid-area: m;
     align-items: center;
     overflow-y: auto;
-
-    transition: background-color 1.4s ease;
-    /* Adjust duration and easing as desired */
-
+    align-self: start;
+    height: 100%;
 }
