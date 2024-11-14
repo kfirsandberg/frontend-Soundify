@@ -1,11 +1,22 @@
 .station-index {
-  color: $spotify-light;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0.5em;
+    color: $spotify-light;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5em;
 
-  section {
+    section {
+        width: 100%;
+        max-width: 1200px;
+    }
+}
+
+.station-index-route {
     width: 100%;
-    max-width: 1200px;
-  }
+    max-height: max-content;
+    transition: background-color 2s ease;
+    z-index: 0;
+    div {
+        position: 'relative';
+        z-index: 1;
+    }
 }

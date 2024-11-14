@@ -335,17 +335,6 @@
     }
 }
 
-.station-index-route {
-    width: 100%;
-    max-height: 50vh;
-    transition: background-color 2s ease;
-    z-index: 0;
-    div {
-        position: 'relative';
-        z-index: 1;
-    }
-}
-
 .library-list::-webkit-scrollbar,
 .station-index-route::-webkit-scrollbar {
     display: none;
