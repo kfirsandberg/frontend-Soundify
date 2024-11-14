@@ -33,7 +33,6 @@ export function StationDetails() {
         if (!station.songs || station.songs.length === 0 || showFindMoreSection) {
             return (
                 <section>
-                    <hr />
                     <div className="add-station-container">
                         <div className="station-content">
                             <p>Let's find something for your playlist</p>
