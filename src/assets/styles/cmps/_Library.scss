@@ -7,18 +7,23 @@
     /* Fixed width */
     max-width: 380px;
 
-    /* Ensure it doesn’t exceed this width */
+
 }
+
 
 /* Library Route */
 .library-route {
     background-color: #121212;
-
+    max-width: rem(280px);
     /* Fixed width */
     transition: background-color 0.3s ease;
     border-radius: 8px;
     margin-left: 8px;
     padding-top: 10px;
+}
+.library-list-wrapper{
+    margin-left: rem(10.2px);
+
 }
 
 .library-route.active {
@@ -34,8 +39,8 @@
     display: flex;
     background-color: #121212;
     align-items: center;
-    margin-top: 5px;
-    margin-left: rem(16px);
+    margin-top: 6px;
+    margin-left: rem(17.6px);
     transition: width 0.3s ease;
 }
 
@@ -45,7 +50,7 @@
     gap: 10px;
     /* Adjust spacing between buttons */
     align-items: center;
-    transform: translateX(43px);
+    transform: translateX(48px);
 }
 
 /* Toggle Library Button */
@@ -56,6 +61,7 @@
     display: flex;
     align-items: center;
     padding: 0;
+    cursor: pointer;
 
     margin-left: 7px;
 
@@ -83,11 +89,14 @@
 }
 
 .toggle-lib-btn h3 {
-    width: 5.4rem;
+    width: 5.1rem;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
+    font-family: SpotifyMix;
+    font-weight: none;
+    letter-spacing: 0.1px;
 }
 
 /* Create Playlist Button */
@@ -129,13 +138,13 @@
 /* Filter Section */
 
 .sort-buttons {
-    height: rem(30px);
+    height: rem(31.6px);
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 9px;
     width: 72px;
-    margin-top: 24px;
-    margin-left: rem(13px);
+    margin-top: 21.2px;
+    margin-left: 5px;
 }
 
 .sort-buttons button {
@@ -146,11 +155,12 @@
     cursor: pointer;
     border-radius: 9999px;
     flex: 1;
-    margin: 0 0.3125rem;
+    margin-right: rem(8px);
     display: flex;
     justify-content: center;
     align-items: center;
     transition: background-color 1s;
+    letter-spacing: 0.3px;
 }
 
 .sort-buttons button:hover {
@@ -161,6 +171,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-left: 7px;
+    margin-right: 9px
 }
 
 .search-container {
@@ -191,13 +203,18 @@
 }
 
 .search-input.open {
-    top: 0; /* Adjust based on where you want it to appear vertically */
-    left: 0; /* Adjust based on where you want it to appear horizontally */
-    transform: translateX(-35px); /* Moves the input 45px to the left */
-    max-width: 120px; /* Maximum width of the input */
+    top: 0;
+    /* Adjust based on where you want it to appear vertically */
+    left: 0;
+    /* Adjust based on where you want it to appear horizontally */
+    transform: translateX(-35px);
+    /* Moves the input 45px to the left */
+    max-width: 120px;
+    /* Maximum width of the input */
     padding: 15px;
     opacity: 1;
-    z-index: 9999; /* Keeps it above all other elements */
+    z-index: 9999;
+    /* Keeps it above all other elements */
 }
 
 .sort-container {
@@ -207,8 +224,9 @@
 }
 
 .hamburger-menu {
-    position: relative; /* Static positioning for the entire menu */
-    width: 36px;
+    position: relative;
+    /* Static positioning for the entire menu */
+    width: 42px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -217,14 +235,15 @@
 }
 
 .hamburger-btn {
-    position: relative; /* Static positioning for the button itself */
+    position: relative;
+    /* Static positioning for the button itself */
 }
 
 .selected-sort {
-    position: absolute; /* Makes it move independently */
-    top: 0; /* Adjust this to control vertical position */
-    right: 100%; /* Position it to the left of the hamburger button */
-    margin-right: 8px; /* Adds spacing between button and selected-sort */
+    position: absolute;
+    top: 0;
+    right: 100%;
+    margin-right: 7px;
     color: #b3b3b3;
     font-size: 14px;
     white-space: nowrap;
@@ -273,7 +292,7 @@
 .library-list {
     max-height: 62vh;
     overflow-y: scroll;
-    margin-top: 5px;
+    margin-top: 6.9px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -294,6 +313,7 @@
         display: block;
         cursor: default;
         color: #b3b3b3;
+
         li {
             border: 0;
             border-radius: 2px;
@@ -314,17 +334,21 @@
                 display: block;
                 margin: 2px;
             }
+
             span {
                 font-family: spotifyMix;
                 color: #ffffff;
             }
+
             &:hover {
                 background-color: #656565;
             }
         }
     }
+
     height: 100vh;
 }
+
 .library-list::-webkit-scrollbar,
 .station-index-route::-webkit-scrollbar {
     display: none;
@@ -338,7 +362,7 @@
     transition: transform 0.2s ease-in-out;
     width: rem(279px);
     /* Consider using px for more predictable behavior */
-    margin-left: 15px;
+    margin-left: 19.3px;
     height: 4rem;
     cursor: pointer;
     overflow: hidden;
@@ -393,52 +417,69 @@
 .station-info {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align items to the top */
+    justify-content: flex-start;
+    /* Align items to the top */
     margin-left: 0.625rem;
     color: #fff;
-    height: auto; /* Allow dynamic height */
-    padding: 0; /* Remove any default padding */
-    width: 100%; /* Ensure the width is consistent */
+    height: auto;
+    /* Allow dynamic height */
+    padding: 0;
+    /* Remove any default padding */
+    width: 100%;
+    /* Ensure the width is consistent */
 }
 
 .station-name {
     font-size: 12px;
     font-weight: bold;
     font-family: SpotifyMix-light;
-    margin: 0; /* Remove margin to keep it close to the next element */
-    white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden; /* Hide any overflow text */
-    text-overflow: ellipsis; /* Add ellipsis (...) if the text overflows */
+    margin: 0;
+    /* Remove margin to keep it close to the next element */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    overflow: hidden;
+    /* Hide any overflow text */
+    text-overflow: ellipsis;
+    /* Add ellipsis (...) if the text overflows */
 }
 
 .station-details {
     display: flex;
-    width: 100%; /* Ensure it takes the full width */
-    margin-top: 0; /* Remove any space between station-name and station-details */
-    padding: 0; /* Remove any padding that might add extra space */
+    width: 100%;
+    /* Ensure it takes the full width */
+    margin-top: 0;
+    /* Remove any space between station-name and station-details */
+    padding: 0;
+    /* Remove any padding that might add extra space */
 }
 
 .station-kind {
     font-size: 12px;
     color: #bbb;
-    margin: 0; /* Remove margin */
-    white-space: nowrap; /* Prevent text from wrapping */
-    overflow: hidden; /* Hide any overflow text */
-    text-overflow: ellipsis; /* Add ellipsis (...) if the text overflows */
+    margin: 0;
+    /* Remove margin */
+    white-space: nowrap;
+    /* Prevent text from wrapping */
+    overflow: hidden;
+    /* Hide any overflow text */
+    text-overflow: ellipsis;
+    /* Add ellipsis (...) if the text overflows */
 }
 
 .station-creator {
     font-size: 12px;
     color: #bbb;
-    margin: 0; /* Remove margin */
-    overflow: hidden; /* Hide any overflow text */
-    text-overflow: ellipsis; /* Add ellipsis (...) if the text overflows */
+    margin: 0;
+    /* Remove margin */
+    overflow: hidden;
+    /* Hide any overflow text */
+    text-overflow: ellipsis;
+    /* Add ellipsis (...) if the text overflows */
 }
 
 /* Collapsed State for Library Route */
 .library-content-collapsed .library-list-wrapper {
     padding: 0;
-
     background-color: #121212;
     width: 64px;
     margin-top: 30px;
@@ -484,10 +525,6 @@
     margin-top: 11px;
 }
 
-.toggle-lib-btn {
-    cursor: pointer;
-}
-
 .library-icon {
     fill: $spotify-gray;
 }
@@ -509,10 +546,6 @@
     justify-content: center;
     border-radius: 50%;
     position: relative;
-}
-
-.toggle-search-btn {
-    transform: translateX(15px);
 }
 
 .create-playlist:hover,
@@ -557,8 +590,8 @@
 }
 
 .hamburger-icon {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 17px;
     fill: $spotify-gray;
 }
 
@@ -591,4 +624,5 @@
 
 .selected-sort {
     max-width: max-content;
+    font-family: SpotifyMix;
 }
