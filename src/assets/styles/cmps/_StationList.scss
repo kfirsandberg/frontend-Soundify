@@ -45,7 +45,7 @@ $row-count: 1;
                     border: none;
                     color: #fff;
                     font-size: rem(15px);
-                    cursor: pointer;
+                    cursor: pointer;    
                     &:hover {
                         text-decoration: underline;
                     }
@@ -54,12 +54,8 @@ $row-count: 1;
 
             .station-list {
                 display: grid;
-                grid-auto-flow: column;
-                grid-auto-columns: 1fr;
-                flex-wrap: nowrap;
-                min-width: 50%;
-                max-width: 100%;
-                overflow: hidden;
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+
 
                 
 
@@ -78,6 +74,7 @@ $row-count: 1;
                     color: inherit;
 
                     &:hover {
+                        
                         transition: transform 0.2s ease;
                     }
                 }

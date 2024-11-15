@@ -2,11 +2,10 @@ import playIcon from '/assets/play.svg';
 import { loadSong } from '../store/actions/station.actions.js'
 
 export function StationPreview({ station }) {
-  const { name, imgURL } = station;
+  const { name, stationSubtitle, imgURL } = station;
 
   function onPlay(ev) {
     ev.stopPropagation()
-
     loadSong(station.songs[0].id)
 
   }
@@ -18,7 +17,10 @@ export function StationPreview({ station }) {
           <img className="play" src={playIcon} alt="Play" />
         </button>
       </div>
-      <h3 className="play-button-title" >{name}</h3>
+      <section className='station-description'>
+        <a className='station-name' title={name}>{name}</a>
+        <p className="play-button-title" >{stationSubtitle}</p>
+      </section>
     </section>
   )
 }
