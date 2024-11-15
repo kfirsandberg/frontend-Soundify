@@ -1,7 +1,13 @@
 .playing-gif {
     position: relative;
-    left: 18px;
+    left: em(18px);
     margin: 0;
+}
+
+.duration-icon {
+    position: relative;
+    right: em(18px);
+    fill: #b3b3b3;
 }
 
 // section {
