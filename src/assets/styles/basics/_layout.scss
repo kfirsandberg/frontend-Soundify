@@ -1,6 +1,6 @@
 .main-container {
     display: grid;
-    grid-template-columns: minmax(auto, 280px) 1fr;
+    grid-template-columns: minmax(auto, 288px) 1fr;
     grid-template-areas:
         'h h '
         'l m '
@@ -17,7 +17,7 @@
     background-color: #f4f4f4;
     height: 100%;
     overflow: hidden;
-    // padding: rem(21px);
+
 }
 
 .app-player {

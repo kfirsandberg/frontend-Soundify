@@ -102,7 +102,8 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                               <h3 className="station-name">{station.name}</h3>
                               <div className="station-details">
                                   <h3 className="station-kind">Playlist</h3>
-                                  <p className="station-creator"> •Spotify  </p>
+                                  <span className='dot'>.</span>
+                                  <p className="station-creator">Spotify</p>
                               </div>
                           </div>)}
                         {/* SVG Icon overlay */}

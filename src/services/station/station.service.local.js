@@ -15,7 +15,7 @@ export const stationLocalService = {
     removeSong,
     addSong,
 }
-
+const gImg= 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
 _createStations()
 
 async function query(filterBy = { txt: '', genre: '' }) {
@@ -95,54 +95,53 @@ async function _createStations() {
     if (!stations || !stations.length) {
         stations = []
         // Create several example stations
-
-        stations.push(_createStation('Liked Songs', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'),)
-        stations.push(_createStation('TECHNO 2024', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606719/techno-2024_fzehuc.jpg'),'By kfirSandberg')
-        stations.push(_createStation('Beast Mode', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606720/beast-mode_n95afc.jpg'),'Get your beast mode on!')
-        // stations.push(_createStation('Running Motivation 2024', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606719/running_vnrqas.jpg'),)
-        stations.push(_createStation('ישראלי',makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606719/%D7%99%D7%A9%D7%A8%D7%90%D7%9C%D7%99_btks2v.jpg'),'kfirSandberg')
-        stations.push(_createStation('הלהיטים הגדולים של ישראל', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/%D7%94%D7%9C%D7%94%D7%99%D7%98%D7%99%D7%9D_%D7%A9%D7%9C_%D7%99%D7%A9%D7%A8%D7%90%D7%9C_kyxngb.jpg'),'הפלייליסט הכי גדול בישראל, עם השירים הכי חמים של ישראל')
-        stations.push(_createStation('Top Songs - Global', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/top-songs-global_bh7xg0.jpg'),'Your weekly update of the most played tracks right now - Global.')
-        stations.push(_createStation('Top Songs - USA', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/top-songs-USA_s0xg2s.jpg'),'Your weekly update of the most played tracks right now - USA.')
-        stations.push(_createStation('Top 50 - global', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/top50_ggdj8d.jpg'),'Your daily update of the most played tracks right now - Global.')
-        stations.push(_createStation('Viral 50 - Global', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/viral50_yks0vl.jpg'),'Your daily update of the most viral tracks right now - Global.')
-        stations.push(_createStation('2000s Hip-Hop', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/2000shiphop_f9tiqf.jpg'),'Taking it back to the 2000s. Cover: Kid Cudi')
-        stations.push(_createStation('Israeli Vibes', makeId(),''))
-        stations.push(_createStation('Rock Vibes', makeId(),''))
-        saveToStorage(STORAGE_KEY, stations)
+        stations.push(_createStation('Liked Songs', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'));
+        stations.push(_createStation('TECHNO 2024', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606719/techno-2024_fzehuc.jpg', 'By kfirSandberg'));
+        stations.push(_createStation('Beast Mode', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606720/beast-mode_n95afc.jpg', 'Get your beast mode on!'));
+        // stations.push(_createStation('Running Motivation 2024', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606719/running_vnrqas.jpg'));
+        stations.push(_createStation('ישראלי', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606719/%D7%99%D7%A9%D7%A8%D7%90%D7%9C%D7%99_btks2v.jpg', 'kfirSandberg'));
+        stations.push(_createStation('הלהיטים הגדולים של ישראל', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/%D7%94%D7%9C%D7%94%D7%99%D7%98%D7%99%D7%9D_%D7%A9%D7%9C_%D7%99%D7%A9%D7%A8%D7%90%D7%9C_kyxngb.jpg', 'הפלייליסט הכי גדול בישראל, עם השירים הכי חמים של ישראל'));
+        stations.push(_createStation('Top Songs - Global', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/top-songs-global_bh7xg0.jpg', 'Your weekly update of the most played tracks right now - Global.'));
+        stations.push(_createStation('Top Songs - USA', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/top-songs-USA_s0xg2s.jpg', 'Your weekly update of the most played tracks right now - USA.'));
+        stations.push(_createStation('Top 50 - global', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/top50_ggdj8d.jpg', 'Your daily update of the most played tracks right now - Global.'));
+        stations.push(_createStation('Viral 50 - Global', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/viral50_yks0vl.jpg', 'Your daily update of the most viral tracks right now - Global.'));
+        stations.push(_createStation('2000s Hip-Hop', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/2000shiphop_f9tiqf.jpg', 'Taking it back to the 2000s. Cover: Kid Cudi'));
+        stations.push(_createStation('Israeli Vibes', makeId(), ''));
+        stations.push(_createStation('Rock Vibes', makeId(), ''));
+        saveToStorage(STORAGE_KEY, stations);
+        
     }
     return stations
 }
 
-function _createStation(name, _id,imgURL,stationSubtitle) {
-    const station = getEmptyStation(name, _id)
+function _createStation(name, _id,imgURL=gImg,stationSubtitle) {
+    console.log(name,_id,imgURL,stationSubtitle)
+    const station = getEmptyStation(name, _id,stationSubtitle)
     if (station.songs && station.songs.length > 0 && !imgURL) {
         station.imgURL = station.songs[0].imgURL // Use the first song's imgURL if exists
     }
     if(imgURL){
         station.imgURL = imgURL
     }
-    station.stationSubtitle = stationSubtitle
-
+    console.log(station)
     return station
 }
 
-function getEmptyStation(name, _id = '') {
+function getEmptyStation(name, _id = '',stationSubtitle='') {
     let playlistCount = parseInt(localStorage.getItem('playlistCount'), 10) || 0
     playlistCount += 1
     const newStationName = name || `My Playlist #${playlistCount}`
     localStorage.setItem('playlistCount', playlistCount)
     return {
         name: newStationName,
-        imgURL: 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png',
         songs: getSongsForStation(newStationName) || [],
         _id,
+        stationSubtitle
     }
 }
 
 function getVideoIdFromUrl(url) {
     if(!url) return
-    console.log(url)
     const urlObj = new URL(url)
     return urlObj.searchParams.get('v')
 }
