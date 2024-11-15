@@ -96,38 +96,33 @@ async function _createStations() {
         stations = []
         // Create several example stations
 
-        stations.push(_createStation('Liked Songs', makeId()))
-        stations.push(_createStation('This is Infected Mushroom', makeId()))
-        stations.push(_createStation('Daily Mix 2', makeId()))
-        stations.push(_createStation('Funky Monks', makeId()))
-        stations.push(_createStation('Release Radar'))
-        stations.push(_createStation('Rock Vibes', makeId()))
-        stations.push(_createStation('Hip Hop Essentials', makeId()))
-        stations.push(_createStation('Electronic Escape', makeId()))
-        stations.push(_createStation('Jazz Classics', makeId()))
-        stations.push(_createStation('Reggae Vibes', makeId()))
-        stations.push(_createStation('Israeli Vibes', makeId()))
-        stations.push(_createStation('Funky Monks', makeId()))
-        stations.push(_createStation('Rock Vibes', makeId()))
-        stations.push(_createStation('Hip Hop Essentials', makeId()))
-        stations.push(_createStation('Electronic Escape', makeId()))
-        stations.push(_createStation('Jazz Classics', makeId()))
-        stations.push(_createStation('Reggae Vibes', makeId()))
-        stations.push(_createStation('Israeli Vibes', makeId()))
+        stations.push(_createStation('Liked Songs', makeId(), 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'),)
+        stations.push(_createStation('TECHNO 2024', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606719/techno-2024_fzehuc.jpg'),'By kfirSandberg')
+        stations.push(_createStation('Beast Mode', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606720/beast-mode_n95afc.jpg'),'Get your beast mode on!')
+        // stations.push(_createStation('Running Motivation 2024', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606719/running_vnrqas.jpg'),)
+        stations.push(_createStation('ישראלי',makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606719/%D7%99%D7%A9%D7%A8%D7%90%D7%9C%D7%99_btks2v.jpg'),'kfirSandberg')
+        stations.push(_createStation('הלהיטים הגדולים של ישראל', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/%D7%94%D7%9C%D7%94%D7%99%D7%98%D7%99%D7%9D_%D7%A9%D7%9C_%D7%99%D7%A9%D7%A8%D7%90%D7%9C_kyxngb.jpg'),'הפלייליסט הכי גדול בישראל, עם השירים הכי חמים של ישראל')
+        stations.push(_createStation('Top Songs - Global', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/top-songs-global_bh7xg0.jpg'),'Your weekly update of the most played tracks right now - Global.')
+        stations.push(_createStation('Top Songs - USA', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/top-songs-USA_s0xg2s.jpg'),'Your weekly update of the most played tracks right now - USA.')
+        stations.push(_createStation('Top 50 - global', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/top50_ggdj8d.jpg'),'Your daily update of the most played tracks right now - Global.')
+        stations.push(_createStation('Viral 50 - Global', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/viral50_yks0vl.jpg'),'Your daily update of the most viral tracks right now - Global.')
+        stations.push(_createStation('2000s Hip-Hop', makeId(),'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731606718/2000shiphop_f9tiqf.jpg'),'Taking it back to the 2000s. Cover: Kid Cudi')
+        stations.push(_createStation('Israeli Vibes', makeId(),''))
+        stations.push(_createStation('Rock Vibes', makeId(),''))
         saveToStorage(STORAGE_KEY, stations)
     }
-    console.log('station:', stations)
     return stations
 }
 
-function _createStation(name, _id) {
+function _createStation(name, _id,imgURL,stationSubtitle) {
     const station = getEmptyStation(name, _id)
-    if (station.name === 'Liked Songs')
-        station.imgURL = 'https://res.cloudinary.com/dhzo7e3yx/image/upload/v1731428252/liked-songs_fdevoi.png'
-    if (station.songs && station.songs.length > 0) {
+    if (station.songs && station.songs.length > 0 && !imgURL) {
         station.imgURL = station.songs[0].imgURL // Use the first song's imgURL if exists
     }
-    console.log('station:', station)
+    if(imgURL){
+        station.imgURL = imgURL
+    }
+    station.stationSubtitle = stationSubtitle
 
     return station
 }
@@ -146,384 +141,14 @@ function getEmptyStation(name, _id = '') {
 }
 
 function getVideoIdFromUrl(url) {
+    if(!url) return
+    console.log(url)
     const urlObj = new URL(url)
     return urlObj.searchParams.get('v')
 }
 
 function getSongsForStation(playlistName) {
     const songLibrary = {
-        'This is Infected Mushroom': [
-            {
-                title: 'Infected Mushroom - I Wish',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=kX9EMvpcJ5s'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488424/converting_rewrqa.jpg',
-                duration: '4:24',
-                album: 'Converting Vegetarians',
-            },
-            {
-                title: 'Infected Mushroom - Becoming Insane',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=wFZmBsp7vUA'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488228/vicus_delicius_quzq1a.jpg',
-                duration: '7:20',
-                album: 'Vicious Delicious',
-            },
-
-            {
-                title: 'Infected Mushroom - Saeed',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=xRaqVZce8rI'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488266/black_shwwarma_aabhnf.jpg',
-                duration: '7:00',
-                album: 'Legend of the Black Shawarma',
-            },
-            {
-                title: 'Infected Mushroom - Heavyweight',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=gWipzkzOpZA'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488228/vicus_delicius_quzq1a.jpg',
-                duration: '8:41',
-                album: 'Vicious Delicious',
-            },
-            {
-                title: 'Infected Mushroom - Converting Vegetarians',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=8nF6nTLP_XA'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488424/converting_rewrqa.jpg',
-                duration: '6:35',
-                album: 'Converting Vegetarians',
-            },
-            {
-                title: 'Infected Mushroom - Vicious Delicious',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=3kYIks_Hwns'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488228/vicus_delicius_quzq1a.jpg',
-                duration: '7:25',
-                album: 'Vicious Delicious',
-            },
-            {
-                title: 'Infected Mushroom - Pink Nightmares',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=4ZHiBCzPiJQ'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488424/converting_rewrqa.jpg',
-                duration: '5:46',
-                album: 'Converting Vegetarians II',
-            },
-            {
-                title: 'Infected Mushroom - Spitfire',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=EVFrkjHZH40'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488556/freinds_lcmads.jpg',
-                duration: '6:29',
-                album: 'Friends on Mushrooms',
-            },
-            {
-                title: 'Infected Mushroom - Groove Attack',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=vMDGzdPguoI'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488556/freinds_lcmads.jpg',
-                duration: '5:12',
-                album: 'Return to the Sauce',
-            },
-            {
-                title: 'Infected Mushroom - Bust a Move',
-                artist: 'Infected Mushroom',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=hq-ZHKDufY4'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731488551/classical_ifihyq.jpg',
-                duration: '6:55',
-                album: 'Classical Mushroom',
-            },
-        ],
-        'Daily Mix 2': [
-            {
-                title: 'Shnei Meshugaim',
-                artist: 'Omer Adam',
-                album: 'Omer',
-                duration: '3:58',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZ1abcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489303/daily_mix_2_rbzcdd.jpg',
-            },
-            {
-                title: 'Tagid Li Ze Halom',
-                artist: 'Sarit Hadad',
-                album: 'Best of Sarit Hadad',
-                duration: '4:21',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZ2abcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489273/sara_2_pdexd2.jpg',
-            },
-            {
-                title: 'HaMalach Shelach',
-                artist: 'Eyal Golan',
-                album: 'Histakluti',
-                duration: '3:40',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZ3abcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489286/eyal_d5ifky.jpg',
-            },
-            {
-                title: 'Lo Mishtaneh',
-                artist: 'Osher Cohen',
-                album: 'Yoter Tov',
-                duration: '3:55',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZ4abcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489270/osher_cohen_d9pchp.jpg',
-            },
-            {
-                title: 'Rak Itach',
-                artist: 'Lior Narkis',
-                album: 'Rak Itach',
-                duration: '3:45',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZ5abcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489281/liot_narkis_uhcvth.jpg',
-            },
-            {
-                title: 'Yesh Lanu Et HaAhava',
-                artist: 'Omer Adam',
-                album: 'Omer Adam Hits',
-                duration: '4:05',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZ6abcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489297/omer_uimi57.jpg',
-            },
-            {
-                title: 'Mahalach Chayai',
-                artist: 'Sarit Hadad',
-                album: 'Classic Hits',
-                duration: '4:02',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZ7abcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489291/sarit_lhppus.jpg',
-            },
-            {
-                title: 'Mi Shemaamin',
-                artist: 'Eyal Golan',
-                album: 'Mi Shemaamin',
-                duration: '4:20',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZ8abcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489286/eyal_d5ifky.jpg',
-            },
-            {
-                title: 'Tachzor',
-                artist: 'Osher Cohen',
-                album: 'Leilot',
-                duration: '3:35',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZ9abcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489270/osher_cohen_d9pchp.jpg',
-            },
-            {
-                title: 'Chocolata',
-                artist: 'Lior Narkis',
-                album: 'Chocolata',
-                duration: '3:30',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=XYZaabcdEFG'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731489281/liot_narkis_uhcvth.jpg',
-            },
-        ],
-
-        'Funky Monks': [
-            {
-                title: 'Cissy Strut',
-                artist: 'The Meters',
-                album: 'The Meters',
-                duration: '3:05',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=4_iC0MyIykM'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495858/funky_monks_twr0lz.jpg',
-            },
-            {
-                title: 'Pass The Peas',
-                artist: "The JB's",
-                album: 'Food for Thought',
-                duration: '3:30',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=mUkfiLjooxs'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg',
-            },
-            {
-                title: 'Give Up The Funk',
-                artist: 'Parliament',
-                album: 'Mothership Connection',
-                duration: '5:46',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=3WOZwwRH6XU'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/3WOZwwRH6XU/mqdefault.jpg',
-            },
-            {
-                title: 'Super Freak',
-                artist: 'Rick James',
-                album: 'Street Songs',
-                duration: '3:25',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=QZ6vbkZ-gjM'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/QZ6vbkZ-gjM/mqdefault.jpg',
-            },
-            {
-                title: 'Get Up Offa That Thing',
-                artist: 'James Brown',
-                album: 'Sex Machine',
-                duration: '5:04',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=9Vw1p5n47zE'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/9Vw1p5n47zE/mqdefault.jpg',
-            },
-            {
-                title: 'Brick House',
-                artist: 'The Commodores',
-                album: 'Commodores',
-                duration: '3:30',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=tsbGkUGR9oA'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/tsbGkUGR9oA/mqdefault.jpg',
-            },
-            {
-                title: 'Hollywood Swinging',
-                artist: 'Kool & The Gang',
-                album: 'Wild and Peaceful',
-                duration: '4:50',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=9d8tffULtug'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/9d8tffULtug/mqdefault.jpg',
-            },
-            {
-                title: 'Funky Town',
-                artist: 'Lipps Inc.',
-                album: 'Mouth to Mouth',
-                duration: '4:07',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=9muzy3JXXuE'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/9muzy3JXXuE/mqdefault.jpg',
-            },
-            {
-                title: 'Love Rollercoaster',
-                artist: 'Ohio Players',
-                album: 'Honey',
-                duration: '4:30',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=nAn46DgnNUo'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/nAn46DgnNUo/mqdefault.jpg',
-            },
-            {
-                title: 'I Can Make You Dance',
-                artist: 'The Controllers',
-                album: 'The Controllers',
-                duration: '5:15',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=ZsCEl5sS6pc'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/ZsCEl5sS6pc/mqdefault.jpg',
-            },
-        ],
-
-        'Release Radar': [
-            {
-                title: 'Revival (Original Mix)',
-                artist: 'Meduza',
-                album: 'Revival',
-                duration: '3:35',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Rev12345abc'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Meduza Revival
-            },
-            {
-                title: 'Escape (Radio Edit)',
-                artist: 'Kaskade & Deadmau5',
-                album: 'Kx5',
-                duration: '3:17',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Esc23456def'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Kaskade & Deadmau5
-            },
-            {
-                title: 'Alive',
-                artist: 'RÜFÜS DU SOL',
-                album: 'Surrender',
-                duration: '4:20',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Ali34567ghi'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // RÜFÜS DU SOL Alive
-            },
-            {
-                title: 'Tell Me Why',
-                artist: 'Armin van Buuren & Matisse & Sadko',
-                album: 'Tell Me Why - Single',
-                duration: '3:41',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Tel45678jkl'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Armin van Buuren
-            },
-            {
-                title: 'Wake Me Up (Rework)',
-                artist: 'Vintage Culture & James Hype',
-                album: 'Wake Me Up',
-                duration: '3:52',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Wak56789mno'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Vintage Culture & James Hype
-            },
-            {
-                title: 'Your Mind',
-                artist: 'Adam Beyer & Bart Skils',
-                album: 'Your Mind',
-                duration: '3:33',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=You67890pqr'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Adam Beyer & Bart Skils
-            },
-            {
-                title: 'Sunset Lover (Extended Mix)',
-                artist: 'CamelPhat & ARTBAT',
-                album: 'Sunset Lover',
-                duration: '4:15',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Sun78901stu'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // CamelPhat & ARTBAT
-            },
-            {
-                title: 'On My Mind',
-                artist: 'Diplo & SIDEPIECE',
-                album: 'On My Mind',
-                duration: '3:47',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=OnM89012vwx'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Diplo & SIDEPIECE
-            },
-            {
-                title: 'Heartbeat',
-                artist: 'Above & Beyond',
-                album: 'Heartbeat',
-                duration: '5:12',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Hea90123yz'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // Above & Beyond
-            },
-            {
-                title: 'Lights Out',
-                artist: 'FISHER',
-                album: 'Lights Out',
-                duration: '3:54',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Lig01234abc'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731495621/release_readar_smmb2k.jpg', // FISHER Lights Out
-            },
-        ],
-
         'Rock Vibes': [
             {
                 title: 'Whole Lotta Love',
@@ -616,123 +241,6 @@ function getSongsForStation(playlistName) {
                 imgURL: 'https://i.ytimg.com/vi/hTWKbfoikeg/mqdefault.jpg',
             },
         ],
-        'Hip Hop Essentials': [
-            {
-                title: 'C.R.E.A.M.',
-                artist: 'Wu-Tang Clan',
-                album: 'Enter the Wu-Tang (36 Chambers)',
-                duration: '4:12',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=PBwAxmrE194'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731496017/hiphip_buhagx.jpg',
-            },
-            {
-                title: 'Electric Relaxation',
-                artist: 'A Tribe Called Quest',
-                album: 'Midnight Marauders',
-                duration: '4:04',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=WHRnvjCkTsw'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/WHRnvjCkTsw/mqdefault.jpg',
-            },
-            {
-                title: 'Juicy',
-                artist: 'The Notorious B.I.G.',
-                album: 'Ready to Die',
-                duration: '5:02',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=_JZom_gVfuw'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/_JZom_gVfuw/mqdefault.jpg',
-            },
-        ],
-
-        'Electronic Escape': [
-            {
-                title: 'Strobe',
-                artist: 'Deadmau5',
-                album: 'For Lack of a Better Name',
-                duration: '10:37',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=tKi9Z-f6qX4'),
-                id: makeId(),
-                imgURL: 'https://res.cloudinary.com/dwosnxdmg/image/upload/v1731496052/mqdefault_c0zitj.jpg',
-            },
-            {
-                title: 'One More Time',
-                artist: 'Daft Punk',
-                album: 'Discovery',
-                duration: '5:20',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=FGBhQbmPwH8'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/FGBhQbmPwH8/mqdefault.jpg',
-            },
-            {
-                title: 'Galvanize',
-                artist: 'The Chemical Brothers',
-                album: 'Push the Button',
-                duration: '4:28',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Xu3FTEmN-eg'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/Xu3FTEmN-eg/mqdefault.jpg',
-            },
-        ],
-        'Jazz Classics': [
-            {
-                title: 'John Coltrane - A Love Supreme',
-                artist: 'John Coltrane',
-                album: 'A Love Supreme',
-                duration: '7:43',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=clC6cgoh1sU'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/clC6cgoh1sU/mqdefault.jpg',
-            },
-            {
-                title: 'Miles Davis - So What',
-                artist: 'Miles Davis',
-                album: 'Kind of Blue',
-                duration: '9:22',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=zqNTltOGh5c'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/zqNTltOGh5c/mqdefault.jpg',
-            },
-            {
-                title: 'Duke Ellington - Take the A Train',
-                artist: 'Duke Ellington',
-                album: 'The Duke Ellington Songbook',
-                duration: '3:15',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=cb2w2m1JmCY'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/cb2w2m1JmCY/mqdefault.jpg',
-            },
-        ],
-        'Reggae Vibes': [
-            {
-                title: 'Bob Marley - One Love',
-                artist: 'Bob Marley',
-                album: 'Exodus',
-                duration: '2:53',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=vdB-8eLEW8g'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/vdB-8eLEW8g/mqdefault.jpg',
-            },
-            {
-                title: 'Peter Tosh - Legalize It',
-                artist: 'Peter Tosh',
-                album: 'Legalize It',
-                duration: '4:35',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=7xYO-VMZUGo'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/7xYO-VMZUGo/mqdefault.jpg',
-            },
-            {
-                title: 'Toots & The Maytals - Pressure Drop',
-                artist: 'Toots & The Maytals',
-                album: 'The Harder They Come',
-                duration: '2:53',
-                videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=HrLJ6Saq7u4'),
-                id: makeId(),
-                imgURL: 'https://i.ytimg.com/vi/HrLJ6Saq7u4/mqdefault.jpg',
-            },
-        ],
         'Israeli Vibes': [
             {
                 title: 'Cowboy',
@@ -762,6 +270,494 @@ function getSongsForStation(playlistName) {
                 imgURL: 'https://i1.sndcdn.com/artworks-sz8gJhk2rZYd3P6W-gDOI4g-t500x500.jpg',
             },
         ],
+        'TECHNO 2024':[
+            {
+            title: 'Higher Power',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '3:28',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=RHnVcEubpUA'),
+            id: makeId(),
+            imgURL: 'https://i3.ytimg.com/vi/RHnVcEubpUA/maxresdefault.jpg',
+        },
+            {
+            title: 'Last Night - Anyma x Layton Giordani Remix',
+            artist: 'Loofy',
+            album: 'Last Night (Anyma x Layton Giordani Remix)',
+            duration: '4:16',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=PuH-7swYK5c'),
+            id: makeId(),
+            imgURL: 'https://i3.ytimg.com/vi/PuH-7swYK5c/maxresdefault.jpg',
+        },
+            {
+            title: 'Eternity - Massano Remix',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '6:02',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=BgeT7s2e1HM'),
+            id: makeId(),
+            imgURL: 'https://i3.ytimg.com/vi/BgeT7s2e1HM/maxresdefault.jpg',
+        },
+            {
+            title: 'Say Yes To Heaven - Anyma Remix',
+            artist: 'Lana Del Rey',
+            album: 'Say Yes To Heaven (Anyma Remix)',
+            duration: '3:42',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=2tkhX5eJZdg'),
+            id: makeId(),
+            imgURL: 'http://i3.ytimg.com/vi/2tkhX5eJZdg/hqdefault.jpg',
+        },
+            {
+            title: 'Angel 1',
+            artist: 'Anyma',
+            album: 'Genesys',
+            duration: '5:46',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=cD_m33pz8xc'),
+            id: makeId(),
+            imgURL: 'http://i3.ytimg.com/vi/cD_m33pz8xc/hqdefault.jpg',
+        },
+            {
+            title: 'I Will Find You',
+            artist: 'Mathame',
+            album: 'I Will Find You',
+            duration: '3:29',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=HL7DzUpvnEM'),
+            id: makeId(),
+            imgURL: 'https://i3.ytimg.com/vi/HL7DzUpvnEM/maxresdefault.jpg',
+        },
+            {
+            title: 'Move',
+            artist: 'Adam Port',
+            album: 'Move',
+            duration: '2:57',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=95dB-ObZ7Ho'),
+            id: makeId(),
+            imgURL: 'https://i3.ytimg.com/vi/95dB-ObZ7Ho/maxresdefault.jpg',
+        },
+    ],
+        'Beast Mode':[
+            {
+            title: 'Where You Are',
+            artist: 'John Summit',
+            album: 'Where You Are',
+            duration: '3:56',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=5BqjhUmldDc'),
+            id: makeId(),
+            imgURL: 'https://i3.ytimg.com/vi/5BqjhUmldDc/maxresdefault.jpg',
+        },
+            {
+            title: 'Losing Control',
+            artist: 'Odd Mob',
+            album: 'Losing Control)',
+            duration: '2:45',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=mspKUTcwy2I'),
+            id: makeId(),
+            imgURL: 'https://i3.ytimg.com/vi/mspKUTcwy2I/maxresdefault.jpg',
+        },
+            {
+            title: 'Monster',
+            artist: 'Don Diablo',
+            album: 'Monster',
+            duration: '2:24',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=D8mis7kcTZU'),
+            id: makeId(),
+            imgURL: 'https://i3.ytimg.com/vi/D8mis7kcTZU/maxresdefault.jpg',
+        },
+            {
+            title: 'Turn On The Light',
+            artist: 'Swedish House Mafia',
+            album: 'Turn On The Light',
+            duration: '4:13',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=Q22MCFC0CP0'),
+            id: makeId(),
+            imgURL: 'https://www.youtube.com/watch?v=Q22MCFC0CP0',
+        },
+            {
+            title: 'Boost Up',
+            artist: 'Fisher',
+            album: 'Boost Up',
+            duration: '3:31',
+            videoId: getVideoIdFromUrl('https://www.youtube.com/watch?v=ynT7jh5927M'),
+            id: makeId(),
+            imgURL: 'https://i3.ytimg.com/vi/ynT7jh5927M/maxresdefault.jpg',
+        }
+    ],
+        'Running Motivation 2024':[
+            {
+            title: 'Seven Nation Army',
+            artist: 'DJ Fluke',
+            album: 'Seven Nation Army',
+            duration: '3:28',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Prada',
+            artist: 'cassö,RAYE,D-Block Europe',
+            album: 'Prada',
+            duration: '4:16',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'When We Were Young (The Logical Song)',
+            artist: 'David Guetta,Kim Petras',
+            album: 'When We Were Young (The Logical Song)',
+            duration: '6:02',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Crush Me Down (You Spin Me Around)',
+            artist: 'Blasterjaxx,Naeleck,3rd Wall',
+            album: 'Crush Me Down (You Spin Me Around)',
+            duration: '3:42',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Day-O',
+            artist: 'Naeleck',
+            album: 'Day-O',
+            duration: '5:46',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        }
+    ],
+        'ישראלי':[
+            {
+            title: 'היא כל כך יפה',
+            artist: 'צפוף באוזן',
+            album: 'Kaveret',
+            duration: '3:28',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'תתארו לכם',
+            artist: 'שפויים',
+            album: 'Shlomo Artzi',
+            duration: '4:16',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'עטור מצחך',
+            artist: 'משירי אברהם חלפי',
+            album: 'Arik Einstein,Yoni Rechter',
+            duration: '6:02',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'גיטרה וכינור',
+            artist: 'מוסקט',
+            album: 'Arik Einstein,Shalom Hanoch',
+            duration: '3:42',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Lo Yachol Lehorid Mimench Et HaEynaim',
+            artist: 'Bernard & Louise',
+            album: 'Meir Ariel',
+            duration: '5:46',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        }
+    ],
+        'TECHNO 2024':[
+            {
+            title: 'Higher Power',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '3:28',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Last Night - Anyma x Layton Giordani Remix',
+            artist: 'Loofy',
+            album: 'Last Night (Anyma x Layton Giordani Remix)',
+            duration: '4:16',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Eternity - Massano Remix',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '6:02',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Say Yes To Heaven - Anyma Remix',
+            artist: 'Lana Del Rey',
+            album: 'Say Yes To Heaven (Anyma Remix)',
+            duration: '3:42',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Angel 1',
+            artist: 'Anyma',
+            album: 'Genesys',
+            duration: '5:46',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        }
+    ],
+        'TECHNO 2024':[
+            {
+            title: 'Higher Power',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '3:28',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Last Night - Anyma x Layton Giordani Remix',
+            artist: 'Loofy',
+            album: 'Last Night (Anyma x Layton Giordani Remix)',
+            duration: '4:16',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Eternity - Massano Remix',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '6:02',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Say Yes To Heaven - Anyma Remix',
+            artist: 'Lana Del Rey',
+            album: 'Say Yes To Heaven (Anyma Remix)',
+            duration: '3:42',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Angel 1',
+            artist: 'Anyma',
+            album: 'Genesys',
+            duration: '5:46',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        }
+    ],
+        'TECHNO 2024':[
+            {
+            title: 'Higher Power',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '3:28',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Last Night - Anyma x Layton Giordani Remix',
+            artist: 'Loofy',
+            album: 'Last Night (Anyma x Layton Giordani Remix)',
+            duration: '4:16',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Eternity - Massano Remix',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '6:02',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Say Yes To Heaven - Anyma Remix',
+            artist: 'Lana Del Rey',
+            album: 'Say Yes To Heaven (Anyma Remix)',
+            duration: '3:42',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Angel 1',
+            artist: 'Anyma',
+            album: 'Genesys',
+            duration: '5:46',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        }
+    ],
+        'TECHNO 2024':[
+            {
+            title: 'Higher Power',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '3:28',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Last Night - Anyma x Layton Giordani Remix',
+            artist: 'Loofy',
+            album: 'Last Night (Anyma x Layton Giordani Remix)',
+            duration: '4:16',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Eternity - Massano Remix',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '6:02',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Say Yes To Heaven - Anyma Remix',
+            artist: 'Lana Del Rey',
+            album: 'Say Yes To Heaven (Anyma Remix)',
+            duration: '3:42',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Angel 1',
+            artist: 'Anyma',
+            album: 'Genesys',
+            duration: '5:46',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        }
+    ],
+        'TECHNO 2024':[
+            {
+            title: 'Higher Power',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '3:28',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Last Night - Anyma x Layton Giordani Remix',
+            artist: 'Loofy',
+            album: 'Last Night (Anyma x Layton Giordani Remix)',
+            duration: '4:16',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Eternity - Massano Remix',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '6:02',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Say Yes To Heaven - Anyma Remix',
+            artist: 'Lana Del Rey',
+            album: 'Say Yes To Heaven (Anyma Remix)',
+            duration: '3:42',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Angel 1',
+            artist: 'Anyma',
+            album: 'Genesys',
+            duration: '5:46',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        }
+    ],
+        'TECHNO 2024':[
+            {
+            title: 'Higher Power',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '3:28',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Last Night - Anyma x Layton Giordani Remix',
+            artist: 'Loofy',
+            album: 'Last Night (Anyma x Layton Giordani Remix)',
+            duration: '4:16',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Eternity - Massano Remix',
+            artist: 'Anyma',
+            album: 'genesys II',
+            duration: '6:02',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Say Yes To Heaven - Anyma Remix',
+            artist: 'Lana Del Rey',
+            album: 'Say Yes To Heaven (Anyma Remix)',
+            duration: '3:42',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        },
+            {
+            title: 'Angel 1',
+            artist: 'Anyma',
+            album: 'Genesys',
+            duration: '5:46',
+            videoId: getVideoIdFromUrl(''),
+            id: makeId(),
+            imgURL: '',
+        }
+    ],
     }
 
     return songLibrary[playlistName] || []
