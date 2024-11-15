@@ -12,6 +12,37 @@
     height:16px;
 }
 
+.liked-songs-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    .liked-icon {
+        fill: #1ed760; 
+        width: 16px;
+        height: 16px;
+    }
+    .not-liked-icon {
+        width: 16px;
+        height: 16px;
+        display: none;
+        fill: #b3b3b3;
+        &:hover{
+
+            fill: #ffffff;
+        }
+        
+    }
+
+}
+
+.song-item:hover .not-liked-icon {
+        display: block;
+}
+
+
+
 // section {
 //     padding: 15px;
 //     background-color: $spotify-preview-bg;

@@ -136,6 +136,25 @@ export function setBgColor(bgColor) {
     }
 }
 
+export async function addSongToLiked(song) {
+    try {
+        const likedSongsStation = await stationLocalService.addSongToLikedSongs(song)
+        store.dispatch(getCmdSetStation(likedSongsStation)) 
+    } catch (err) {
+        console.log('Cannot add song to Liked Songs', err)
+    }
+}
+
+export async function removeSongFromLiked(songId) {
+    try {
+        const likedSongsStation = await stationLocalService.removeSongFromLikedSongs(songId)
+        store.dispatch(getCmdSetStation(likedSongsStation)) 
+    } catch (err) {
+        console.log('Cannot remove song from Liked Songs', err)
+    }
+}
+
+
 // Command Creators:
 function getCmdSetStations(stations) {
     return {

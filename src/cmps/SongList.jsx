@@ -4,6 +4,7 @@ import { loadSong, setIsPlaying, updateStation } from '../store/actions/station.
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
+import { useSelector } from 'react-redux'
 
 export function SongList({ station }) {
     const [hoveredIndex, setHoveredIndex] = useState(null)
@@ -11,10 +12,19 @@ export function SongList({ station }) {
     const [playingIndex, setPlayingIndex] = useState(null)
     const [currStation, setCurrStation] = useState(station)
     const [songs, setSongs] = useState(station.songs)
+    const stations = useSelector(storeState => storeState.stationModule.stations)
+    const likedSongsStation = stations.find(s => s.name === 'Liked Songs') || {}
 
     useEffect(() => {
         setSongs(station.songs)
+        setCurrStation(station)
+
     }, [station._id])
+
+    useEffect(() => {
+        setSongs()
+    }, [currStation])
+
 
     useEffect(() => {
         setSongs(currStation.songs)
@@ -31,6 +41,37 @@ export function SongList({ station }) {
         setIsPlaying(false)
         setPlayingIndex(null)
     }
+
+    async function toggleLike(song) {
+        const likedSongs = likedSongsStation.songs || []
+
+        const isLiked = likedSongs.some(s => s.id === song.id)
+        const updatedSong = { ...song, liked: !isLiked }
+
+        const updatedLikedSongs = isLiked
+            ? likedSongs.filter(s => s.id !== song.id)
+            : [...likedSongs, updatedSong]
+
+        await updateStation({
+            ...likedSongsStation,
+            songs: updatedLikedSongs
+        })
+
+        if (currStation.name === 'Liked Songs') {
+            setSongs(updatedLikedSongs)
+        } else {
+            const updatedCurrStation = {
+                ...currStation,
+                songs: currStation.songs.map(s =>
+                    s.id === song.id ? updatedSong : s
+                )
+            }
+            await updateStation(updatedCurrStation)
+            setCurrStation(updatedCurrStation)
+        }
+    }
+
+
 
     async function handleDragEnd(result) {
         if (!result.destination) return
@@ -115,12 +156,13 @@ export function SongList({ station }) {
                             >
                                 <hr style={{ opacity: 0.2 }} />
                                 {songs.map((song, idx) => (
-                                    <Draggable key={song.id} draggableId={song.id} index={idx}>
+                                    <Draggable key={song.id} draggableId={song.id} index={idx} >
                                         {(provided, snapshot) => (
                                             <Box
                                                 ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
+                                                className="song-item"
                                                 sx={{
                                                     display: 'flex',
                                                     alignItems: 'center',
@@ -133,8 +175,8 @@ export function SongList({ station }) {
                                                         activeIndex === idx
                                                             ? 'rgba(144, 144, 144, 0.6)'
                                                             : snapshot.isDragging
-                                                            ? 'rgba(144, 144, 144, 0.3)'
-                                                            : 'inherit',
+                                                                ? 'rgba(144, 144, 144, 0.3)'
+                                                                : 'inherit',
                                                     '&:hover': { backgroundColor: 'rgba(144, 144, 144, 0.2)' },
                                                 }}
                                                 onMouseEnter={() => setHoveredIndex(idx)}
@@ -150,8 +192,8 @@ export function SongList({ station }) {
                                                     }}
                                                 >
                                                     {activeIndex === idx &&
-                                                    playingIndex === idx &&
-                                                    hoveredIndex === idx ? (
+                                                        playingIndex === idx &&
+                                                        hoveredIndex === idx ? (
                                                         <IconButton
                                                             onClick={handlePauseClick}
                                                             sx={{ marginLeft: 4, color: 'white' }}
@@ -270,6 +312,25 @@ export function SongList({ station }) {
                                                     >
                                                         {song.album}
                                                     </Typography>
+                                                    <button onClick={() => toggleLike(song)} title={song.liked ? "Remove from liked songs" : "Add to liked songs"}
+                                                        className="liked-songs-btn">
+                                                        {song.liked ? (
+                                                            <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 16 16"
+                                                                className='liked-icon'
+                                                            >
+                                                                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z" />
+                                                            </svg>
+                                                        ) : (
+                                                            <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 24 24"
+                                                                className='not-liked-icon'
+                                                            >
+                                                                <path d="M11.999 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm-11 9c0-6.075 4.925-11 11-11s11 4.925 11 11-4.925 11-11 11-11-4.925-11-11z" />
+                                                                <path d="M17.999 12a1 1 0 0 1-1 1h-4v4a1 1 0 1 1-2 0v-4h-4a1 1 0 1 1 0-2h4V7a1 1 0 1 1 2 0v4h4a1 1 0 0 1 1 1z" />
+                                                            </svg>
+                                                        )}
+                                                    </button>
+
+
                                                     <Typography
                                                         variant="body2"
                                                         sx={{ color: 'rgba(255, 255, 255, 0.6)', marginLeft: -3 }}
