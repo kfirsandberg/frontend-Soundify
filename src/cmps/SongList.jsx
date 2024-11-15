@@ -13,6 +13,10 @@ export function SongList({ station }) {
     const [songs, setSongs] = useState(station.songs)
 
     useEffect(() => {
+        setSongs(station.songs)
+    }, [station._id])
+
+    useEffect(() => {
         setSongs(currStation.songs)
     }, [currStation.songs])
 
