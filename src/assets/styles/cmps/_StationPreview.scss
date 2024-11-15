@@ -4,6 +4,7 @@
     text-align: center;
     color: $spotify-gray;
     cursor: pointer;
+    height: 95%;
 
 
     transition: opacity 0.3s ease, transform 0.1s ease;
@@ -37,7 +38,7 @@
 
     .station-preview-container {
         overflow: hidden;
-        padding: 10px;
+        padding: 13px;
         z-index: 1; // Ensure container stays above the overlay
     }
 
@@ -80,10 +81,10 @@
 
     .play-button-title {
         font-family: SpotifyMix-light;
-        font-size: 1rem;
+        font-size: 13px;
         text-align: start;
         color: #B3B3B3;
-        font-weight: 500;
+        font-weight: 200;
         z-index: 1; // Ensure title stays above the background overlay
         white-space: nowrap;
         overflow: hidden;
@@ -96,7 +97,17 @@
         flex-direction: column;
         justify-content: center;
         align-items: baseline;
-        padding-top: 0.5em;
+        padding-top: 0.6em;
+
+        .station-name-description{
+            font-family: SpotifyMix;
+            font-size: 13px;
+            font-weight: lighter;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }   
+        
 
         .station-name {
             z-index: 1;

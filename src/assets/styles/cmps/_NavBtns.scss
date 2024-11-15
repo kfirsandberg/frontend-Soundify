@@ -2,10 +2,11 @@
     transform: translateX(22px);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     height: 3em;
     padding-top: 15px;
     margin-right: auto;
+    padding-left:2px;
 
     .nav-btn,
     .nav-btn-active {

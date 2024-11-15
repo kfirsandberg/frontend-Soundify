@@ -9,6 +9,7 @@
     align-items: center;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
     justify-content: space-between;
+    
 
     .player-container {
         display: flex;
@@ -17,10 +18,12 @@
         justify-content: center;
         margin-bottom: 5px;
         width: 100%;
-        padding-top: 6px;
+        padding-top: 1px;
         left: 0;
         right: 0;
+        position: absolute;
     }
+    
 
     .song-info {
         display: flex;
@@ -37,7 +40,7 @@
             align-items: center;
             justify-content: center;
             padding-bottom: 10px;
-            margin: 6px 15px 0px 14px;
+            margin: 0 15px 0px 16px;
 
             .song-img {
                 border-radius: 4px;
@@ -66,10 +69,10 @@
             h4 {
                 cursor: pointer;
                 font-style: normal;
-                font-size: 14px;
+                font-size: 12px;
                 margin: 0;
                 font-family: SpotifyMix;
-                color: #ffffffff;
+                color: #ffffffc9;
 
             }
         }
@@ -79,7 +82,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: em(19px);
+        gap: em(18px);
         margin-bottom: 6px;
 
         .next-btn,
@@ -217,7 +220,7 @@
         .duration,
         .current-time {
             color: #b3b3b3;
-            font-size: em(12px);
+            font-size: em(11px);
         }
     }
 }

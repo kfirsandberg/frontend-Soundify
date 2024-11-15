@@ -18,7 +18,7 @@ export function StationPreview({ station }) {
         </button>
       </div>
       <section className='station-description'>
-        <a className='station-name' title={name}>{name}</a>
+        <a className='station-name-description' title={name}>{name}</a>
         <p className="play-button-title" >{stationSubtitle}</p>
       </section>
     </section>
