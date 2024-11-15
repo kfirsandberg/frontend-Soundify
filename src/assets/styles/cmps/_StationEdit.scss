@@ -11,17 +11,16 @@
     z-index: 1000;
     font-family: spotifyMix;
     width: em(524px);
+    margin: 0;
 
     .modal-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size: 1.5em;
+
         font-weight: bold;
         color: #ffffff;
-        margin-bottom: 1em;
         padding: 24px;
-        font-size: rem(24px);
         h2 {
             margin: 0;
             // font-family: SpotifyMix-Extrabold;
@@ -66,7 +65,7 @@
                 'album-image description'
                 '. save-button'
                 'disclaimer disclaimer';
-            grid-gap: 16px;
+            grid-gap: 14px;
             padding: 0 24px 24px;
 
             .album-image {
@@ -101,7 +100,7 @@
 
             .description {
                 grid-area: description;
-                margin-top: 8px;
+                margin-top: 12px;
                 textarea {
                     background: hsla(0, 0%, 100%, 0.1);
                     border: 1px solid transparent;
@@ -157,7 +156,7 @@
                 font-weight: 700;
                 font-size: 0.6875rem;
                 margin: 0;
-                margin-top: 5px;
+                margin-top: 11px;
             }
         }
     }

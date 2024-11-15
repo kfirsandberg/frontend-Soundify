@@ -32,13 +32,13 @@ export function StationHeader({ station }) {
 
     return (
         <Box
+            className='header-station'
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 0,
                 color: '#fff',
-                padding: 5,
-                marginBottom: -5,
+              
             }}
         >
             {/* Station Details */}
@@ -48,8 +48,8 @@ export function StationHeader({ station }) {
                     sx={{
                         display: 'block',
                         position: 'relative',
-                        width: { xs: 128, sm: 128, md: 128, lg: 232, xl: 232 },
-                        height: { xs: 128, sm: 128, md: 128, lg: 232, xl: 232 },
+                        width: { xs: 128, sm: 128, md: 128, lg: 180, xl: 232 },
+                        height: { xs: 128, sm: 128, md: 128, lg: 180, xl: 232 },
                         minWidth: 128, // Prevents the image from becoming too small
                         minHeight: 128, // Prevents the image from becoming too small
                         maxWidth: 232,
@@ -122,14 +122,12 @@ export function StationHeader({ station }) {
                             fontFamily: 'SpotifyMix-Extrabold', // Add this line to specify the font
                             fontWeight: 'bold',
                             cursor: 'pointer',
-                            fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '5rem', xl: '6rem' },
+                            fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '6rem', xl: '6rem' },
                             // lineHeight: { xs: '2.5rem', sm: '3.5rem', md: '5rem' },
-                            letterSpacing: { xs: '0.5px', sm: '1px', md: '1.5px' },
+                            letterSpacing: { xs: '-3px'},
                             textAlign: { xs: 'center', sm: 'left' },
                             whiteSpace: 'nowrap', // Prevents the text from wrapping
-                            marginTop: '5px',
-
-                            marginBottom: '20px',
+                      
 
                             overflow: 'hidden', // Optional: Hides text overflow if the text exceeds the container width
                             textOverflow: 'ellipsis', // Optional: Adds ellipsis if the text is cut off
@@ -154,11 +152,12 @@ export function StationHeader({ station }) {
                     </Box>
                 </Box>
             </Box>
-
+            
             {/* Playlist Actions */}
-            <Box sx={{ display: 'flex', gap: 0, marginTop: 5 }}>
+            <Box className = "playlist-actions"
+            sx={{ display: 'flex', gap: 0}}>
                 <IconButton sx={{ color: '#1ed760', fontSize: '3rem' }}>
-                    <PlayCircleFilledIcon sx={{ fontSize: 70, marginRight: 3 }} />
+                    <PlayCircleFilledIcon sx={{ fontSize: '66px' }} />
                 </IconButton>
                 <IconButton sx={{ color: 'white' }}>
                     <MoreHoriz />

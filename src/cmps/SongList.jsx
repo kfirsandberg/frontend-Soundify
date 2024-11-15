@@ -86,8 +86,8 @@ export function SongList({ station }) {
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
-            <section style={{ padding: '15px', borderRadius: '8px', marginLeft: 25, marginRight: 40 }}>
-                <Box
+            <section className="song-list" style={{  borderRadius: '8px',  marginRight: 40 }}>
+                <Box 
                     sx={{
                         display: 'grid',
                         gridTemplateRows: 'auto 1fr',
@@ -96,13 +96,13 @@ export function SongList({ station }) {
                     }}
                 >
                     {/* Header row */}
-                    <Box
+                    <Box 
                         sx={{
                             gridArea: 'nav',
                             display: 'grid',
                             gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
                             gridGap: 1,
-                            paddingTop: 3,
+                          
                             '@media (max-width: 768px)': {
                                 gridTemplateColumns: 'auto 1fr',
                                 gridTemplateRows: 'auto auto auto',
@@ -118,7 +118,7 @@ export function SongList({ station }) {
                         </Typography>
                         <Typography
                             variant="body2"
-                            sx={{ paddingLeft: '1em', margin: 0, opacity: 0.6, color: 'white' }}
+                            sx={{ paddingLeft: '0.4em', margin: 0, opacity: 0.6, color: 'white' }}
                         >
                             Title
                         </Typography>
@@ -167,7 +167,8 @@ export function SongList({ station }) {
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     borderRadius: 1,
-                                                    padding: '8px 12px',
+                                                    padding: '3px 12px',
+                                                    marginTop : '15px',
                                                     marginBottom: 1,
                                                     cursor: 'pointer',
                                                     width: '100%',
@@ -237,7 +238,7 @@ export function SongList({ station }) {
                                                 </Box>
 
                                                 {/* Song details */}
-                                                <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: 4 }}>
+                                                <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
                                                     <Box
                                                         component="img"
                                                         src={song.imgURL}
@@ -253,7 +254,7 @@ export function SongList({ station }) {
                                                         sx={{
                                                             display: 'flex',
                                                             flexDirection: 'column',
-                                                            marginLeft: 1.5,
+                                                            marginLeft: '20px' ,
                                                         }}
                                                     >
                                                         <Typography
