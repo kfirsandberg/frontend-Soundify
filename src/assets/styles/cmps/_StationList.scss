@@ -31,6 +31,7 @@ $row-count: 1;
                     font-family: SpotifyMix;
                     font-size: 24px;
                     justify-self: start;
+                    margin-top: 22px;
                 }
 
                 .show-all-btn {
@@ -40,11 +41,12 @@ $row-count: 1;
                     right: 0;
                     font-size: 0.8em;
                     font-weight: 700;
-                    margin-right: 30px;
+                    margin-right: 23px;
+                    padding-bottom: 6px;
                     background-color: inherit;
                     border: none;
                     color: #fff;
-                    font-size: rem(15px);
+                    font-size: rem(14px);
                     cursor: pointer;    
                     &:hover {
                         text-decoration: underline;

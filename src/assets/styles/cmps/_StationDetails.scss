@@ -34,3 +34,30 @@
     background-color: darken($spotify-green, 5%);
   }
   
+
+  .playlist-actions {
+    display: flex;
+    gap: 0;
+    margin-top: 5rem;
+
+    .play-button,
+    .more-options-button {
+        background: none;
+        border: none;
+        color: #1ed760;
+        font-size: 70px;
+        cursor: pointer;
+    }
+
+    .sort-button {
+        background: none;
+        border: none;
+        margin-left: auto;
+        cursor: pointer;
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

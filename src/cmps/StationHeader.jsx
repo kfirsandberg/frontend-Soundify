@@ -1,198 +1,67 @@
-import { useState } from 'react'
-import { Box, Button, Typography, IconButton, Modal, TextField, Grid, Avatar } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
-import userIcon from '../../public/assets/user.svg'
-import { MoreHoriz } from '@mui/icons-material'
-import HamburgerIcon from '../../public/assets/hamburger.svg'
-import { StationEdit } from './StationEdit'
+import { useState } from 'react';
+import userIcon from '../../public/assets/user.svg';
+import { StationEdit } from './StationEdit';
 
 export function StationHeader({ station }) {
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
-    const [openFileUpload, setOpenFileUpload] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL);
+    const [openFileUpload, setOpenFileUpload] = useState(false);
 
     function onEditStation() {
-        setOpenFileUpload(false)
-        setIsModalOpen(true)
+        setOpenFileUpload(false);
+        setIsModalOpen(true);
     }
 
     function onImageClick() {
-        setOpenFileUpload(true)
-        setIsModalOpen(true)
+        setOpenFileUpload(true);
+        setIsModalOpen(true);
     }
 
     function onCloseModal() {
-        setIsModalOpen(false)
+        setIsModalOpen(false);
     }
 
     function handleImageUpload(url) {
-        setUpdatedImgURL(url)
+        setUpdatedImgURL(url);
     }
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 0,
-                color: '#fff',
-                padding: 5,
-                marginBottom: -5,
-            }}
-        >
-            {/* Station Details */}
-            <Box sx={{ display: 'flex', gap: 2 }}>
-                {/* Station Image with Edit Icon */}
-                <Box
-                    sx={{
-                        display: 'block',
-                        position: 'relative',
-                        width: { xs: 128, sm: 128, md: 128, lg: 232, xl: 232 },
-                        height: { xs: 128, sm: 128, md: 128, lg: 232, xl: 232 },
-                        minWidth: 128, // Prevents the image from becoming too small
-                        minHeight: 128, // Prevents the image from becoming too small
-                        maxWidth: 232,
-                        maxHeight: 232,
-
-                        '&:hover .overlay, &:hover .edit-icon-button': {
-                            opacity: 1, // Show overlay and icon button on hover
-                        },
-                    }}
-                >
-                    <Box
-                        component="img"
+        <section className="station-header">
+                <div className="station-image">
+                    <img
                         src={station.imgURL || userIcon}
                         onClick={onImageClick}
                         alt="Station"
-                        sx={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            borderRadius: 1,
-                            transition: 'transform 0.3s ease', // Smooth hover transition for scaling
-                            '&:hover': {
-                                transform: 'scale(1.05)',
-                            },
-                        }}
                     />
-
-                    {/* Overlay Background */}
-                    <Box
-                        className="overlay"
-                        sx={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            backgroundColor: 'rgba(0,0,0,0.6)',
-                            borderRadius: 1,
-                            opacity: 0,
-                        }}
-                    />
-
-                    {/* Edit Icon */}
-                    <IconButton
-                        onClick={onEditStation}
-                        className="edit-icon-button"
-                        sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            color: 'white',
-                            opacity: 0, // Initially hidden
-
-                            zIndex: 1, // Ensure the icon is above the overlay
-                        }}
-                    >
-                        <EditIcon sx={{ fontSize: 70 }} /> {/* Larger icon size */}
-                    </IconButton>
-                </Box>
-
-                {/* Playlist Info */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', marginLeft: '10px' }}>
-                    <Typography variant="subtitle2" color="white">
-                        Playlist
-                    </Typography>
-                    <Typography
-                        variant="h2"
-                        sx={{
-                            fontFamily: 'SpotifyMix-Extrabold', // Add this line to specify the font
-                            fontWeight: 'bold',
-                            cursor: 'pointer',
-                            fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '5rem', xl: '6rem' },
-                            // lineHeight: { xs: '2.5rem', sm: '3.5rem', md: '5rem' },
-                            letterSpacing: { xs: '0.5px', sm: '1px', md: '1.5px' },
-                            textAlign: { xs: 'center', sm: 'left' },
-                            whiteSpace: 'nowrap', // Prevents the text from wrapping
-                            marginTop: '5px',
-
-                            marginBottom: '20px',
-
-                            overflow: 'hidden', // Optional: Hides text overflow if the text exceeds the container width
-                            textOverflow: 'ellipsis', // Optional: Adds ellipsis if the text is cut off
-                        }}
-                        onClick={onEditStation}
-                    >
+                    <div className="overlay" />
+                    {/* <button onClick={onEditStation} className="edit-icon-button">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            data-encore-id="icon"
+                            role="img" aria-hidden="true"
+                            viewBox="0 0 24 24"
+                            className="Svg-sc-ytk21e-0 bHdpig">
+                            <path d="M17.318 1.975a3.329 3.329 0 1 1 4.707 4.707L8.451 20.256c-.49.49-1.082.867-1.735 1.103L2.34 22.94a1 1 0 0 1-1.28-1.28l1.581-4.376a4.726 4.726 0 0 1 1.103-1.735L17.318 1.975zm3.293 1.414a1.329 1.329 0 0 0-1.88 0L5.159 16.963c-.283.283-.5.624-.636 1l-.857 2.372 2.371-.857a2.726 2.726 0 0 0 1.001-.636L20.611 5.268a1.329 1.329 0 0 0 0-1.879z" /></svg>
+                            Choose photo
+                    </button> */}
+                </div>
+                <div className="playlist-info">
+                    <p>Playlist</p>
+                    <span className="playlist-title" onClick={onEditStation}>
                         {station.name}
-                    </Typography>
-
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Avatar src={station.creatorImgURL || userIcon} alt="Creator" sx={{ width: 24, height: 24 }} />
-                        <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center' }}>
-                            {station.creatorName || 'User'}
-                        </Typography>
-
-                        <Typography variant="body2">
+                    </span>
+                    <div className="creator-info">
+                        <img
+                            src={station.creatorImgURL || userIcon}
+                            alt="Creator"
+                            className="avatar"
+                        />
+                        <span>{station.creatorName || 'User'}</span>
+                        <span>
                             • {station.songs?.length || 0} {station.songs?.length === 1 ? 'song' : 'songs'}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                            {station.totalDuration}
-                        </Typography>
-                    </Box>
-                </Box>
-            </Box>
-
-            {/* Playlist Actions */}
-            <Box sx={{ display: 'flex', gap: 0, marginTop: 5 }}>
-                <IconButton sx={{ color: '#1ed760', fontSize: '3rem' }}>
-                    <PlayCircleFilledIcon sx={{ fontSize: 70, marginRight: 3 }} />
-                </IconButton>
-                <IconButton sx={{ color: 'white' }}>
-                    <MoreHoriz />
-                </IconButton>
-                <Button
-                    variant="contained"
-                    color="inherit"
-                    sx={{
-                        backgroundColor: 'inherit',
-                        marginLeft: 'auto',
-                        border: 'none',
-                        boxShadow: 'none',
-                        '&:hover': {
-                            boxShadow: 'none',
-                            fill: '#121212',
-                        },
-                        '&:active': {
-                            boxShadow: 'none',
-                        },
-                    }}
-                >
-                    <Box component="img" src={HamburgerIcon} alt="Sort Icon" sx={{ width: 20, height: 20 }} />
-                </Button>
-            </Box>
-
-            {/* Modal for Station Edit */}
-            <Modal open={isModalOpen} onClose={onCloseModal}>
-                <StationEdit
-                    station={station}
-                    onClose={onCloseModal}
-                    onImageUpload={handleImageUpload}
-                    openFileUpload={openFileUpload}
-                />
-            </Modal>
-        </Box>
-    )
+                        </span>
+                        <span>{station.totalDuration}</span>
+                    </div>
+                </div>
+            </section>
+    );
 }
