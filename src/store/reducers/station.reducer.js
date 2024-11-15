@@ -3,6 +3,7 @@ export const SET_STATION = 'SET_STATION'
 export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
+export const SET_BG_COLOR = 'SET_BG_COLOR'
 
 // Player
 export const SET_SONG = 'SET_SONG'
@@ -10,7 +11,6 @@ export const SET_CURRENT_TIME = 'SET_CURRENT_TIME'
 export const SET_SONG_DURATION = 'SET_SONG_DURATION'
 export const SET_VOLUME = 'SET_VOLUME'
 export const SET_IS_PLAYING = 'SET_IS_PLAYING'
-export const SET_BG_COLOR = 'SET_BG_COLOR'
 
 const initialState = {
     stations: [],
@@ -65,7 +65,7 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, isPlaying: action.isPlaying }
             break
         case SET_BG_COLOR:
-            newState= {...state, bgColor : action.bgColor}
+            newState = { ...state, bgColor: action.bgColor }
             break
         default:
     }

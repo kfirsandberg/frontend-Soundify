@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
@@ -9,11 +9,12 @@ export function SongList({ station }) {
     const [hoveredIndex, setHoveredIndex] = useState(null)
     const [activeIndex, setActiveIndex] = useState(null)
     const [playingIndex, setPlayingIndex] = useState(null)
+    const [currStation, setCurrStation] = useState(station)
     const [songs, setSongs] = useState(station.songs)
 
     useEffect(() => {
-        setSongs(station.songs) // Update songs whenever station changes
-    }, [station.songs])
+        setSongs(currStation.songs)
+    }, [currStation.songs])
 
     function handlePlayClick(songId, index) {
         loadSong(songId)
@@ -27,12 +28,15 @@ export function SongList({ station }) {
         setPlayingIndex(null)
     }
 
-    function handleDragEnd(result) {
+    async function handleDragEnd(result) {
         if (!result.destination) return
-        const reorderedSongs = Array.from(songs)
+        const reorderedSongs = songs.slice()
         const [movedSong] = reorderedSongs.splice(result.source.index, 1)
         reorderedSongs.splice(result.destination.index, 0, movedSong)
         setSongs(reorderedSongs)
+        const updatedStation = { ...currStation, songs: reorderedSongs }
+        const savedStation = await updateStation(updatedStation)
+        setCurrStation(savedStation)
     }
 
     return (
