@@ -11,6 +11,7 @@ export const SET_CURRENT_TIME = 'SET_CURRENT_TIME'
 export const SET_SONG_DURATION = 'SET_SONG_DURATION'
 export const SET_VOLUME = 'SET_VOLUME'
 export const SET_IS_PLAYING = 'SET_IS_PLAYING'
+export const SET_SEARCHED_SONGS = 'SET_SEARCHED_SONGS'
 
 const initialState = {
     stations: [],
@@ -22,6 +23,7 @@ const initialState = {
     prevVolume: 40,
     isPlaying: false,
     bgColor: '#121212',
+    searchedSongs:''
 }
 
 export function stationReducer(state = initialState, action) {
@@ -66,6 +68,9 @@ export function stationReducer(state = initialState, action) {
             break
         case SET_BG_COLOR:
             newState = { ...state, bgColor: action.bgColor }
+            break
+        case SET_SEARCHED_SONGS:
+            newState = { ...state, searchedSongs: action.searchedSongs }
             break
         default:
     }

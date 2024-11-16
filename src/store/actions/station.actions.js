@@ -1,4 +1,5 @@
 import { stationLocalService } from '../../services/station/station.service.local.js'
+import { searchSongs } from '../../services/search.service.js/search.service.js'
 import { store } from '../store.js'
 import {
     ADD_STATION,
@@ -12,7 +13,18 @@ import {
     SET_VOLUME,
     SET_IS_PLAYING,
     SET_BG_COLOR,
+    SET_SEARCHED_SONGS
 } from '../reducers/station.reducer'
+
+
+export async function search(query) {
+    try {
+        store.dispatch(getCmdSongs(searchSongs(query)))
+    } catch (err) {
+        console.log('Cannot load stations', err)
+        throw err
+    }
+}
 
 export async function loadStations(filterBy) {
     try {
@@ -139,7 +151,7 @@ export function setBgColor(bgColor) {
 export async function addSongToLiked(song) {
     try {
         const likedSongsStation = await stationLocalService.addSongToLikedSongs(song)
-        store.dispatch(getCmdSetStation(likedSongsStation)) 
+        store.dispatch(getCmdSetStation(likedSongsStation))
     } catch (err) {
         console.log('Cannot add song to Liked Songs', err)
     }
@@ -148,7 +160,7 @@ export async function addSongToLiked(song) {
 export async function removeSongFromLiked(songId) {
     try {
         const likedSongsStation = await stationLocalService.removeSongFromLikedSongs(songId)
-        store.dispatch(getCmdSetStation(likedSongsStation)) 
+        store.dispatch(getCmdSetStation(likedSongsStation))
     } catch (err) {
         console.log('Cannot remove song from Liked Songs', err)
     }
@@ -217,7 +229,12 @@ function getCmdSetIsPlaying(isPlaying) {
         isPlaying,
     }
 }
-
+function getCmdSongs(songs){
+    return{
+        type: SET_SEARCHED_SONGS,
+        songs,
+    }
+}
 export function setStations(stations) {
     return {
         type: 'SET_STATIONS',
@@ -228,6 +245,12 @@ export function getCmdSetBgColor(bgColor) {
     return {
         type: SET_BG_COLOR,
         bgColor,
+    }
+}
+export function getCmdSetSearchedSongs(songs) {
+    return {
+        type: SET_SEARCHED_SONGS,
+        songs,
     }
 }
 
