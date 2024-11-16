@@ -16,7 +16,7 @@ export function Login() {
     async function loadUsers() {
         try {
             const res = await axios.get('/api/user');
-            // console.log('Users loaded:', res.data); // Log to inspect the data
+            console.log('Users loaded:', res.data); // Log to inspect the data
             setUsers(res.data);
         } catch (err) {
             console.error('Error loading users:', err);
