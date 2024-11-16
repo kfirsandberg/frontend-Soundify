@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { formatTime } from '../services/util.service'
 
 export function SearchDetails() {
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs) 
@@ -16,38 +17,35 @@ export function SearchDetails() {
         <section className="search-details">
             <h2>Songs</h2>
             <section className="song-list">
-                {searchedSongs.map(song => (
+                {searchedSongs
+                 .filter(song => song.duration)
+                 .map(song => (
                     <div
+                    key={song.id}
                         className="song-item"
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            padding: '10px 0',
-                            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-                        }}
                     >
                         {/* Song Image */}
-                        <div className="song-img" style={{ marginRight: '10px', cursor: 'pointer' }}>
-                            <button style={{ border: 'none', background: 'none', padding: 0 }}>
+                        <div className="song-img" >
+                            <button >
                                 <img
-                                    src={song.thumbnail?.url }
+                                    src={song.thumbnails[0]?.url} 
                                     alt={`${song.title} cover`}
-                                    style={{ width: '50px', height: '50px', borderRadius: '5px', objectFit: 'cover' }}
                                 />
+                                  <div className="img-overlay">
+            <div className="play-icon"></div>
+        </div>
                             </button>
                         </div>
 
                         {/* Song Details */}
-                        <div className="song-details" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <div className="song-details" >
                             <span
                                 className="song-title"
-                                style={{ color: 'white', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer' }}
                             >
                                 {song.title}
                             </span>
                             <span
                                 className="song-artist"
-                                style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '14px', cursor: 'pointer' }}
                             >
                                 {song.artist}
                             </span>
@@ -85,9 +83,8 @@ export function SearchDetails() {
                         {/* Song Duration */}
                         <div
                             className="song-duration"
-                            style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '14px', marginLeft: '20px' }}
                         >
-                            {song.duration}
+                            {formatTime(song.duration)}
                         </div>
                     </div>
                 ))}
