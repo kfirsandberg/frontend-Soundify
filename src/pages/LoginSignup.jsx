@@ -5,10 +5,10 @@ export function LoginSignup() {
     return (
         <div className="login-page">
             <nav>
-                <NavLink to=".">Login</NavLink>
-                <NavLink to="signup">Signup</NavLink>
+                <NavLink to="." className="white-link">Login</NavLink>
+                <NavLink to="signup" className="white-link">Signup</NavLink>
             </nav>
-            <Outlet/>
+            <Outlet />
         </div>
     )
 }

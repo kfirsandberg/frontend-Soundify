@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { Link, useParams, useLocation } from 'react-router-dom'
+import { Link, useParams, useLocation, useNavigate } from 'react-router-dom'
 
 export function AppHeader() {
     const [focused, setFocused] = useState(false)
@@ -8,6 +8,13 @@ export function AppHeader() {
     const location = useLocation()
 
     const isHomePage = location.pathname === '/'
+
+    const navigate = useNavigate();
+
+    const handleUserClick = () => {
+        navigate('/LoginSignup'); // Navigate to LoginSignup page
+    };
+
 
     function handleFocus() {
         setFocused(true)
@@ -112,7 +119,11 @@ export function AppHeader() {
                         />
                     </svg>
                 </button>
-                <button className="header-icon-btn" title="User Name">
+                <button
+                    className="header-icon-btn"
+                    title="User Name"
+                    onClick={handleUserClick}
+                >
                     <img src="/assets/user.svg" alt="User Icon" className="header-icon" />
                 </button>
             </div>

@@ -38,3 +38,121 @@
         text-decoration: underline;
     }
 }
+
+.white-link {
+    color: white;
+    text-decoration: none;  /* Optional: Removes underline from the link */
+}
+
+.white-link:hover {
+    color: #ddd; /* Optional: Changes color when hovered */
+}
+
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #121212;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    padding: 2em;
+    box-sizing: border-box;
+}
+
+
+/* Shared styles for forms */
+.login-form,
+.signup-form {
+    display: grid;
+    width: min(80%, 300px);
+    margin: auto;
+    padding: 1.5em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    gap: 1em;
+}
+
+/* Input fields */
+.signup-form input,
+.login-form input {
+    width: 100%;
+    padding: 0.8em;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.signup-form input:focus,
+.login-form input:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 4px rgba(74, 144, 226, 0.5);
+}
+
+/* Admin toggle */
+.signup-form .admin-toggle {
+    display: flex;
+    align-items: center;
+    justify-self: start;
+    gap: 0.5em;
+}
+
+.signup-form .admin-toggle span {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Navigation on login page */
+.login-page nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    margin-block: 100px 0.5em;
+    font-family: 'Arial', sans-serif;
+}
+
+.login-page nav a {
+    font-size: 0.9em;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-page nav a:hover {
+    color: #4a90e2;
+}
+
+.login-page nav a.active {
+    text-decoration: underline;
+    color: #4a90e2;
+}
+
+
+
+button:hover {
+    background-color: #3b7dc1;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 480px) {
+    .login-form,
+    .signup-form {
+        width: 90%;
+    }
+
+    .login-page nav {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .login-page nav a {
+        font-size: 1em;
+    }
+}
