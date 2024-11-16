@@ -31,9 +31,10 @@ export function AppHeader() {
         const value = ev.target.value;
         if (!value) return;
         try {
-            const results = search(value)
+            const results =  search(value)
             console.log('Search Results:', results);
-            // navigate('/search')
+        navigate('/search')
+
         } catch (error) {
             console.error('Error during search:', error);
         }
