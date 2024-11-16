@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { loadSong, setIsPlaying, updateStation } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation, loadStation } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { useSelector } from 'react-redux'
+import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
+
 
 export function SongList({ station }) {
     const [hoveredIndex, setHoveredIndex] = useState(null)
@@ -12,8 +14,8 @@ export function SongList({ station }) {
     const [playingIndex, setPlayingIndex] = useState(null)
     const [currStation, setCurrStation] = useState(station)
     const [songs, setSongs] = useState(station.songs)
-    const stations = useSelector(storeState => storeState.stationModule.stations)
-    const likedSongsStation = stations.find(s => s.name === 'Liked Songs') || {}
+    const likedSongs = useSelector(storeState => storeState.likedSongsModule.likedSongs)
+
 
     useEffect(() => {
         setSongs(station.songs)
@@ -43,30 +45,29 @@ export function SongList({ station }) {
     }
 
     async function toggleLike(song) {
-        const likedSongs = likedSongsStation.songs || []
-        const isLiked = likedSongs.some(s => s.id === song.id)
-        const updatedSong = { ...song, liked: !isLiked }
+        console.log(song)
+        const stationName = 'Liked Songs';
+        try {
+            const existingSong = await getSongById(song.id);
 
-        const updatedLikedSongs = isLiked
-            ? likedSongs.filter(s => s.id !== song.id)
-            : [...likedSongs, updatedSong]
+            console.log(existingSong)
+            if (existingSong) {
+                await removeSong(song, stationName);
+                console.log(`Song removed from ${stationName}`);
 
-        await updateStation({
-            ...likedSongsStation,
-            songs: updatedLikedSongs
-        })
+                const likedSongsStation = await loadStation(stationName);
+                likedSongsStation.songs = likedSongsStation.songs.filter(s => s.id !== song.id);
+                await updateStation(likedSongsStation);
+            } else {
+                await addSong(song, stationName);
+                console.log(`Song added to ${stationName}`);
 
-        if (currStation.name === 'Liked Songs') {
-            setSongs(updatedLikedSongs)
-        } else {
-            const updatedCurrStation = {
-                ...currStation,
-                songs: currStation.songs.map(s =>
-                    s.id === song.id ? updatedSong : s
-                )
+                const likedSongsStation = await loadStation(stationName);
+                likedSongsStation.songs.push(song);
+                await updateStation(likedSongsStation);
             }
-            await updateStation(updatedCurrStation)
-            setCurrStation(updatedCurrStation)
+        } catch (error) {
+            console.error('Error toggling like:', error);
         }
     }
 
@@ -85,8 +86,8 @@ export function SongList({ station }) {
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
-            <section className="song-list" style={{  borderRadius: '8px',  marginRight: 40 }}>
-                <Box 
+            <section className="song-list" style={{ borderRadius: '8px', marginRight: 40 }}>
+                <Box
                     sx={{
                         display: 'grid',
                         gridTemplateRows: 'auto 1fr',
@@ -95,13 +96,13 @@ export function SongList({ station }) {
                     }}
                 >
                     {/* Header row */}
-                    <Box 
+                    <Box
                         sx={{
                             gridArea: 'nav',
                             display: 'grid',
                             gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
                             gridGap: 1,
-                          
+
                             '@media (max-width: 768px)': {
                                 gridTemplateColumns: 'auto 1fr',
                                 gridTemplateRows: 'auto auto auto',
@@ -167,7 +168,7 @@ export function SongList({ station }) {
                                                     alignItems: 'center',
                                                     borderRadius: 1,
                                                     padding: '3px 12px',
-                                                    marginTop : '15px',
+                                                    marginTop: '15px',
                                                     marginBottom: 1,
                                                     cursor: 'pointer',
                                                     width: '100%',
@@ -253,7 +254,7 @@ export function SongList({ station }) {
                                                         sx={{
                                                             display: 'flex',
                                                             flexDirection: 'column',
-                                                            marginLeft: '20px' ,
+                                                            marginLeft: '20px',
                                                         }}
                                                     >
                                                         <Typography
