@@ -1,13 +1,23 @@
-import React, { useState, useRef } from 'react'
-import { Link, useParams, useLocation } from 'react-router-dom'
+import React, { useState, useRef } from 'react';
+import { Link, useParams, useLocation,useNavigate } from 'react-router-dom';
+import { search } from '../store/actions/station.actions.js';
+import { useDispatch } from 'react-redux'
 
 export function AppHeader() {
     const [focused, setFocused] = useState(false)
     const inputWrapperRef = useRef(null)
     const params = useParams()
     const location = useLocation()
+    const dispatch = useDispatch()
 
     const isHomePage = location.pathname === '/'
+
+    const navigate = useNavigate();
+
+    const handleUserClick = () => {
+        navigate('/LoginSignup'); // Navigate to LoginSignup page
+    };
+
 
     function handleFocus() {
         setFocused(true)
@@ -16,6 +26,20 @@ export function AppHeader() {
     function handleBlur() {
         setFocused(false)
     }
+
+    async function handleInputChange(ev) {
+        const value = ev.target.value;
+        if (!value) return;
+
+        // קריאה לפונקציה `search` והדפסת התוצאה
+        try {
+            const results = await dispatch(search(value));
+            console.log('Search Results:', results);
+        } catch (error) {
+            console.error('Error during search:', error);
+        }
+    }
+
 
     return (
         <header className="app-header full">
@@ -79,6 +103,7 @@ export function AppHeader() {
                         className="header-search-input"
                         onFocus={handleFocus} // Handle focus
                         onBlur={handleBlur} // Handle blur
+                        onChange={handleInputChange} 
                     />
                     <Link to="/browse" style={{ zIndex: 1000 }}>
                         <button className="header-browse-btn" title="Browse" onClick={() => navigate('/browse')}>
@@ -137,7 +162,11 @@ export function AppHeader() {
                         />
                     </svg>
                 </button>
-                <button className="header-icon-btn" title="User Name">
+                <button
+                    className="header-icon-btn"
+                    title="User Name"
+                    onClick={handleUserClick}
+                >
                     <img src="/assets/user.svg" alt="User Icon" className="header-icon" />
                 </button>
             </div>

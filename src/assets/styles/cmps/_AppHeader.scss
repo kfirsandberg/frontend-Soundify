@@ -179,6 +179,7 @@
         width: 48px;
         height: 48px;
         margin-left: -11px;
+       
 
         &:hover {
             transform: scale(1.04);
@@ -197,6 +198,7 @@
         display: flex;
         align-items: center;
         margin-left: 33px;
+        z-index: 3;
 
         .header-icon-btn {
             width: 44px;

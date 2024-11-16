@@ -8,6 +8,10 @@ import { AppPlayer } from './cmps/AppPlayer.jsx'
 import { StationDetails } from './pages/StationDetails.jsx'
 import { Library } from './cmps/Library.jsx'
 import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
+import { LoginSignup } from './pages/LoginSignup.jsx'
+import { Login  } from './pages/Login.jsx'
+import { Signup } from './pages/Signup.jsx'
+
 import { setBgColor } from './store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color'
 import { BrowseIndex } from './pages/BrowseIndex.jsx'
@@ -60,6 +64,10 @@ export function RootCmp() {
                         <Route path="/browse" element={<BrowseIndex />} />
                         <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
                         <Route path="/playlist/:stationId" element={<StationDetails />} />
+                        <Route path="/LoginSignup" element={<LoginSignup />}>
+                            <Route index element={<Login />} /> {/* Default to Login */}
+                            <Route path="signup" element={<Signup />} /> {/* Signup Route */}
+                        </Route>
                     </Routes>
                 </div>
             </main>
