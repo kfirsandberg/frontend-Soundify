@@ -36,7 +36,6 @@ async function ajaxApi(endpoint, method = 'GET', data = null) {
             const res = await axios.get(`${url}?${finalQueryString}`, {
                 withCredentials: true,
             });
-            console.log(res.data)
             return res.data;
         } catch (error) {
             console.error('Network error:', error);

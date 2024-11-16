@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 export function SearchDetails() {
-    const searchedSongs = useSelector(state => state.songModule.searchedSongs)
+    const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs) 
+
+    useEffect(()=>{
+
+        console.log('searchedSongs:',searchedSongs)
+
+    },[searchedSongs])
 
     if (!searchedSongs || searchedSongs.length === 0) return
 
     return (
         <section className="search-details">
             <h2>Songs</h2>
-            <ul className="song-list">
+            <section className="song-list">
                 {searchedSongs.map(song => (
-                    <li
-                        key={song.id}
+                    <div
                         className="song-item"
                         style={{
                             display: 'flex',
@@ -25,7 +30,7 @@ export function SearchDetails() {
                         <div className="song-img" style={{ marginRight: '10px', cursor: 'pointer' }}>
                             <button style={{ border: 'none', background: 'none', padding: 0 }}>
                                 <img
-                                    src={song.imgURL}
+                                    src={song.thumbnail?.url }
                                     alt={`${song.title} cover`}
                                     style={{ width: '50px', height: '50px', borderRadius: '5px', objectFit: 'cover' }}
                                 />
@@ -50,7 +55,6 @@ export function SearchDetails() {
 
                         {/* Like Button */}
                         <button
-                            onClick={() => toggleLike(song)}
                             title={song.liked ? 'Remove from liked songs' : 'Add to liked songs'}
                             className="liked-songs-btn"
                         >
@@ -85,9 +89,9 @@ export function SearchDetails() {
                         >
                             {song.duration}
                         </div>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </section>
         </section>
     )
 }

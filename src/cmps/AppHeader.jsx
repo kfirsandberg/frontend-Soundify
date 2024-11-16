@@ -30,11 +30,11 @@ export function AppHeader() {
     async function handleInputChange(ev) {
         const value = ev.target.value;
         if (!value) return;
-
-        // קריאה לפונקציה `search` והדפסת התוצאה
         try {
-            const results = await dispatch(search(value));
+            const results =  search(value)
             console.log('Search Results:', results);
+        navigate('/search')
+
         } catch (error) {
             console.error('Error during search:', error);
         }
