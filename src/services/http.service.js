@@ -7,18 +7,18 @@ const axios = Axios.create({ withCredentials: true })
 
 export const httpService = {
     get(endpoint, data) {
-        return ajax(endpoint, 'GET', data)
+        return ajax(endpoint, 'GET', data);
     },
     post(endpoint, data) {
-        return ajax(endpoint, 'POST', data)
+        return ajax(endpoint, 'POST', data);
     },
     put(endpoint, data) {
-        return ajax(endpoint, 'PUT', data)
+        return ajax(endpoint, 'PUT', data);
     },
     delete(endpoint, data) {
-        return ajax(endpoint, 'DELETE', data)
+        return ajax(endpoint, 'DELETE', data);
     }
-}
+};
 
 async function ajax(endpoint, method = 'GET', data = null) {
     const url = `api/${endpoint}`;
@@ -40,7 +40,3 @@ async function ajax(endpoint, method = 'GET', data = null) {
         }
     }
 }
-
-
-
-
