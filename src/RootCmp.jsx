@@ -14,6 +14,7 @@ import { Signup } from './pages/Signup.jsx'
 
 import { setBgColor } from './store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color'
+import { BrowseIndex } from './pages/BrowseIndex.jsx'
 
 const fac = new FastAverageColor()
 export function RootCmp() {
@@ -60,7 +61,8 @@ export function RootCmp() {
                 >
                     <Routes>
                         <Route path="/" element={<StationIndex />} />
-                        <Route path="/all-stations" element={<AllStations />} />
+                        <Route path="/browse" element={<BrowseIndex />} />
+                        <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
                         <Route path="/playlist/:stationId" element={<StationDetails />} />
                         <Route path="/LoginSignup" element={<LoginSignup />}>
                             <Route index element={<Login />} /> {/* Default to Login */}
