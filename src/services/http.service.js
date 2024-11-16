@@ -31,12 +31,11 @@ async function ajaxApi(endpoint, method = 'GET', data = null) {
             .map((key) => `${key}=${encodeURIComponent(data[key])}`)
             .join('&');
         const finalQueryString = queryString.replace(/%20/g, '_');
-        console.log(`Full URL: ${url}?${finalQueryString}`);
         try {
+
             const res = await axios.get(`${url}?${finalQueryString}`, {
                 withCredentials: true,
             });
-            console.log(res.data)
             return res.data;
         } catch (error) {
             console.error('Network error:', error);

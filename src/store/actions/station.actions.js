@@ -1,5 +1,5 @@
 import { stationLocalService } from '../../services/station/station.service.local.js'
-import { searchSongs } from '../../services/search.service.js/search.service.js'
+import { searchSongs } from '../../services/search/search.service.js'
 import { store } from '../store.js'
 import {
     ADD_STATION,
@@ -19,7 +19,9 @@ import {
 
 export async function search(query) {
     try {
-        store.dispatch(getCmdSongs(searchSongs(query)))
+        const searchedSongs=await searchSongs(query)
+        store.dispatch(getCmdSongs(searchedSongs))
+        return searchedSongs
     } catch (err) {
         console.log('Cannot load stations', err)
         throw err
@@ -229,10 +231,10 @@ function getCmdSetIsPlaying(isPlaying) {
         isPlaying,
     }
 }
-function getCmdSongs(songs){
+function getCmdSongs(searchedSongs){
     return{
         type: SET_SEARCHED_SONGS,
-        songs,
+        searchedSongs,
     }
 }
 export function setStations(stations) {
@@ -245,12 +247,6 @@ export function getCmdSetBgColor(bgColor) {
     return {
         type: SET_BG_COLOR,
         bgColor,
-    }
-}
-export function getCmdSetSearchedSongs(songs) {
-    return {
-        type: SET_SEARCHED_SONGS,
-        songs,
     }
 }
 

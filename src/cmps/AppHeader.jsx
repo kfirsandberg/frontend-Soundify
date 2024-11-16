@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Link, useParams, useLocation,useNavigate } from 'react-router-dom';
+import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { search } from '../store/actions/station.actions.js';
 import { useDispatch } from 'react-redux'
 
@@ -30,16 +30,14 @@ export function AppHeader() {
     async function handleInputChange(ev) {
         const value = ev.target.value;
         if (!value) return;
-
-        // קריאה לפונקציה `search` והדפסת התוצאה
         try {
-            const results = await dispatch(search(value));
+            const results = search(value)
             console.log('Search Results:', results);
+            // navigate('/search')
         } catch (error) {
             console.error('Error during search:', error);
         }
     }
-
 
     return (
         <header className="app-header full">
@@ -103,7 +101,7 @@ export function AppHeader() {
                         className="header-search-input"
                         onFocus={handleFocus} // Handle focus
                         onBlur={handleBlur} // Handle blur
-                        onChange={handleInputChange} 
+                        onChange={handleInputChange}
                     />
                     <Link to="/browse" style={{ zIndex: 1000 }}>
                         <button className="header-browse-btn" title="Browse" onClick={() => navigate('/browse')}>

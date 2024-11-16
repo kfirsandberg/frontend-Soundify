@@ -23,7 +23,7 @@ const initialState = {
     prevVolume: 40,
     isPlaying: false,
     bgColor: '#121212',
-    searchedSongs:''
+    searchedSongs:null,
 }
 
 export function stationReducer(state = initialState, action) {

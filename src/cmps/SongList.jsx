@@ -44,7 +44,6 @@ export function SongList({ station }) {
 
     async function toggleLike(song) {
         const likedSongs = likedSongsStation.songs || []
-
         const isLiked = likedSongs.some(s => s.id === song.id)
         const updatedSong = { ...song, liked: !isLiked }
 
