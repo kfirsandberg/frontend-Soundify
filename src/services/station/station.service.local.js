@@ -5,7 +5,7 @@ import axios from 'axios'
 import { userService } from '../user'
 import { loadFromStorage, saveToStorage, makeId } from '../util.service'
 const STORAGE_KEY = 'station'
-const BASE_URL = 'ytmusic/search'
+const BASE_URL = 'http://127.0.0.1:3030/api/ytmusic/search'
 export const stationLocalService = {
     query,
     getById,
@@ -21,31 +21,20 @@ export const stationLocalService = {
 }
 const gImg = 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
 _createStations()
-// async function getSongRes() {
+
+
+// getSongRes('the beatles')  
+
+
+// async function getSongRes(title) {
 //     try {
-//         const res = await axios.get('/api/ytmusic/search?query=סטטיק', {
-//             withCredentials: true,
-//         });
-//         console.log(res.data);
-//         return res.data;
+//         const res = await httpService.get('ytmusic/search', { query: title });
+//         return res;
 //     } catch (error) {
 //         console.error('Network error:', error);
 //         throw error;
 //     }
 // }
-getSongRes()
-
-
-async function getSongRes() {
-    try {
-        const res = await httpService.get('ytmusic/search', { query: 'the beatles' });
-        console.log(res);
-        return res;
-    } catch (error) {
-        console.error('Network error:', error);
-        throw error;
-    }
-}
 
 
 
