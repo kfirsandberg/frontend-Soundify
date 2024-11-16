@@ -10,7 +10,7 @@ export function searchSongs(query) {
         const formattedQuery = query.replace(/ /g, '_');
 
         try {
-            const res = await httpService.get('ytmusic/search', { query: formattedQuery });
+            const res = await httpService.getApi('ytmusic/search', { query: formattedQuery });
             return res;
         } catch (error) {
             console.error('Error fetching search results:', error);
