@@ -218,7 +218,6 @@ if(!songs)return
     if (hours > 0) result.push(`${hours} hour${hours > 1 ? 's' : ''}`);
     if (minutes > 0) result.push(`${minutes} min`);
     if (seconds > 0) result.push(`${seconds} sec`);
-    console.log('Calculated Duration:', result.join(' '));
     return result.join(' ');
 }
 
