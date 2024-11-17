@@ -70,29 +70,30 @@ export function Login() {
 
     return (
         <form className="login-form" onSubmit={onLogin}>
-            <select
-                name="username"
-                value={credentials.username}
-                onChange={handleChange}
-                disabled={loading}
-            >
-                <option value="">Select User</option>
-                {users.map(user => (
-                    <option key={user._id} value={user.username}>
-                        {user.username}
-                    </option>
-                ))}
-            </select>
-            <input
-                type="password"
-                name="password"
-                value={credentials.password}
-                placeholder="Password"
-                onChange={handleChange}
-            />
-            {error && <div className="error">{error}</div>}
-            <button className='submit-btn' type="submit" disabled={loading}>Login</button>
-            {loading && <div>Loading users...</div>} {/* Loading indicator */}
-        </form>
-    );
+        <select className='login-signup-input'
+            name="username"
+            value={credentials.username}
+            onChange={handleChange}
+            disabled={loading}
+        >
+            <option value="">Select User</option>
+            {users.map(user => (
+                <option key={user._id} value={user.username}>
+                    {user.username}
+                </option>
+            ))}
+        </select>
+        <input className='login-signup-input'
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={credentials.password}
+            onChange={handleChange}
+        />
+        {error && <div className="error">{error}</div>}
+        <button className="submit-btn" type="submit" disabled={loading}>
+            {loading ? 'Loading...' : 'Log in' }
+        </button>
+    </form>
+    )
 }

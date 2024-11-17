@@ -59,7 +59,7 @@ export function Signup() {
 
     return (
         <form className="signup-form" onSubmit={onSignup}>
-            <input
+            <input className='login-signup-input'
                 type="text"
                 name="username"
                 value={credentials.username}
@@ -67,7 +67,7 @@ export function Signup() {
                 onChange={handleChange}
                 required
             />
-            <input
+            <input className='login-signup-input'
                 type="password"
                 name="password"
                 value={credentials.password}
@@ -75,11 +75,11 @@ export function Signup() {
                 onChange={handleChange}
                 required
             />
-            <ImgUploader onUploaded={onUploaded} />
+            <ImgUploader className="img-uploader" onUploaded={onUploaded} />
 
             {/* Show error or success messages */}
             {error && <div className="error">{error}</div>}
-            {success && <div className="success">Signup successful! Redirecting...</div>}
+            {success && <div className="submit-btn">Signup successful! Redirecting...</div>}
 
             {/* Show loading spinner */}
             {loading ? <div>Loading...</div> : <button className='submit-btn' type="submit">Signup</button>}

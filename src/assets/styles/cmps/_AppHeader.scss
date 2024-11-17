@@ -245,10 +245,79 @@
 }
 
 
+/* Ensure dialog takes up full viewport */
+/* Ensure dialog takes up full viewport */
 .logout-modal {
-     
-   
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 4;      
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1c1c1c;
+    z-index: 1000;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    margin-top: 300px;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Slight shadow for depth */
 }
 
+/* Styling the dialog content */
+.logout-modal .modal-content {
+    background: #1c1c1c; /* Dark background like Spotify */
+    border-radius: 12px;
+    padding: 2em;
+    text-align: center;
+    width: 90%;
+    max-width: 350px; /* Maximum width for the dialog */
+    
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Modal content text */
+.logout-modal .modal-content p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+    font-weight: 500;
+}
+
+/* Style for buttons inside the modal */
+.logout-modal .modal-content-btn {
+    padding: 0.8em 1.5em;
+    background-color: #1db954; /* Spotify Green */
+    color: black;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0.5em;
+    transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.logout-modal .modal-content-btn:hover {
+    background-color: #1aa34a; /* Slightly darker green on hover */
+}
+
+/* Secondary button (Cancel) - style it differently */
+.logout-modal .modal-content-btn:nth-child(2) {
+    background-color: #333; /* Dark gray for cancel button */
+    color: #bbb;
+}
+
+.logout-modal .modal-content-btn:nth-child(2):hover {
+    background-color: #444; /* Darken cancel button on hover */
+}
+
+/* Dialog backdrop */
+.logout-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for backdrop */
+    backdrop-filter: blur(5px); /* Optional blur effect */
+}

@@ -1,117 +1,223 @@
-/* Login and Signup Page Styles */
+/* Login and Signup Page */
 .login-page {
-    min-height: 100vh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #121212; /* Dark background */
-    color: #fff; /* White text for contrast */
-    font-family: 'Spotify', sans-serif;
+    background: #121212; /* Spotify dark background */
+    color: white;
+    font-family: 'Arial', sans-serif;
     padding: 2em;
-    box-sizing: border-box;
 }
 
-.login-form, .signup-form {
-    display: grid;
-    width: min(80%, 300px);
-    margin: auto;
-    padding: 1.5em;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #1c1c1c; /* Slightly darker background for forms */
-    gap: 1em;
+.hero-section{
+
+    margin-bottom: 50px;
 }
 
-/* Input fields */
-.login-form input, .signup-form input {
-    width: 100%;
-    padding: 1em;
-    border: 1px solid #333;
-    border-radius: 6px;
-    background-color: #333; /* Dark input fields */
-    color: #fff; /* White text for inputs */
-    font-size: 1em;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-
-.login-form input:focus, .signup-form input:focus {
-    border-color: #1db954; /* Spotify Green for focus effect */
-    outline: none;
-    background-color: #2b2b2b; /* Darken the input when focused */
-    box-shadow: 0 0 4px rgba(29, 185, 84, 0.5); /* Green glow effect */
-}
-
-/* Form Buttons */
-.submit-btn {
-    padding: 0.8em 1.2em;
-    background-color: #1db954; /* Spotify Green */
-    border: none;
-    color: #fff;
-    font-size: 1em;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-
-
-/* Admin toggle */
-.signup-form .admin-toggle {
+nav {
     display: flex;
-    align-items: center;
-    justify-self: start;
-    gap: 0.5em;
-}
-
-.signup-form .admin-toggle span {
-    font-size: 0.9em;
-    color: #aaa; /* Lighter color for text */
-}
-
-/* Navigation on login page */
-.login-page nav {
-    display: flex;
-    align-items: center;
     justify-content: center;
     gap: 2em;
-    margin-block: 100px 0.5em;
+    margin-bottom: 2em;
 }
 
-.login-page nav a {
-    font-size: 3em;
-    color: #aaa; /* Lighter gray for links */
-    text-decoration: none; /* Ensure no underline */
+.nav-link {
+    color: #aaa;
+    font-size: 1.5em;
+    text-decoration: none;
     transition: color 0.3s ease;
 }
 
-/* Remove underline from active links as well */
-.login-page nav a.active {
-    text-decoration: none; /* No underline for active state */
-    color: #1db954; /* Green color for active link */
+.nav-link:hover,
+.nav-link.active {
+    color: #1db954; /* Spotify green */
 }
 
-.login-page nav a:hover {
-    color: #1db954; /* Green color for hover */
+/* Forms */
+.login-form {
+    display: grid;
+    gap: 1.5em;
+    background: #1c1c1c;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 320px;
 }
 
-.login-page nav a.active {
-    text-decoration: underline;
-    color: #1db954; /* Green for active link */
+.signup-form{
+    display: grid;
+    gap: 1.5em;
+    background: #1c1c1c;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+    
+    max-width: 420px;
 }
 
-/* Media queries for responsiveness */
-@media (max-width: 480px) {
-    .login-form, .signup-form {
-        width: 90%;
+.login-signup-input{
+    padding: 0.8em;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: #2c2c2c;
+    color: white;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #1db954;
+    outline: none;
+}
+
+.submit-btn {
+    padding: 0.8em;
+    background: #1db954;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #1aa34a;
+}
+
+/* Error messages */
+.error {
+    color: #e74c3c;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+
+.img-uploader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #1c1c1c;
+    border: 2px dashed #333;
+    border-radius: 8px;
+    padding: 1em;
+    position: relative;
+    transition: border-color 0.3s ease;
+}
+
+.img-uploader:hover {
+    border-color: #1db954;
+}
+
+
+
+
+.login-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2em; /* Add spacing below the logo */
+}
+
+/* Logo styling */
+.login-logo .logo {
+    width: 150px; /* Adjust logo size */
+    height: auto;
+    filter: brightness(0) invert(1); /* Invert colors for dark theme */
+  
+}
+
+// /////////////////////////////// M-Q //////////////////////////////////
+
+
+@media (max-width: 768px) {
+    .login-page {
+        padding: 1.5em;
     }
 
-    .login-page nav {
+    nav {
         flex-direction: column;
-        gap: 1em;
+        gap: 1.5em;
     }
 
-    .login-page nav a {
+    .nav-link {
+        font-size: 1.2em;
+    }
+
+    .login-form, .signup-form {
+        max-width: 90%; /* Expand form to 90% width */
+    }
+
+    .login-signup-input {
+        padding: 0.8em;
+        font-size: 0.9em;
+    }
+
+    .submit-btn {
+        padding: 0.8em;
+        font-size: 0.9em;
+    }
+
+    .login-logo .logo {
+        width: 130px; /* Slightly smaller logo */
+    }
+}
+
+/* For devices with width up to 480px (mobile phones) */
+@media (max-width: 480px) {
+    .login-page {
+        padding: 1em;
+    }
+
+    .login-form, .signup-form {
+        padding: 1.5em;
+        width: 100%;
+        max-width: 100%; /* Use full width for forms */
+    }
+
+    .nav-link {
         font-size: 1em;
+    }
+
+    .login-logo .logo {
+        width: 120px; /* Even smaller logo on very small screens */
+    }
+
+    .login-signup-input {
+        font-size: 0.9em;
+    }
+
+    .submit-btn {
+        padding: 0.7em;
+        font-size: 0.9em;
+    }
+
+    .img-uploader {
+        width: 100%; /* Make uploader take full width */
+        padding: 0.8em;
+    }
+}
+
+/* For large devices with width greater than 1024px (desktops) */
+@media (min-width: 1024px) {
+    .login-page {
+        padding: 3em;
+    }
+
+    .login-form, .signup-form {
+        max-width: 400px; /* Max form width for large screens */
+    }
+
+    .nav-link {
+        font-size: 1.8em;
+    }
+
+    .login-logo .logo {
+        width: 160px; /* Larger logo for large screens */
     }
 }

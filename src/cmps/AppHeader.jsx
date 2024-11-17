@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useParams, useLocation,useNavigate } from 'react-router-dom';
+import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { search } from '../store/actions/station.actions.js';
 import { useDispatch } from 'react-redux'
 import { store } from '../store/store.js'
@@ -16,8 +16,8 @@ export function AppHeader() {
 
     const isHomePage = location.pathname === '/'
     const navigate = useNavigate()
-    
-    
+
+
 
 
     useEffect(() => {
@@ -52,7 +52,7 @@ export function AppHeader() {
 
 
     const handleLogout = async () => {
-        
+
         try {
             await userService.logout();  // Call your logout service
             localStorage.removeItem('authToken') // Remove the token from localStorage
@@ -86,9 +86,9 @@ export function AppHeader() {
         const value = ev.target.value;
         if (!value) return;
         try {
-            const results =  search(value)
+            const results = search(value)
             console.log('Search Results:', results);
-        navigate('/search')
+            navigate('/search')
 
         } catch (error) {
             console.error('Error during search:', error);
@@ -223,13 +223,13 @@ export function AppHeader() {
 
             {/* Logout Modal */}
             {showModal && (
-                <div className="logout-modal" style={{ zIndex: 4 }}>
+                <dialog className="logout-modal" open={showModal} style={{ zIndex: 4 }}>
                     <div className="modal-content">
                         <p>Are you sure you want to log out?</p>
-                        <button onClick={handleLogout}>Log Out</button>
-                        <button onClick={() => setShowModal(false)}>Cancel</button>
+                        <button className="modal-content-btn" onClick={handleLogout}>Log Out</button>
+                        <button className="modal-content-btn" onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
-                </div>
+                </dialog>
             )}
         </header>
     )
