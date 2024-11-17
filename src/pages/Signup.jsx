@@ -75,7 +75,7 @@ export function Signup() {
             {success && <div className="success">Signup successful! Redirecting...</div>}
 
             {/* Show loading spinner */}
-            {loading ? <div>Loading...</div> : <button type="submit">Signup</button>}
+            {loading ? <div>Loading...</div> : <button className='submit-btn' type="submit">Signup</button>}
         </form>
     );
 }

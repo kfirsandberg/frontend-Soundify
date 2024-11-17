@@ -67,6 +67,10 @@
     }
 }
 
+.toggle-lib-btn:hover{
+    background-color: transparent;
+}
+
 .toggle-lib-btn:hover h3,
 .toggle-lib-btn:hover .library-icon {
     fill: $spotify-light;
@@ -517,6 +521,7 @@
     margin-left: 5px;
     display: grid;
     grid-template-rows: auto 1fr;
+    transform: translateY(-8px);
 }
 
 .action-btns-collapsed {

@@ -91,7 +91,7 @@ export function Login() {
                 onChange={handleChange}
             />
             {error && <div className="error">{error}</div>}
-            <button type="submit" disabled={loading}>Login</button>
+            <button className='submit-btn' type="submit" disabled={loading}>Login</button>
             {loading && <div>Loading users...</div>} {/* Loading indicator */}
         </form>
     );
