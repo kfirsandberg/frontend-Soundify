@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { updateCurrentTime, updateSongDuration, updateVolume, setIsPlaying } from '../store/actions/station.actions'
+import { formatTime } from '../services/util.service'
+
+ 
 
 export function AppPlayer() {
     const [isHoverVolume, setIsHoverVolume] = useState(false)
@@ -57,13 +60,6 @@ export function AppPlayer() {
         setIsPlaying(!isPlaying)
     }
 
-    function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60)
-        const secs = Math.floor(seconds % 60)
-            .toString()
-            .padStart(2, '0')
-        return `${mins}:${secs}`
-    }
 
     function getVolumeIcon(volume) {
         if (volume === 0) {

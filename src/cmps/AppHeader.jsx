@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { Link, useParams, useLocation, useNavigate } from 'react-router-dom'
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useParams, useLocation,useNavigate } from 'react-router-dom';
+import { search } from '../store/actions/station.actions.js';
+import { useDispatch } from 'react-redux'
 import { store } from '../store/store.js'
 import { userService } from '../services/user/user.service.remote.js'
-import { useSelector, useDispatch } from 'react-redux';
+
 
 export function AppHeader() {
     const [focused, setFocused] = useState(false)
@@ -10,9 +12,11 @@ export function AppHeader() {
     const inputWrapperRef = useRef(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const location = useLocation()
+    const dispatch = useDispatch()
+
     const isHomePage = location.pathname === '/'
     const navigate = useNavigate()
-    const dispatch = useDispatch();
+    
     
 
 
@@ -78,6 +82,20 @@ export function AppHeader() {
         setFocused(false)
     }
 
+    async function handleInputChange(ev) {
+        const value = ev.target.value;
+        if (!value) return;
+        try {
+            const results =  search(value)
+            console.log('Search Results:', results);
+        navigate('/search')
+
+        } catch (error) {
+            console.error('Error during search:', error);
+        }
+    }
+
+
     return (
         <header className="app-header full">
             {/* Logo on the far left */}
@@ -140,6 +158,7 @@ export function AppHeader() {
                         className="header-search-input"
                         onFocus={handleFocus} // Handle focus
                         onBlur={handleBlur} // Handle blur
+                        onChange={handleInputChange} 
                     />
                     <Link to="/browse" style={{ zIndex: 1000 }}>
                         <button className="header-browse-btn" title="Browse" onClick={() => navigate('/browse')}>

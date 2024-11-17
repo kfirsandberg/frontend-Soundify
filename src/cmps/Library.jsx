@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { LibraryList } from '../cmps/LibraryList'
 import { FilterLibrary } from './LibraryFilter.jsx'
 import { addNewStation } from '../store/actions/station.actions.js'
+import {  showSuccessMsg } from '../services/event-bus.service.js'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -21,6 +22,7 @@ export function Library({ toggleLibraryActive }) {
     async function onAddStation() {
         try {
             const newStation = await addNewStation()
+            showSuccessMsg('Added to Your Library.')
             navigate(`/playlist/${newStation._id}`)
         } catch (err) {
             console.log('Error adding station:', err)
