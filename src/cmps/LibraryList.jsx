@@ -5,15 +5,22 @@ import { stationLocalService } from '../services/station/station.service.local'
 import { loadStation, removeStation, loadStations } from '../store/actions/station.actions.js'
 import loaderIcon from '/assets/loader.svg'
 import { useSelector } from 'react-redux'
+import { DeleteStationModal } from './DeleteStationModal';
+
 
 import {  showSuccessMsg } from '../services/event-bus.service.js'
 
 export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
-    const navigate = useNavigate()
-    const [loading, setLoading] = useState(true)
-    const [contextMenu, setContextMenu] = useState(null)
+
     const contextMenuRef = useRef(null)
+    const navigate = useNavigate()
+
+    const [contextMenu, setContextMenu] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedStation, setSelectedStation] = useState(null);
+
     
     useEffect(() => {
         loadStations()
@@ -64,10 +71,18 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
         setContextMenu(null)
     }
 
+    function openDeleteModal(station) {
+        setSelectedStation(station)
+        setIsModalOpen(true) 
+        closeContextMenu()
+    }
+
     async function handleDeleteStation() {
+    console.log('selectedStation:',selectedStation)
+        if (!selectedStation?._id) return
         try {
-            await removeStation(contextMenu.station._id)
-            closeContextMenu()
+            await removeStation(selectedStation._id)
+            setIsModalOpen(false)
             loadStations()
             showSuccessMsg('Removed from Your Library.');
         } catch (error) {
@@ -128,7 +143,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                         zIndex: 100,
                     }}
                 >
-                    <li onClick={handleDeleteStation}>
+                    <li onClick={() => openDeleteModal(contextMenu.station)}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             data-encore-id="icon"
@@ -143,6 +158,13 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                         <span>Delete</span>
                     </li>
                 </ul>
+            )}
+                {isModalOpen && (
+                <DeleteStationModal
+                    playlistName={selectedStation?.name}
+                    onConfirm={handleDeleteStation}
+                    onCancel={() => setIsModalOpen(false)}
+                />
             )}
         </div>
     )
