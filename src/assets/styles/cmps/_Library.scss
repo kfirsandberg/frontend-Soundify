@@ -3,9 +3,9 @@
     background-color: #121212;
     color: #fff;
     padding: 16px;
-    width: 512px;
+    min-width: 100%;
     /* Fixed width */
-    max-width: 380px;
+    // max-width: 380px;
 }
 
 /* Library Route */
@@ -16,6 +16,8 @@
     border-radius: 8px;
     margin-left: 8px;
     padding-top: rem(16.8px);
+   
+    
 }
 
 .library-route.active {

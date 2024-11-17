@@ -1,4 +1,64 @@
 import { useState } from 'react'
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+
+const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0),
+    '&:hover': {
+        backgroundColor: alpha(theme.palette.common.white, 0.15),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(1),
+        width: 'auto',
+    },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 0.2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'rgb(180, 180, 180)',
+    '&:hover': {
+        color: 'white',
+    },
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    width: '100%',
+    '& .MuiInputBase-input': {
+    //   padding: theme.spacing(1, 1, 1, 0),
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      width: '0', // Initially collapse input width
+      '&::placeholder': {
+        color: 'rgb(180, 180, 180)', // Placeholder in white
+        opacity: 0, // Hide placeholder by default
+      },
+      '&:focus': {
+        width: '1ch', // Expand width when focused
+        '&::placeholder': {
+          opacity: 1, // Show placeholder only on focus
+        },
+      },
+      [theme.breakpoints.up('sm')]: {
+        width: '0.2ch', // Slightly visible width on larger screens
+        '&:focus': {
+          width: '10ch', // Expanded width on focus for larger screens
+        },
+      },
+    },
+  }));
+  
 
 export function FilterLibrary({ setFilterCriteria, setSortBy }) {
     const [searchTerm, setSearchTerm] = useState('')
@@ -27,31 +87,15 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
 
             <div className="search-and-menu">
                 {/* New button to toggle search input visibility */}
-                <button
-                    className="toggle-search-btn"
-                    onClick={() => setShowSearch(prev => !prev)}
-                    title="Search in Your Library"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        data-encore-id="icon"
-                        role="img"
-                        aria-hidden="true"
-                        viewBox="0 0 24 24"
-                        className="lib-search-icon Svg-sc-ytk21e-0 bneLcE"
-                    >
-                        <path d="M10.533 1.27893C5.35215 1.27893 1.12598 5.41887 1.12598 10.5579C1.12598 15.697 5.35215 19.8369 10.533 19.8369C12.767 19.8369 14.8235 19.0671 16.4402 17.7794L20.7929 22.132C21.1834 22.5226 21.8166 22.5226 22.2071 22.132C22.5976 21.7415 22.5976 21.1083 22.2071 20.7178L17.8634 16.3741C19.1616 14.7849 19.94 12.7634 19.94 10.5579C19.94 5.41887 15.7138 1.27893 10.533 1.27893ZM3.12598 10.5579C3.12598 6.55226 6.42768 3.27893 10.533 3.27893C14.6383 3.27893 17.94 6.55226 17.94 10.5579C17.94 14.5636 14.6383 17.8369 10.533 17.8369C6.42768 17.8369 3.12598 14.5636 3.12598 10.5579Z" />
-                    </svg>
-                </button>
-
-                {/* Search input with sliding effect */}
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    placeholder="Search in your library"
-                    className={`search-input ${showSearch ? 'open' : ''}`}
-                />
+                <Search>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
+                    />
+                </Search>
 
                 <div className="sort-container">
                     <div className="hamburger-menu">
