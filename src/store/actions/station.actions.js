@@ -51,6 +51,23 @@ export async function loadStation(stationId) {
     }
 }
 
+export async function loadStationByName(stationName) {
+    try {
+        const stations = await stationLocalService.query(); // טוען את כל התחנות
+        const station = stations.find(station => station.name === stationName);
+
+        if (!station) {
+            throw new Error(`Station with name "${stationName}" not found`);
+        }
+
+        store.dispatch(getCmdSetStation(station));
+        return station;
+    } catch (err) {
+        console.log('Cannot load station', err);
+        throw err;
+    }
+}
+
 export async function removeStation(stationId) {
     try {
         await stationLocalService.removeStation(stationId)
@@ -167,6 +184,25 @@ export async function removeSongFromLiked(songId) {
         console.log('Cannot remove song from Liked Songs', err)
     }
 }
+export async function setCurrentStation(stationIdOrName) {
+    try {
+
+        const station = await stationLocalService.getById(stationIdOrName) || 
+                        await stationLocalService.getStationByName(stationIdOrName);
+
+        if (!station) {
+            console.log(`Station not found: ${stationIdOrName}`);
+            return;
+        }
+        store.dispatch(getCmdSetStation(station));
+        return station;
+    } catch (err) {
+        console.log('Cannot set current station', err);
+        throw err;
+    }
+}
+
+
 
 
 // Command Creators:
@@ -249,7 +285,12 @@ export function getCmdSetBgColor(bgColor) {
         bgColor,
     }
 }
-
+export function getCmdSetSearchedSongs(songs) {
+    return {
+        type: SET_SEARCHED_SONGS,
+        songs,
+    }
+}
 
 // unitTestActions()
 async function unitTestActions() {

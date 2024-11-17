@@ -19,17 +19,13 @@ async function query(filterBy = { txt: '', genre: '' }) {
 
 
 async function getSongById(songId) {
-    const stations = await query()
+    let songs = loadFromStorage(STORAGE_KEY);
+    if (!songs || !songs.length) return null;
 
-    for (let station of stations) {
-        const song = station.songs.find(song => song.id === songId)
-        if (song) {
-            return song
-        }
-    }
-
-    return null
+    const song = songs.find(song => song.id === songId);
+    return song || null;
 }
+
 function removeSong(song, stationToRemove) {
     let songs = loadFromStorage(STORAGE_KEY);
     if (!songs || !songs.length) return;
