@@ -18,6 +18,7 @@ export function StationEdit({ station, onClose, onImageUpload, openFileUpload })
             ...prevState,
             [name]: value,
         }))
+
     }
 
     async function handleImageUpload(ev) {

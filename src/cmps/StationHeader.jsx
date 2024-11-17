@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Button, Typography, IconButton, Modal, TextField, Grid, Avatar } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
@@ -136,6 +136,25 @@ export function StationHeader({ station }) {
                     >
                         {station.name}
                     </Typography>
+
+                    {station.description && (
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                marginTop: 1,
+                                fontSize: '1.2rem',
+                                fontFamily: 'SpotifyMix',
+                                fontWeight: '400',
+                                color: 'white',
+                                textAlign: { xs: 'center', sm: 'left' },
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden', 
+                                textOverflow: 'ellipsis', 
+                            }}
+                        >
+                            {station.description}
+                        </Typography>
+                    )}
 
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Avatar src={station.creatorImgURL || userIcon} alt="Creator" sx={{ width: 24, height: 24 }} />

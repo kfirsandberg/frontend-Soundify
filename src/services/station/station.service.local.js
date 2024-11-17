@@ -71,6 +71,7 @@ async function saveStation(station) {
         name: station.name,
         imgURL: station.imgURL || gImg,
         songs: station.songs || [],
+         description: station.description || ''
     }
     return station._id
         ? await storageService.put(STORAGE_KEY, stationToSave)
