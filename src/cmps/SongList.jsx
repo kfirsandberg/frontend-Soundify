@@ -8,53 +8,43 @@ import { useSelector } from 'react-redux'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
 
 export function SongList() {
-    const currentStation = useSelector(state => state.stationModule.station)
-    const [hoveredIndex, setHoveredIndex] = useState(null)
-    const [activeIndex, setActiveIndex] = useState(null)
-    const [playingIndex, setPlayingIndex] = useState(null)
-    const [currStation, setCurrStation] = useState(currentStation)
-    const [songs, setSongs] = useState(currentStation.songs)
+    const currentStation = useSelector(state => state.stationModule.station);
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(null);
+    const [playingIndex, setPlayingIndex] = useState(null);
+    const [currStation, setCurrStation] = useState(currentStation);
+    const [songs, setSongs] = useState(currentStation.songs);
 
     useEffect(() => {
-        setSongs(currentStation.songs)
-        setCurrStation(currentStation)
-
-    }, [currentStation._id])
-
-    useEffect(() => {
-        setSongs()
-    }, [currStation])
-
+        setSongs(currentStation.songs);
+        setCurrStation(currentStation);
+    }, [currentStation._id]);
 
     useEffect(() => {
-        setSongs(currStation.songs)
-    }, [currStation.songs])
+        setSongs(currStation.songs);
+    }, [currStation.songs]);
 
     function handlePlayClick(songId, index) {
-        loadSong(songId)
-        setIsPlaying(true)
-        setActiveIndex(index)
-        setPlayingIndex(index)
+        loadSong(songId);
+        setIsPlaying(true);
+        setActiveIndex(index);
+        setPlayingIndex(index);
     }
 
     function handlePauseClick() {
-        setIsPlaying(false)
-        setPlayingIndex(null)
+        setIsPlaying(false);
+        setPlayingIndex(null);
     }
 
     async function toggleLike(song) {
-        const stationName = currentStation.name
+        const stationName = currentStation.name;
         try {
             const existingSong = await getSongById(song);
-            console.log(existingSong)
             if (existingSong) {
                 await removeSong(song, stationName);
-                console.log(`Song removed from ${stationName}`);
                 currentStation.songs = currentStation.songs.filter(s => s.id !== song.id);
-
             } else {
                 await addSong(song, stationName);
-                console.log(`Song added to ${stationName}`);
                 currentStation.songs.push(song);
             }
 
@@ -64,18 +54,17 @@ export function SongList() {
         }
     }
 
-
-
     async function handleDragEnd(result) {
-        if (!result.destination) return
-        const reorderedSongs = songs.slice()
-        const [movedSong] = reorderedSongs.splice(result.source.index, 1)
-        reorderedSongs.splice(result.destination.index, 0, movedSong)
-        setSongs(reorderedSongs)
-        const updatedStation = { ...currStation, songs: reorderedSongs }
-        const savedStation = await updateStation(updatedStation)
-        setCurrStation(savedStation)
+        if (!result.destination) return;
+        const reorderedSongs = songs.slice();
+        const [movedSong] = reorderedSongs.splice(result.source.index, 1);
+        reorderedSongs.splice(result.destination.index, 0, movedSong);
+        setSongs(reorderedSongs);
+        const updatedStation = { ...currStation, songs: reorderedSongs };
+        await updateStation(updatedStation);
+        setCurrStation(updatedStation);
     }
+
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
