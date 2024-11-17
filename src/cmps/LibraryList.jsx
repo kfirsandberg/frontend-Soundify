@@ -10,7 +10,7 @@ import { DeleteStationModal } from './DeleteStationModal';
 
 import { showSuccessMsg } from '../services/event-bus.service.js'
 
-export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
+export function LibraryList({ filterCriteria,  sortBy = 'Recents', isCollapsed }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const navigate = useNavigate()
 
@@ -21,18 +21,51 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedStation, setSelectedStation] = useState(null);
 
+    const [filteredStations, setFilteredStations] = useState([])
 
     useEffect(() => {
         loadStations()
         setLoading(false)
-    }, [])
-
-    useEffect(() => {
         document.addEventListener('click', handleOutsideClick)
         return () => {
             document.removeEventListener('click', handleOutsideClick)
         }
     }, [])
+
+    useEffect(() => {
+        updateFilteredStations()
+    }, [stations, filterCriteria, sortBy]) 
+
+    function updateFilteredStations() {
+        try {   let filtered = stations || []
+
+
+        if (stations && filterCriteria) {
+            filtered = stations.filter(station =>
+                station.name.toLowerCase().includes(filterCriteria.toLowerCase())
+            )
+        }
+
+        switch (sortBy) {
+            case 'Recents':
+                filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                break
+            case 'Recently Added':
+                filtered.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt))
+                break
+            case 'Alphabetical':
+                filtered.sort((a, b) => a.name.localeCompare(b.name))
+                break
+            default:
+                break
+        }
+
+        setFilteredStations(filtered)
+    } catch (err) {
+        console.error('Error in updateFilteredStations:', err)
+    }
+    }
+
 
     function handleOutsideClick(event) {
         if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
@@ -45,18 +78,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
         loadStation(station._id);
     }
 
-    let filteredStations = stations
-    if (stations && filterCriteria) {
-        filteredStations = stations.filter(station => station.name.toLowerCase().includes(filterCriteria.toLowerCase()))
-    }
-    if (sortBy === 'Recents') { // Correct capitalization
-        filteredStations.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    } else if (sortBy === 'Recently Added') {
-        filteredStations.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt))
-    } else if (sortBy === 'Alphabetical') {
-        filteredStations.sort((a, b) => a.name.localeCompare(b.name))
-    }
-
+  
 
     function handleContextMenu(ev, station) {
         ev.preventDefault()
@@ -92,13 +114,14 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
 
     if (loading) {
         return (
-            <div>
-                {!isCollapsed ? (
-                    <img src={loaderIcon} alt="Loading..." className="loader-icon-2" />
-                ) : (
-                    <img src={loaderIcon} alt="Loading..." className="loader-icon-3" />
-                )}
-            </div>
+            // <div>
+            //     {!isCollapsed ? (
+            //         <img src={loaderIcon} alt="Loading..." className="loader-icon-2" />
+            //     ) : (
+            //         <img src={loaderIcon} alt="Loading..." className="loader-icon-3" />
+            //     )}
+            // </div>
+            <span></span>
         )
     }
 
