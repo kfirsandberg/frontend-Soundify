@@ -6,12 +6,14 @@ import userIcon from '../../public/assets/user.svg'
 import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
+import{stationLocalService} from '../services/station/station.service.local.js'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
     const [openFileUpload, setOpenFileUpload] = useState(false)
-
+    const totalDuration= stationLocalService.calculateTotalDuration(station.songs)
+    
     function onEditStation() {
         setOpenFileUpload(false)
         setIsModalOpen(true)
@@ -162,12 +164,18 @@ export function StationHeader({ station }) {
                             {station.creatorName || 'User'}
                         </Typography>
 
-                        <Typography variant="body2">
+                        <Typography variant="body2"
+                          sx={{
+                            fontSize: '0.875rem',
+                            fontFamily: 'SpotifyMix',
+                            fontWeight: '400',
+                            color: '#b3b3b3',
+                            
+                        }}>
                             • {station.songs?.length || 0} {station.songs?.length === 1 ? 'song' : 'songs'}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                            {station.totalDuration}
-                        </Typography>
+                            {totalDuration ? `, ${totalDuration}` : ''}
+                            </Typography>
+                 
                     </Box>
                 </Box>
             </Box>
