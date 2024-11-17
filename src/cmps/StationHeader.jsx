@@ -155,13 +155,33 @@ export function StationHeader({ station }) {
 
             {/* Playlist Actions */}
             <Box className="playlist-actions"
-                sx={{ display: 'flex', gap: 0 }}>
-                <IconButton sx={{ color: '#1ed760', fontSize: '3rem' }}>
-                    <PlayCircleFilledIcon sx={{ fontSize: '66px' }} />
-                </IconButton>
-                <IconButton sx={{ color: 'white' }}>
+                sx={{ display: 'flex', gap: 5 }}>
+                <button
+                    style={{
+                        color: '#1ed760',
+                        fontSize: '3rem',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: 0,
+                        marginLeft:10
+                    }}
+                >
+                    <PlayCircleFilledIcon style={{ fontSize: '66px' }} />
+                </button>
+
+                
+                <button
+                    style={{
+                        color: 'white',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: 0,
+                    }}
+                >
                     <MoreHoriz />
-                </IconButton>
+                </button>
                 <button
                     style={{
                         backgroundColor: 'inherit',
@@ -173,7 +193,7 @@ export function StationHeader({ station }) {
                     onMouseOver={(e) => (e.currentTarget.style.fill = '#121212')}
                     onMouseOut={(e) => (e.currentTarget.style.fill = '')}
                 >
-                    <img src={HamburgerIcon} alt="Sort Icon" style={{ width: '20px', height: '20px', marginRight:20 }} />
+                    <img src={HamburgerIcon} alt="Sort Icon" style={{ width: '20px', height: '20px', marginRight: 20 }} />
                 </button>
             </Box>
 
