@@ -17,6 +17,9 @@ import { FastAverageColor } from 'fast-average-color'
 import { BrowseIndex } from './pages/BrowseIndex.jsx'
 import { SearchDetails } from './pages/SearchDetails.jsx'
 
+import { UserMsg } from './cmps/UserMsg.jsx'
+
+
 import { Search } from '@mui/icons-material'
 
 const fac = new FastAverageColor()
@@ -77,6 +80,7 @@ export function RootCmp() {
             </main>
             <AppPlayer className="player" />
             <YouTubeAudioPlayer />
+            <UserMsg/>
         </div>
     )
 }
