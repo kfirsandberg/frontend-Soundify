@@ -46,7 +46,8 @@ async function ajaxApi(endpoint, method = 'GET', data = null) {
 
 async function ajax(endpoint, method = 'GET', data = null) {
     const url = `${BASE_URL}${endpoint}`;
-    console.log(url); // This is just for debugging to ensure the URL is correct
+    // console.log(url); // This is just for debugging to ensure the URL is correct
+
     // Directly append query parameters to the URL for GET requests
     if (method === 'GET' && data) {
         const queryString = Object.keys(data)

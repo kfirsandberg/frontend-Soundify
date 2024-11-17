@@ -1,37 +1,41 @@
 .user-msg {
     position: fixed;
-    top: 60px;
-    right: 0.2em;
+    bottom: em(100px);
+    left: 50%;
+    transform: translateX(-50%);
 
     display: flex;
     align-items: center;
+    justify-content: center;
 
-    padding: 0.2em;
-    padding-inline-end: 20px;
-    background-color: grey;
+    padding: 1em;
+    
+    background-color: white;
+    color: black;
 
-    color: white;
-    font-size: 0.9em;
+    font-size: 1em;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 
     opacity: 0;
-    translate: 150%;
-    transition: 600ms;
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .user-msg.visible {
     opacity: 1;
     translate: 0;
+    transform: translateX(-50%) translateY(0); 
 }
 
-.user-msg button {
-    padding: 1px 6px;
-    border: 0;
-    border-radius: 50%;
-}
+// .user-msg button {
+//     padding: 1px 6px;
+//     border: 0;
+//     border-radius: 50%;
+// }
 
-.user-msg.success {
-    background-color: rgb(41, 189, 73);
-}
-.user-msg.error {
-    background-color: rgb(216, 59, 59);
-}
+// .user-msg.success {
+//     background-color: rgb(41, 189, 73);
+// }
+// .user-msg.error {
+//     background-color: rgb(216, 59, 59);
+// }

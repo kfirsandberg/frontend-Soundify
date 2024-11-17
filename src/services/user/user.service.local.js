@@ -58,11 +58,11 @@ async function signup(userCred) {
 }
 
 async function logout() {
-    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
+    localStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    return JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
 function saveLoggedinUser(user) {
@@ -71,7 +71,7 @@ function saveLoggedinUser(user) {
         imgUrl: user.imgUrl, 
       
     }
-	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+	localStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
 	return user
 }
 

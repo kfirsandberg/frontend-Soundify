@@ -6,6 +6,8 @@ import { loadStation, removeStation, loadStations } from '../store/actions/stati
 import loaderIcon from '/assets/loader.svg'
 import { useSelector } from 'react-redux'
 
+import {  showSuccessMsg } from '../services/event-bus.service.js'
+
 export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const navigate = useNavigate()
@@ -67,6 +69,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
             await removeStation(contextMenu.station._id)
             closeContextMenu()
             loadStations()
+            showSuccessMsg('Removed from Your Library.');
         } catch (error) {
             console.error('Cannot delete station', error)
         }
