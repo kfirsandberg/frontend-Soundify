@@ -95,7 +95,6 @@ export function AppHeader() {
         }
     }
 
-
     return (
         <header className="app-header full">
             {/* Logo on the far left */}
@@ -158,7 +157,7 @@ export function AppHeader() {
                         className="header-search-input"
                         onFocus={handleFocus} // Handle focus
                         onBlur={handleBlur} // Handle blur
-                        onChange={handleInputChange} 
+                        onChange={handleInputChange}
                     />
                     <Link to="/browse" style={{ zIndex: 1000 }}>
                         <button className="header-browse-btn" title="Browse" onClick={() => navigate('/browse')}>

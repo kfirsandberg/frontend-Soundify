@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import loaderIcon from '/assets/loader.svg'
 import { useNavigate, useParams } from 'react-router'
-import { loadStation, setBgColor } from '../store/actions/station.actions.js'
+import { loadStation, setBgColor ,setCurrentStation} from '../store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color'
 import { useDispatch } from 'react-redux'
 
@@ -36,6 +36,7 @@ export function StationDetails() {
         async function fetchStation() {
             try {
                 const currStation = await loadStation(stationId)
+                setCurrentStation(stationId)
                 setStation(currStation)
             } catch (err) {
                 console.error('Failed to load station:', err)
@@ -72,7 +73,7 @@ export function StationDetails() {
     return (
         <section className="station-details-main">
             <StationHeader station={station} />
-            <SongList station={station} />
+            <SongList  />
             {renderStationImage()}
         </section>
     )

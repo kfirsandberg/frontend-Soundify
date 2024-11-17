@@ -1,11 +1,9 @@
 import { storageService } from '../async-storage.service'
-import { httpService } from '../http.service'
-import axios from 'axios'
-
-import { userService } from '../user'
 import { loadFromStorage, saveToStorage, makeId } from '../util.service'
+
 const STORAGE_KEY = 'station'
 const BASE_URL = 'http://127.0.0.1:3030/api/ytmusic/search'
+
 export const stationLocalService = {
     query,
     getById,
@@ -17,26 +15,11 @@ export const stationLocalService = {
     removeSong,
     addSong,
     addSongToLikedSongs,
-    removeSongFromLikedSongs
+    removeSongFromLikedSongs,
+    ensureSong
 }
 const gImg = 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
 _createStations()
-
-
-// getSongRes('the beatles')  
-
-
-// async function getSongRes(title) {
-//     try {
-//         const res = await httpService.get('ytmusic/search', { query: title });
-//         return res;
-//     } catch (error) {
-//         console.error('Network error:', error);
-//         throw error;
-//     }
-// }
-
-
 
 async function query(filterBy = { txt: '', genre: '' }) {
     let stations = await storageService.query(STORAGE_KEY)
@@ -45,6 +28,25 @@ async function query(filterBy = { txt: '', genre: '' }) {
 function getById(stationId) {
     return storageService.get(STORAGE_KEY, stationId)
 }
+function ensureSong(song) {
+    const id = song.id || makeId();
+    const imgURL = song.imgURL || (song.thumbnails && song.thumbnails.length > 0 ? song.thumbnails[0].url : '');
+
+    const formattedDuration = song.duration
+        ? `${Math.floor(song.duration / 60)}:${String(song.duration % 60).padStart(2, '0')}`
+        : '';
+
+    return {
+        id,
+        title: song.title || '',
+        artist: song.artist || '',
+        album: song.album || '',
+        videoId: song.videoId || '',
+        imgURL,
+        duration: formattedDuration,
+    };
+}
+
 
 async function getSongById(songId) {
     const stations = await query()
@@ -67,7 +69,7 @@ async function saveStation(station) {
     const stationToSave = {
         _id: station._id || makeId(),
         name: station.name,
-        imgURL: station.imgURL || null,
+        imgURL: station.imgURL || gImg,
         songs: station.songs || [],
     }
     return station._id
@@ -160,7 +162,6 @@ async function _createStations() {
 }
 
 function _createStation(name, _id, imgURL = gImg, stationSubtitle) {
-    console.log(name, _id, imgURL, stationSubtitle)
     const station = getEmptyStation(name, _id, stationSubtitle)
     if (station.songs && station.songs.length > 0 && !imgURL) {
         station.imgURL = station.songs[0].imgURL // Use the first song's imgURL if exists
@@ -168,7 +169,7 @@ function _createStation(name, _id, imgURL = gImg, stationSubtitle) {
     if (imgURL) {
         station.imgURL = imgURL
     }
-    console.log(station)
+
     return station
 }
 
