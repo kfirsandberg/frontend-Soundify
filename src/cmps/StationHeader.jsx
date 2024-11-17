@@ -38,7 +38,7 @@ export function StationHeader({ station }) {
                 flexDirection: 'column',
                 gap: 0,
                 color: '#fff',
-              
+
             }}
         >
             {/* Station Details */}
@@ -124,10 +124,10 @@ export function StationHeader({ station }) {
                             cursor: 'pointer',
                             fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '6rem', xl: '6rem' },
                             // lineHeight: { xs: '2.5rem', sm: '3.5rem', md: '5rem' },
-                            letterSpacing: { xs: '-3px'},
+                            letterSpacing: { xs: '-3px' },
                             textAlign: { xs: 'center', sm: 'left' },
                             whiteSpace: 'nowrap', // Prevents the text from wrapping
-                      
+
 
                             overflow: 'hidden', // Optional: Hides text overflow if the text exceeds the container width
                             textOverflow: 'ellipsis', // Optional: Adds ellipsis if the text is cut off
@@ -152,35 +152,29 @@ export function StationHeader({ station }) {
                     </Box>
                 </Box>
             </Box>
-            
+
             {/* Playlist Actions */}
-            <Box className = "playlist-actions"
-            sx={{ display: 'flex', gap: 0}}>
+            <Box className="playlist-actions"
+                sx={{ display: 'flex', gap: 0 }}>
                 <IconButton sx={{ color: '#1ed760', fontSize: '3rem' }}>
                     <PlayCircleFilledIcon sx={{ fontSize: '66px' }} />
                 </IconButton>
                 <IconButton sx={{ color: 'white' }}>
                     <MoreHoriz />
                 </IconButton>
-                <Button
-                    variant="contained"
-                    color="inherit"
-                    sx={{
+                <button
+                    style={{
                         backgroundColor: 'inherit',
                         marginLeft: 'auto',
                         border: 'none',
                         boxShadow: 'none',
-                        '&:hover': {
-                            boxShadow: 'none',
-                            fill: '#121212',
-                        },
-                        '&:active': {
-                            boxShadow: 'none',
-                        },
+                        cursor: 'pointer',
                     }}
+                    onMouseOver={(e) => (e.currentTarget.style.fill = '#121212')}
+                    onMouseOut={(e) => (e.currentTarget.style.fill = '')}
                 >
-                    <Box component="img" src={HamburgerIcon} alt="Sort Icon" sx={{ width: 20, height: 20 }} />
-                </Button>
+                    <img src={HamburgerIcon} alt="Sort Icon" style={{ width: '20px', height: '20px', marginRight:20 }} />
+                </button>
             </Box>
 
             {/* Modal for Station Edit */}
