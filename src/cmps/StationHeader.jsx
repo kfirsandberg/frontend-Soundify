@@ -164,7 +164,7 @@ export function StationHeader({ station }) {
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
-                        marginLeft:10
+                        marginLeft:20
                     }}
                 >
                     <PlayCircleFilledIcon style={{ fontSize: '66px' }} />
