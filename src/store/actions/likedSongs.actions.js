@@ -40,11 +40,12 @@ export async function removeSong(song, stationToRemove) {
     }
 }
 
-export async function getSongById(songId) {
+export async function getSongById(song) {
+
     try {
-        const song = await likedSongsLocalService.getSongById(songId);
-        store.dispatch(setSong(song));
-        return song;
+        const currentSong = await likedSongsLocalService.getSongByIdOrName(song);
+        store.dispatch(setSong(currentSong));
+        return currentSong;
     } catch (err) {
         console.error('Cannot get song by ID', err);
         throw err;

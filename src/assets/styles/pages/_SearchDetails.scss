@@ -138,4 +138,42 @@
             margin-left: 20px;
         }
     }
+
+    .add-stations-menu {
+        background-color: #1f1f1f;
+        max-height: 390px;
+        overflow-y: scroll;
+        width: rem(290px);
+        &::-webkit-scrollbar {
+            width: 0; 
+            height: 0;
+        }
+        .add-to-playlist{
+            padding: 10px;
+            font-family: SpotifyMix;
+            font-size: 12px;
+            color: #b3b3b3;
+    
+        }
+        .add-station {
+            display: flex;
+            flex-direction: row;
+            padding: 10px;
+            align-items: center;
+
+            &:hover {
+                background-color: hsla(0, 0%, 100%, .1);
+                cursor: pointer;
+            }
+            .station-add-name{
+                padding-left: 10px;
+            }
+        }
+
+        .station-thumbnail{
+            max-width: 40px;
+            max-height: 40px;
+            border-radius: 20%;
+        }
+    }
 }

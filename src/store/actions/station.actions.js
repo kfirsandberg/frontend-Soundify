@@ -53,7 +53,7 @@ export async function loadStation(stationId) {
 
 export async function loadStationByName(stationName) {
     try {
-        const stations = await stationLocalService.query(); // טוען את כל התחנות
+        const stations = await stationLocalService.query(); 
         const station = stations.find(station => station.name === stationName);
 
         if (!station) {

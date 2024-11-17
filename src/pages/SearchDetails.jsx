@@ -1,46 +1,110 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { formatTime } from '../services/util.service'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
 import { loadSong, setIsPlaying, updateStation, loadStationByName, addStation } from '../store/actions/station.actions.js'
-import { stationLocalService } from '../services/station/station.service.local.js'; 
+import { stationLocalService } from '../services/station/station.service.local.js';
 
 export function SearchDetails() {
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
+    const stations = useSelector(storeState => storeState.stationModule.stations)
+    const [currentSong, setCurrentSong] = useState(null);
+
+    const contextMenuRef = useRef(null)
+
+    const menuWidth = contextMenuRef.current?.offsetWidth || 150;
+    const menuHeight = contextMenuRef.current?.offsetHeight || 100;
+
+
+    const [contextMenu, setContextMenu] = useState(null)
 
     useEffect(() => {
-
-        // console.log('searchedSongs:', searchedSongs)
-
-    }, [searchedSongs])
-
-    async function toggleLike(song, stationName = 'Liked Songs') {
-        try {
-            const existingSong = await getSongById(song.id);
-            let likedSongsStation = await loadStationByName(stationName);
-
-            if (!likedSongsStation) {
-                console.log(`Station ${stationName} does not exist. Creating it...`);
-                const newStation = { name: stationName };
-                likedSongsStation = await addStation(newStation);
+        if (!contextMenu) return;
+    
+        function handleClickOutside(event) {
+            if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
+                console.log('Clicked outside, closing context menu.');
+                closeContextMenu();
             }
+        }
+    
+        // מאזינים לאירוע 'mousedown' ולא 'click'
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [contextMenu]);
+
+    function onStationClick(station) {
+        console.log('Station clicked:', station);
+        onLikedSong(currentSong, station)
+        closeContextMenu();
+    }
+
+
+    async function toggleLike(ev, song) {
+        ev.stopPropagation();
+
+        const menuWidth = 290;
+        const menuHeight = 390;
+
+        let x = ev.pageX;
+        let y = ev.pageY;
+
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+
+        if (x + menuWidth > screenWidth) {
+            x = screenWidth - menuWidth;
+        }
+
+        if (y + menuHeight > screenHeight) {
+            y = screenHeight - menuHeight;
+        }
+
+        setContextMenu({ x, y, song });
+        setCurrentSong(song)
+    }
+
+    function handleOutsideClick(event) {
+        if (!contextMenu || !contextMenuRef.current) return;
+        if (!contextMenuRef.current.contains(event.target)) {
+            console.log('Clicked outside, closing context menu.');
+            closeContextMenu();
+        }
+    }
+
+
+
+    function closeContextMenu() {
+        setContextMenu(null)
+    }
+
+
+    async function onLikedSong(song, station) {
+        const stationName = station.name
+        console.log(song, stationName)
+        try {
+            const existingSong = await getSongById(song);
 
             if (existingSong) {
                 await removeSong(song, stationName);
                 console.log(`Song removed from ${stationName}`);
-                likedSongsStation.songs = likedSongsStation.songs.filter(s => s.id !== song.id);
+                station.songs = station.songs.filter(s => s.id !== song.id);
 
             } else {
                 await addSong(song, stationName);
                 console.log(`Song added to ${stationName}`);
                 const newSong = stationLocalService.ensureSong(song)
-                likedSongsStation.songs.push(newSong);
+                station.songs.push(newSong);
             }
 
-            await updateStation(likedSongsStation);
+            await updateStation(station);
         } catch (error) {
             console.error('Error toggling like:', error);
         }
+
     }
 
 
@@ -88,7 +152,7 @@ export function SearchDetails() {
                             <button
                                 title={song.liked ? 'Remove from liked songs' : 'Add to liked songs'}
                                 className="liked-songs-btn"
-                                onClick={() => toggleLike(song)}
+                                onClick={(event) => toggleLike(event, song)}
                             >
                                 {song.liked ? (
                                     <svg
@@ -123,6 +187,34 @@ export function SearchDetails() {
                         </div>
                     ))}
             </section>
+
+            {contextMenu && (
+                <ul
+                    className="add-stations-menu"
+                    ref={contextMenuRef}
+                    style={{
+                        position: 'absolute',
+                        top: `${contextMenu.y}px`,
+                        left: `${contextMenu.x}px`,
+                        zIndex: 100,
+                    }}
+                >
+                    <span className='add-to-playlist'>Add to playlist</span>
+
+                    {stations.map((station) => (
+                        <li className='add-station' key={station.id} onClick={() => onStationClick(station)}>
+                            <img
+                                src={station.imgURL || 'default-thumbnail.jpg'}
+                                alt={`${station.name} thumbnail`}
+                                className="station-thumbnail"
+                            />
+                            <span className='station-add-name'>{station.name}</span>
+                        </li>
+                    ))}
+                </ul>
+            )}
+
+
         </section>
     )
 }

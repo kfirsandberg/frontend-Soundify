@@ -42,29 +42,23 @@ export function SongList() {
         setPlayingIndex(null)
     }
 
-    async function toggleLike(song, stationName = 'Liked Songs') {
+    async function toggleLike(song) {
+        const stationName = currentStation.name
         try {
-            const existingSong = await getSongById(song.id);
-            let likedSongsStation = await loadStationByName(stationName);
-
-            if (!likedSongsStation) {
-                console.log(`Station ${stationName} does not exist. Creating it...`);
-                const newStation = { name: stationName };
-                likedSongsStation = await addStation(newStation);
-            }
-
+            const existingSong = await getSongById(song);
+            console.log(existingSong)
             if (existingSong) {
                 await removeSong(song, stationName);
                 console.log(`Song removed from ${stationName}`);
-                likedSongsStation.songs = likedSongsStation.songs.filter(s => s.id !== song.id);
+                currentStation.songs = currentStation.songs.filter(s => s.id !== song.id);
 
             } else {
                 await addSong(song, stationName);
                 console.log(`Song added to ${stationName}`);
-                likedSongsStation.songs.push(song);
+                currentStation.songs.push(song);
             }
 
-            await updateStation(likedSongsStation);
+            await updateStation(currentStation);
         } catch (error) {
             console.error('Error toggling like:', error);
         }

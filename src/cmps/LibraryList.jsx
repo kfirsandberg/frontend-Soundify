@@ -8,20 +8,20 @@ import { useSelector } from 'react-redux'
 import { DeleteStationModal } from './DeleteStationModal';
 
 
-import {  showSuccessMsg } from '../services/event-bus.service.js'
+import { showSuccessMsg } from '../services/event-bus.service.js'
 
 export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
+    const navigate = useNavigate()
 
     const contextMenuRef = useRef(null)
-    const navigate = useNavigate()
 
     const [contextMenu, setContextMenu] = useState(null)
     const [loading, setLoading] = useState(true)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedStation, setSelectedStation] = useState(null);
 
-    
+
     useEffect(() => {
         loadStations()
         setLoading(false)
@@ -56,7 +56,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     } else if (sortBy === 'Alphabetical') {
         filteredStations.sort((a, b) => a.name.localeCompare(b.name))
     }
-    
+
 
     function handleContextMenu(ev, station) {
         ev.preventDefault()
@@ -73,12 +73,12 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
 
     function openDeleteModal(station) {
         setSelectedStation(station)
-        setIsModalOpen(true) 
+        setIsModalOpen(true)
         closeContextMenu()
     }
 
     async function handleDeleteStation() {
-    console.log('selectedStation:',selectedStation)
+        console.log('selectedStation:', selectedStation)
         if (!selectedStation?._id) return
         try {
             await removeStation(selectedStation._id)
@@ -114,15 +114,15 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                         onContextMenu={ev => handleContextMenu(ev, station)}
                     >
                         <img src={station.imgURL} alt={station.name} className="station-image" />
-                         {!isCollapsed && (
-                              <div className="station-info">
-                              <h3 className="station-name">{station.name}</h3>
-                              <div className="station-details">
-                                  <h3 className="station-kind">Playlist</h3>
-                                  <span className='dot'>.</span>
-                                  <p className="station-creator">Spotify</p>
-                              </div>
-                          </div>)}
+                        {!isCollapsed && (
+                            <div className="station-info">
+                                <h3 className="station-name">{station.name}</h3>
+                                <div className="station-details">
+                                    <h3 className="station-kind">Playlist</h3>
+                                    <span className='dot'>.</span>
+                                    <p className="station-creator">Spotify</p>
+                                </div>
+                            </div>)}
                         {/* SVG Icon overlay */}
                         <div className="overlay-icon">
                             <img src="/assets/lib_player_btn.svg" alt="Play" />
@@ -159,7 +159,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                     </li>
                 </ul>
             )}
-                {isModalOpen && (
+            {isModalOpen && (
                 <DeleteStationModal
                     playlistName={selectedStation?.name}
                     onConfirm={handleDeleteStation}
