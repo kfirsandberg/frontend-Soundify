@@ -62,7 +62,8 @@ export function RootCmp() {
             >
                 <div
                     style={{
-                        background: `linear-gradient(to top, #121212 60%,  rgba(18, 18, 18, 0) 100%)`,
+                        background: `linear-gradient(to top, #121212 80%,  rgba(18, 18, 18, 0) 100%)`,
+                        height :'100%'
                     }}
                 >
                     <Routes>
