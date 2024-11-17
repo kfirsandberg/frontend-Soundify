@@ -286,12 +286,14 @@
     /* White with 10% opacity */
     padding: 8px;
 }
-
+////////////////////////////////////////////////////////////////////////
+/// 
 /* Library List */
 .library-list {
     overflow-y: auto;
     height: 95%;
     margin-top: 6.9px;
+    transform: translateX(8px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -356,9 +358,8 @@
     align-items: center;
     background-color: #121212;
     transition: transform 0.2s ease-in-out;
-    width: rem(279px);
-    /* Consider using px for more predictable behavior */
-    margin-left: 19.3px;
+    width: rem(279px); /* Consider using px for more predictable behavior */
+    margin-left: 20px;
     height: 4rem;
     cursor: pointer;
     overflow: hidden;
@@ -371,10 +372,44 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 0.1);
-    /* White with 10% opacity */
+    background-color: rgba(255, 255, 255, 0.1); /* White with 10% opacity */
     pointer-events: none;
     border-radius: 8px;
+    width: 250px;
+    
+}
+
+/* Darken the image on hover */
+.station-card:hover .station-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% opacity */
+    border-radius: 3px;
+    
+    
+    
+    
+}
+
+.station-image {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 3px;
+    transform: translateX(5px);
+    
+    
+}
+
+
+.station-card:hover .station-image {
+    opacity: 0.4; 
+    
 }
 
 /* Overlay Icon */
@@ -388,6 +423,8 @@
     justify-content: center;
     align-items: center;
     opacity: 0;
+    transform: translateX(3px);
+   
 }
 
 .station-card:hover .overlay-icon {
@@ -402,13 +439,6 @@
     transform: translateX(-113px);
 }
 
-/* Image Size */
-.station-image {
-    width: 48px;
-    height: 48px;
-    object-fit: cover;
-    border-radius: 3px;
-}
 
 .station-info {
     display: flex;
@@ -496,7 +526,7 @@
     background-color: #121212;
     width: 64px;
     margin-top: 30px;
-    transform: translateX(-8px);
+    transform: translateX(-10px);
 }
 
 .library-list-wrapper {
@@ -565,7 +595,8 @@
 }
 
 .collapsed {
-    transform: translateY(-11px);
+    transform: translateY(-15px);
+
 }
 
 .create-playlist,
