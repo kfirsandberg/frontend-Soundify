@@ -26,23 +26,30 @@ export function Signup() {
 
     async function onSignup(ev = null) {
         if (ev) ev.preventDefault();
-
+    
         if (!credentials.username || !credentials.password) {
             setError('Please provide both a username and password.');
             return;
         }
-
+    
         setLoading(true); // Show loading spinner
-
+    
         try {
             await signup(credentials);
             setLoading(false);
             setSuccess(true); // Show success message
             clearState(); // Clear form on successful signup
-            // setTimeout(() => navigate('/'), 2000); // Redirect after a short delay to show success
+            navigate('/')
         } catch (err) {
             setLoading(false);
-            setError(err.response ? err.response.data : 'Failed to sign up. Please try again.');
+            navigate('/')
+    
+            // Handle error message properly
+            const errorMessage = err.response && err.response.data
+                ? err.response.data.message || 'Failed to sign up. Please try again.'
+                : 'Failed to sign up. Please try again.';
+    
+            setError(errorMessage); // Ensure it's a string message
         }
     }
 
@@ -75,7 +82,7 @@ export function Signup() {
             {success && <div className="success">Signup successful! Redirecting...</div>}
 
             {/* Show loading spinner */}
-            {loading ? <div>Loading...</div> : <button type="submit">Signup</button>}
+            {loading ? <div>Loading...</div> : <button className='submit-btn' type="submit">Signup</button>}
         </form>
     );
 }

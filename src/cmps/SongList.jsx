@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { loadSong, setIsPlaying, updateStation } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation, loadStationByName, addStation } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { useSelector } from 'react-redux'
+import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
 
-export function SongList({ station }) {
+export function SongList() {
+    const currentStation = useSelector(state => state.stationModule.station)
     const [hoveredIndex, setHoveredIndex] = useState(null)
     const [activeIndex, setActiveIndex] = useState(null)
     const [playingIndex, setPlayingIndex] = useState(null)
-    const [currStation, setCurrStation] = useState(station)
-    const [songs, setSongs] = useState(station.songs)
-    const stations = useSelector(storeState => storeState.stationModule.stations)
-    const likedSongsStation = stations.find(s => s.name === 'Liked Songs') || {}
+    const [currStation, setCurrStation] = useState(currentStation)
+    const [songs, setSongs] = useState(currentStation.songs)
 
     useEffect(() => {
-        setSongs(station.songs)
-        setCurrStation(station)
+        setSongs(currentStation.songs)
+        setCurrStation(currentStation)
 
-    }, [station._id])
+    }, [currentStation._id])
 
     useEffect(() => {
         setSongs()
@@ -42,32 +42,31 @@ export function SongList({ station }) {
         setPlayingIndex(null)
     }
 
-    async function toggleLike(song) {
-        const likedSongs = likedSongsStation.songs || []
+    async function toggleLike(song, stationName = 'Liked Songs') {
+        try {
+            const existingSong = await getSongById(song.id);
+            let likedSongsStation = await loadStationByName(stationName);
 
-        const isLiked = likedSongs.some(s => s.id === song.id)
-        const updatedSong = { ...song, liked: !isLiked }
-
-        const updatedLikedSongs = isLiked
-            ? likedSongs.filter(s => s.id !== song.id)
-            : [...likedSongs, updatedSong]
-
-        await updateStation({
-            ...likedSongsStation,
-            songs: updatedLikedSongs
-        })
-
-        if (currStation.name === 'Liked Songs') {
-            setSongs(updatedLikedSongs)
-        } else {
-            const updatedCurrStation = {
-                ...currStation,
-                songs: currStation.songs.map(s =>
-                    s.id === song.id ? updatedSong : s
-                )
+            if (!likedSongsStation) {
+                console.log(`Station ${stationName} does not exist. Creating it...`);
+                const newStation = { name: stationName };
+                likedSongsStation = await addStation(newStation);
             }
-            await updateStation(updatedCurrStation)
-            setCurrStation(updatedCurrStation)
+
+            if (existingSong) {
+                await removeSong(song, stationName);
+                console.log(`Song removed from ${stationName}`);
+                likedSongsStation.songs = likedSongsStation.songs.filter(s => s.id !== song.id);
+
+            } else {
+                await addSong(song, stationName);
+                console.log(`Song added to ${stationName}`);
+                likedSongsStation.songs.push(song);
+            }
+
+            await updateStation(likedSongsStation);
+        } catch (error) {
+            console.error('Error toggling like:', error);
         }
     }
 
@@ -86,8 +85,8 @@ export function SongList({ station }) {
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
-            <section className="song-list" style={{  borderRadius: '8px',  marginRight: 40 }}>
-                <Box 
+            <section className="song-list" style={{ borderRadius: '8px', marginRight: 40 }}>
+                <Box
                     sx={{
                         display: 'grid',
                         gridTemplateRows: 'auto 1fr',
@@ -96,13 +95,13 @@ export function SongList({ station }) {
                     }}
                 >
                     {/* Header row */}
-                    <Box 
+                    <Box
                         sx={{
                             gridArea: 'nav',
                             display: 'grid',
                             gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
                             gridGap: 1,
-                          
+
                             '@media (max-width: 768px)': {
                                 gridTemplateColumns: 'auto 1fr',
                                 gridTemplateRows: 'auto auto auto',
@@ -148,204 +147,203 @@ export function SongList({ station }) {
 
                     {/* Song list */}
                     <Droppable droppableId="songs">
-                        {provided => (
-                            <Box
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                                sx={{ gridArea: 'songs', marginTop: 0 }}
-                            >
-                                <hr style={{ opacity: 0.2 }} />
-                                {songs.map((song, idx) => (
-                                    <Draggable key={song.id} draggableId={song.id} index={idx} >
-                                        {(provided, snapshot) => (
-                                            <Box
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                className="song-item"
-                                                sx={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    borderRadius: 1,
-                                                    padding: '3px 12px',
-                                                    marginTop : '15px',
-                                                    marginBottom: 1,
-                                                    cursor: 'pointer',
-                                                    width: '100%',
-                                                    backgroundColor:
-                                                        activeIndex === idx
+                        {provided => {
+                            return (
+                                <Box
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                    sx={{ gridArea: 'songs', marginTop: 0 }}
+                                >
+                                    <hr style={{ opacity: 0.2 }} />
+                                    {currentStation.songs.map((song, idx) => (
+                                        <Draggable key={song.id} draggableId={song.id} index={idx}>
+                                            {(provided, snapshot) => (
+                                                <Box
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                    className="song-item"
+                                                    sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        borderRadius: 1,
+                                                        padding: '3px 12px',
+                                                        marginTop: '15px',
+                                                        marginBottom: 1,
+                                                        cursor: 'pointer',
+                                                        width: '100%',
+                                                        backgroundColor: activeIndex === idx
                                                             ? 'rgba(144, 144, 144, 0.6)'
                                                             : snapshot.isDragging
                                                                 ? 'rgba(144, 144, 144, 0.3)'
                                                                 : 'inherit',
-                                                    '&:hover': { backgroundColor: 'rgba(144, 144, 144, 0.2)' },
-                                                }}
-                                                onMouseEnter={() => setHoveredIndex(idx)}
-                                                onMouseLeave={() => setHoveredIndex(null)}
-                                            >
-                                                <Box
-                                                    sx={{
-                                                        display: 'flex',
-                                                        justifyContent: 'center',
-                                                        alignItems: 'center',
-                                                        width: '40px',
-                                                        marginLeft: '-1.5em',
+                                                        '&:hover': { backgroundColor: 'rgba(144, 144, 144, 0.2)' },
                                                     }}
+                                                    onMouseEnter={() => setHoveredIndex(idx)}
+                                                    onMouseLeave={() => setHoveredIndex(null)}
                                                 >
-                                                    {activeIndex === idx &&
-                                                        playingIndex === idx &&
-                                                        hoveredIndex === idx ? (
-                                                        <IconButton
-                                                            onClick={handlePauseClick}
-                                                            sx={{ marginLeft: 4, color: 'white' }}
-                                                            title="pause"
-                                                        >
-                                                            <Pause />
-                                                        </IconButton>
-                                                    ) : activeIndex === idx && playingIndex === idx ? (
-                                                        <img
-                                                            src={playingGif}
-                                                            alt="Playing"
-                                                            className="playing-gif"
-                                                            style={{ width: '14px', height: '14px' }}
-                                                        />
-                                                    ) : hoveredIndex === idx ? (
-                                                        <IconButton
-                                                            onClick={() => handlePlayClick(song.id, idx)}
-                                                            sx={{
-                                                                marginLeft: 4,
-                                                                width: '14px',
-                                                                height: '14px',
-                                                                color: 'white',
-                                                            }}
-                                                            title={`Play ${song.title} by ${song.artist}`}
-                                                        >
-                                                            <PlayArrow />
-                                                        </IconButton>
-                                                    ) : (
-                                                        <Typography
-                                                            variant="body2"
-                                                            sx={{
-                                                                marginLeft: 4,
-                                                                color: 'white',
-                                                                opacity: 0.7,
-                                                                color: activeIndex === idx ? '#1ed760' : 'white',
-                                                            }}
-                                                        >
-                                                            {idx + 1}
-                                                        </Typography>
-                                                    )}
-                                                </Box>
-
-                                                {/* Song details */}
-                                                <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
-                                                    <Box
-                                                        component="img"
-                                                        src={song.imgURL}
-                                                        alt={`${song.title} cover`}
-                                                        sx={{
-                                                            width: 40,
-                                                            height: 40,
-                                                            borderRadius: 1,
-                                                            objectFit: 'cover',
-                                                        }}
-                                                    />
                                                     <Box
                                                         sx={{
                                                             display: 'flex',
-                                                            flexDirection: 'column',
-                                                            marginLeft: '20px' ,
+                                                            justifyContent: 'center',
+                                                            alignItems: 'center',
+                                                            width: '40px',
+                                                            marginLeft: '-1.5em',
                                                         }}
                                                     >
-                                                        <Typography
-                                                            variant="body1"
+                                                        {activeIndex === idx &&
+                                                            playingIndex === idx &&
+                                                            hoveredIndex === idx ? (
+                                                            <IconButton
+                                                                onClick={handlePauseClick}
+                                                                sx={{ marginLeft: 4, color: 'white' }}
+                                                                title="pause"
+                                                            >
+                                                                <Pause />
+                                                            </IconButton>
+                                                        ) : activeIndex === idx && playingIndex === idx ? (
+                                                            <img
+                                                                src={playingGif}
+                                                                alt="Playing"
+                                                                className="playing-gif"
+                                                                style={{ width: '14px', height: '14px' }} />
+                                                        ) : hoveredIndex === idx ? (
+                                                            <IconButton
+                                                                onClick={() => handlePlayClick(song.id, idx)}
+                                                                sx={{
+                                                                    marginLeft: 4,
+                                                                    width: '14px',
+                                                                    height: '14px',
+                                                                    color: 'white',
+                                                                }}
+                                                                title={`Play ${song.title} by ${song.artist}`}
+                                                            >
+                                                                <PlayArrow />
+                                                            </IconButton>
+                                                        ) : (
+                                                            <Typography
+                                                                variant="body2"
+                                                                sx={{
+                                                                    marginLeft: 4,
+                                                                    color: 'white',
+                                                                    opacity: 0.7,
+                                                                    color: activeIndex === idx ? '#1ed760' : 'white',
+                                                                }}
+                                                            >
+                                                                {idx + 1}
+                                                            </Typography>
+                                                        )}
+                                                    </Box>
+
+                                                    {/* Song details */}
+                                                    <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
+                                                        <Box
+                                                            component="img"
+                                                            src={song.imgURL}
+                                                            alt={`${song.title} cover`}
                                                             sx={{
-                                                                fontWeight: 600,
-                                                                cursor: 'pointer',
-                                                                color: activeIndex === idx ? '#1ed760' : 'white',
-                                                                '&:hover': {
-                                                                    textDecoration: 'underline',
-                                                                },
+                                                                width: 40,
+                                                                height: 40,
+                                                                borderRadius: 1,
+                                                                objectFit: 'cover',
+                                                            }} />
+                                                        <Box
+                                                            sx={{
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                marginLeft: '20px',
                                                             }}
-                                                            title={` ${song.title}`}
                                                         >
-                                                            {song.title}
-                                                        </Typography>
+                                                            <Typography
+                                                                variant="body1"
+                                                                sx={{
+                                                                    fontWeight: 600,
+                                                                    cursor: 'pointer',
+                                                                    color: activeIndex === idx ? '#1ed760' : 'white',
+                                                                    '&:hover': {
+                                                                        textDecoration: 'underline',
+                                                                    },
+                                                                }}
+                                                                title={` ${song.title}`}
+                                                            >
+                                                                {song.title}
+                                                            </Typography>
+                                                            <Typography
+                                                                variant="body2"
+                                                                sx={{
+                                                                    cursor: 'pointer',
+                                                                    color: 'rgba(255, 255, 255, 0.7)',
+                                                                    '&:hover': {
+                                                                        color: 'white',
+                                                                        textDecoration: 'underline',
+                                                                    },
+                                                                }}
+                                                                title={` ${song.artist}`}
+                                                            >
+                                                                {song.artist}
+                                                            </Typography>
+                                                        </Box>
+                                                    </Box>
+
+                                                    {/* Album and Duration columns */}
+                                                    <Box
+                                                        sx={{
+                                                            display: 'flex',
+                                                            justifyContent: 'space-between',
+                                                            marginLeft: 'auto',
+                                                            width: '50%',
+                                                        }}
+                                                    >
                                                         <Typography
                                                             variant="body2"
                                                             sx={{
+                                                                textAlign: 'left',
+                                                                color: 'rgba(255, 255, 255, 0.6)',
+                                                                marginRight: 10,
+                                                                marginLeft: -3,
                                                                 cursor: 'pointer',
-                                                                color: 'rgba(255, 255, 255, 0.7)',
                                                                 '&:hover': {
-                                                                    color: 'white',
                                                                     textDecoration: 'underline',
                                                                 },
                                                             }}
-                                                            title={` ${song.artist}`}
+                                                            title={` ${song.album}`}
                                                         >
-                                                            {song.artist}
+                                                            {song.album}
+                                                        </Typography>
+                                                        <button onClick={() => toggleLike(song)} title={song.liked ? "Remove from liked songs" : "Add to liked songs"}
+                                                            className="liked-songs-btn">
+                                                            {song.liked ? (
+                                                                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 16 16"
+                                                                    className='liked-icon'
+                                                                >
+                                                                    <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z" />
+                                                                </svg>
+                                                            ) : (
+                                                                <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 24 24"
+                                                                    className='not-liked-icon'
+                                                                >
+                                                                    <path d="M11.999 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm-11 9c0-6.075 4.925-11 11-11s11 4.925 11 11-4.925 11-11 11-11-4.925-11-11z" />
+                                                                    <path d="M17.999 12a1 1 0 0 1-1 1h-4v4a1 1 0 1 1-2 0v-4h-4a1 1 0 1 1 0-2h4V7a1 1 0 1 1 2 0v4h4a1 1 0 0 1 1 1z" />
+                                                                </svg>
+                                                            )}
+                                                        </button>
+
+
+                                                        <Typography
+                                                            variant="body2"
+                                                            sx={{ color: 'rgba(255, 255, 255, 0.6)', marginLeft: -3 }}
+                                                        >
+                                                            {song.duration}
                                                         </Typography>
                                                     </Box>
                                                 </Box>
-
-                                                {/* Album and Duration columns */}
-                                                <Box
-                                                    sx={{
-                                                        display: 'flex',
-                                                        justifyContent: 'space-between',
-                                                        marginLeft: 'auto',
-                                                        width: '50%',
-                                                    }}
-                                                >
-                                                    <Typography
-                                                        variant="body2"
-                                                        sx={{
-                                                            textAlign: 'left',
-                                                            color: 'rgba(255, 255, 255, 0.6)',
-                                                            marginRight: 10,
-                                                            marginLeft: -3,
-                                                            cursor: 'pointer',
-                                                            '&:hover': {
-                                                                textDecoration: 'underline',
-                                                            },
-                                                        }}
-                                                        title={` ${song.album}`}
-                                                    >
-                                                        {song.album}
-                                                    </Typography>
-                                                    <button onClick={() => toggleLike(song)} title={song.liked ? "Remove from liked songs" : "Add to liked songs"}
-                                                        className="liked-songs-btn">
-                                                        {song.liked ? (
-                                                            <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 16 16"
-                                                                className='liked-icon'
-                                                            >
-                                                                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z" />
-                                                            </svg>
-                                                        ) : (
-                                                            <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 24 24"
-                                                                className='not-liked-icon'
-                                                            >
-                                                                <path d="M11.999 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm-11 9c0-6.075 4.925-11 11-11s11 4.925 11 11-4.925 11-11 11-11-4.925-11-11z" />
-                                                                <path d="M17.999 12a1 1 0 0 1-1 1h-4v4a1 1 0 1 1-2 0v-4h-4a1 1 0 1 1 0-2h4V7a1 1 0 1 1 2 0v4h4a1 1 0 0 1 1 1z" />
-                                                            </svg>
-                                                        )}
-                                                    </button>
-
-
-                                                    <Typography
-                                                        variant="body2"
-                                                        sx={{ color: 'rgba(255, 255, 255, 0.6)', marginLeft: -3 }}
-                                                    >
-                                                        {song.duration}
-                                                    </Typography>
-                                                </Box>
-                                            </Box>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </Box>
-                        )}
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </Box>
+                            )
+                        }}
                     </Droppable>
                 </Box>
             </section>
