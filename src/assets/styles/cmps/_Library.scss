@@ -500,7 +500,7 @@
     grid-template-rows: auto 1fr;
     height: 100%;
     overflow: hidden;
-    margin-left: 0.7em;
+    
 }
 
 .library-content- {
@@ -513,6 +513,8 @@
     width: 64px;
     height: 100%;
     overflow: hidden;
+    width: 100%;
+    margin-left: 5px;
     display: grid;
     grid-template-rows: auto 1fr;
 }
@@ -527,6 +529,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+    
 
     background-color: #121212;
     max-width: 64px;
@@ -632,6 +636,12 @@
     p {
         color: $spotify-gray;
     }
+}
+
+.library-ul{
+    margin-top: 20px;
+    margin-left: 5px;
+    transform: translateX(-10px);
 }
 
 .hamburger-btn:hover .selected-sort,

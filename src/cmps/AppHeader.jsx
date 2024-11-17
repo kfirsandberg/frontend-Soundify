@@ -1,20 +1,74 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom'
+import { store } from '../store/store.js'
+import { userService } from '../services/user/user.service.remote.js'
+import { useSelector, useDispatch } from 'react-redux';
 
 export function AppHeader() {
     const [focused, setFocused] = useState(false)
+    const [showModal, setShowModal] = useState(false)
     const inputWrapperRef = useRef(null)
-    const params = useParams()
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const location = useLocation()
-
     const isHomePage = location.pathname === '/'
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    
 
-    const navigate = useNavigate();
 
-    const handleUserClick = () => {
-        navigate('/LoginSignup'); // Navigate to LoginSignup page
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            const token = localStorage.getItem('authToken');  // If you used localStorage
+            const user = JSON.parse(localStorage.getItem('loggedInUser')); // If you used localStorage
+
+            // console.log('Token from storage:', token)
+            // console.log('User from storage:', user)
+
+
+            if (!token || !user) {
+                setIsLoggedIn(false);
+                return;
+            }
+
+            try {
+                const response = await userService.validateToken(token);  // Validate the token with the server
+                console.log('Token validation response:', response);  // Log the response for debugging
+
+
+                setIsLoggedIn(response.isLoggedIn)
+            } catch (err) {
+                console.error('Error checking login status', err)
+                setIsLoggedIn(false)
+            }
+        }
+
+        checkLoginStatus() // Call the checkLoginStatus function on component mount
+    }, [])
+
+
+
+    const handleLogout = async () => {
+        
+        try {
+            await userService.logout();  // Call your logout service
+            localStorage.removeItem('authToken') // Remove the token from localStorage
+            localStorage.removeItem('loggedInUser')  // Remove the token from localStorage
+            setIsLoggedIn(false) // Update the login status
+            setShowModal(false) // Optionally close modal after logout
+            socketService.logout() // Log out from the socket
+            navigate('/') // Redirect to the homepage or login page
+        } catch (err) {
+            console.error('Logout failed', err)
+        }
     };
 
+    const handleUserClick = () => {
+        if (isLoggedIn) {
+            setShowModal(true);  // Show logout modal when logged in
+        } else {
+            navigate('/LoginSignup') // Navigate to login/signup if not logged in
+        }
+    };
 
     function handleFocus() {
         setFocused(true)
@@ -144,14 +198,29 @@ export function AppHeader() {
                         />
                     </svg>
                 </button>
-                <button
-                    className="header-icon-btn"
-                    title="User Name"
-                    onClick={handleUserClick}
-                >
+                <button className="header-icon-btn" title="User Name" onClick={handleUserClick}>
                     <img src="/assets/user.svg" alt="User Icon" className="header-icon" />
                 </button>
             </div>
+
+            {/* Logout Modal */}
+            {showModal && (
+                <div className="logout-modal" style={{ zIndex: 4 }}>
+                    <div className="modal-content">
+                        <p>Are you sure you want to log out?</p>
+                        <button onClick={handleLogout}>Log Out</button>
+                        <button onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            )}
         </header>
     )
 }
+
+
+
+
+
+// ///////////////////////////////////////////////////////////////////////////////////
+
+

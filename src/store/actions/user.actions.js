@@ -29,16 +29,24 @@ export async function removeUser(userId) {
 
 export async function login(credentials) {
     try {
-        const user = await userService.login(credentials)
+        const user = await userService.login(credentials);
+        const token = user.token;  // Assuming the user object contains the token
+
+        // Save token and user to localStorage
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+
+        // Dispatch the user to the store
         store.dispatch({
             type: SET_USER,
-            user
-        })
-        socketService.login(user._id)
-        return user
+            user: { ...user, token },
+        });
+
+        socketService.login(user._id);
+        return user;
     } catch (err) {
-        console.log('Cannot login', err)
-        throw err
+        console.error('Cannot login:', err);
+        throw err;
     }
 }
 
