@@ -7,6 +7,7 @@ import { stationLocalService } from '../services/station/station.service.local.j
 
 export function SearchDetails() {
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
+    
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const [currentSong, setCurrentSong] = useState(null);
 
@@ -20,12 +21,16 @@ export function SearchDetails() {
 
     useEffect(() => {
         if (!contextMenu) return
-    
         document.addEventListener('click', handleClickOutside);
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, [contextMenu]);
+
+    useEffect(()=>{
+        console.log(searchedSongs)
+
+    },[searchedSongs])
 
     function onStationClick(station) {
         console.log('Station clicked:', station);
@@ -59,13 +64,13 @@ export function SearchDetails() {
         setCurrentSong(song)
     }
 
-    function handleOutsideClick(event) {
-        if (!contextMenu || !contextMenuRef.current) return;
-        if (!contextMenuRef.current.contains(event.target)) {
-            console.log('Clicked outside, closing context menu.');
-            closeContextMenu();
-        }
-    }
+    // function handleOutsideClick(event) {
+    //     if (!contextMenu || !contextMenuRef.current) return;
+    //     if (!contextMenuRef.current.contains(event.target)) {
+    //         console.log('Clicked outside, closing context menu.');
+    //         closeContextMenu();
+    //     }
+    // }
 
 
 

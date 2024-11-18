@@ -82,7 +82,6 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
             <div className="sort-buttons">
                 <button onClick={() => setSortBy('playlists')}>Playlists</button>
                 <button onClick={() => setSortBy('A')}>Artists</button>
-                <button onClick={() => setSortBy('artists')}>Albums</button>
             </div>
 
             <div className="search-and-menu">

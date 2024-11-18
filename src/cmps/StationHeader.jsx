@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Box, Button, Typography, IconButton, Modal, TextField, Grid, Avatar } from '@mui/material'
+import { setIsPlaying, loadSong } from '../store/actions/station.actions.js'
 import EditIcon from '@mui/icons-material/Edit'
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
 import userIcon from '../../public/assets/user.svg'
 import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
+import { useSelector, useDispatch } from 'react-redux'
 import{stationLocalService} from '../services/station/station.service.local.js'
 
 export function StationHeader({ station }) {
@@ -14,6 +16,9 @@ export function StationHeader({ station }) {
     const [openFileUpload, setOpenFileUpload] = useState(false)
     const totalDuration= stationLocalService.calculateTotalDuration(station.songs)
     
+
+    const dispatch = useDispatch()
+
     function onEditStation() {
         setOpenFileUpload(false)
         setIsModalOpen(true)
@@ -30,6 +35,20 @@ export function StationHeader({ station }) {
 
     function handleImageUpload(url) {
         setUpdatedImgURL(url)
+    }
+
+
+    function handlePlayFirstSong() {
+        if (station.songs && station.songs.length > 0) {
+            const firstSongId = station.songs[0].id;  // Assuming 'id' is the identifier for the song
+            console.log("Playing first song with ID:", firstSongId);
+
+            // Dispatch the action to load the song and set it as playing
+            dispatch(loadSong(firstSongId))  // Assuming loadSong triggers the appropriate Redux logic to load the song
+            dispatch(setIsPlaying(true))  // Set the player as playing
+        } else {
+            console.log('No songs found in station')
+        }
     }
 
     return (
@@ -56,9 +75,8 @@ export function StationHeader({ station }) {
                         minHeight: 128, // Prevents the image from becoming too small
                         maxWidth: 232,
                         maxHeight: 232,
-
-                        '&:hover .overlay, &:hover .edit-icon-button': {
-                            opacity: 1, // Show overlay and icon button on hover
+                        '&:hover .overlay, &:hover .edit-icon-button, &:hover .choose-photo-text': {
+                            opacity: 1, // Show overlay, icon, and text on hover
                         },
                     }}
                 >
@@ -90,7 +108,8 @@ export function StationHeader({ station }) {
                             height: '100%',
                             backgroundColor: 'rgba(0,0,0,0.6)',
                             borderRadius: 1,
-                            opacity: 0,
+                            opacity: 0, // Initially hidden
+                            transition: 'opacity 0.3s ease',
                         }}
                     />
 
@@ -105,12 +124,29 @@ export function StationHeader({ station }) {
                             transform: 'translate(-50%, -50%)',
                             color: 'white',
                             opacity: 0, // Initially hidden
-
                             zIndex: 1, // Ensure the icon is above the overlay
+                            transition: 'opacity 0.3s ease',
                         }}
                     >
                         <EditIcon sx={{ fontSize: 70 }} /> {/* Larger icon size */}
                     </IconButton>
+
+                    {/* Choose Photo Text */}
+                    <Box
+                        className="choose-photo-text"
+                        sx={{
+                            position: 'absolute',
+                            top: '70%', // Adjust based on where you want the text
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            color: 'white',
+                            fontSize: '16px',
+                            opacity: 0, // Initially hidden
+                            
+                        }}
+                    >
+                        Choose photo
+                    </Box>
                 </Box>
 
                 {/* Playlist Info */}
@@ -182,8 +218,9 @@ export function StationHeader({ station }) {
 
             {/* Playlist Actions */}
             <Box className="playlist-actions"
-                sx={{ display: 'flex', gap: 5 }}>
+                sx={{ display: 'flex', gap: 3 }}>
                 <button
+                    className="station-play-btn"
                     style={{
                         color: '#1ed760',
                         fontSize: '3rem',
@@ -191,13 +228,13 @@ export function StationHeader({ station }) {
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
-                        marginLeft:20
+                        marginLeft: 5,
                     }}
+                    onClick={handlePlayFirstSong} // Add the play logic to this button
                 >
                     <PlayCircleFilledIcon style={{ fontSize: '66px' }} />
                 </button>
 
-                
                 <button
                     style={{
                         color: 'white',
@@ -205,9 +242,12 @@ export function StationHeader({ station }) {
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
+                        opacity: 0.6,
+                        
+                        
                     }}
                 >
-                    <MoreHoriz />
+                    <MoreHoriz style={{ fontSize: '30px' }} />
                 </button>
                 <button
                     style={{
@@ -216,11 +256,22 @@ export function StationHeader({ station }) {
                         border: 'none',
                         boxShadow: 'none',
                         cursor: 'pointer',
+                        display: 'flex', // Use flexbox inside the button
+                        alignItems: 'center', // Vertically align items
+                        padding: '5px 10px', // Add padding to the button
+                        opacity: 0.6,
+                        color: 'white',
+                        fontSize: 16
                     }}
                     onMouseOver={(e) => (e.currentTarget.style.fill = '#121212')}
                     onMouseOut={(e) => (e.currentTarget.style.fill = '')}
                 >
-                    <img src={HamburgerIcon} alt="Sort Icon" style={{ width: '20px', height: '20px', marginRight: 20 }} />
+                    <span style={{ marginRight: '10px' }}>List</span> {/* Text inside the button */}
+                    <img
+                        src={HamburgerIcon}
+                        alt="Sort Icon"
+                        style={{ width: '20px', height: '20px' }} // Adjust icon size
+                    />
                 </button>
             </Box>
 

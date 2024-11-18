@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Scrollbar } from 'react-scrollbars-custom'
-import { stationLocalService } from '../services/station/station.service.local'
-import { loadStation, removeStation, loadStations } from '../store/actions/station.actions.js'
+import { loadStation, removeStation, loadStations, setIsPlaying, loadSong } from '../store/actions/station.actions.js'
 import loaderIcon from '/assets/loader.svg'
-import { useSelector } from 'react-redux'
+import { useSelector, } from 'react-redux'
 import { DeleteStationModal } from './DeleteStationModal';
+
+
 
 
 import { showSuccessMsg } from '../services/event-bus.service.js'
 
-export function LibraryList({ filterCriteria,  sortBy = 'Recents', isCollapsed }) {
+export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const navigate = useNavigate()
+
 
     const contextMenuRef = useRef(null)
 
@@ -20,6 +21,7 @@ export function LibraryList({ filterCriteria,  sortBy = 'Recents', isCollapsed }
     const [loading, setLoading] = useState(true)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedStation, setSelectedStation] = useState(null);
+    const [currentStation, setCurrentStation] = useState(null)
 
     const [filteredStations, setFilteredStations] = useState([])
 
@@ -32,38 +34,61 @@ export function LibraryList({ filterCriteria,  sortBy = 'Recents', isCollapsed }
         }
     }, [])
 
+    function handlePlayFirstSong(station) {
+        // console.log('Playing first song from station:', station)
+
+        if (station.songs && station.songs.length > 0) {
+            const firstSong = station.songs[0]
+            const firstSongId = firstSong.id
+            console.log('First song ID:', firstSongId)
+
+            if (firstSongId) {
+                loadSong(firstSongId)
+                setIsPlaying(true)
+            } else {
+                console.log('First song does not have a valid ID')
+            }
+        } else {
+            console.log('No songs found in station')
+        }
+    }
+
+
+
+
     useEffect(() => {
         updateFilteredStations()
-    }, [stations, filterCriteria, sortBy]) 
+    }, [stations, filterCriteria, sortBy])
 
     function updateFilteredStations() {
-        try {   let filtered = stations || []
+        try {
+            let filtered = stations || []
 
 
-        if (stations && filterCriteria) {
-            filtered = stations.filter(station =>
-                station.name.toLowerCase().includes(filterCriteria.toLowerCase())
-            )
+            if (stations && filterCriteria) {
+                filtered = stations.filter(station =>
+                    station.name.toLowerCase().includes(filterCriteria.toLowerCase())
+                )
+            }
+
+            switch (sortBy) {
+                case 'Recents':
+                    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                    break
+                case 'Recently Added':
+                    filtered.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt))
+                    break
+                case 'Alphabetical':
+                    filtered.sort((a, b) => a.name.localeCompare(b.name))
+                    break
+                default:
+                    break
+            }
+
+            setFilteredStations(filtered)
+        } catch (err) {
+            console.error('Error in updateFilteredStations:', err)
         }
-
-        switch (sortBy) {
-            case 'Recents':
-                filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                break
-            case 'Recently Added':
-                filtered.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt))
-                break
-            case 'Alphabetical':
-                filtered.sort((a, b) => a.name.localeCompare(b.name))
-                break
-            default:
-                break
-        }
-
-        setFilteredStations(filtered)
-    } catch (err) {
-        console.error('Error in updateFilteredStations:', err)
-    }
     }
 
 
@@ -74,11 +99,13 @@ export function LibraryList({ filterCriteria,  sortBy = 'Recents', isCollapsed }
     }
 
     function onClickStation(station) {
+        setCurrentStation(station._id) 
         navigate(`/playlist/${station._id}`);
         loadStation(station._id);
+        handlePlayFirstSong(station);
     }
 
-  
+
 
     function handleContextMenu(ev, station) {
         ev.preventDefault()
@@ -112,6 +139,8 @@ export function LibraryList({ filterCriteria,  sortBy = 'Recents', isCollapsed }
         }
     }
 
+
+
     if (loading) {
         return (
             // <div>
@@ -139,7 +168,14 @@ export function LibraryList({ filterCriteria,  sortBy = 'Recents', isCollapsed }
                         <img src={station.imgURL} alt={station.name} className="station-image" />
                         {!isCollapsed && (
                             <div className="station-info">
-                                <h3 className="station-name">{station.name}</h3>
+                                <h3
+                                    className="station-name"
+                                    style={{
+                                        color: currentStation === station._id ? '#1ed760' : '', // Change color if active
+                                    }}
+                                >
+                                    {station.name}
+                                </h3>
                                 <div className="station-details">
                                     <h3 className="station-kind">Playlist</h3>
                                     <span className='dot'>.</span>
@@ -147,7 +183,7 @@ export function LibraryList({ filterCriteria,  sortBy = 'Recents', isCollapsed }
                                 </div>
                             </div>)}
                         {/* SVG Icon overlay */}
-                        <div className="overlay-icon">
+                        <div className="overlay-icon" onClick={() => handlePlayFirstSong(station)}>
                             <img src="/assets/lib_player_btn.svg" alt="Play" />
                         </div>
                     </li>

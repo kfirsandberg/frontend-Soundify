@@ -29,6 +29,7 @@ export function RootCmp() {
     // Toggle the library route active state
     const toggleLibraryActive = () => setIsLibraryActive(prev => !prev)
     const stations = useSelector(storeState => storeState.stationModule.stations)
+    console.log(stations)
     const bgColor = useSelector(storeState => storeState.stationModule.bgColor)
 
     useEffect(() => {
@@ -63,7 +64,7 @@ export function RootCmp() {
                 <div
                     style={{
                         background: `linear-gradient(to top, #121212 80%,  rgba(18, 18, 18, 0) 100%)`,
-                        height :'100%'
+                    
                     }}
                 >
                     <Routes>

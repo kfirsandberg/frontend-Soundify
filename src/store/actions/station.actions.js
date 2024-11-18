@@ -1,4 +1,6 @@
 import { stationLocalService } from '../../services/station/station.service.local.js'
+import { stationService } from '../../services/station/'
+
 import { searchSongs } from '../../services/search/search.service.js'
 import { store } from '../store.js'
 import {
@@ -17,22 +19,22 @@ import {
 } from '../reducers/station.reducer'
 
 
-export async function search(query) {
-    try {
-        const searchedSongs=await searchSongs(query)
-        store.dispatch(getCmdSongs(searchedSongs))
-        return searchedSongs
+export async function loadStations(filterBy) {
+    try {        
+        const stations = await  stationService.query()
+        store.dispatch(getCmdSetStations(stations.data))
     } catch (err) {
         console.log('Cannot load stations', err)
         throw err
     }
 }
 
-export async function loadStations(filterBy) {
+
+export async function search(query) {
     try {
-        // const stations = await stationService.query(filterBy)
-        const stations = await stationLocalService.query()
-        store.dispatch(getCmdSetStations(stations))
+        const searchedSongs=await searchSongs(query)
+        store.dispatch(getCmdSongs(searchedSongs))
+        return searchedSongs
     } catch (err) {
         console.log('Cannot load stations', err)
         throw err
@@ -190,7 +192,7 @@ export async function setCurrentStation(stationIdOrName) {
         const station = await stationLocalService.getById(stationIdOrName) || 
                         await stationLocalService.getStationByName(stationIdOrName);
 
-        if (!station) {
+        if (!station || !station.songs || station.songs.length === 0 ) {
             console.log(`Station not found: ${stationIdOrName}`);
             return;
         }
@@ -206,7 +208,7 @@ export async function setCurrentStation(stationIdOrName) {
 
 
 // Command Creators:
-function getCmdSetStations(stations) {
+ function getCmdSetStations(stations) {
     return {
         type: SET_STATIONS,
         stations,
@@ -302,3 +304,5 @@ async function unitTestActions() {
     })
     await removeStation('m1oC7')
 }
+
+export { getCmdSetSong }
