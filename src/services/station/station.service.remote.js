@@ -38,10 +38,7 @@ function getEmptyStation(name,stationSubtitle=''){
         _id,
         stationSubtitle
     }
-
-
 }
-
 
 
 

@@ -17,9 +17,9 @@ export function LastStations({ stations }) {
     }
 
     async function onHoverStation(station) {
-        if (station.imgURL) {
+        if (station.images[0].url) {
             try {
-                const color = await fac.getColorAsync(station.imgURL)
+                const color = await fac.getColorAsync(station.images[0].url)
                 dispatch(setBgColor(color.rgb)) // Dispatch color to update background
             } catch (error) {
                 console.error('Error fetching average color:', error)

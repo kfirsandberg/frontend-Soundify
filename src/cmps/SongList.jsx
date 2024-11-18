@@ -9,7 +9,6 @@ import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.ac
 
 export function SongList() {
     const currentStation = useSelector(state => state.stationModule.station);
-    console.log(currentStation.tracks)
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
@@ -25,8 +24,8 @@ export function SongList() {
         setSongs(currStation.songs);
     }, [currStation.songs]);
 
-    function handlePlayClick(songId, index) {
-        loadSong(songId);
+    function handlePlayClick(song, index) {
+        loadSong(song);
         setIsPlaying(true);
         setActiveIndex(index);
         setPlayingIndex(index);
@@ -202,7 +201,7 @@ export function SongList() {
                                                                 style={{ width: '14px', height: '14px' }} />
                                                         ) : hoveredIndex === idx ? (
                                                             <IconButton
-                                                                onClick={() => handlePlayClick(song.track.id, idx)}
+                                                                onClick={() => handlePlayClick(song, idx)}
                                                                 sx={{
                                                                     marginLeft: 4,
                                                                     width: '14px',

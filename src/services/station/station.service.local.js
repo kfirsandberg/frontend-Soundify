@@ -1,4 +1,5 @@
 import { storageService } from '../async-storage.service'
+import { searchSongs } from '../search/search.service'
 import { loadFromStorage, saveToStorage, makeId } from '../util.service'
 
 const STORAGE_KEY = 'station'
@@ -17,6 +18,7 @@ export const stationLocalService = {
     addSongToLikedSongs,
     removeSongFromLikedSongs,
     ensureSong,
+    searchSongs
 }
 const gImg = 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
 _createStations()

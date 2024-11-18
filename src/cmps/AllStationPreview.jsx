@@ -6,7 +6,7 @@ export function AllStationPreview({ station }) {
 
   function onPlay(ev) {
     ev.stopPropagation()
-
+    
     loadSong(station.songs[0].id)
 
   }
