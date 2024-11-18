@@ -6,8 +6,8 @@ const BASE_URL = 'station/'
 export const stationServiceRemote = {
     query,
     getById,
-    save,
-    remove,
+    saveStation,
+    removeStation,
     // getEmptyToy,
 }
 
@@ -19,10 +19,10 @@ function getById(stationId) {
     return httpService.get(BASE_URL + stationId)
 }
 
-function remove(stationId) {
+function removeStation(stationId) {
     return httpService.delete(BASE_URL + stationId)
 }
-function save(station) {
+function saveStation(station) {
     const method = station._id ? 'put' : 'post'
     return httpService[method](BASE_URL, station)
 }
