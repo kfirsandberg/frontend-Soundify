@@ -1,16 +1,20 @@
 import { useState } from 'react'
 import { Box, Button, Typography, IconButton, Modal, TextField, Grid, Avatar } from '@mui/material'
+import { setIsPlaying, loadSong } from '../store/actions/station.actions.js'
 import EditIcon from '@mui/icons-material/Edit'
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
 import userIcon from '../../public/assets/user.svg'
 import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
+import { useSelector,useDispatch } from 'react-redux'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
     const [openFileUpload, setOpenFileUpload] = useState(false)
+
+    const dispatch = useDispatch()
 
     function onEditStation() {
         setOpenFileUpload(false)
@@ -28,6 +32,20 @@ export function StationHeader({ station }) {
 
     function handleImageUpload(url) {
         setUpdatedImgURL(url)
+    }
+    
+
+    function handlePlayFirstSong() {
+        if (station.songs && station.songs.length > 0) {
+            const firstSongId = station.songs[0].id;  // Assuming 'id' is the identifier for the song
+            console.log("Playing first song with ID:", firstSongId);
+            
+            // Dispatch the action to load the song and set it as playing
+            dispatch(loadSong(firstSongId))  // Assuming loadSong triggers the appropriate Redux logic to load the song
+            dispatch(setIsPlaying(true))  // Set the player as playing
+        } else {
+            console.log('No songs found in station')
+        }
     }
 
     return (
@@ -156,7 +174,8 @@ export function StationHeader({ station }) {
             {/* Playlist Actions */}
             <Box className="playlist-actions"
                 sx={{ display: 'flex', gap: 5 }}>
-                <button
+                 <button
+                    className="station-play-btn"
                     style={{
                         color: '#1ed760',
                         fontSize: '3rem',
@@ -164,12 +183,12 @@ export function StationHeader({ station }) {
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
-                        marginLeft:20
+                        marginLeft: 20,
                     }}
+                    onClick={handlePlayFirstSong} // Add the play logic to this button
                 >
                     <PlayCircleFilledIcon style={{ fontSize: '66px' }} />
                 </button>
-
                 
                 <button
                     style={{
