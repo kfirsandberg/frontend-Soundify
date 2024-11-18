@@ -12,6 +12,12 @@
     margin-inline: auto;
 }
 
+.mobile-navbar{
+    grid-area: n;
+    display: none !important;
+   
+}
+
 @media (max-width: 768px) {
     .main-container {
         display: grid;
@@ -27,11 +33,9 @@
     }
 
 
-    .mobile-navbar{
+    .mobile-navbar {
+        display: block !important; /* Force visibility on mobile */
         visibility: visible;
-        display: block !important;
-        
-        
     }
 
 
@@ -52,6 +56,40 @@
         width: 0;
         overflow: hidden;
     }
+
+
+
+    .app-player.full  {
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(42, 42, 42, 0.722);
+
+
+        border-radius: 10px;
+        
+
+    }
+
+    .next-btn{
+
+        background-color: rgba(42, 42, 42, 0) !important;
+
+
+    }
+    .back-btn{
+
+        background-color: rgba(42, 42, 42, 0) !important;
+
+
+    }
+
+
+
+
+
+
+
+
 }
 
 .library-route {
@@ -79,7 +117,3 @@
 }
 
 
-.mobile-navbar{
-    grid-area: n;
-    display: none !important
-}
