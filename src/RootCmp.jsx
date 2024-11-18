@@ -33,6 +33,7 @@ export function RootCmp() {
     const bgColor = useSelector(storeState => storeState.stationModule.bgColor)
 
     useEffect(() => {
+        
         const fetchBackgroundColor = async () => {
             if (stations && stations.length > 0 && stations[0].images[0].url) {
                 try {

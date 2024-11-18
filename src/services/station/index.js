@@ -6,22 +6,20 @@ const service = VITE_LOCAL === 'true' ? stationLocalService : stationServiceRemo
 
 function calculateTotalDuration(songs) {
     let totalSeconds = 0
-if(!songs)return 
+    if (!songs) return 
+
     songs.forEach(song => {
-        if (song.duration) {
-            const parts = song.duration.split(':')
-            const minutes = parseInt(parts[0], 10)
-            const seconds = parseInt(parts[1], 10)
-            totalSeconds += minutes * 60 + seconds
+        if (song.track && song.track.duration_ms) {
+            totalSeconds += Math.floor(song.track.duration_ms / 1000)
         }
-    });
+    })
 
     const days = Math.floor(totalSeconds / (24 * 3600))
     const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600)
     const minutes = Math.floor((totalSeconds % 3600) / 60)
     const seconds = totalSeconds % 60
 
-    const result = [];
+    const result = []
     if (days > 0) result.push(`${days} day${days > 1 ? 's' : ''}`)
     if (hours > 0) result.push(`${hours} hour${hours > 1 ? 's' : ''}`)
     if (minutes > 0) result.push(`${minutes} min`)
@@ -29,7 +27,15 @@ if(!songs)return
     return result.join(' ')
 }
 
-export const stationService = {calculateTotalDuration , ...service}
+
+function formatSongDuration(durationMs) {
+    const totalSeconds = Math.floor(durationMs / 1000)
+    const minutes = Math.floor(totalSeconds / 60)
+    const seconds = totalSeconds % 60
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`
+}
+
+export const stationService = { calculateTotalDuration, formatSongDuration, ...service }
 
 // Expose stationService for easy debugging in development
 if (DEV) window.stationService = stationService

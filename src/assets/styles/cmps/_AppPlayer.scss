@@ -129,17 +129,21 @@
                 width: 20px;
                 height: 20px;
             }
+            .pause-icon{
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+            }
         }
     }
 
     .volume-control {
-
-        margin-left: auto;
         padding-top: 4px;
         display: flex;
         align-items: center;
-        width: 12.7em;
-
+        position: absolute;
+        right: 0;
+margin-right:10px;
         flex-shrink: 1;
 
         .volume-btn {

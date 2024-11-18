@@ -1,7 +1,7 @@
 import { stationLocalService } from '../../services/station/station.service.local.js'
 import { stationService } from '../../services/station/'
+import { spotifyService } from '../../services/search/spotify.service.remote.js'
 
-import { searchSongs } from '../../services/search/search.service.js'
 import { store } from '../store.js'
 import {
     ADD_STATION,
@@ -20,8 +20,8 @@ import {
 
 
 export async function loadStations(filterBy) {
-    try {        
-        const stations = await  stationService.query()
+    try {
+        const stations = await stationService.query()
         store.dispatch(getCmdSetStations(stations))
     } catch (err) {
         console.log('Cannot load stations', err)
@@ -86,11 +86,10 @@ export async function addNewStation() {
     }
 }
 
-
-export async function loadSong(songId) {
+export async function loadSong(song) {
     try {
-        const song = await stationLocalService.getSongById(songId)
-        store.dispatch(getCmdSetSong(song))
+        const song = await stationService.getSongById(songId)
+        // store.dispatch(getCmdSetSong(song))
     } catch (err) {
         console.log('Cannot load song', err)
         throw err
@@ -159,21 +158,19 @@ export async function removeSongFromLiked(songId) {
         console.log('Cannot remove song from Liked Songs', err)
     }
 }
-    export async function search(query) {
-        try {
-            const searchedSongs=await searchSongs(query)
-            store.dispatch(getCmdSongs(searchedSongs))
-            return searchedSongs
-        } catch (err) {
-            console.log('Cannot load stations', err)
-            throw err
-        }
+export async function search(query) {
+    try {
+        const searchedSongs = await spotifyService.searchSongs(query)
+        store.dispatch(getCmdSongs(searchedSongs))
+        return searchedSongs
+    } catch (err) {
+        console.log('Cannot load stations', err)
+        throw err
     }
-
-
+}
 
 // Command Creators:
- function getCmdSetStations(stations) {
+function getCmdSetStations(stations) {
     return {
         type: SET_STATIONS,
         stations,
@@ -234,8 +231,8 @@ function getCmdSetIsPlaying(isPlaying) {
         isPlaying,
     }
 }
-function getCmdSongs(searchedSongs){
-    return{
+function getCmdSongs(searchedSongs) {
+    return {
         type: SET_SEARCHED_SONGS,
         searchedSongs,
     }

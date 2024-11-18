@@ -35,15 +35,10 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
     }, [])
 
     function handlePlayFirstSong(station) {
-        // console.log('Playing first song from station:', station)
-
-        if (station.songs && station.songs.length > 0) {
-            const firstSong = station.songs[0]
-            const firstSongId = firstSong.id
-            console.log('First song ID:', firstSongId)
-
-            if (firstSongId) {
-                loadSong(firstSongId)
+        if (station.tracks.length > 0) {
+            const firstSong = station.tracks[0]
+            if (firstSong) {
+                loadSong(firstSong)
                 setIsPlaying(true)
             } else {
                 console.log('First song does not have a valid ID')
@@ -63,8 +58,6 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
     function updateFilteredStations() {
         try {
             let filtered = stations || []
-
-
             if (stations && filterCriteria) {
                 filtered = stations.filter(station =>
                     station.name.toLowerCase().includes(filterCriteria.toLowerCase())
@@ -99,7 +92,7 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
     }
 
     function onClickStation(station) {
-        setCurrentStation(station._id) 
+        setCurrentStation(station._id)
         navigate(`/playlist/${station._id}`);
         loadStation(station._id);
         handlePlayFirstSong(station);
@@ -202,6 +195,7 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
                         zIndex: 100,
                     }}
                 >
+                     {contextMenu.station.name !== 'Liked Songs' && (
                     <li onClick={() => openDeleteModal(contextMenu.station)}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -216,6 +210,7 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
                         </svg>
                         <span>Delete</span>
                     </li>
+                     )}
                 </ul>
             )}
             {isModalOpen && (

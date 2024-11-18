@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { formatTime } from '../services/util.service'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
-import { loadSong, setIsPlaying, updateStation, addStation } from '../store/actions/station.actions.js'
+import { updateStation } from '../store/actions/station.actions.js'
 import { stationLocalService } from '../services/station/station.service.local.js';
 
 export function SearchDetails() {
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
-    
+    console.log(searchedSongs)
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const [currentSong, setCurrentSong] = useState(null);
 
@@ -27,10 +27,10 @@ export function SearchDetails() {
         };
     }, [contextMenu]);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(searchedSongs)
 
-    },[searchedSongs])
+    }, [searchedSongs])
 
     function onStationClick(station) {
         console.log('Station clicked:', station);
@@ -111,14 +111,17 @@ export function SearchDetails() {
         <section className="search-details">
             <h2>Songs</h2>
             <section className="song-list">
-                {searchedSongs
-                    .filter((song) => song.duration)
+                {searchedSongs.tracks
+                    ?.filter((song) => song.duration_ms)
                     .map((song) => (
                         <div key={song.id} className="song-item">
                             {/* Song Image */}
                             <div className="song-img">
                                 <button>
-                                    <img src={song.thumbnails[0]?.url} alt={`${song.title} cover`} />
+                                    <img
+                                        src={song.album.images[0]?.url}
+                                        alt={`${song.name} cover`}
+                                    />
                                     <div className="img-overlay">
                                         <div className="play-icon"></div>
                                     </div>
@@ -127,8 +130,10 @@ export function SearchDetails() {
 
                             {/* Song Details */}
                             <div className="song-details">
-                                <span className="song-title">{song.title}</span>
-                                <span className="song-artist">{song.artist}</span>
+                                <span className="song-title">{song.name}</span>
+                                <span className="song-artist">
+                                    {song.artists.map((artist) => artist.name).join(', ')}
+                                </span>
                             </div>
 
                             {/* Like Button and Duration */}
@@ -161,11 +166,13 @@ export function SearchDetails() {
                                         </svg>
                                     )}
                                 </button>
-                                <div className="song-duration">{formatTime(song.duration)}</div>
+                                <div className="song-duration">{formatTime(song.duration_ms)}</div>
                             </div>
                         </div>
                     ))}
             </section>
+
+
 
             {contextMenu && (
                 <ul
@@ -196,4 +203,4 @@ export function SearchDetails() {
 
         </section>
     );
- }
+}

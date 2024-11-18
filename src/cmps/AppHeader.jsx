@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { search } from '../store/actions/station.actions.js';
 import { userService } from '../services/user/user.service.remote.js'
-
+import { debounce } from '../services/util.service.js';
 
 export function AppHeader() {
     const [focused, setFocused] = useState(false)
@@ -21,23 +21,19 @@ export function AppHeader() {
         }
     }, [location.pathname])
 
-    async function clearSearchInput(){
+    async function clearSearchInput() {
         if (inputTextRef.current) {
             inputTextRef.current.value = ''
 
         }
-      
-         await search('')
+
+        await search('')
     }
 
     useEffect(() => {
         const checkLoginStatus = async () => {
             const token = localStorage.getItem('authToken');  // If you used localStorage
             const user = JSON.parse(localStorage.getItem('loggedInUser')); // If you used localStorage
-
-            // console.log('Token from storage:', token)
-            // console.log('User from storage:', user)
-
 
             if (!token || !user) {
                 setIsLoggedIn(false);
@@ -92,17 +88,22 @@ export function AppHeader() {
         setFocused(false)
     }
 
-    async function handleInputChange(ev) {
-        const value = ev.target.value;
-        if (!value) return
+    const debouncedSearch = debounce(async (value) => {
+        if (!value) return;
         try {
-            const results = search(value)
-            // console.log('Search Results:', results)
-            navigate('/search')
+            const results = await search(value);
 
+            navigate('/search');
         } catch (error) {
-            console.error('Error during search:', error)
+            console.error('Error during search:', error);
         }
+    }, 300);
+
+    async function handleInputChange(ev) {
+        
+        const value = ev.target.value;
+        debouncedSearch(value);
+
     }
 
     return (
@@ -162,7 +163,7 @@ export function AppHeader() {
                         </svg>
                     </button>
                     <input
-                       ref={inputTextRef}
+                        ref={inputTextRef}
                         type="text"
                         placeholder="What do you want to play?"
                         className="header-search-input"

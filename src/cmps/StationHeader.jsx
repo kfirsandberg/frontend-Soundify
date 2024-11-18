@@ -14,7 +14,7 @@ export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
     const [openFileUpload, setOpenFileUpload] = useState(false)
-    const totalDuration = stationService.calculateTotalDuration(station.songs)
+    const totalDuration = stationService.calculateTotalDuration(station.tracks)
 
 
     const dispatch = useDispatch()
@@ -40,11 +40,11 @@ export function StationHeader({ station }) {
 
     function handlePlayFirstSong() {
         if (station.songs && station.songs.length > 0) {
-            const firstSongId = station.songs[0].id;  // Assuming 'id' is the identifier for the song
+            const firstSong = station.tracks[0];  // Assuming 'id' is the identifier for the song
             console.log("Playing first song with ID:", firstSongId);
 
             // Dispatch the action to load the song and set it as playing
-            dispatch(loadSong(firstSongId))  // Assuming loadSong triggers the appropriate Redux logic to load the song
+            dispatch(loadSong(firstSong))  // Assuming loadSong triggers the appropriate Redux logic to load the song
             dispatch(setIsPlaying(true))  // Set the player as playing
         } else {
             console.log('No songs found in station')

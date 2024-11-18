@@ -6,10 +6,10 @@ import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { useSelector } from 'react-redux'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
+import {stationService} from '../services/station'
 
 export function SongList() {
     const currentStation = useSelector(state => state.stationModule.station);
-    console.log(currentStation.tracks)
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
@@ -25,8 +25,8 @@ export function SongList() {
         setSongs(currStation.songs);
     }, [currStation.songs]);
 
-    function handlePlayClick(songId, index) {
-        loadSong(songId);
+    function handlePlayClick(song, index) {
+        loadSong(song);
         setIsPlaying(true);
         setActiveIndex(index);
         setPlayingIndex(index);
@@ -202,7 +202,7 @@ export function SongList() {
                                                                 style={{ width: '14px', height: '14px' }} />
                                                         ) : hoveredIndex === idx ? (
                                                             <IconButton
-                                                                onClick={() => handlePlayClick(song.track.id, idx)}
+                                                                onClick={() => handlePlayClick(song, idx)}
                                                                 sx={{
                                                                     marginLeft: 4,
                                                                     width: '14px',
@@ -218,7 +218,6 @@ export function SongList() {
                                                                 variant="body2"
                                                                 sx={{
                                                                     marginLeft: 4,
-                                                                    color: 'white',
                                                                     opacity: 0.7,
                                                                     color: activeIndex === idx ? '#1ed760' : 'white',
                                                                 }}
@@ -339,7 +338,10 @@ export function SongList() {
                                                                     },
                                                                 }}
                                                             >
-                                                                {song.track.duration_ms}
+                                                             {song.track.duration_ms
+    ? stationService.formatSongDuration(song.track.duration_ms)
+    : "0:00"}
+
                                                             </Typography>
                                                         </Box>
                                                     </Box>
