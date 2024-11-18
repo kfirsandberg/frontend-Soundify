@@ -139,13 +139,12 @@
     }
 
     .volume-control {
-
-        margin-left: auto;
         padding-top: 4px;
         display: flex;
         align-items: center;
-        width: 12.7em;
-
+        position: absolute;
+        right: 0;
+margin-right:10px;
         flex-shrink: 1;
 
         .volume-btn {
@@ -193,7 +192,6 @@
     .progress-bar {
         display: flex;
         align-items: center;
-        width: 538px;
         width: rem(571px);
         margin-bottom: -2px;
         gap: 6px;
