@@ -11,6 +11,7 @@ import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
 import { Login  } from './pages/Login.jsx'
 import { Signup } from './pages/Signup.jsx'
+import { MobileNavbar } from './cmps/MoblieNavbar.jsx'
 
 import { setBgColor } from './store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color'
@@ -59,6 +60,8 @@ export function RootCmp() {
                 className="station-index-route"
                 style={{
                     backgroundColor: `${bgColor}`,
+                    
+                    
                 }}
             >
                 <div
@@ -83,6 +86,7 @@ export function RootCmp() {
             <AppPlayer className="player" />
             <YouTubeAudioPlayer />
             <UserMsg/>
+            <MobileNavbar />
         </div>
     )
 }

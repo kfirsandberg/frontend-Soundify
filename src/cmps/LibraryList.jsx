@@ -195,6 +195,7 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
                         zIndex: 100,
                     }}
                 >
+                     {contextMenu.station.name !== 'Liked Songs' && (
                     <li onClick={() => openDeleteModal(contextMenu.station)}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -209,6 +210,7 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
                         </svg>
                         <span>Delete</span>
                     </li>
+                     )}
                 </ul>
             )}
             {isModalOpen && (

@@ -323,6 +323,14 @@
 
 
 @media (max-width: 768px) {
+
+    .app-header {
+        * {
+            display: none !important; /* Hide all elements under .app-header */
+        }
+    }
+
+
     .app-header.full {
         flex-direction: row; /* Stack header components vertically */
         height: auto;
