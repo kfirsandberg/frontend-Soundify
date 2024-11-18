@@ -14,18 +14,43 @@
 
 @media (max-width: 768px) {
     .main-container {
-        grid-template-columns: 1fr; /* Single column layout */
+        display: grid;
+        grid-template-columns: 1fr;
         grid-template-areas:
-            'h'
             'm'
-            'm'
-            'p'; /* Stacks the sections vertically */
-        grid-template-rows:  auto auto auto; /* Adjust rows for stacked layout */
+            'p'
+            'n';
+        grid-template-rows: auto 1fr auto; 
+        margin-left: 5px;
+        padding: 0; 
+        gap: 0; 
     }
 
+
+    .mobile-navbar{
+        visibility: visible;
+        display: block !important;
+        
+        
+    }
+
+
     .library-route {
-        display: none;
+        display: none !important;
+        visibility: hidden;
+        pointer-events: none;
+        height: 0;
+        width: 0;
+        overflow: hidden;
+    }
     
+    .app-header {
+        display: none !important;
+        visibility: hidden;
+        pointer-events: none;
+        height: 0;
+        width: 0;
+        overflow: hidden;
     }
 }
 
@@ -51,4 +76,10 @@
     overflow-y: auto;
     align-self: start;
     height: 100%;
+}
+
+
+.mobile-navbar{
+    grid-area: n;
+    display: none !important
 }

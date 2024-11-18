@@ -1,0 +1,40 @@
+.mobile-navbar { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $player-background;
+    color: #fff;
+    display: flex;
+    height: 85px;
+    align-items: center;
+    
+    
+    
+}
+
+.nav-btn {
+    flex: 1;
+    /* Equal width buttons */
+    text-align: center;
+    font-size: 1rem;
+    /* Default font size */
+    font-family: Arial, sans-serif;
+    /* Use standard font */
+    color: #b3b3b3;
+    /* Light gray */
+    text-decoration: none;
+    /* Remove underline */
+    padding: 10px 0;
+    /* Spacing for touch targets */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    color: #ffffff;
+    /* White when active or hovered */
+    background-color: #1db954;
+    /* Highlight color (green) */
+}
+
