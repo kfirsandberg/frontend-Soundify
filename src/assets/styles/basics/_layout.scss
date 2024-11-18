@@ -12,6 +12,23 @@
     margin-inline: auto;
 }
 
+@media (max-width: 768px) {
+    .main-container {
+        grid-template-columns: 1fr; /* Single column layout */
+        grid-template-areas:
+            'h'
+            'm'
+            'm'
+            'p'; /* Stacks the sections vertically */
+        grid-template-rows:  auto auto auto; /* Adjust rows for stacked layout */
+    }
+
+    .library-route {
+        display: none;
+    
+    }
+}
+
 .library-route {
     grid-area: l;
     background-color: #f4f4f4;
