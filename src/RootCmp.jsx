@@ -20,9 +20,6 @@ import { SearchDetails } from './pages/SearchDetails.jsx'
 
 import { UserMsg } from './cmps/UserMsg.jsx'
 
-
-import { Search } from '@mui/icons-material'
-
 const fac = new FastAverageColor()
 export function RootCmp() {
     const [isLibraryActive, setIsLibraryActive] = useState(false) // Track the active state of the library

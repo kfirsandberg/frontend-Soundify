@@ -1,21 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { updateCurrentTime, updateSongDuration, updateVolume, setIsPlaying } from '../store/actions/station.actions'
-import { formatTime } from '../services/util.service'
-
- 
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { updateCurrentTime, updateSongDuration, updateVolume, setIsPlaying } from '../store/actions/station.actions';
+import { formatTime } from '../services/util.service';
 
 export function AppPlayer() {
+    const {
+        currentSong,
+        currentTime = 0,
+        songDuration,
+        volume,
+        prevVolume,
+        isPlaying,
+    } = useSelector((state) => state.stationModule);
+    
     const [isHoverVolume, setIsHoverVolume] = useState(false)
     const [isHoverPlayer, setIsHoverPlayer] = useState(false)
-
-    const currentSong = useSelector(state => state.stationModule.currentSong)
-    const currentTime = useSelector(state => state.stationModule.currentTime) || 0
-    const songDuration = useSelector(state => state.stationModule.songDuration)
-    const volume = useSelector(state => state.stationModule.volume)
-    const prevVolume = useSelector(state => state.stationModule.prevVolume)
-    const isPlaying = useSelector(state => state.stationModule.isPlaying)
-
     const intervalRef = useRef(null)
 
     useEffect(() => {
@@ -44,6 +43,8 @@ export function AppPlayer() {
 
     function handleProgressChange(ev) {
         const newTime = ev.target.value
+        console.log(newTime);
+        
         updateCurrentTime(newTime)
     }
 
@@ -132,11 +133,11 @@ export function AppPlayer() {
             {currentSong && (
                 <div className="song-info">
                     <div className="image-container">
-                        <img src={currentSong.imgURL} alt={currentSong.title} className="song-img" />
+                        <img src={currentSong.track.album.images[0].url} alt={currentSong.track.name} className="song-img" />
                     </div>
                     <div className="song-details">
-                        <h4>{currentSong.title}</h4>
-                        <p>{currentSong.artist}</p>
+                        <h4>{currentSong.track.name}</h4>
+                        <p>{currentSong.track.artists.map(artist => artist.name).join(', ')}</p>
                     </div>
                 </div>
             )}
@@ -250,4 +251,5 @@ export function AppPlayer() {
             </div>
         </footer>
     )
+    
 }

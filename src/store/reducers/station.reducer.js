@@ -15,11 +15,11 @@ export const SET_SEARCHED_SONGS = 'SET_SEARCHED_SONGS'
 
 const initialState = {
     stations: [],
-    station: null,
+    currentStation: null,
     currentSong: null,
     currentTime: 0,
     songDuration: 0,
-    volume: 40,
+    volume: 40, 
     prevVolume: 40,
     isPlaying: false,
     bgColor: '#121212',
@@ -34,7 +34,7 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: action.stations }
             break
         case SET_STATION:
-            newState = { ...state, station: action.station }
+            newState = { ...state, currentStation: action.currentStation }
             break
         case REMOVE_STATION:
             stations = state.stations.filter(station => station._id !== action.stationId)

@@ -8,22 +8,21 @@ import { useSelector } from 'react-redux'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
 import {stationService} from '../services/station'
 
-export function SongList() {
-    const currentStation = useSelector(state => state.stationModule.station);
+export function SongList({station}) {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
-    const [currStation, setCurrStation] = useState(currentStation);
-    const [songs, setSongs] = useState(currentStation.songs);
+    const [currStation, setCurrStation] = useState(station);
+    const [songs, setSongs] = useState(station.tracks);
 
     useEffect(() => {
-        setSongs(currentStation.songs);
-        setCurrStation(currentStation);
-    }, [currentStation._id]);
+        setSongs(station.tracks);
+        setCurrStation(station);
+    }, [station._id]);
 
     useEffect(() => {
-        setSongs(currStation.songs);
-    }, [currStation.songs]);
+        setSongs(currStation.tracks);
+    }, [currStation.tracks]);
 
     function handlePlayClick(song, index) {
         loadSong(song);
@@ -38,18 +37,18 @@ export function SongList() {
     }
 
     async function toggleLike(song) {
-        const stationName = currentStation.name;
+        const stationName = station.name;
         try {
             const existingSong = await getSongById(song);
             if (existingSong) {
                 await removeSong(song, stationName);
-                currentStation.songs = currentStation.songs.filter(s => s.id !== song.id);
+                station.tracks = station.tracks.filter(s => s.id !== song.id);
             } else {
                 await addSong(song, stationName);
-                currentStation.songs.push(song);
+                station.tracks.push(song);
             }
 
-            await updateStation(currentStation);
+            await updateStation(station);
         } catch (error) {
             console.error('Error toggling like:', error);
         }
@@ -61,7 +60,7 @@ export function SongList() {
         const [movedSong] = reorderedSongs.splice(result.source.index, 1);
         reorderedSongs.splice(result.destination.index, 0, movedSong);
         setSongs(reorderedSongs);
-        const updatedStation = { ...currStation, songs: reorderedSongs };
+        const updatedStation = { ...currStation, tracks: reorderedSongs };
         await updateStation(updatedStation);
         setCurrStation(updatedStation);
     }
@@ -148,7 +147,7 @@ export function SongList() {
                                     sx={{ gridArea: 'songs', marginTop: 0 }}
                                 >
                                     <hr style={{ opacity: 0.1 }} />
-                                    {currentStation.tracks.map((song, idx) => (
+                                    {station.tracks.map((song, idx) => (
                                         <Draggable key={song.track.id} draggableId={song.track.id} index={idx}>
                                             {(provided, snapshot) => (
                                                 <Box

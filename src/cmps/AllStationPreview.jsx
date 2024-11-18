@@ -7,7 +7,7 @@ export function AllStationPreview({ station }) {
   function onPlay(ev) {
     ev.stopPropagation()
     
-    loadSong(station.songs[0].id)
+    loadSong(station.tracks[0])
 
   }
   return (

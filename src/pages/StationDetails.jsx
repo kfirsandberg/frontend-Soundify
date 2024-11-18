@@ -1,19 +1,19 @@
 import { StationHeader } from '../cmps/StationHeader.jsx'
 import { SongList } from '../cmps/SongList.jsx'
-import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+
+import { useEffect, useState  } from 'react'
 import loaderIcon from '/assets/loader.svg'
 import { useNavigate, useParams } from 'react-router'
 import { loadStation, setBgColor } from '../store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color'
-import { useDispatch } from 'react-redux'
+import { useDispatch ,useSelector} from 'react-redux'
 
 const fac = new FastAverageColor()
 
 export function StationDetails() {
     const [showFindMoreSection, setShowFindMoreSection] = useState(false)
+    const station = useSelector(storeState => storeState.stationModule.currentStation)
 
-    const [station, setStation] = useState(null)
     const { stationId } = useParams()
     const dispatch = useDispatch()
 
@@ -33,17 +33,6 @@ export function StationDetails() {
         }
     }
 
-    useEffect(() => {
-        async function fetchStation() {
-            try {
-                const currStation = await loadStation(stationId)
-                setStation(currStation)
-            } catch (err) {
-                console.error('Failed to load station:', err)
-            }
-        }
-        fetchStation()
-    }, [station])
 
     function onFindMore() {
         setShowFindMoreSection(prevState => !prevState)
@@ -73,7 +62,7 @@ export function StationDetails() {
     return (
         <section className="station-details-main">
             <StationHeader station={station} />
-            <SongList  />
+            <SongList  station={station}  />
             {/* {renderStationImage()} */}
         </section>
     )

@@ -7,7 +7,7 @@ import userIcon from '../../public/assets/user.svg'
 import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
-import { useSelector, useDispatch } from 'react-redux'
+import {  useDispatch } from 'react-redux'
 import{stationService} from '../services/station/'
 
 export function StationHeader({ station }) {

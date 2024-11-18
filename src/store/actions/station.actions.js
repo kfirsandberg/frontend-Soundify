@@ -29,9 +29,8 @@ export async function loadStations(filterBy) {
     }
 }
 
-export async function loadStation(stationId) {
+export async function loadStation(station) {
     try {
-        const station = await stationService.getById(stationId)
         store.dispatch(getCmdSetStation(station))
         return station
     } catch (err) {
@@ -86,15 +85,23 @@ export async function addNewStation() {
     }
 }
 
-export async function loadSong(song) {
+export async function loadSong(song) {   
     try {
-        const song = await stationService.getSongById(songId)
-        // store.dispatch(getCmdSetSong(song))
+        const trackName = song.track.name;
+        const artistNames = song.track.artists.map((artist) => artist.name).join(', ')
+        const songString = `${trackName} ${artistNames}`
+    
+        const youtubeId = await stationService.getYoutubeID(songString)
+
+        song.youtubeId = youtubeId
+        store.dispatch(getCmdSetSong(song))
     } catch (err) {
         console.log('Cannot load song', err)
         throw err
     }
 }
+
+
 
 export function updateCurrentTime(currentTime) {
     try {
@@ -176,10 +183,10 @@ function getCmdSetStations(stations) {
         stations,
     }
 }
-function getCmdSetStation(station) {
+function getCmdSetStation(currentStation) {
     return {
         type: SET_STATION,
-        station,
+        currentStation,
     }
 }
 function getCmdRemoveStation(stationId) {

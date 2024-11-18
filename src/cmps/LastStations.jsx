@@ -12,8 +12,8 @@ export function LastStations({ stations }) {
     const dispatch = useDispatch()
 
     function onClickStation(station) {
+        loadStation(station)
         navigate(`/playlist/${station._id}`)
-        loadStation(station._id)
     }
 
     async function onHoverStation(station) {

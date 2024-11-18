@@ -6,10 +6,9 @@ export function StationList({ stations }) {
 
     const navigate = useNavigate();
     async function onClickStation(station) {
-        navigate(`/playlist/${station._id}`);
-        loadStation(station._id);
+        loadStation(station)
+        navigate(`/playlist/${station._id}`)
     }
-
 
     function handleShowAll() {
         navigate('/all-stations');
