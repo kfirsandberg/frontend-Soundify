@@ -12,7 +12,7 @@ export const stationServiceRemote = {
 }
 
 function query(filterBy = {}) {
-    return httpService.get(BASE_URL, filterBy)
+    return httpService.get(BASE_URL, filterBy).then(((res => res.data)))
 }
 
 function getById(stationId) {
