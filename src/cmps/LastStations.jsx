@@ -40,7 +40,7 @@ export function LastStations({ stations }) {
                     onClick={() => onClickStation(station)}
                     onMouseEnter={() => onHoverStation(station)} // Fetch color on hover
                 >
-                    <img src={station.imgURL} alt={station.name} className="playlist-thumbnail" />
+                    <img src={station.images[0].url} alt={station.name} className="playlist-thumbnail" />
                     <div className="playlist-info">
                         <p className="playlist-name">{station.name}</p>
                     </div>

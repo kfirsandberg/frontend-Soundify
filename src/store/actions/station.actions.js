@@ -29,22 +29,9 @@ export async function loadStations(filterBy) {
     }
 }
 
-
-export async function search(query) {
-    try {
-        const searchedSongs=await searchSongs(query)
-        store.dispatch(getCmdSongs(searchedSongs))
-        return searchedSongs
-    } catch (err) {
-        console.log('Cannot load stations', err)
-        throw err
-    }
-}
-
 export async function loadStation(stationId) {
     try {
-        const station = await stationLocalService.getById(stationId)
-        // const station = await stationLocalService.getById(stationId)
+        const station = await stationService.getById(stationId)
         store.dispatch(getCmdSetStation(station))
         return station
     } catch (err) {
@@ -53,26 +40,9 @@ export async function loadStation(stationId) {
     }
 }
 
-export async function loadStationByName(stationName) {
-    try {
-        const stations = await stationLocalService.query(); 
-        const station = stations.find(station => station.name === stationName);
-
-        if (!station) {
-            throw new Error(`Station with name "${stationName}" not found`);
-        }
-
-        store.dispatch(getCmdSetStation(station));
-        return station;
-    } catch (err) {
-        console.log('Cannot load station', err);
-        throw err;
-    }
-}
-
 export async function removeStation(stationId) {
     try {
-        await stationLocalService.removeStation(stationId)
+        await stationService.removeStation(stationId)
         store.dispatch(getCmdRemoveStation(stationId))
     } catch (err) {
         console.log('Cannot remove station', err)
@@ -82,19 +52,7 @@ export async function removeStation(stationId) {
 
 export async function addStation(station) {
     try {
-        const savedStation = await stationLocalService.saveStation(station)
-        store.dispatch(getCmdAddStation(savedStation))
-        return savedStation
-    } catch (err) {
-        console.log('Cannot add station', err)
-        throw err
-    }
-}
-export async function addNewStation() {
-    try {
-        const newStation = stationLocalService.getEmptyStation()
-        const savedStation = await stationLocalService.saveStation(newStation)
-        store.dispatch(getCmdSetStation(savedStation))
+        const savedStation = await stationService.saveStation(station)
         store.dispatch(getCmdAddStation(savedStation))
         return savedStation
     } catch (err) {
@@ -105,7 +63,7 @@ export async function addNewStation() {
 
 export async function updateStation(station) {
     try {
-        const savedStation = await stationLocalService.saveStation(station)
+        const savedStation = await stationService.saveStation(station)
         store.dispatch(getCmdUpdateStation(savedStation))
         return savedStation
     } catch (err) {
@@ -113,6 +71,21 @@ export async function updateStation(station) {
         throw err
     }
 }
+
+
+export async function addNewStation() {
+    try {
+        const newStation = stationService.getEmptyStation()
+        const savedStation = await stationLocalService.saveStation(newStation)
+        store.dispatch(getCmdSetStation(savedStation))
+        store.dispatch(getCmdAddStation(savedStation))
+        return savedStation
+    } catch (err) {
+        console.log('Cannot add station', err)
+        throw err
+    }
+}
+
 
 export async function loadSong(songId) {
     try {
@@ -186,24 +159,16 @@ export async function removeSongFromLiked(songId) {
         console.log('Cannot remove song from Liked Songs', err)
     }
 }
-export async function setCurrentStation(stationIdOrName) {
-    try {
-
-        const station = await stationLocalService.getById(stationIdOrName) || 
-                        await stationLocalService.getStationByName(stationIdOrName);
-
-        if (!station || !station.songs || station.songs.length === 0 ) {
-            console.log(`Station not found: ${stationIdOrName}`);
-            return;
+    export async function search(query) {
+        try {
+            const searchedSongs=await searchSongs(query)
+            store.dispatch(getCmdSongs(searchedSongs))
+            return searchedSongs
+        } catch (err) {
+            console.log('Cannot load stations', err)
+            throw err
         }
-        store.dispatch(getCmdSetStation(station));
-        return station;
-    } catch (err) {
-        console.log('Cannot set current station', err);
-        throw err;
     }
-}
-
 
 
 

@@ -165,7 +165,7 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
                         onClick={() => onClickStation(station)}
                         onContextMenu={ev => handleContextMenu(ev, station)}
                     >
-                        <img src={station.imgURL} alt={station.name} className="station-image" />
+                        <img src={station.images[0].url} alt={station.name} className="station-image" />
                         {!isCollapsed && (
                             <div className="station-info">
                                 <h3

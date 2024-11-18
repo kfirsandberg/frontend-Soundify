@@ -5,9 +5,11 @@ import { NavBtns } from '../cmps/NavBtns.jsx'
 import { LastStations } from '../cmps/LastStations.jsx'
 import loaderIcon from '/assets/loader.svg'
 import { useSelector } from 'react-redux'
+import { loadStation, setBgColor } from '../store/actions/station.actions.js'
 
 export function StationIndex() {
     const stations = useSelector(storeState => storeState.stationModule.stations)
+
     useEffect(() => {
         loadStations()
     }, [])

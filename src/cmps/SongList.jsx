@@ -9,6 +9,7 @@ import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.ac
 
 export function SongList() {
     const currentStation = useSelector(state => state.stationModule.station);
+    console.log(currentStation.tracks)
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
@@ -139,8 +140,8 @@ export function SongList() {
                                     sx={{ gridArea: 'songs', marginTop: 0 }}
                                 >
                                     <hr style={{ opacity: 0.1 }} />
-                                    {currentStation.songs.map((song, idx) => (
-                                        <Draggable key={song.id} draggableId={song.id} index={idx}>
+                                    {currentStation.tracks.map((song, idx) => (
+                                        <Draggable key={song.track.id} draggableId={song.track.id} index={idx}>
                                             {(provided, snapshot) => (
                                                 <Box
                                                     ref={provided.innerRef}
@@ -193,14 +194,14 @@ export function SongList() {
                                                                 style={{ width: '14px', height: '14px' }} />
                                                         ) : hoveredIndex === idx ? (
                                                             <IconButton
-                                                                onClick={() => handlePlayClick(song.id, idx)}
+                                                                onClick={() => handlePlayClick(song.track.id, idx)}
                                                                 sx={{
                                                                     marginLeft: 4,
                                                                     width: '14px',
                                                                     height: '14px',
                                                                     color: 'white',
                                                                 }}
-                                                                title={`Play ${song.title} by ${song.artist}`}
+                                                                title={`Play ${song.track.name} by ${song.track.artists[0].name}`}
                                                             >
                                                                 <PlayArrow />
                                                             </IconButton>
@@ -223,8 +224,8 @@ export function SongList() {
                                                     <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
                                                         <Box
                                                             component="img"
-                                                            src={song.imgURL}
-                                                            alt={`${song.title} cover`}
+                                                            src={song.track.album.images[0].url}
+                                                            alt={`${song.track.name} cover`}
                                                             sx={{
                                                                 width: 40,
                                                                 height: 40,
@@ -248,9 +249,9 @@ export function SongList() {
                                                                         textDecoration: 'underline',
                                                                     },
                                                                 }}
-                                                                title={` ${song.title}`}
+                                                                title={` ${song.track.name}`}
                                                             >
-                                                                {song.title}
+                                                                {song.track.name}
                                                             </Typography>
                                                             <Typography
                                                                 variant="body2"
@@ -262,9 +263,9 @@ export function SongList() {
                                                                         textDecoration: 'underline',
                                                                     },
                                                                 }}
-                                                                title={` ${song.artist}`}
+                                                                title={` ${song.track.artists[0].name}`}
                                                             >
-                                                                {song.artist}
+                                                                {song.track.artists[0].name}
                                                             </Typography>
                                                         </Box>
                                                     </Box>
@@ -290,9 +291,9 @@ export function SongList() {
                                                                     textDecoration: 'underline',
                                                                 },
                                                             }}
-                                                            title={` ${song.album}`}
+                                                            // title={` ${song.album}`}
                                                         >
-                                                            {song.album}
+                                                            {/* {song.album} */}
                                                         </Typography>
                                                         <Box
                                                             sx={{
@@ -318,7 +319,7 @@ export function SongList() {
                                                                 )}
                                                             </button>
                                                             <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
-                                                                {song.duration}
+                                                                {song.track.duration_ms}
                                                             </Typography>
                                                         </Box>
                                                     </Box>

@@ -29,14 +29,13 @@ export function RootCmp() {
     // Toggle the library route active state
     const toggleLibraryActive = () => setIsLibraryActive(prev => !prev)
     const stations = useSelector(storeState => storeState.stationModule.stations)
-    console.log(stations)
     const bgColor = useSelector(storeState => storeState.stationModule.bgColor)
 
     useEffect(() => {
         const fetchBackgroundColor = async () => {
-            if (stations && stations.length > 0 && stations[0].imgURL) {
+            if (stations && stations.length > 0 && stations[0].images[0].url) {
                 try {
-                    const color = await fac.getColorAsync(stations[0].imgURL)
+                    const color = await fac.getColorAsync(stations[0].images[0].url)
                     setBgColor(color.rgb)
                 } catch (error) {
                     console.error('Error fetching average color:', error)

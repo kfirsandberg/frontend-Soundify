@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { formatTime } from '../services/util.service'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
-import { loadSong, setIsPlaying, updateStation, loadStationByName, addStation } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation, addStation } from '../store/actions/station.actions.js'
 import { stationLocalService } from '../services/station/station.service.local.js';
 
 export function SearchDetails() {

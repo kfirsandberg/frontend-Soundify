@@ -9,9 +9,6 @@ export const httpService = {
     get(endpoint, data) {
         return ajax(endpoint, 'GET', data);
     },
-    getApi(endpoint, data) {
-        return ajaxApi(endpoint, 'GET', data);
-    },
     post(endpoint, data) {
         return ajax(endpoint, 'POST', data);
     },

@@ -8,7 +8,7 @@ export const stationServiceRemote = {
     getById,
     saveStation,
     removeStation,
-    // getEmptyToy,
+    getEmptyStation,
 }
 
 function query(filterBy = {}) {
@@ -16,7 +16,7 @@ function query(filterBy = {}) {
 }
 
 function getById(stationId) {
-    return httpService.get(BASE_URL + stationId)
+    return httpService.get(BASE_URL + stationId).then(((res => res.data)))
 }
 
 function removeStation(stationId) {
@@ -27,14 +27,20 @@ function saveStation(station) {
     return httpService[method](BASE_URL, station)
 }
 
-// function getEmptyToy() {
-//     return {
-//         name: '',
-//         price: '',
-//         labels: _getRandomLabels(),
-//     }
-// }
+function getEmptyStation(name,stationSubtitle=''){
+    let playlistCount = parseInt(localStorage.getItem('playlistCount'), 10) || 0
+    playlistCount += 1
+    const newStationName = name || `My Playlist #${playlistCount}`
+    localStorage.setItem('playlistCount', playlistCount)
+    return {
+        name: newStationName,
+        songs: getSongsForStation(newStationName) || [],
+        _id,
+        stationSubtitle
+    }
 
+
+}
 
 
 

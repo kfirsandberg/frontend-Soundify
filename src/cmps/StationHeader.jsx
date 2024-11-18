@@ -82,7 +82,7 @@ export function StationHeader({ station }) {
                 >
                     <Box
                         component="img"
-                        src={station.imgURL || userIcon}
+                        src={station.images[0].url}
                         onClick={onImageClick}
                         alt="Station"
                         sx={{
