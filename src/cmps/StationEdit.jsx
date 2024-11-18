@@ -18,6 +18,7 @@ const StationEdit = forwardRef(({ station, onClose, onImageUpload, openFileUploa
             ...prevState,
             [name]: value,
         }))
+
     }
 
     async function handleImageUpload(ev) {

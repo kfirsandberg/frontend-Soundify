@@ -1,36 +1,41 @@
 import { httpService } from '../http.service'
 
-export const stationRemoteService = {
+
+const BASE_URL = 'station/'
+
+export const stationServiceRemote = {
     query,
     getById,
     saveStation,
     removeStation,
-    addStation
+    // getEmptyToy,
 }
 
-async function query(filterBy = { txt: '', genre: '' }) {
-    return httpService.get('station', filterBy)
+function query(filterBy = {}) {
+    return httpService.get(BASE_URL, filterBy).then(((res => res.data)))
 }
 
 function getById(stationId) {
-    return httpService.get(`station/${stationId}`)
+    return httpService.get(BASE_URL + stationId)
 }
 
-async function removeStation(stationId) {
-    return httpService.delete(`station/${stationId}`)
+function removeStation(stationId) {
+    return httpService.delete(BASE_URL + stationId)
+}
+function saveStation(station) {
+    const method = station._id ? 'put' : 'post'
+    return httpService[method](BASE_URL, station)
 }
 
-async function saveStation(station) {
-    const url = station._id ? `station/${station._id}` : 'station'
-    return station._id
-        ? await httpService.put(url, station)
-        : await httpService.post(url, station)
-}
+// function getEmptyToy() {
+//     return {
+//         name: '',
+//         price: '',
+//         labels: _getRandomLabels(),
+//     }
+// }
 
-async function addStation(name, genre) {
-    const newStation = {
-        name,
-        genre
-    }
-    return await httpService.post('station', newStation)
-}
+
+
+
+

@@ -20,18 +20,10 @@ export function SearchDetails() {
     const [contextMenu, setContextMenu] = useState(null)
 
     useEffect(() => {
-        if (!contextMenu) return;
-        function handleClickOutside(event) {
-            if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
-                console.log('Clicked outside, closing context menu.');
-                closeContextMenu();
-            }
-        }
-    
-        // מאזינים לאירוע 'mousedown' ולא 'click'
-        document.addEventListener('mousedown', handleClickOutside);
+        if (!contextMenu) return
+        document.addEventListener('click', handleClickOutside);
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('click', handleClickOutside);
         };
     }, [contextMenu]);
 

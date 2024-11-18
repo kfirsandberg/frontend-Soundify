@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Button, Typography, IconButton, Modal, TextField, Grid, Avatar } from '@mui/material'
 import { setIsPlaying, loadSong } from '../store/actions/station.actions.js'
 import EditIcon from '@mui/icons-material/Edit'
@@ -8,11 +8,14 @@ import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
 import { useSelector, useDispatch } from 'react-redux'
+import{stationService} from '../services/station/'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
     const [openFileUpload, setOpenFileUpload] = useState(false)
+    const totalDuration= stationService.calculateTotalDuration(station.songs)
+    
 
     const dispatch = useDispatch()
 
@@ -172,18 +175,43 @@ export function StationHeader({ station }) {
                         {station.name}
                     </Typography>
 
+                    {station.description && (
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                marginTop: 1,
+                                fontSize: '1.2rem',
+                                fontFamily: 'SpotifyMix',
+                                fontWeight: '400',
+                                color: 'white',
+                                textAlign: { xs: 'center', sm: 'left' },
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden', 
+                                textOverflow: 'ellipsis', 
+                            }}
+                        >
+                            {station.description}
+                        </Typography>
+                    )}
+
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Avatar src={station.creatorImgURL || userIcon} alt="Creator" sx={{ width: 24, height: 24 }} />
                         <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center' }}>
                             {station.creatorName || 'User'}
                         </Typography>
 
-                        <Typography variant="body2">
+                        <Typography variant="body2"
+                          sx={{
+                            fontSize: '0.875rem',
+                            fontFamily: 'SpotifyMix',
+                            fontWeight: '400',
+                            color: '#b3b3b3',
+                            
+                        }}>
                             • {station.songs?.length || 0} {station.songs?.length === 1 ? 'song' : 'songs'}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                            {station.totalDuration}
-                        </Typography>
+                            {totalDuration ? `, ${totalDuration}` : ''}
+                            </Typography>
+                 
                     </Box>
                 </Box>
             </Box>

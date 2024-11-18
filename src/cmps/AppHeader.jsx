@@ -1,24 +1,34 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { search } from '../store/actions/station.actions.js';
-import { useDispatch } from 'react-redux'
-import { store } from '../store/store.js'
 import { userService } from '../services/user/user.service.remote.js'
 
 
 export function AppHeader() {
     const [focused, setFocused] = useState(false)
     const [showModal, setShowModal] = useState(false)
-    const inputWrapperRef = useRef(null)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const location = useLocation()
-    const dispatch = useDispatch()
 
-    const isHomePage = location.pathname === '/'
+    const inputWrapperRef = useRef(null)
+    const inputTextRef = useRef(null)
+    const location = useLocation()
     const navigate = useNavigate()
 
+    const isHomePage = location.pathname === '/'
+    useEffect(() => {
+        if (location.pathname !== '/search') {
+            clearSearchInput()
+        }
+    }, [location.pathname])
 
+    async function clearSearchInput(){
+        if (inputTextRef.current) {
+            inputTextRef.current.value = ''
 
+        }
+      
+         await search('')
+    }
 
     useEffect(() => {
         const checkLoginStatus = async () => {
@@ -84,14 +94,14 @@ export function AppHeader() {
 
     async function handleInputChange(ev) {
         const value = ev.target.value;
-        if (!value) return;
+        if (!value) return
         try {
             const results = search(value)
-            console.log('Search Results:', results);
+            // console.log('Search Results:', results)
             navigate('/search')
 
         } catch (error) {
-            console.error('Error during search:', error);
+            console.error('Error during search:', error)
         }
     }
 
@@ -152,6 +162,7 @@ export function AppHeader() {
                         </svg>
                     </button>
                     <input
+                       ref={inputTextRef}
                         type="text"
                         placeholder="What do you want to play?"
                         className="header-search-input"
@@ -160,7 +171,7 @@ export function AppHeader() {
                         onChange={handleInputChange}
                     />
                     <Link to="/browse" style={{ zIndex: 1000 }}>
-                        <button className="header-browse-btn" title="Browse" onClick={() => navigate('/browse')}>
+                        <button className="header-browse-btn" data-title="Browse" onClick={() => navigate('/browse')}>
                             {location.pathname === '/browse' ? (
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"

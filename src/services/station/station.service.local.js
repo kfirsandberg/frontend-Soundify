@@ -16,13 +16,14 @@ export const stationLocalService = {
     addSong,
     addSongToLikedSongs,
     removeSongFromLikedSongs,
-    ensureSong
+    ensureSong,
 }
 const gImg = 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
 _createStations()
 
 async function query(filterBy = { txt: '', genre: '' }) {
     let stations = await storageService.query(STORAGE_KEY)
+  
     return stations
 }
 function getById(stationId) {
@@ -71,6 +72,7 @@ async function saveStation(station) {
         name: station.name,
         imgURL: station.imgURL || gImg,
         songs: station.songs || [],
+         description: station.description || '',
     }
     return station._id
         ? await storageService.put(STORAGE_KEY, stationToSave)
@@ -191,6 +193,9 @@ function getVideoIdFromUrl(url) {
     const urlObj = new URL(url)
     return urlObj.searchParams.get('v')
 }
+
+
+
 
 function getSongsForStation(playlistName) {
     const songLibrary = {

@@ -146,7 +146,7 @@ export function SongList() {
                                     {...provided.droppableProps}
                                     sx={{ gridArea: 'songs', marginTop: 0 }}
                                 >
-                                    <hr style={{ opacity: 0.2 }} />
+                                    <hr style={{ opacity: 0.1 }} />
                                     {currentStation.songs.map((song, idx) => (
                                         <Draggable key={song.id} draggableId={song.id} index={idx}>
                                             {(provided, snapshot) => (
