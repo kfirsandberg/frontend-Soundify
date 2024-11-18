@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, forwardRef } from 'react'
 import { updateStation } from '../store/actions/station.actions'
 import { uploadService } from '../services/upload.service'
 
-export function StationEdit({ station, onClose, onImageUpload, openFileUpload }) {
+const StationEdit = forwardRef(({ station, onClose, onImageUpload, openFileUpload }, ref) => {
     const [editedStation, setEditedStation] = useState({ ...station })
     const [uploadedImgURL, setUploadedImgURL] = useState(station.imgURL)
 
@@ -61,7 +61,7 @@ export function StationEdit({ station, onClose, onImageUpload, openFileUpload })
     }
 
     return (
-        <div className="station-edit">
+        <div className="station-edit" ref={ref}>
             <div className="modal-header">
                 <h2>Edit details</h2>
                 <button onClick={onClose} className="close-modal-btn">
@@ -119,4 +119,6 @@ export function StationEdit({ station, onClose, onImageUpload, openFileUpload })
             </div>
         </div>
     )
-}
+})
+
+export { StationEdit }

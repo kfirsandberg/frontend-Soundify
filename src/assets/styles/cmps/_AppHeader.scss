@@ -148,7 +148,7 @@
             }
 
             .header-browse-btn {
-                background-color: #1f1f1f;
+                background-color: transparent;
                 border: none;
                 padding: 0;
                 cursor: pointer;
@@ -156,8 +156,8 @@
                 align-items: center;
                 justify-content: center;
                 border-radius: 50%;
-                width: 30px;
-                height: 30px;
+                width: 24px;
+                height: 24px;
 
                 .browse-icon {
                     fill: $icons;
