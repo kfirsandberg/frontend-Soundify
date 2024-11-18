@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Scrollbar } from 'react-scrollbars-custom'
-import { stationLocalService } from '../services/station/station.service.local'
-import { loadStation, removeStation, loadStations } from '../store/actions/station.actions.js'
+import { loadStation, removeStation, loadStations, setIsPlaying, loadSong } from '../store/actions/station.actions.js'
 import loaderIcon from '/assets/loader.svg'
-import { useSelector } from 'react-redux'
+import { useSelector, } from 'react-redux'
 import { DeleteStationModal } from './DeleteStationModal';
+
+
 
 
 import { showSuccessMsg } from '../services/event-bus.service.js'
@@ -13,6 +13,7 @@ import { showSuccessMsg } from '../services/event-bus.service.js'
 export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const navigate = useNavigate()
+
 
     const contextMenuRef = useRef(null)
 
@@ -34,6 +35,28 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
         }
     }, [])
 
+    function handlePlayFirstSong(station) {
+        console.log('Playing first song from station:', station)
+        
+        if (station.songs && station.songs.length > 0) {
+            const firstSong = station.songs[0]
+            const firstSongId = firstSong.id
+            console.log('First song ID:', firstSongId)
+            
+            if (firstSongId) {
+                loadSong(firstSongId)
+                setIsPlaying(true)
+            } else {
+                console.log('First song does not have a valid ID')
+            }
+        } else {
+            console.log('No songs found in station')
+        }
+    }
+
+
+
+
     function handleOutsideClick(event) {
         if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
             closeContextMenu()
@@ -43,6 +66,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
     function onClickStation(station) {
         navigate(`/playlist/${station._id}`);
         loadStation(station._id);
+        handlePlayFirstSong(station);
     }
 
     let filteredStations = stations
@@ -90,6 +114,8 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
         }
     }
 
+
+
     if (loading) {
         return (
             <div>
@@ -124,7 +150,7 @@ export function LibraryList({ filterCriteria, sortBy, isCollapsed }) {
                                 </div>
                             </div>)}
                         {/* SVG Icon overlay */}
-                        <div className="overlay-icon">
+                        <div className="overlay-icon" onClick={() => handlePlayFirstSong(station)}>
                             <img src="/assets/lib_player_btn.svg" alt="Play" />
                         </div>
                     </li>

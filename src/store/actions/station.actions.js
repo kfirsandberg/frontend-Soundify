@@ -190,7 +190,7 @@ export async function setCurrentStation(stationIdOrName) {
         const station = await stationLocalService.getById(stationIdOrName) || 
                         await stationLocalService.getStationByName(stationIdOrName);
 
-        if (!station) {
+        if (!station || !station.songs || station.songs.length === 0 ) {
             console.log(`Station not found: ${stationIdOrName}`);
             return;
         }
@@ -206,7 +206,7 @@ export async function setCurrentStation(stationIdOrName) {
 
 
 // Command Creators:
-function getCmdSetStations(stations) {
+ function getCmdSetStations(stations) {
     return {
         type: SET_STATIONS,
         stations,
@@ -302,3 +302,5 @@ async function unitTestActions() {
     })
     await removeStation('m1oC7')
 }
+
+export { getCmdSetSong }
