@@ -8,14 +8,14 @@ import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
 import { useSelector, useDispatch } from 'react-redux'
-import{stationService} from '../services/station/'
+import { stationService } from '../services/station/'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
     const [openFileUpload, setOpenFileUpload] = useState(false)
-    const totalDuration= stationService.calculateTotalDuration(station.songs)
-    
+    const totalDuration = stationService.calculateTotalDuration(station.songs)
+
 
     const dispatch = useDispatch()
 
@@ -142,7 +142,7 @@ export function StationHeader({ station }) {
                             color: 'white',
                             fontSize: '16px',
                             opacity: 0, // Initially hidden
-                            
+
                         }}
                     >
                         Choose photo
@@ -157,18 +157,18 @@ export function StationHeader({ station }) {
                     <Typography
                         variant="h2"
                         sx={{
-                            fontFamily: 'SpotifyMix-Extrabold', // Add this line to specify the font
+                            fontFamily: 'SpotifyMix-Extrabold',
                             fontWeight: 'bold',
                             cursor: 'pointer',
-                            fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '6rem', xl: '6rem' },
-                            // lineHeight: { xs: '2.5rem', sm: '3.5rem', md: '5rem' },
+                            fontSize: { xs: '1.8rem', sm: '3rem', md: '4rem', lg: '6rem', xl: '6rem' },
+
                             letterSpacing: { xs: '-3px' },
-                            textAlign: { xs: 'center', sm: 'left' },
-                            whiteSpace: 'nowrap', // Prevents the text from wrapping
+                            textAlign: { xs: 'left', sm: 'left' },
+                            whiteSpace: 'nowrap',
 
 
-                            overflow: 'hidden', // Optional: Hides text overflow if the text exceeds the container width
-                            textOverflow: 'ellipsis', // Optional: Adds ellipsis if the text is cut off
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
                         }}
                         onClick={onEditStation}
                     >
@@ -186,8 +186,19 @@ export function StationHeader({ station }) {
                                 color: 'white',
                                 textAlign: { xs: 'center', sm: 'left' },
                                 whiteSpace: 'nowrap',
-                                overflow: 'hidden', 
-                                textOverflow: 'ellipsis', 
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                display: 'block',
+                                '@media (max-width: 600px)': {
+                                    fontSize: '1rem',
+                                },
+                                '@media (max-width: 400px)': {
+                                    display: 'flex',
+                                    justifyContent: 'flex-start',
+                                    fontSize: '0.9rem',
+                                    WebkitMaskImage: 'linear-gradient(to right, black 85%, transparent 100%)',
+                                    maskImage: 'linear-gradient(to right, black 85%, transparent 100%)',
+                                },
                             }}
                         >
                             {station.description}
@@ -201,17 +212,17 @@ export function StationHeader({ station }) {
                         </Typography>
 
                         <Typography variant="body2"
-                          sx={{
-                            fontSize: '0.875rem',
-                            fontFamily: 'SpotifyMix',
-                            fontWeight: '400',
-                            color: '#b3b3b3',
-                            
-                        }}>
+                            sx={{
+                                fontSize: '0.875rem',
+                                fontFamily: 'SpotifyMix',
+                                fontWeight: '400',
+                                color: '#b3b3b3',
+
+                            }}>
                             • {station.songs?.length || 0} {station.songs?.length === 1 ? 'song' : 'songs'}
                             {totalDuration ? `, ${totalDuration}` : ''}
-                            </Typography>
-                 
+                        </Typography>
+
                     </Box>
                 </Box>
             </Box>
@@ -243,8 +254,8 @@ export function StationHeader({ station }) {
                         cursor: 'pointer',
                         padding: 0,
                         opacity: 0.6,
-                        
-                        
+
+
                     }}
                 >
                     <MoreHoriz style={{ fontSize: '30px' }} />
