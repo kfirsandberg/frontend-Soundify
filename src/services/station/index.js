@@ -1,8 +1,8 @@
 import { stationLocalService } from './station.service.local'
-import { stationRemoteService } from './station.service.remote'
+import { stationServiceRemote } from './station.service.remote'
 
 const { DEV, VITE_LOCAL } = import.meta.env
-const service = VITE_LOCAL === 'true' ? stationLocalService : stationRemoteService
+const service = VITE_LOCAL === 'true' ? stationLocalService : stationServiceRemote
 
 export const stationService = service
 console.log('service:', VITE_LOCAL)

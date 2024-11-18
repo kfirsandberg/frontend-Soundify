@@ -29,6 +29,7 @@ export function RootCmp() {
     // Toggle the library route active state
     const toggleLibraryActive = () => setIsLibraryActive(prev => !prev)
     const stations = useSelector(storeState => storeState.stationModule.stations)
+    console.log(stations)
     const bgColor = useSelector(storeState => storeState.stationModule.bgColor)
 
     useEffect(() => {

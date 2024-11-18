@@ -24,26 +24,6 @@ export const httpService = {
 };
 
 
-async function ajaxApi(endpoint, method = 'GET', data = null) {
-    const url = `api/${endpoint}`;
-    if (method === 'GET' && data) {
-        const queryString = Object.keys(data)
-            .map((key) => `${key}=${encodeURIComponent(data[key])}`)
-            .join('&');
-        const finalQueryString = queryString.replace(/%20/g, '_');
-        try {
-
-            const res = await axios.get(`${url}?${finalQueryString}`, {
-                withCredentials: true,
-            });
-            return res.data;
-        } catch (error) {
-            console.error('Network error:', error);
-            throw error;
-        }
-    }
-}
-
 async function ajax(endpoint, method = 'GET', data = null) {
     const url = `${BASE_URL}${endpoint}`;
     // console.log(url); // This is just for debugging to ensure the URL is correct
