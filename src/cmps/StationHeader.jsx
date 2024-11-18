@@ -7,7 +7,7 @@ import userIcon from '../../public/assets/user.svg'
 import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -33,13 +33,13 @@ export function StationHeader({ station }) {
     function handleImageUpload(url) {
         setUpdatedImgURL(url)
     }
-    
+
 
     function handlePlayFirstSong() {
         if (station.songs && station.songs.length > 0) {
             const firstSongId = station.songs[0].id;  // Assuming 'id' is the identifier for the song
             console.log("Playing first song with ID:", firstSongId);
-            
+
             // Dispatch the action to load the song and set it as playing
             dispatch(loadSong(firstSongId))  // Assuming loadSong triggers the appropriate Redux logic to load the song
             dispatch(setIsPlaying(true))  // Set the player as playing
@@ -174,7 +174,7 @@ export function StationHeader({ station }) {
             {/* Playlist Actions */}
             <Box className="playlist-actions"
                 sx={{ display: 'flex', gap: 5 }}>
-                 <button
+                <button
                     className="station-play-btn"
                     style={{
                         color: '#1ed760',
@@ -189,7 +189,7 @@ export function StationHeader({ station }) {
                 >
                     <PlayCircleFilledIcon style={{ fontSize: '66px' }} />
                 </button>
-                
+
                 <button
                     style={{
                         color: 'white',
@@ -197,6 +197,7 @@ export function StationHeader({ station }) {
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
+                        opacity: 0.6
                     }}
                 >
                     <MoreHoriz />
@@ -208,11 +209,22 @@ export function StationHeader({ station }) {
                         border: 'none',
                         boxShadow: 'none',
                         cursor: 'pointer',
+                        display: 'flex', // Use flexbox inside the button
+                        alignItems: 'center', // Vertically align items
+                        padding: '5px 10px', // Add padding to the button
+                        opacity: 0.6,
+                        color: 'white',
+                        fontSize:16
                     }}
                     onMouseOver={(e) => (e.currentTarget.style.fill = '#121212')}
                     onMouseOut={(e) => (e.currentTarget.style.fill = '')}
                 >
-                    <img src={HamburgerIcon} alt="Sort Icon" style={{ width: '20px', height: '20px', marginRight: 20 }} />
+                    <span style={{ marginRight: '10px' }}>List</span> {/* Text inside the button */}
+                    <img
+                        src={HamburgerIcon}
+                        alt="Sort Icon"
+                        style={{ width: '20px', height: '20px' }} // Adjust icon size
+                    />
                 </button>
             </Box>
 
