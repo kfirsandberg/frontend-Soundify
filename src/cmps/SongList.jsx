@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { loadSong, setIsPlaying, updateStation} from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
@@ -87,8 +87,8 @@ export function SongList() {
                             gridGap: 1,
 
                             '@media (max-width: 768px)': {
-                                gridTemplateColumns: 'auto 1fr',
-                                gridTemplateRows: 'auto auto auto',
+                                gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
+                                gridTemplateRows: '7fr 7.3fr 0.2fr',
                                 textAlign: 'center',
                             },
                         }}
@@ -107,13 +107,21 @@ export function SongList() {
                         </Typography>
                         <Typography
                             variant="body2"
-                            sx={{ opacity: 0.6, color: 'white', '@media (max-width: 768px)': { marginLeft: 0 } }}
+                            sx={{ opacity: 0.6, color: 'white', '@media (max-width: 768px)': { marginLeft: 0, display: 'none', } }}
                         >
                             Album
                         </Typography>
                         <Typography
                             variant="body2"
-                            sx={{ opacity: 0.6, color: 'white', '@media (max-width: 768px)': { marginLeft: 0 } }}
+                            sx={{
+                                opacity: 0.6,
+                                color: 'white',
+                                '@media (max-width: 768px)': {
+                                    marginLeft: 25,
+                                    marginRight:1
+                                    
+                                },
+                            }}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -289,6 +297,9 @@ export function SongList() {
                                                                 '&:hover': {
                                                                     textDecoration: 'underline',
                                                                 },
+                                                                '@media (max-width: 768px)': {
+                                                                    display: 'none',
+                                                                },
                                                             }}
                                                             title={` ${song.album}`}
                                                         >
@@ -298,7 +309,7 @@ export function SongList() {
                                                             sx={{
                                                                 display: 'flex',
                                                                 alignItems: 'center',
-                                                                gap: '10px', 
+                                                                gap: '10px',
                                                             }}
                                                         >
                                                             <button
@@ -317,7 +328,16 @@ export function SongList() {
                                                                     </svg>
                                                                 )}
                                                             </button>
-                                                            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+                                                            <Typography
+                                                                variant="body2"
+                                                                sx={{
+                                                                    color: 'rgba(255, 255, 255, 0.6)',
+                                                                    '@media (max-width: 768px)': {
+                                                                       marginLeft:25, // Hides the component under 768px
+                                                                       marginRight:10
+                                                                    },
+                                                                }}
+                                                            >
                                                                 {song.duration}
                                                             </Typography>
                                                         </Box>
