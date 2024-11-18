@@ -6,6 +6,7 @@ import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { useSelector } from 'react-redux'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
+import {stationService} from '../services/station'
 
 export function SongList() {
     const currentStation = useSelector(state => state.stationModule.station);
@@ -339,7 +340,10 @@ export function SongList() {
                                                                     },
                                                                 }}
                                                             >
-                                                                {song.track.duration_ms}
+                                                             {song.track.duration_ms
+    ? stationService.formatSongDuration(song.track.duration_ms)
+    : "0:00"}
+
                                                             </Typography>
                                                         </Box>
                                                     </Box>

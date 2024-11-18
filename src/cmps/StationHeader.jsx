@@ -14,8 +14,8 @@ export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
     const [openFileUpload, setOpenFileUpload] = useState(false)
-    const totalDuration= stationService.calculateTotalDuration(station.songs)
-    
+    const totalDuration = stationService.calculateTotalDuration(station.tracks)
+
 
     const dispatch = useDispatch()
 
