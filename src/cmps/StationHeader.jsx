@@ -72,9 +72,8 @@ export function StationHeader({ station }) {
                         minHeight: 128, // Prevents the image from becoming too small
                         maxWidth: 232,
                         maxHeight: 232,
-
-                        '&:hover .overlay, &:hover .edit-icon-button': {
-                            opacity: 1, // Show overlay and icon button on hover
+                        '&:hover .overlay, &:hover .edit-icon-button, &:hover .choose-photo-text': {
+                            opacity: 1, // Show overlay, icon, and text on hover
                         },
                     }}
                 >
@@ -106,7 +105,8 @@ export function StationHeader({ station }) {
                             height: '100%',
                             backgroundColor: 'rgba(0,0,0,0.6)',
                             borderRadius: 1,
-                            opacity: 0,
+                            opacity: 0, // Initially hidden
+                            transition: 'opacity 0.3s ease',
                         }}
                     />
 
@@ -121,12 +121,29 @@ export function StationHeader({ station }) {
                             transform: 'translate(-50%, -50%)',
                             color: 'white',
                             opacity: 0, // Initially hidden
-
                             zIndex: 1, // Ensure the icon is above the overlay
+                            transition: 'opacity 0.3s ease',
                         }}
                     >
                         <EditIcon sx={{ fontSize: 70 }} /> {/* Larger icon size */}
                     </IconButton>
+
+                    {/* Choose Photo Text */}
+                    <Box
+                        className="choose-photo-text"
+                        sx={{
+                            position: 'absolute',
+                            top: '70%', // Adjust based on where you want the text
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            color: 'white',
+                            fontSize: '16px',
+                            opacity: 0, // Initially hidden
+                            
+                        }}
+                    >
+                        Choose photo
+                    </Box>
                 </Box>
 
                 {/* Playlist Info */}
@@ -214,7 +231,7 @@ export function StationHeader({ station }) {
                         padding: '5px 10px', // Add padding to the button
                         opacity: 0.6,
                         color: 'white',
-                        fontSize:16
+                        fontSize: 16
                     }}
                     onMouseOver={(e) => (e.currentTarget.style.fill = '#121212')}
                     onMouseOut={(e) => (e.currentTarget.style.fill = '')}
