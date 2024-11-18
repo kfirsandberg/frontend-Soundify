@@ -190,7 +190,7 @@ export function StationHeader({ station }) {
 
             {/* Playlist Actions */}
             <Box className="playlist-actions"
-                sx={{ display: 'flex', gap: 5 }}>
+                sx={{ display: 'flex', gap: 3 }}>
                 <button
                     className="station-play-btn"
                     style={{
@@ -200,7 +200,7 @@ export function StationHeader({ station }) {
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
-                        marginLeft: 20,
+                        marginLeft: 5,
                     }}
                     onClick={handlePlayFirstSong} // Add the play logic to this button
                 >
@@ -214,10 +214,12 @@ export function StationHeader({ station }) {
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
-                        opacity: 0.6
+                        opacity: 0.6,
+                        
+                        
                     }}
                 >
-                    <MoreHoriz />
+                    <MoreHoriz style={{ fontSize: '30px' }} />
                 </button>
                 <button
                     style={{
