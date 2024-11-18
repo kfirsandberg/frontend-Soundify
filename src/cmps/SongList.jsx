@@ -219,7 +219,6 @@ export function SongList() {
                                                                 variant="body2"
                                                                 sx={{
                                                                     marginLeft: 4,
-                                                                    color: 'white',
                                                                     opacity: 0.7,
                                                                     color: activeIndex === idx ? '#1ed760' : 'white',
                                                                 }}
