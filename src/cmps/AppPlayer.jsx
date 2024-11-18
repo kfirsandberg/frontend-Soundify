@@ -164,7 +164,7 @@ export function AppPlayer() {
                     >
                         {isPlaying ? (
                             <svg
-                                className="icon"
+                                className="pause-icon"
                                 xmlns="http://www.w3.org/2000/svg"
                                 role="img"
                                 aria-hidden="true"
