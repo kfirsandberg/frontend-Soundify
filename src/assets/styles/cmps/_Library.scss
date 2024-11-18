@@ -134,7 +134,7 @@
 
 /* Filter Section */
 .filter-library {
-    padding-left: 4px;
+    padding-left: 6px;
 }
 
 .sort-buttons {
@@ -144,7 +144,7 @@
     margin-bottom: 9px;
     width: 72px;
     margin-top: 22px;
-    margin-left: 5px;
+    margin-left: 10px;
 
 }
 
@@ -364,7 +364,7 @@
     transition: transform 0.2s ease-in-out;
     width: rem(279px); /* Consider using px for more predictable behavior */
     margin-left: 20px;
-    height: 4rem;
+    height: rem(64px);
     cursor: pointer;
     overflow: hidden;
 }
@@ -449,7 +449,7 @@
     flex-direction: column;
     justify-content: flex-start;
     /* Align items to the top */
-    margin-left: 0.725rem;
+    margin-left:1.025rem;
     color: #fff;
     height: auto;
     /* Allow dynamic height */
@@ -679,9 +679,9 @@
 }
 
 .library-ul{
-    margin-top: 20px;
+
     margin-left: 5px;
-    transform: translateX(-10px);
+
 }
 
 .hamburger-btn:hover .selected-sort,

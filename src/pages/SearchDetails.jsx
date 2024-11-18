@@ -7,10 +7,11 @@ import { stationLocalService } from '../services/station/station.service.local.j
 
 export function SearchDetails() {
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
-    console.log(searchedSongs)
+
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const [currentSong, setCurrentSong] = useState(null);
 
+    
     const contextMenuRef = useRef(null)
 
     const menuWidth = contextMenuRef.current?.offsetWidth || 150;
@@ -21,9 +22,9 @@ export function SearchDetails() {
 
     useEffect(() => {
         if (!contextMenu) return
-        document.addEventListener('click', handleClickOutside);
+        document.addEventListener('click', handleOutsideClick);
         return () => {
-            document.removeEventListener('click', handleClickOutside);
+            document.removeEventListener('click', handleOutsideClick);
         };
     }, [contextMenu]);
 
@@ -64,13 +65,13 @@ export function SearchDetails() {
         setCurrentSong(song)
     }
 
-    // function handleOutsideClick(event) {
-    //     if (!contextMenu || !contextMenuRef.current) return;
-    //     if (!contextMenuRef.current.contains(event.target)) {
-    //         console.log('Clicked outside, closing context menu.');
-    //         closeContextMenu();
-    //     }
-    // }
+    function handleOutsideClick(event) {
+        if (!contextMenu || !contextMenuRef.current) return;
+        if (!contextMenuRef.current.contains(event.target)) {
+            console.log('Clicked outside, closing context menu.');
+            closeContextMenu();
+        }
+    }
 
 
 
@@ -88,7 +89,7 @@ export function SearchDetails() {
             if (existingSong) {
                 await removeSong(song, stationName);
                 console.log(`Song removed from ${stationName}`);
-                station.songs = station.songs.filter(s => s.id !== song.id);
+                station.songs = station.songs.filter(s => s._id !== song._id);
 
             } else {
                 await addSong(song, stationName);
@@ -114,7 +115,7 @@ export function SearchDetails() {
                 {searchedSongs.tracks
                     ?.filter((song) => song.duration_ms)
                     .map((song) => (
-                        <div key={song.id} className="song-item">
+                        <div key={song._id} className="song-item">
                             {/* Song Image */}
                             <div className="song-img">
                                 <button>
@@ -188,9 +189,9 @@ export function SearchDetails() {
                     <span className='add-to-playlist'>Add to playlist</span>
 
                     {stations.map((station) => (
-                        <li className='add-station' key={station.id} onClick={() => onStationClick(station)}>
+                        <li className='add-station' key={station._id} onClick={() => onStationClick(station)}>
                             <img
-                                src={station.imgURL || 'default-thumbnail.jpg'}
+                                src={station.images[0].url || 'default-thumbnail.jpg'}
                                 alt={`${station.name} thumbnail`}
                                 className="station-thumbnail"
                             />
