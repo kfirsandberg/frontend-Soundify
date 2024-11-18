@@ -17,7 +17,6 @@ export const stationLocalService = {
     addSongToLikedSongs,
     removeSongFromLikedSongs,
     ensureSong,
-    calculateTotalDuration
 }
 const gImg = 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
 _createStations()
@@ -74,7 +73,6 @@ async function saveStation(station) {
         imgURL: station.imgURL || gImg,
         songs: station.songs || [],
          description: station.description || '',
-         totalDuration: calculateTotalDuration(station.songs || []),
     }
     return station._id
         ? await storageService.put(STORAGE_KEY, stationToSave)
@@ -196,30 +194,6 @@ function getVideoIdFromUrl(url) {
     return urlObj.searchParams.get('v')
 }
 
-function calculateTotalDuration(songs) {
-    let totalSeconds = 0;
-if(!songs)return 
-    songs.forEach(song => {
-        if (song.duration) {
-            const parts = song.duration.split(':');
-            const minutes = parseInt(parts[0], 10);
-            const seconds = parseInt(parts[1], 10);
-            totalSeconds += minutes * 60 + seconds;
-        }
-    });
-
-    const days = Math.floor(totalSeconds / (24 * 3600));
-    const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-
-    const result = [];
-    if (days > 0) result.push(`${days} day${days > 1 ? 's' : ''}`);
-    if (hours > 0) result.push(`${hours} hour${hours > 1 ? 's' : ''}`);
-    if (minutes > 0) result.push(`${minutes} min`);
-    if (seconds > 0) result.push(`${seconds} sec`);
-    return result.join(' ');
-}
 
 
 

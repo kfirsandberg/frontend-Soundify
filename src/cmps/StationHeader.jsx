@@ -8,13 +8,13 @@ import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
 import { useSelector, useDispatch } from 'react-redux'
-import{stationLocalService} from '../services/station/station.service.local.js'
+import{stationService} from '../services/station/'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
     const [openFileUpload, setOpenFileUpload] = useState(false)
-    const totalDuration= stationLocalService.calculateTotalDuration(station.songs)
+    const totalDuration= stationService.calculateTotalDuration(station.songs)
     
 
     const dispatch = useDispatch()
