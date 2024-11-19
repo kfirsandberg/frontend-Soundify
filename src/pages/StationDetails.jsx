@@ -61,8 +61,8 @@ export function StationDetails() {
     }
     return (
         <section className="station-details-main">
-            <StationHeader station={station} />
-            <SongList  station={station}  />
+            <StationHeader />
+            <SongList  />
             {/* {renderStationImage()} */}
         </section>
     )

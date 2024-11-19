@@ -6,7 +6,7 @@ const service = VITE_LOCAL === 'true' ? stationLocalService : stationServiceRemo
 
 function calculateTotalDuration(songs) {
     let totalSeconds = 0
-    if (!songs) return 
+    if (!songs) return
 
     songs.forEach(song => {
         if (song.track && song.track.duration_ms) {
@@ -35,17 +35,13 @@ function formatSongDuration(durationMs) {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`
 }
 
-function isSongOnStation(song,station) {
-    // console.log(song,station);
-    
-    if (!station || !station.tracks) return false 
-    
-    // return station.tracks.some(s => console.log(s));
+function isSongOnStation(song, station) {
+    if (!station || !station.tracks) return false
     return station.tracks.some(s => s.track.id === song.id);
 }
 
 
-export const stationService = { calculateTotalDuration, formatSongDuration, isSongOnStation,...service }
+export const stationService = { calculateTotalDuration, formatSongDuration, isSongOnStation, ...service }
 
 // Expose stationService for easy debugging in development
 if (DEV) window.stationService = stationService
