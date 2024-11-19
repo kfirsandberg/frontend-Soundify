@@ -181,6 +181,7 @@ export async function removeSong(song, station) {
        
         
         store.dispatch(getCmdUpdateStation(updateStation))
+        store.dispatch(getCmdSetStation(updateStation))
     } catch (err) {
         console.log('Cannot remove song', err)
         throw err
@@ -197,6 +198,8 @@ export async function addSong(song, station) {
         console.log('after:' ,updatedStation);
 
         store.dispatch(getCmdUpdateStation(updateStation))
+        store.dispatch(getCmdSetStation(updateStation))
+
     } catch (err) {
         console.log('Cannot add song to Liked Songs', err)
     }

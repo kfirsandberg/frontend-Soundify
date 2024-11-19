@@ -6,19 +6,56 @@ import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { useSelector } from 'react-redux'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
-import {stationService} from '../services/station'
+import { stationService } from '../services/station'
+import { SOCKET_EMIT_STATION_WATCH, SOCKET_EVENT_STATION_UPDATE, socketService } from '../services/socket.service.js'
+import { store } from '../store/store.js'
+import { showSuccessMsg } from '../services/event-bus.service.js'
 
-export function SongList({station}) {
+export function SongList() {
+    const station = useSelector(storeState => storeState.stationModule.currentStation)
+
+    console.log('station:', station)
+
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
     const [currStation, setCurrStation] = useState(station);
     const [songs, setSongs] = useState(station.tracks);
-    
+
+
+    useEffect(() => {
+        console.log('station.',station)
+
+    },[station])
+
+
+    useEffect(() => {
+
+        socketService.emit(SOCKET_EMIT_STATION_WATCH, station._id)
+        socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+
+        return () => {
+            socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+        }
+    }, [station._id, station])
+
+    function onStationUpdate(station) {
+        console.log('station:', station)
+        showSuccessMsg('Playlist Updated.')
+
+        store.dispatch({ type: 'UPDATE_STATION' , station})
+        store.dispatch({ type: 'SET_STATION' , currentStation:station})
+
+        setCurrStation(station)
+        setSongs(station.tracks)
+        console.log('station.tracks',station.tracks)
+    }
+
+
     useEffect(() => {
         setSongs(station.tracks);
         setCurrStation(station);
-    }, [station._id]);
+    }, [station]);
 
     useEffect(() => {
         setSongs(currStation.tracks);
@@ -65,7 +102,7 @@ export function SongList({station}) {
         setCurrStation(updatedStation);
     }
 
-
+if(!station) return
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
@@ -118,8 +155,8 @@ export function SongList({station}) {
                                 color: 'white',
                                 '@media (max-width: 768px)': {
                                     marginLeft: 25,
-                                    marginRight:1
-                                    
+                                    marginRight: 1
+
                                 },
                             }}
                         >
@@ -300,7 +337,7 @@ export function SongList({station}) {
                                                                     display: 'none',
                                                                 },
                                                             }}
-                                                            // title={` ${song.album}`}
+                                                        // title={` ${song.album}`}
                                                         >
                                                             {/* {song.album} */}
                                                         </Typography>
@@ -332,14 +369,14 @@ export function SongList({station}) {
                                                                 sx={{
                                                                     color: 'rgba(255, 255, 255, 0.6)',
                                                                     '@media (max-width: 768px)': {
-                                                                       marginLeft:25, // Hides the component under 768px
-                                                                       marginRight:10
+                                                                        marginLeft: 25, // Hides the component under 768px
+                                                                        marginRight: 10
                                                                     },
                                                                 }}
                                                             >
-                                                             {song.track.duration_ms
-    ? stationService.formatSongDuration(song.track.duration_ms)
-    : "0:00"}
+                                                                {song.track.duration_ms
+                                                                    ? stationService.formatSongDuration(song.track.duration_ms)
+                                                                    : "0:00"}
 
                                                             </Typography>
                                                         </Box>

@@ -45,6 +45,10 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: [...state.stations, action.station] }
             break
         case UPDATE_STATION:
+            console.log('stations',state.stations)
+            console.log('-----------------------------------------------')
+
+            console.log('action.station',action.station)
             stations = state.stations.map(station => (station._id === action.station._id ? action.station : station))
             newState = { ...state, stations }
             break
