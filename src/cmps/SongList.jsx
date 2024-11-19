@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 export function SongList({ }) {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
+    const stations = useSelector(storeState => storeState.stationModule.stations)
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
@@ -95,6 +96,8 @@ export function SongList({ }) {
 
     async function onLikedSong(song, station) {
         try {
+            const stationIdToRemove = station._id
+            const newStations = stations.filter(station => station._id !== stationIdToRemove);
             let songToCheck
             if (song.added_at) {
                 songToCheck = song.track
@@ -103,11 +106,9 @@ export function SongList({ }) {
             }
             const existingSong = await stationService.isSongOnStation(songToCheck, station);
             if (existingSong) {
-                await removeSong(songToCheck, station);
-                console.log(station);
-                
+                await removeSong(songToCheck, station, newStations);
             } else {
-                await addSong(songToCheck, station);
+                await addSong(songToCheck, station, newStations);
             }
 
         } catch (error) {
@@ -127,9 +128,14 @@ export function SongList({ }) {
         setCurrStation(updatedStation);
     }
     async function onArtistClick(song) {
-        const artistId = song.track.artists[0].id
-        await getArtist(artistId)
-        console.log(artist);
+        try {
+            const artistId = song.track.artists[0].id
+            await getArtist(artistId)
+            console.log(artist);
+        } catch (error) {
+            console.error('Error toggling like:', error);
+        }
+
         // navigate(`/artist/${artistId}`)
     }
 
