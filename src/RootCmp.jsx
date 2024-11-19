@@ -6,6 +6,7 @@ import { StationIndex } from './pages/StationIndex.jsx'
 import { AppHeader } from './cmps/AppHeader'
 import { AppPlayer } from './cmps/AppPlayer.jsx'
 import { StationDetails } from './pages/StationDetails.jsx'
+import { ArtistPage } from './pages/ArtistPage.jsx'
 import { Library } from './cmps/Library.jsx'
 import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
@@ -73,6 +74,7 @@ export function RootCmp() {
                         <Route path="/search" element={<SearchDetails/>} />
                         <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
                         <Route path="/playlist/:stationId" element={<StationDetails />} />
+                        <Route path="/artist/:artistId" element={<ArtistPage />} />
                         <Route path="/LoginSignup" element={<LoginSignup />}>
                             <Route index element={<Login />} /> {/* Default to Login */}
                             <Route path="signup" element={<Signup />} /> {/* Signup Route */}

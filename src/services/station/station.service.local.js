@@ -20,6 +20,7 @@ export const stationLocalService = {
     ensureSong,
     searchSongs,
     getYoutubeID,
+    getArtist
 }
 const gImg = 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
 _createStations()
@@ -184,4 +185,8 @@ function getVideoIdFromUrl(url) {
 
 function getYoutubeID(songName) {
     return httpService.get('youtube/search?q=' + songName).then(((res => res.data)))
+}
+
+function getArtist(artistId) {    
+    return httpService.post(`spotify/artists/${artistId}`).then(((res => res.data)))
 }

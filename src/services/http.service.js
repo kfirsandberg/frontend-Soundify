@@ -7,7 +7,6 @@ const axios = Axios.create({ withCredentials: true })
 
 export const httpService = {
     get(endpoint, data) {
-        // console.log(endpoint)
         return ajax(endpoint, 'GET', data);
     },
     post(endpoint, data) {
@@ -26,19 +25,23 @@ export const httpService = {
 async function ajax(endpoint, method = 'GET', data = null) {
     const url = `${BASE_URL}${endpoint}`;
     // console.log(url); // This is just for debugging to ensure the URL is correct
-    console.log(url, method, data);
+    // console.log(url, method, data);
 
     // Directly append query parameters to the URL for GET requests
+
     if (method === 'GET' && data) {
+        
         const queryString = Object.keys(data)
             .map((key) => `${key}=${encodeURIComponent(data[key])}`)
             .join('&');
         return axios({
+            
             url: `${url}?${queryString}`,
             method,
             withCredentials: true,
         });
-    } else {
+    } else {        
+        
         return axios({
             url,
             method,

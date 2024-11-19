@@ -14,10 +14,10 @@ export function StationHeader() {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
+    const [updatedImgURL, setUpdatedImgURL] = useState(station?.images?.[0]?.url)
     const [openFileUpload, setOpenFileUpload] = useState(false)
     const totalDuration = stationService.calculateTotalDuration(station.tracks)
-
+    
 
     const dispatch = useDispatch()
 
@@ -84,7 +84,7 @@ export function StationHeader() {
                 >
                     <Box
                         component="img"
-                        src={station.images[0].url}
+                        src={station?.images[0]?.url}
                         onClick={onImageClick}
                         alt="Station"
                         sx={{
@@ -172,6 +172,7 @@ export function StationHeader() {
                         }}
                         onClick={onEditStation}
                     >
+
                         {station.name}
                     </Typography>
 
@@ -220,9 +221,8 @@ export function StationHeader() {
                     )}
 
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Avatar src={station.creatorImgURL || userIcon} alt="Creator" sx={{ width: 24, height: 24 }} />
                         <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center' }}>
-                            {station.creatorName || 'User'}
+                            {station.owner.display_name || 'User'}
                         </Typography>
 
                         <Typography variant="body2"

@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { formatTime } from '../services/util.service'
-import { updateStation } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
 import { stationService } from '../services/station/index.js';
 import { removeSong, addSong } from '../store/actions/station.actions.js';
+import { useNavigate } from 'react-router-dom'
 export function SearchDetails() {
+
+    const navigate = useNavigate()
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
 
     const stations = useSelector(storeState => storeState.stationModule.stations)
@@ -69,10 +72,13 @@ export function SearchDetails() {
         }
     }
 
-
-
     function closeContextMenu() {
         setContextMenu(null)
+    }
+
+    function handlePlayClick(song){
+        loadSong(song);
+        setIsPlaying(true);
     }
 
 
@@ -104,11 +110,14 @@ export function SearchDetails() {
                     .map((song) => (
                         <div key={song._id} className="song-item">
                             {/* Song Image */}
-                            <div className="song-img">
+                            <div  onClick={() => handlePlayClick(song)}
+                             className="song-img">
+                                
                                 <button>
                                     <img
                                         src={song.album.images[0]?.url}
                                         alt={`${song.name} cover`}
+                                      
                                     />
                                     <div className="img-overlay">
                                         <div className="play-icon"></div>
@@ -120,8 +129,19 @@ export function SearchDetails() {
                             <div className="song-details">
                                 <span className="song-title">{song.name}</span>
                                 <span className="song-artist">
-                                    {song.artists.map((artist) => artist.name).join(', ')}
+                                    {song.artists.map((artist, index) => (
+                                        <React.Fragment key={artist.id}>
+                                            <span
+                                                className="artist-name"
+                                                onClick={() => navigate(`/artist/${artist.id}`)}
+                                            >
+                                                {artist.name}
+                                            </span>
+                                            {index < song.artists.length - 1 && ', '}
+                                        </React.Fragment>
+                                    ))}
                                 </span>
+
                             </div>
 
                             {/* Like Button and Duration */}
