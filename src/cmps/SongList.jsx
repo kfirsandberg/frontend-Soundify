@@ -20,6 +20,8 @@ export function SongList({ }) {
     const [currentSong, setCurrentSong] = useState(null);
 
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
+    console.log(artist);
+    
 
     const contextMenuRef = useRef(null)
 
@@ -43,6 +45,18 @@ export function SongList({ }) {
     useEffect(() => {
         setSongs(currStation.tracks);
     }, [currStation.tracks]);
+
+
+    async function onArtistClick(song) {
+        const artistId = song.track.artists[0].id
+       
+        await getArtist(artistId)
+
+        console.log('res' ,artist)
+        
+        
+        navigate(`/artist/${artistId}`)
+    }
 
     function handlePlayClick(song, index) {
         loadSong(song);
