@@ -11,6 +11,7 @@ export function SearchDetails() {
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
 
     const stations = useSelector(storeState => storeState.stationModule.stations)
+    const currentStation = useSelector(storeState => storeState.stationModule.currentStation)
     const [currentSong, setCurrentSong] = useState(null);
 
 
@@ -83,6 +84,8 @@ export function SearchDetails() {
 
     async function onLikedSong(song, station) {
         try {
+            const stationIdToRemove = station._id
+            const newStations = stations.filter(station => station._id !== stationIdToRemove);
             let songToCheck
             if (song.added_at) {
                 songToCheck = song.track
@@ -91,9 +94,9 @@ export function SearchDetails() {
             }
             const existingSong = await stationService.isSongOnStation(songToCheck, station);
             if (existingSong) {
-                await removeSong(songToCheck, station);
+                await removeSong(songToCheck, station, newStations);
             } else {
-                await addSong(song, station);
+                await addSong(songToCheck, station, newStations);
             }
 
         } catch (error) {

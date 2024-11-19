@@ -35,9 +35,9 @@ function formatSongDuration(durationMs) {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`
 }
 
-function isSongOnStation(song, station) {
+function isSongOnStation(song, station) {    
     if (!station || !station.tracks) return false
-    return station.tracks.some(s => s.track.id === song.id);
+    return station.tracks.some(s => s.track.id === song.track.id);
 }
 
 

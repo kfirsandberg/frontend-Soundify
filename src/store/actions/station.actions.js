@@ -100,7 +100,7 @@ export async function loadSong(song) {
         const artistNames = songToPlay.artists.map((artist) => artist.name).join(', ')
         const songString = `${trackName} ${artistNames}`
         const youtubeId = await stationService.getYoutubeID(songString)
-        
+
         songToPlay.youtubeId = youtubeId
         store.dispatch(getCmdSetSong(songToPlay))
     } catch (err) {
@@ -173,26 +173,31 @@ export async function search(query) {
     }
 }
 
-export async function removeSong(song, station) {
-    try {
-        const updatedTracks = station.tracks.filter(s => s.track.id !== song.id);
+export async function removeSong(song, station, newStations) {
+
+    try {        
+        const updatedTracks = station.tracks.filter(s => s.track.id !== song.track.id);
         const updatedStation = { ...station, tracks: updatedTracks };
         const updateStation = await stationService.removeSong(station._id, updatedStation)
-        store.dispatch(getCmdUpdateStation(updateStation))
-        store.dispatch(getCmdSetStation(updateStation))
+        const updatedStations = [...newStations, updatedStation];
+        store.dispatch(getCmdSetStations(updatedStations))
+        store.dispatch(getCmdSetStation(updatedStation))
+
+
     } catch (err) {
         console.log('Cannot remove song', err)
         throw err
     }
 }
 
-export async function addSong(song, station) {
+export async function addSong(song, station, newStations) {
     try {
         const updatedTracks = [...station.tracks, { track: song }];
         const updatedStation = { ...station, tracks: updatedTracks };
-        const updateStation = await stationService.addSong(station._id, updatedStation)
-        store.dispatch(getCmdUpdateStation(updateStation))
-        store.dispatch(getCmdSetStation(updateStation))
+        await stationService.addSong(station._id, updatedStation)
+        const updatedStations = [...newStations, updatedStation];
+        store.dispatch(getCmdSetStations(updatedStations))
+        store.dispatch(getCmdSetStation(updatedStation))
 
     } catch (err) {
         console.log('Cannot add song to Liked Songs', err)
@@ -295,7 +300,7 @@ export function getCmdSetSearchedSongs(songs) {
         songs,
     }
 }
-export function getCmdArtist(currentArtist) {    
+export function getCmdArtist(currentArtist) {
     return {
         type: SET_CURRENT_ARTIST,
         currentArtist,
