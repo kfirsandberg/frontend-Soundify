@@ -31,6 +31,11 @@
         gap: 0; 
     }
 
+    .station-index-route{
+        margin: 0 !important;
+        
+    }
+
 
     .mobile-navbar {
         display: block !important; /* Force visibility on mobile */
@@ -103,22 +108,35 @@
 
  
 
+}
+@media (max-width: 400px) {
+
+    .station-index-route{
+        margin: 0 !important;
+        border-radius: 0px !important;
+    }
 
 
 
 
 
+    .app-player.full  {
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(42, 42, 42, 0.722);
+        border-radius: 0px;
+        
 
-    
+    }
 
-
-
-
-
-
-
+   
+ 
 
 }
+
+
+
+
 
 .library-route {
     grid-area: l;
