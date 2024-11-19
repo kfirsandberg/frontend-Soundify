@@ -90,15 +90,17 @@ export function SongList({ station }) {
     }
 
     async function onLikedSong(song, station) {
+        console.log(song,station);
+        
         try {
-            const existingSong = await stationService.isSongOnStation(song, station);
-            console.log(existingSong);
+            // const existingSong = await stationService.isSongOnStation(song, station);
+            // console.log(existingSong);
 
-            if (existingSong) {
-                await removeSong(song, station);
-            } else {
-                await addSong(song, station);
-            }
+            // if (existingSong) {
+            //     await removeSong(song, station);
+            // } else {
+            //     await addSong(song, station);
+            // }
 
         } catch (error) {
             console.error('Error toggling like:', error);

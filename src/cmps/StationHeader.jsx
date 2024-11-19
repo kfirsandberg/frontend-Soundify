@@ -15,7 +15,7 @@ export function StationHeader({ station }) {
     const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
     const [openFileUpload, setOpenFileUpload] = useState(false)
     const totalDuration = stationService.calculateTotalDuration(station.tracks)
-
+    
 
     const dispatch = useDispatch()
 
@@ -206,9 +206,8 @@ export function StationHeader({ station }) {
                     )}
 
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Avatar src={station.creatorImgURL || userIcon} alt="Creator" sx={{ width: 24, height: 24 }} />
                         <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center' }}>
-                            {station.creatorName || 'User'}
+                            {station.owner.display_name || 'User'}
                         </Typography>
 
                         <Typography variant="body2"
