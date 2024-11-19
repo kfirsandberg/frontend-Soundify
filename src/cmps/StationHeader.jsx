@@ -10,9 +10,9 @@ import { StationEdit } from './StationEdit'
 import { useSelector, useDispatch } from 'react-redux'
 import { stationService } from '../services/station/'
 
-export function StationHeader({ station }) {
+export function StationHeader() {
     const [isModalOpen, setIsModalOpen] = useState(false)
-  
+    const station = useSelector(storeState => storeState.stationModule.currentStation)
     const [updatedImgURL, setUpdatedImgURL] = useState(station?.images?.[0]?.url)
     const [openFileUpload, setOpenFileUpload] = useState(false)
     const totalDuration = stationService.calculateTotalDuration(station.tracks)

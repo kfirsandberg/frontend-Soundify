@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { loadSong, setIsPlaying, updateStation, getArtist } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation, getArtist,addSong,removeSong } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { stationService } from '../services/station'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
-export function SongList({ station }) {
+export function SongList({ }) {
+    const station = useSelector(storeState => storeState.stationModule.currentStation)
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
@@ -36,7 +37,7 @@ export function SongList({ station }) {
             document.removeEventListener('click', handleOutsideClick);
         };
 
-    }, [station._id, contextMenu]);
+    }, [station, contextMenu]);
 
     useEffect(() => {
         setSongs(currStation.tracks);
@@ -94,17 +95,15 @@ export function SongList({ station }) {
     }
 
     async function onLikedSong(song, station) {
-        console.log(song, station);
-
         try {
-            // const existingSong = await stationService.isSongOnStation(song, station);
-            // console.log(existingSong);
+            const existingSong = await stationService.isSongOnStation(song, station);
+            console.log(existingSong);
 
-            // if (existingSong) {
-            //     await removeSong(song, station);
-            // } else {
-            //     await addSong(song, station);
-            // }
+            if (existingSong) {
+                await removeSong(song, station);
+            } else {
+                await addSong(song, station);
+            }
 
         } catch (error) {
             console.error('Error toggling like:', error);
@@ -126,7 +125,6 @@ export function SongList({ station }) {
         const artistId = song.track.artists[0].id
         await getArtist(artistId)
         console.log(artist);
-        
         // navigate(`/artist/${artistId}`)
     }
 
