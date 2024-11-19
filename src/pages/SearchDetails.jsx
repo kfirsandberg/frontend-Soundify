@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { formatTime } from '../services/util.service'
-import { updateStation } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
 import { stationService } from '../services/station/index.js';
 import { removeSong, addSong } from '../store/actions/station.actions.js';
 export function SearchDetails() {
@@ -69,10 +69,13 @@ export function SearchDetails() {
         }
     }
 
-
-
     function closeContextMenu() {
         setContextMenu(null)
+    }
+
+    function handlePlayClick(song){
+        loadSong(song);
+        setIsPlaying(true);
     }
 
 
@@ -104,11 +107,14 @@ export function SearchDetails() {
                     .map((song) => (
                         <div key={song._id} className="song-item">
                             {/* Song Image */}
-                            <div className="song-img">
+                            <div  onClick={() => handlePlayClick(song)}
+                             className="song-img">
+                                
                                 <button>
                                     <img
                                         src={song.album.images[0]?.url}
                                         alt={`${song.name} cover`}
+                                      
                                     />
                                     <div className="img-overlay">
                                         <div className="play-icon"></div>

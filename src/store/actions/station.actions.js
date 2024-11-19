@@ -86,23 +86,30 @@ export async function addNewStation(stations) {
         throw err
     }
 }
-
+// ////////////////////
 export async function loadSong(song) {
+
+    let songToPlay = {}
+    if (song.added_at) {
+        songToPlay = song.track
+    } else {
+        songToPlay = song
+    }
+
     try {
-        const trackName = song.track.name;
-        const artistNames = song.track.artists.map((artist) => artist.name).join(', ')
+        const trackName = songToPlay.name;
+        const artistNames = songToPlay.artists.map((artist) => artist.name).join(', ')
         const songString = `${trackName} ${artistNames}`
-
         const youtubeId = await stationService.getYoutubeID(songString)
-
-        song.youtubeId = youtubeId
-        store.dispatch(getCmdSetSong(song))
+        
+        songToPlay.youtubeId = youtubeId
+        store.dispatch(getCmdSetSong(songToPlay))
     } catch (err) {
         console.log('Cannot load song', err)
         throw err
     }
 }
-
+////////////////////
 
 
 export function updateCurrentTime(currentTime) {
@@ -173,13 +180,13 @@ export async function search(query) {
 
 export async function removeSong(song, station) {
     try {
-       
-        
+
+
         const updatedTracks = station.tracks.filter(s => s.track.id !== song.id);
         const updatedStation = { ...station, tracks: updatedTracks };
         const updateStation = await stationService.removeSong(station._id, updatedStation)
-       
-        
+
+
         store.dispatch(getCmdUpdateStation(updateStation))
     } catch (err) {
         console.log('Cannot remove song', err)
@@ -189,12 +196,12 @@ export async function removeSong(song, station) {
 
 export async function addSong(song, station) {
     try {
-        console.log('before:',station);
+        console.log('before:', station);
 
         const updatedTracks = [...station.tracks, { track: song }];
         const updatedStation = { ...station, tracks: updatedTracks };
-        const updateStation = await stationService.addSong(station._id, updatedStation) 
-        console.log('after:' ,updatedStation);
+        const updateStation = await stationService.addSong(station._id, updatedStation)
+        console.log('after:', updatedStation);
 
         store.dispatch(getCmdUpdateStation(updateStation))
     } catch (err) {

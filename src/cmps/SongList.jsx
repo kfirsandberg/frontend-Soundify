@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { loadSong, setIsPlaying, updateStation } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
@@ -6,19 +6,33 @@ import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { useSelector } from 'react-redux'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
-import {stationService} from '../services/station'
+import { stationService } from '../services/station'
 
-export function SongList({station}) {
+export function SongList({ station }) {
+
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
     const [currStation, setCurrStation] = useState(station);
     const [songs, setSongs] = useState(station.tracks);
-    
+    const [contextMenu, setContextMenu] = useState(null)
+    const [currentSong, setCurrentSong] = useState(null);
+
+    const contextMenuRef = useRef(null)
+
+    const menuWidth = contextMenuRef.current?.offsetWidth || 150;
+    const menuHeight = contextMenuRef.current?.offsetHeight || 100;
+
     useEffect(() => {
         setSongs(station.tracks);
         setCurrStation(station);
-    }, [station._id]);
+        if (!contextMenu) return
+        document.addEventListener('click', handleOutsideClick);
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+
+    }, [station._id, contextMenu]);
 
     useEffect(() => {
         setSongs(currStation.tracks);
@@ -36,23 +50,61 @@ export function SongList({station}) {
         setPlayingIndex(null);
     }
 
-    async function toggleLike(song) {
-        const stationName = station.name;
+    async function toggleLike(ev, song) {
+        ev.stopPropagation();
+
+        const menuWidth = 290;
+        const menuHeight = 390;
+
+        let x = ev.pageX;
+        let y = ev.pageY;
+
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        if (x + menuWidth > screenWidth) {
+            x = screenWidth - menuWidth;
+        }
+
+        if (y + menuHeight > screenHeight) {
+            y = screenHeight - menuHeight;
+        }
+        setContextMenu({ x, y, song });
+        setCurrentSong(song)
+    }
+
+    function handleOutsideClick(event) {
+        if (!contextMenu || !contextMenuRef.current) return;
+        if (!contextMenuRef.current.contains(event.target)) {
+            closeContextMenu();
+        }
+    }
+
+    function closeContextMenu() {
+        setContextMenu(null)
+    }
+
+    function onStationClick() {
+        console.log('Station clicked:',station );
+        onLikedSong(currentSong, station)
+        closeContextMenu();
+    }
+
+    async function onLikedSong(song, station) {
         try {
-            const existingSong = await getSongById(song);
+            const existingSong = await stationService.isSongOnStation(song, station);
+            console.log(existingSong);
+
             if (existingSong) {
-                await removeSong(song, stationName);
-                station.tracks = station.tracks.filter(s => s.id !== song.id);
+                await removeSong(song, station);
             } else {
-                await addSong(song, stationName);
-                station.tracks.push(song);
+                await addSong(song, station);
             }
 
-            await updateStation(station);
         } catch (error) {
             console.error('Error toggling like:', error);
         }
     }
+
 
     async function handleDragEnd(result) {
         if (!result.destination) return;
@@ -118,8 +170,8 @@ export function SongList({station}) {
                                 color: 'white',
                                 '@media (max-width: 768px)': {
                                     marginLeft: 25,
-                                    marginRight:1
-                                    
+                                    marginRight: 1
+
                                 },
                             }}
                         >
@@ -300,7 +352,7 @@ export function SongList({station}) {
                                                                     display: 'none',
                                                                 },
                                                             }}
-                                                            // title={` ${song.album}`}
+                                                        // title={` ${song.album}`}
                                                         >
                                                             {/* {song.album} */}
                                                         </Typography>
@@ -312,7 +364,7 @@ export function SongList({station}) {
                                                             }}
                                                         >
                                                             <button
-                                                                onClick={() => toggleLike(song)}
+                                                                onClick={(event) => toggleLike(event, song)}
                                                                 title={song.liked ? 'Remove from liked songs' : 'Add to liked songs'}
                                                                 className="liked-songs-btn"
                                                             >
@@ -332,14 +384,14 @@ export function SongList({station}) {
                                                                 sx={{
                                                                     color: 'rgba(255, 255, 255, 0.6)',
                                                                     '@media (max-width: 768px)': {
-                                                                       marginLeft:25, // Hides the component under 768px
-                                                                       marginRight:10
+                                                                        marginLeft: 25, // Hides the component under 768px
+                                                                        marginRight: 10
                                                                     },
                                                                 }}
                                                             >
-                                                             {song.track.duration_ms
-    ? stationService.formatSongDuration(song.track.duration_ms)
-    : "0:00"}
+                                                                {song.track.duration_ms
+                                                                    ? stationService.formatSongDuration(song.track.duration_ms)
+                                                                    : "0:00"}
 
                                                             </Typography>
                                                         </Box>
@@ -355,6 +407,25 @@ export function SongList({station}) {
                         }}
                     </Droppable>
                 </Box>
+
+                
+                {contextMenu && (
+                    <ul
+                        className="add-stations-menu"
+                        ref={contextMenuRef}
+                        style={{
+                            position: 'absolute',
+                            top: `${contextMenu.y}px`,
+                            left: `${contextMenu.x}px`,
+                            zIndex: 100,
+                        }}
+                    >
+                        <li
+                            className='station-add-name' onClick={onStationClick}>
+                            Delete
+                        </li>
+                    </ul>
+                )}
             </section>
         </DragDropContext>
     )

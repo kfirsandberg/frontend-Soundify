@@ -25,9 +25,7 @@ function getById(stationId) {
 function removeStation(stationId) {
     return httpService.delete(BASE_URL + stationId)
 }
-function removeSong(stationId, updatedData) {
-    console.log(updatedData);
-    
+function removeSong(stationId, updatedData) {    
     return httpService.put(BASE_URL + stationId, updatedData).then(((res => res.data)))
 }
 function addSong(stationId, updatedData) {

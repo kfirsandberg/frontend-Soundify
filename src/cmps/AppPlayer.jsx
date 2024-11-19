@@ -133,11 +133,11 @@ export function AppPlayer() {
             {currentSong && (
                 <div className="song-info">
                     <div className="image-container">
-                        <img src={currentSong.track.album.images[0].url} alt={currentSong.track.name} className="song-img" />
+                        <img src={currentSong.album.images[0].url} alt={currentSong.name} className="song-img" />
                     </div>
                     <div className="song-details">
-                        <h4>{currentSong.track.name}</h4>
-                        <p>{currentSong.track.artists.map(artist => artist.name).join(', ')}</p>
+                        <h4>{currentSong.name}</h4>
+                        <p>{currentSong.artists.map(artist => artist.name).join(', ')}</p>
                     </div>
                 </div>
             )}
