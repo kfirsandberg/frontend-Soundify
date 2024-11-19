@@ -79,6 +79,8 @@ export function SearchDetails() {
     async function onLikedSong(song, station) {
         try {
             const existingSong = await stationService.isSongOnStation(song, station);
+            console.log(existingSong);
+            
             if (existingSong) {
                 await removeSong(song, station);
             } else {

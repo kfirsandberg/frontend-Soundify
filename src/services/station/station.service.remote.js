@@ -26,10 +26,14 @@ function removeStation(stationId) {
     return httpService.delete(BASE_URL + stationId)
 }
 function removeSong(stationId, updatedData) {
-    return httpService.put(BASE_URL + stationId, updatedData);
+    console.log(updatedData);
+    
+    return httpService.put(BASE_URL + stationId, updatedData).then(((res => res.data)))
 }
 function addSong(stationId, updatedData) {
-    return httpService.put(BASE_URL + stationId, updatedData);
+    console.log(updatedData);
+
+    return httpService.put(BASE_URL + stationId, updatedData).then(((res => res.data)))
 }
 function saveStation(station) {
     const method = station._id ? 'put' : 'post'

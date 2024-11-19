@@ -36,7 +36,7 @@ function formatSongDuration(durationMs) {
 }
 
 function isSongOnStation(song,station) {
-    console.log(song,station);
+    // console.log(song,station);
     
     if (!station || !station.tracks) return false 
     

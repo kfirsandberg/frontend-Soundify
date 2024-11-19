@@ -9,6 +9,8 @@ import { loadStation, setBgColor } from '../store/actions/station.actions.js'
 
 export function StationIndex() {
     const stations = useSelector(storeState => storeState.stationModule.stations)
+    // console.log(stations);
+    
     if (!stations) {
         return (
             <div>

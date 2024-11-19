@@ -173,9 +173,13 @@ export async function search(query) {
 
 export async function removeSong(song, station) {
     try {
-        const newTracks = {}
-        newTracks.tracks = station.tracks.filter(s => s.track.id !== song.id);
-        const updateStation = await stationService.removeSong(station._id, newTracks)
+       
+        
+        const updatedTracks = station.tracks.filter(s => s.track.id !== song.id);
+        const updatedStation = { ...station, tracks: updatedTracks };
+        const updateStation = await stationService.removeSong(station._id, updatedStation)
+       
+        
         store.dispatch(getCmdUpdateStation(updateStation))
     } catch (err) {
         console.log('Cannot remove song', err)
@@ -185,10 +189,13 @@ export async function removeSong(song, station) {
 
 export async function addSong(song, station) {
     try {
-        const newTracks = {
-            tracks: [...station.tracks, { track: song }]
-        }
-        const updateStation = await stationService.addSong(station._id, newTracks) 
+        console.log('before:',station);
+
+        const updatedTracks = [...station.tracks, { track: song }];
+        const updatedStation = { ...station, tracks: updatedTracks };
+        const updateStation = await stationService.addSong(station._id, updatedStation) 
+        console.log('after:' ,updatedStation);
+
         store.dispatch(getCmdUpdateStation(updateStation))
     } catch (err) {
         console.log('Cannot add song to Liked Songs', err)
