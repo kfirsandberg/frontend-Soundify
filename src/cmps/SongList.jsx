@@ -144,7 +144,7 @@ export function SongList({ }) {
         const artistId = song.track.artists[0].id
         await getArtist(artistId)
         console.log(artist);
-        // navigate(`/artist/${artistId}`)
+        navigate(`/artist/${artistId}`)
     }
 
 
