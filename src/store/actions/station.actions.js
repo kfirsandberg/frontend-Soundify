@@ -189,6 +189,7 @@ function getCmdSetStation(currentStation) {
         currentStation,
     }
 }
+
 function getCmdRemoveStation(stationId) {
     return {
         type: REMOVE_STATION,

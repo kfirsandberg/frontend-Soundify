@@ -4,14 +4,17 @@ import { formatTime } from '../services/util.service'
 import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
 import { updateStation } from '../store/actions/station.actions.js'
 import { stationLocalService } from '../services/station/station.service.local.js';
+import { useNavigate } from 'react-router-dom'
 
 export function SearchDetails() {
+
+    const navigate = useNavigate()
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
 
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const [currentSong, setCurrentSong] = useState(null);
 
-    
+
     const contextMenuRef = useRef(null)
 
     const menuWidth = contextMenuRef.current?.offsetWidth || 150;
@@ -74,7 +77,6 @@ export function SearchDetails() {
     }
 
 
-
     function closeContextMenu() {
         setContextMenu(null)
     }
@@ -133,8 +135,19 @@ export function SearchDetails() {
                             <div className="song-details">
                                 <span className="song-title">{song.name}</span>
                                 <span className="song-artist">
-                                    {song.artists.map((artist) => artist.name).join(', ')}
+                                    {song.artists.map((artist, index) => (
+                                        <React.Fragment key={artist.id}>
+                                            <span
+                                                className="artist-name"
+                                                onClick={() => navigate(`/artist/${artist.id}`)}
+                                            >
+                                                {artist.name}
+                                            </span>
+                                            {index < song.artists.length - 1 && ', '}
+                                        </React.Fragment>
+                                    ))}
                                 </span>
+
                             </div>
 
                             {/* Like Button and Duration */}

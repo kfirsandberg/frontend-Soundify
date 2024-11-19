@@ -11,7 +11,7 @@ export function YouTubeAudioPlayer({}) {
     const isPlaying = useSelector(state => state.stationModule.isPlaying)
     const volume = useSelector(state => state.stationModule.volume)
     const currentTime = useSelector(state => state.stationModule.currentTime) || 0
-    console.log(currentSong);
+    // console.log(currentSong);
     
     const playerRef = useRef(null)
     const lastSeekTimeRef = useRef(0)

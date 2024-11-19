@@ -12,9 +12,11 @@ import { stationService } from '../services/station/'
 
 export function StationHeader({ station }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [updatedImgURL, setUpdatedImgURL] = useState(station.imgURL)
+  
+    const [updatedImgURL, setUpdatedImgURL] = useState(station?.images?.[0]?.url)
     const [openFileUpload, setOpenFileUpload] = useState(false)
-    const totalDuration = stationService.calculateTotalDuration(station.tracks)
+
+    const totalDuration = stationService.calculateTotalDuration(station?.tracks)
 
 
     const dispatch = useDispatch()
@@ -82,7 +84,7 @@ export function StationHeader({ station }) {
                 >
                     <Box
                         component="img"
-                        src={station.images[0].url}
+                        src={station?.images[0]?.url}
                         onClick={onImageClick}
                         alt="Station"
                         sx={{
@@ -172,6 +174,7 @@ export function StationHeader({ station }) {
                         }}
                         onClick={onEditStation}
                     >
+
                         {station.name}
                     </Typography>
 
