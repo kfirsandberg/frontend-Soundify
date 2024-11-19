@@ -3,6 +3,13 @@ import { artistService } from '../../services/artist/artistService.js'
 export const FETCH_ARTIST_REQUEST = 'FETCH_ARTIST_REQUEST'
 export const FETCH_ARTIST_SUCCESS = 'FETCH_ARTIST_SUCCESS'
 export const FETCH_ARTIST_FAILURE = 'FETCH_ARTIST_FAILURE'
+export const SET_ARTIST_ID = 'SET_ARTIST_ID'
+
+
+export const setArtistId = (id) => ({
+    type: SET_ARTIST_ID,
+    payload: id,
+  });
 
 // Action to start fetching artist data
 export const fetchArtistRequest = () => ({

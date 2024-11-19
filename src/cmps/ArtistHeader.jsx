@@ -1,42 +1,28 @@
 import { useEffect } from 'react';
-import { Box, Typography, Avatar } from '@mui/material'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchArtistById } from '../store/actions/artist.actions.js' // Correct import
-import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
-import userIcon from '../../public/assets/user.svg'
-import { MoreHoriz } from '@mui/icons-material'
-import HamburgerIcon from '../../public/assets/hamburger.svg'
+import { Box, Typography, Avatar } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+import userIcon from '../../public/assets/user.svg';
+import { MoreHoriz } from '@mui/icons-material';
+import HamburgerIcon from '../../public/assets/hamburger.svg';
+import { useParams } from 'react-router-dom'
 
+import { setArtistId } from '../store/actions/artist.actions.js'
 
-export function ArtistHeader({ station, artistId }) {
+export function ArtistHeader() {
+    
+    const { artistId } = useParams()
+    console.log(artistId)
+    
     const dispatch = useDispatch()
 
-    // Access artist data and loading/error state from Redux
-    const { artist, loading, error } = useSelector((state) => state.artistModule)
-
-    // Fetch artist data when the component mounts
     useEffect(() => {
         if (artistId) {
-            console.log('Artist ID detected:', artistId); // Log the artist ID
-            console.log('Dispatching fetchArtistById...')
-            dispatch(fetchArtistById(artistId)); // Correct function name
-        } else {
-            console.log('No artist ID provided.')
+            dispatch(setArtistId(artistId))
         }
     }, [artistId, dispatch])
 
-    function handlePlayFirstSong() {
-        if (station?.songs?.length > 0) {
-            const firstSong = station?.songs[0]
-            console.log('Playing first song:', firstSong)
-            
-        } else {
-            console.log('No songs found in station')
-        }
-    }
 
-    if (loading) return <Typography>Loading artist...</Typography>;
-    if (error) return <Typography>Error loading artist: {error}</Typography>;
 
     return (
         <Box
@@ -52,8 +38,8 @@ export function ArtistHeader({ station, artistId }) {
             <Box sx={{ display: 'flex', gap: 2 }}>
                 {/* Artist Image */}
                 <Avatar
-                    src={artist?.imageUrl || userIcon}
-                    alt={artist?.name || 'Artist'}
+                    src={ userIcon}
+                    alt={artistId.name || 'Artist'}
                     sx={{
                         width: { xs: 128, sm: 128, md: 128, lg: 180, xl: 232 },
                         height: { xs: 128, sm: 128, md: 128, lg: 180, xl: 232 },
@@ -61,10 +47,10 @@ export function ArtistHeader({ station, artistId }) {
                 />
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', marginLeft: '10px' }}>
                     <Typography variant="h2" sx={{ fontSize: '3rem', fontWeight: 'bold' }}>
-                        {artist?.name || 'Unknown Artist'}
+                        {artistId.name || 'Unknown Artist'}
                     </Typography>
                     <Typography variant="body1" sx={{ fontSize: '1.2rem' }}>
-                        {artist?.genre || 'Unknown Genre'}
+                        {artistId.genre || 'Unknown Genre'}
                     </Typography>
                 </Box>
             </Box>
@@ -82,7 +68,7 @@ export function ArtistHeader({ station, artistId }) {
                         padding: 0,
                         marginLeft: 5,
                     }}
-                    onClick={handlePlayFirstSong}
+                    
                 >
                     <PlayCircleFilledIcon style={{ fontSize: '66px' }} />
                 </button>
