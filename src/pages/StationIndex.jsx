@@ -9,11 +9,6 @@ import { loadStation, setBgColor } from '../store/actions/station.actions.js'
 
 export function StationIndex() {
     const stations = useSelector(storeState => storeState.stationModule.stations)
-
-    useEffect(() => {
-        loadStations()
-    }, [])
-
     if (!stations) {
         return (
             <div>
@@ -25,8 +20,8 @@ export function StationIndex() {
     return (
         <main className="station-index">
             <NavBtns />
-            <LastStations stations={stations} />
-            <StationList stations={stations} />
+            <LastStations  />
+            <StationList />
         </main>
     )
 }

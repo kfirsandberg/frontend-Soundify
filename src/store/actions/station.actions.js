@@ -15,7 +15,8 @@ import {
     SET_VOLUME,
     SET_IS_PLAYING,
     SET_BG_COLOR,
-    SET_SEARCHED_SONGS
+    SET_SEARCHED_SONGS,
+    REMOVE_SONG
 } from '../reducers/station.reducer'
 
 
@@ -72,25 +73,26 @@ export async function updateStation(station) {
 }
 
 
-export async function addNewStation() {
+export async function addNewStation(stations) {
     try {
-        const newStation = stationService.getEmptyStation()
-        const savedStation = await stationLocalService.saveStation(newStation)
-        store.dispatch(getCmdSetStation(savedStation))
-        store.dispatch(getCmdAddStation(savedStation))
-        return savedStation
+
+        // const savedStation = await stationLocalService.saveStation(newStation
+        const newStation = await stationService.getNewStation(stations.length)
+        store.dispatch(getCmdAddStation(newStation))
+        store.dispatch(getCmdSetStation(newStation))
+        return newStation
     } catch (err) {
         console.log('Cannot add station', err)
         throw err
     }
 }
 
-export async function loadSong(song) {   
+export async function loadSong(song) {
     try {
         const trackName = song.track.name;
         const artistNames = song.track.artists.map((artist) => artist.name).join(', ')
         const songString = `${trackName} ${artistNames}`
-    
+
         const youtubeId = await stationService.getYoutubeID(songString)
 
         song.youtubeId = youtubeId
@@ -148,14 +150,7 @@ export function setBgColor(bgColor) {
     }
 }
 
-export async function addSongToLiked(song) {
-    try {
-        const likedSongsStation = await stationLocalService.addSongToLikedSongs(song)
-        store.dispatch(getCmdSetStation(likedSongsStation))
-    } catch (err) {
-        console.log('Cannot add song to Liked Songs', err)
-    }
-}
+
 
 export async function removeSongFromLiked(songId) {
     try {
@@ -173,6 +168,30 @@ export async function search(query) {
     } catch (err) {
         console.log('Cannot load stations', err)
         throw err
+    }
+}
+
+export async function removeSong(song, station) {
+    try {
+        const newTracks = {}
+        newTracks.tracks = station.tracks.filter(s => s.track.id !== song.id);
+        const updateStation = await stationService.removeSong(station._id, newTracks)
+        store.dispatch(getCmdUpdateStation(updateStation))
+    } catch (err) {
+        console.log('Cannot remove song', err)
+        throw err
+    }
+}
+
+export async function addSong(song, station) {
+    try {
+        const newTracks = {
+            tracks: [...station.tracks, { track: song }]
+        }
+        const updateStation = await stationService.addSong(station._id, newTracks) 
+        store.dispatch(getCmdUpdateStation(updateStation))
+    } catch (err) {
+        console.log('Cannot add song to Liked Songs', err)
     }
 }
 

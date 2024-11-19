@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState  } from 'react'
+import { useSelector } from 'react-redux'
 import { LibraryList } from '../cmps/LibraryList'
 import { FilterLibrary } from './LibraryFilter.jsx'
 import { addNewStation } from '../store/actions/station.actions.js'
@@ -9,7 +10,8 @@ import { useNavigate } from 'react-router-dom'
 export function Library({ toggleLibraryActive }) {
     // Accept the prop
     const navigate = useNavigate()
-
+    const stations = useSelector(storeState => storeState.stationModule.stations)
+    
     const [filterCriteria, setFilterCriteria] = useState('')
     const [sortBy, setSortBy] = useState('')
     const [isLibraryCollapsed, setIsLibraryCollapsed] = useState(false)
@@ -21,7 +23,9 @@ export function Library({ toggleLibraryActive }) {
 
     async function onAddStation() {
         try {
-            const newStation = await addNewStation()
+            const newStation = await addNewStation(stations)
+            console.log(newStation._id);
+            
             showSuccessMsg('Added to Your Library.')
             navigate(`/playlist/${newStation._id}`)
         } catch (err) {

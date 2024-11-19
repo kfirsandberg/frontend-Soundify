@@ -82,28 +82,13 @@ async function saveStation(station) {
         : await storageService.post(STORAGE_KEY, stationToSave)
 }
 
-async function removeSong(song, stationId) {
-    // let stations = await storageService.query(STORAGE_KEY)
-    // const stationIdx = stations.findIndex(station => station._id === stationId)
-    // if (stationIdx === -1) throw new Error('Station not found')
-    // const songIdx = stations[stationIdx].songs.findIndex(song => song.id === songId)
-    // if (songIdx === -1) throw new Error('Song not found in station')
-    // stations[stationIdx].songs.splice(songIdx, 1)
-    // await saveToStorage(STORAGE_KEY, stations)
-    // return stations[stationIdx]
+async function removeSong(stationId, updatedData) {
+    console.log(stationId, updatedData);
+}
+function addSong(stationId, updatedData) {
+    return httpService.put(BASE_URL + stationId, updatedData);
 }
 
-async function addSong(song, stationId) {
-    let stations = await storageService.query(STORAGE_KEY)
-
-    const stationIdx = stations.findIndex(station => station._id === stationId)
-    if (stationIdx === -1) throw new Error('Station not found')
-
-    stations[stationIdx].songs.push(song)
-    await saveToStorage(STORAGE_KEY, stations)
-
-    return stations[stationIdx]
-}
 
 async function addSongToLikedSongs(song) {
     const likedSongsStation = await getLikedSongsStation()

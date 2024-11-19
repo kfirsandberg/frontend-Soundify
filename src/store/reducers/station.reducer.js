@@ -12,6 +12,7 @@ export const SET_SONG_DURATION = 'SET_SONG_DURATION'
 export const SET_VOLUME = 'SET_VOLUME'
 export const SET_IS_PLAYING = 'SET_IS_PLAYING'
 export const SET_SEARCHED_SONGS = 'SET_SEARCHED_SONGS'
+export const REMOVE_SONG = 'REMOVE_SONG'
 
 const initialState = {
     stations: [],
@@ -71,6 +72,9 @@ export function stationReducer(state = initialState, action) {
             break
         case SET_SEARCHED_SONGS:
             newState = { ...state, searchedSongs: action.searchedSongs }
+            break
+        case REMOVE_SONG:
+            newState = { ...state, stations: [...state.stations, action.station] }
             break
         default:
     }

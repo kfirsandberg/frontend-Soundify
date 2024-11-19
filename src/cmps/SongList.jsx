@@ -14,7 +14,7 @@ export function SongList({station}) {
     const [playingIndex, setPlayingIndex] = useState(null);
     const [currStation, setCurrStation] = useState(station);
     const [songs, setSongs] = useState(station.tracks);
-
+    
     useEffect(() => {
         setSongs(station.tracks);
         setCurrStation(station);
