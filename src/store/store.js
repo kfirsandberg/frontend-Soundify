@@ -5,7 +5,7 @@ import { userReducer } from './reducers/user.reducer'
 import { reviewReducer } from './reducers/review.reducer'
 import { systemReducer } from './reducers/system.reducer'
 import { likedSongsReducer } from './reducers/likedSongs.reducer'
-import { artistReducer } from './reducers/artist.reducer'
+
 
 const rootReducer = combineReducers({
     stationModule: stationReducer,
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
     userModule: userReducer,
     systemModule: systemReducer,
     reviewModule: reviewReducer,
-    artistModule: artistReducer,  
+    
 })
 
 
