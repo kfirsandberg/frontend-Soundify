@@ -227,10 +227,41 @@ margin-right:20px;
     }
 }
 
+
+
+@media (max-width: 1367px) {
+
+    .song-details p{
+        display: none !important;
+    }
+
+    
+}
+@media (max-width: 880px) {
+
+    .song-details h4{
+        display: none !important;
+    }
+
+    
+}
+
+
 @media (max-width: 1067px) {
     .song-info {
         display: flex;
         align-items: center;
         min-width: 180;
+        
     }
+
+    .progress-bar {
+
+        max-width: rem(400px) !important;
+
+        
+    }
+
+
+    
 }
