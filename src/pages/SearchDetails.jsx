@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { formatTime } from '../services/util.service'
-import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
-import { updateStation } from '../store/actions/station.actions.js'
-import { stationLocalService } from '../services/station/station.service.local.js';
+import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
+import { stationService } from '../services/station/index.js';
+import { removeSong, addSong } from '../store/actions/station.actions.js';
 import { useNavigate } from 'react-router-dom'
-
 export function SearchDetails() {
 
     const navigate = useNavigate()
@@ -30,14 +29,12 @@ export function SearchDetails() {
             document.removeEventListener('click', handleOutsideClick);
         };
     }, [contextMenu]);
-
     useEffect(() => {
-        console.log(searchedSongs)
 
     }, [searchedSongs])
 
     function onStationClick(station) {
-        console.log('Station clicked:', station);
+        // console.log('Station clicked:', station);
         onLikedSong(currentSong, station)
         closeContextMenu();
     }
@@ -71,40 +68,34 @@ export function SearchDetails() {
     function handleOutsideClick(event) {
         if (!contextMenu || !contextMenuRef.current) return;
         if (!contextMenuRef.current.contains(event.target)) {
-            console.log('Clicked outside, closing context menu.');
             closeContextMenu();
         }
     }
-
 
     function closeContextMenu() {
         setContextMenu(null)
     }
 
+    function handlePlayClick(song){
+        loadSong(song);
+        setIsPlaying(true);
+    }
+
 
     async function onLikedSong(song, station) {
-        const stationName = station.name
-        console.log(song, stationName)
         try {
-            const existingSong = await getSongById(song);
-
+            const existingSong = await stationService.isSongOnStation(song, station);
+            console.log(existingSong);
+            
             if (existingSong) {
-                await removeSong(song, stationName);
-                console.log(`Song removed from ${stationName}`);
-                station.songs = station.songs.filter(s => s._id !== song._id);
-
+                await removeSong(song, station);
             } else {
-                await addSong(song, stationName);
-                console.log(`Song added to ${stationName}`);
-                const newSong = stationLocalService.ensureSong(song)
-                station.songs.push(newSong);
+                await addSong(song, station);
             }
 
-            await updateStation(station);
         } catch (error) {
             console.error('Error toggling like:', error);
         }
-
     }
 
 
@@ -119,11 +110,14 @@ export function SearchDetails() {
                     .map((song) => (
                         <div key={song._id} className="song-item">
                             {/* Song Image */}
-                            <div className="song-img">
+                            <div  onClick={() => handlePlayClick(song)}
+                             className="song-img">
+                                
                                 <button>
                                     <img
                                         src={song.album.images[0]?.url}
                                         alt={`${song.name} cover`}
+                                      
                                     />
                                     <div className="img-overlay">
                                         <div className="play-icon"></div>

@@ -295,8 +295,8 @@
 /* Library List */
 .library-list {
     overflow-y: auto;
-    height: 95%;
-    margin-top: 6.9px;
+    height: 93%;
+    margin-top: 9px;
     // transform: translateX(8px);
     display: flex;
     flex-direction: column;
@@ -362,8 +362,6 @@
     align-items: center;
     background-color: #121212;
     transition: transform 0.2s ease-in-out;
-    width: rem(279px); /* Consider using px for more predictable behavior */
-    margin-left: 20px;
     height: rem(64px);
     cursor: pointer;
     overflow: hidden;
@@ -427,7 +425,7 @@
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transform: translateX(3px);
+    transform: translateX(10px);
    
 }
 
@@ -680,7 +678,8 @@
 
 .library-ul{
 
-    margin-left: 5px;
+    margin-left: 8px;
+    margin-right: 8px;
 
 }
 

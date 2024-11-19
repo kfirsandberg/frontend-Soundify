@@ -1,8 +1,11 @@
 import { StationPreview } from "../cmps/StationPreview.jsx";
 import { useNavigate } from 'react-router-dom';
 import { loadStation } from "../store/actions/station.actions.js";
-
-export function StationList({ stations }) {
+import { useSelector
+    
+ } from "react-redux";
+export function StationList() {
+    const stations = useSelector(storeState => storeState.stationModule.stations)
 
     const navigate = useNavigate();
     async function onClickStation(station) {

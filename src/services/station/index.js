@@ -35,7 +35,17 @@ function formatSongDuration(durationMs) {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`
 }
 
-export const stationService = { calculateTotalDuration, formatSongDuration, ...service }
+function isSongOnStation(song,station) {
+    // console.log(song,station);
+    
+    if (!station || !station.tracks) return false 
+    
+    // return station.tracks.some(s => console.log(s));
+    return station.tracks.some(s => s.track.id === song.id);
+}
+
+
+export const stationService = { calculateTotalDuration, formatSongDuration, isSongOnStation,...service }
 
 // Expose stationService for easy debugging in development
 if (DEV) window.stationService = stationService

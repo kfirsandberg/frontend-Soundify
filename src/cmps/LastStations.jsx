@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loadStation, setBgColor } from '../store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color'
-
+import { useSelector } from 'react-redux'
 const fac = new FastAverageColor()
 
-export function LastStations({ stations }) {
+export function LastStations() {
+    const stations = useSelector(storeState => storeState.stationModule.stations)
+
     const displayedStations = stations.slice(0, 8)
     const navigate = useNavigate()
     const dispatch = useDispatch()

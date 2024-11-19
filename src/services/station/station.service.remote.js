@@ -8,8 +8,10 @@ export const stationServiceRemote = {
     getById,
     saveStation,
     removeStation,
-    getEmptyStation,
-    getYoutubeID
+    getNewStation,
+    getYoutubeID,
+    removeSong,
+    addSong
 }
 
 function query(filterBy = {}) {
@@ -23,6 +25,14 @@ function getById(stationId) {
 function removeStation(stationId) {
     return httpService.delete(BASE_URL + stationId)
 }
+function removeSong(stationId, updatedData) {    
+    return httpService.put(BASE_URL + stationId, updatedData).then(((res => res.data)))
+}
+function addSong(stationId, updatedData) {
+    console.log(updatedData);
+
+    return httpService.put(BASE_URL + stationId, updatedData).then(((res => res.data)))
+}
 function saveStation(station) {
     const method = station._id ? 'put' : 'post'
     return httpService[method](BASE_URL, station)
@@ -32,20 +42,8 @@ function getYoutubeID(songName) {
     return httpService.get('youtube/search?q=' + songName).then(((res => res.data)))
 }
 
+function getNewStation(stationsNum) {
+    return httpService.post(`station/${stationsNum}`).then(((res => res.data)))
 
-function getEmptyStation(name, stationSubtitle = '') {
-    let playlistCount = parseInt(localStorage.getItem('playlistCount'), 10) || 0
-    playlistCount += 1
-    const newStationName = name || `My Playlist #${playlistCount}`
-    localStorage.setItem('playlistCount', playlistCount)
-    return {
-        name: newStationName,
-        songs: getSongsForStation(newStationName) || [],
-        _id,
-        stationSubtitle
-    }
 }
-
-
-
 
