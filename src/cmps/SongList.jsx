@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { loadSong, setIsPlaying, updateStation, getArtist,addSong,removeSong } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation, getArtist, addSong, removeSong } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
@@ -89,20 +89,25 @@ export function SongList({ }) {
     }
 
     function onStationClick() {
-        console.log('Station clicked:', station);
         onLikedSong(currentSong, station)
         closeContextMenu();
     }
 
     async function onLikedSong(song, station) {
         try {
-            const existingSong = await stationService.isSongOnStation(song, station);
-            console.log(existingSong);
-
-            if (existingSong) {
-                await removeSong(song, station);
+            let songToCheck
+            if (song.added_at) {
+                songToCheck = song.track
             } else {
-                await addSong(song, station);
+                songToCheck = song
+            }
+            const existingSong = await stationService.isSongOnStation(songToCheck, station);
+            if (existingSong) {
+                await removeSong(songToCheck, station);
+                console.log(station);
+                
+            } else {
+                await addSong(songToCheck, station);
             }
 
         } catch (error) {
