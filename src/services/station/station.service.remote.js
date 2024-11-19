@@ -11,7 +11,7 @@ export const stationServiceRemote = {
     getNewStation,
     getYoutubeID,
     removeSong,
-    addSong
+    addSong,
 }
 
 function query(filterBy = {}) {
@@ -44,6 +44,6 @@ function getYoutubeID(songName) {
 
 function getNewStation(stationsNum) {
     return httpService.post(`station/${stationsNum}`).then(((res => res.data)))
-
 }
+
 

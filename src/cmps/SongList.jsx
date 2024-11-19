@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { loadSong, setIsPlaying, updateStation } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation, getArtist } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
-import { useSelector } from 'react-redux'
-import { addSong, removeSong, getSongById } from "../store/actions/likedSongs.actions.js";
 import { stationService } from '../services/station'
-
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 export function SongList({ station }) {
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -18,7 +17,12 @@ export function SongList({ station }) {
     const [contextMenu, setContextMenu] = useState(null)
     const [currentSong, setCurrentSong] = useState(null);
 
+    const artist = useSelector(storeState => storeState.stationModule.currentArtist)
+
     const contextMenuRef = useRef(null)
+
+    const navigate = useNavigate()
+
 
     const menuWidth = contextMenuRef.current?.offsetWidth || 150;
     const menuHeight = contextMenuRef.current?.offsetHeight || 100;
@@ -84,14 +88,14 @@ export function SongList({ station }) {
     }
 
     function onStationClick() {
-        console.log('Station clicked:',station );
+        console.log('Station clicked:', station);
         onLikedSong(currentSong, station)
         closeContextMenu();
     }
 
     async function onLikedSong(song, station) {
-        console.log(song,station);
-        
+        console.log(song, station);
+
         try {
             // const existingSong = await stationService.isSongOnStation(song, station);
             // console.log(existingSong);
@@ -118,7 +122,13 @@ export function SongList({ station }) {
         await updateStation(updatedStation);
         setCurrStation(updatedStation);
     }
-
+    async function onArtistClick(song) {
+        const artistId = song.track.artists[0].id
+        await getArtist(artistId)
+        console.log(artist);
+        
+        // navigate(`/artist/${artistId}`)
+    }
 
 
     return (
@@ -305,15 +315,14 @@ export function SongList({ station }) {
                                                                     fontWeight: 600,
                                                                     cursor: 'pointer',
                                                                     color: activeIndex === idx ? '#1ed760' : 'white',
-                                                                    '&:hover': {
-                                                                        textDecoration: 'underline',
-                                                                    },
+
                                                                 }}
                                                                 title={` ${song.track.name}`}
                                                             >
                                                                 {song.track.name}
                                                             </Typography>
                                                             <Typography
+                                                                onClick={() => onArtistClick(song)}
                                                                 variant="body2"
                                                                 sx={{
                                                                     cursor: 'pointer',
@@ -410,7 +419,7 @@ export function SongList({ station }) {
                     </Droppable>
                 </Box>
 
-                
+
                 {contextMenu && (
                     <ul
                         className="add-stations-menu"

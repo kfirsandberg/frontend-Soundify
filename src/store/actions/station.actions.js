@@ -16,7 +16,8 @@ import {
     SET_IS_PLAYING,
     SET_BG_COLOR,
     SET_SEARCHED_SONGS,
-    REMOVE_SONG
+    REMOVE_SONG,
+    SET_CURRENT_ARTIST
 } from '../reducers/station.reducer'
 
 
@@ -86,9 +87,7 @@ export async function addNewStation(stations) {
         throw err
     }
 }
-// ////////////////////
 export async function loadSong(song) {
-
     let songToPlay = {}
     if (song.added_at) {
         songToPlay = song.track
@@ -109,8 +108,6 @@ export async function loadSong(song) {
         throw err
     }
 }
-////////////////////
-
 
 export function updateCurrentTime(currentTime) {
     try {
@@ -157,8 +154,6 @@ export function setBgColor(bgColor) {
     }
 }
 
-
-
 export async function removeSongFromLiked(songId) {
     try {
         const likedSongsStation = await stationLocalService.removeSongFromLikedSongs(songId)
@@ -180,12 +175,9 @@ export async function search(query) {
 
 export async function removeSong(song, station) {
     try {
-
-
         const updatedTracks = station.tracks.filter(s => s.track.id !== song.id);
         const updatedStation = { ...station, tracks: updatedTracks };
         const updateStation = await stationService.removeSong(station._id, updatedStation)
-
 
         store.dispatch(getCmdUpdateStation(updateStation))
     } catch (err) {
@@ -206,6 +198,15 @@ export async function addSong(song, station) {
         store.dispatch(getCmdUpdateStation(updateStation))
     } catch (err) {
         console.log('Cannot add song to Liked Songs', err)
+    }
+}
+
+export async function getArtist(artistId) {
+    try {
+        const artist = await spotifyService.getArtist(artistId)
+        store.dispatch(getCmdArtist(artist))
+    } catch (err) {
+        console.log('Cannot find artist', err)
     }
 }
 
@@ -294,6 +295,12 @@ export function getCmdSetSearchedSongs(songs) {
     return {
         type: SET_SEARCHED_SONGS,
         songs,
+    }
+}
+export function getCmdArtist(currentArtist) {    
+    return {
+        type: SET_CURRENT_ARTIST,
+        currentArtist,
     }
 }
 

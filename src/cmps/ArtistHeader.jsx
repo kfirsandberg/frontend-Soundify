@@ -10,9 +10,8 @@ import { useParams } from 'react-router-dom'
 import { setArtistId } from '../store/actions/artist.actions.js'
 
 export function ArtistHeader() {
-    
+    const artist = useSelector(storeState => storeState.stationModule.currentArtist)
     const { artistId } = useParams()
-    console.log(artistId)
     
     const dispatch = useDispatch()
 

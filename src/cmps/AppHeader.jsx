@@ -92,7 +92,6 @@ export function AppHeader() {
         if (!value) return;
         try {
             const results = await search(value);
-
             navigate('/search');
         } catch (error) {
             console.error('Error during search:', error);

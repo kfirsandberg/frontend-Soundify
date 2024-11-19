@@ -8,7 +8,6 @@ const fac = new FastAverageColor()
 
 export function LastStations() {
     const stations = useSelector(storeState => storeState.stationModule.stations)
-
     const displayedStations = stations.slice(0, 8)
     const navigate = useNavigate()
     const dispatch = useDispatch()

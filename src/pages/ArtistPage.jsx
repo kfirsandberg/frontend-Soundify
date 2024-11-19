@@ -5,12 +5,15 @@ import loaderIcon from '/assets/loader.svg';
 
 import { ArtistHeader } from '../cmps/ArtistHeader.jsx';
 import { SongList } from '../cmps/SongList.jsx';
+import { useSelector } from 'react-redux'
 
 
 
 export function ArtistPage() {
+
+    const artist = useSelector(storeState => storeState.stationModule.currentArtist)
+
     const { artistId } = useParams();  // Get artistId from URL parameters
-    const [artist, setArtist] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -18,19 +21,6 @@ export function ArtistPage() {
         // console.log('Fetching artist with ID:', artistId);  
         fetchArtistData();
     }, [artistId]);
-
-    async function fetchArtistData() {
-        setIsLoading(true);
-        setError(null);
-        try {
-            const data = await artistService.getArtistById(artistId)
-            setArtist(data);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setIsLoading(false);
-        }
-    }
 
     if (isLoading) {
         return <img src={loaderIcon} alt="Loading..." className="loader-icon" />;
@@ -46,7 +36,7 @@ export function ArtistPage() {
     
     return (
         <section className="artist-details-main">
-            <ArtistHeader station={artist.artist} />
+            <ArtistHeader />
             <SongList station={{ tracks: artist.tracks }} />
         </section>
     );
