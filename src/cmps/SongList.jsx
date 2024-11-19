@@ -201,7 +201,7 @@ export function SongList({ station }) {
                                     sx={{ gridArea: 'songs', marginTop: 0 }}
                                 >
                                     <hr style={{ opacity: 0.1 }} />
-                                    {station.tracks.map((song, idx) => (
+                                    {station?.tracks?.map((song, idx) => (
                                         <Draggable key={song.track.id} draggableId={song.track.id} index={idx}>
                                             {(provided, snapshot) => (
                                                 <Box
