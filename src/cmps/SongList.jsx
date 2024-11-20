@@ -28,7 +28,7 @@ export function SongList() {
 
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
     console.log(artist);
-
+    
 
     const contextMenuRef = useRef(null)
 
@@ -87,12 +87,12 @@ export function SongList() {
 
     async function onArtistClick(song) {
         const artistId = song.track.artists[0].id
-
+       
         await getArtist(artistId)
 
-        console.log('res', artist)
-
-
+        console.log('res' ,artist)
+        
+        
         navigate(`/artist/${artistId}`)
     }
 
@@ -477,8 +477,34 @@ export function SongList() {
                         }}
                     </Droppable>
                 </Box>
-
-
+                {contextMenu && (
+                    <ul
+                        className="delete-song-btn"
+                        ref={contextMenuRef}
+                        style={{
+                            position: 'absolute',
+                            top: `${contextMenu.y}px`,
+                            left: `${contextMenu.x}px`,
+                            zIndex: 100,
+                        }}
+                    >
+                        <li onClick={onStationClick}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                data-encore-id="icon"
+                                role="img"
+                                aria-hidden="true"
+                                viewBox="0 0 16 16"
+                                className="delete-icon Svg-sc-ytk21e-0 bmPLlI"
+                            >
+                                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+                                <path d="M12 8.75H4v-1.5h8v1.5z" />
+                            </svg>
+                            <span>Delete</span>
+                        </li>
+                    </ul>
+                )}
+                {/* 
                 {contextMenu && (
                     <ul
                         className="add-stations-menu"
@@ -495,7 +521,7 @@ export function SongList() {
                             Delete
                         </li>
                     </ul>
-                )}
+                )} */}
             </section>
         </DragDropContext>
     )
