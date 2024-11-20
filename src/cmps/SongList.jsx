@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { loadSong, setIsPlaying, updateStation, getArtist, addSong, removeSong } from '../store/actions/station.actions.js'
-import { Box, Typography, IconButton } from '@mui/material'
+import { Box, Typography, IconButton, useMediaQuery } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { stationService } from '../services/station'
@@ -24,6 +24,9 @@ export function SongList() {
     const [songs, setSongs] = useState(station.tracks);
     const [contextMenu, setContextMenu] = useState(null)
     const [currentSong, setCurrentSong] = useState(null);
+    const isMobile = useMediaQuery('(max-width: 400px)'); // 8 letters
+    const isFlexScreen = useMediaQuery('(max-width: 1200px)'); // 14 letters
+    const defaultMaxLength = 22;
 
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
 
@@ -184,6 +187,10 @@ export function SongList() {
         navigate(`/artist/${artistId}`)
     }
 
+    function truncateText(text, maxLength) {
+        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    }
+
 
     return (
         <DragDropContext onDragEnd={handleDragEnd}>
@@ -234,9 +241,11 @@ export function SongList() {
                             sx={{
                                 opacity: 0.6,
                                 color: 'white',
-                                '@media (max-width: 768px)': {
-                                    marginLeft: 25,
-                                    marginRight: 1
+                          
+                                '@media (max-width: 400px)': {
+
+                                    textAlign: 'right'
+                                   
 
                                 },
                             }}
@@ -369,11 +378,14 @@ export function SongList() {
                                                                     fontWeight: 600,
                                                                     cursor: 'pointer',
                                                                     color: activeIndex === idx ? '#1ed760' : 'white',
-
                                                                 }}
-                                                                title={` ${song.track.name}`}
+                                                                title={song.track.name} // Full text for tooltip
                                                             >
-                                                                {song.track.name}
+                                                                {isMobile
+                                                                    ? truncateText(song.track.name, 10) // Truncate to 8 letters on mobile
+                                                                    : isFlexScreen
+                                                                        ? truncateText(song.track.name, 14) // Truncate to 14 letters on flex screen
+                                                                        : truncateText(song.track.name, defaultMaxLength)}
                                                             </Typography>
                                                             <Typography
                                                                 onClick={() => onArtistClick(song)}
@@ -388,7 +400,11 @@ export function SongList() {
                                                                 }}
                                                                 title={` ${song.track.artists[0].name}`}
                                                             >
-                                                                {song.track.artists[0].name}
+                                                                {isMobile
+                                                                    ? truncateText(song.track.artists[0].name, 8) // Truncate to 8 letters on mobile
+                                                                    : isFlexScreen
+                                                                        ? truncateText(song.track.artists[0].name, 14) // Truncate to 14 letters on flex screen
+                                                                        : truncateText(song.track.artists[0].name, defaultMaxLength)}
                                                             </Typography>
                                                         </Box>
                                                     </Box>
@@ -419,7 +435,28 @@ export function SongList() {
                                                             }}
                                                         // title={` ${song.album}`}
                                                         >
-                                                            {/* {song.album} */}
+                                                            <Typography
+                                                                variant="body2"
+                                                                sx={{
+                                                                    textAlign: 'left',
+                                                                    color: 'rgba(255, 255, 255, 0.6)',
+                                                                    marginRight: 10,
+                                                                    cursor: 'pointer',
+                                                                    '&:hover': {
+                                                                        textDecoration: 'underline',
+                                                                    },
+                                                                    '@media (max-width: 768px)': {
+                                                                        display: 'none',
+                                                                    },
+                                                                }}
+                                                                title={song.track.album.name}
+                                                            >
+                                                                {isMobile
+                                                                    ? truncateText(song.track.album.name, 8) // Truncate to 8 letters on mobile
+                                                                    : isFlexScreen
+                                                                        ? truncateText(song.track.album.name, 15) // Truncate to 14 letters on flex screen
+                                                                        : truncateText(song.track.album.name, 20)}
+                                                            </Typography>
                                                         </Typography>
                                                         <Box
                                                             sx={{
@@ -448,10 +485,15 @@ export function SongList() {
                                                                 variant="body2"
                                                                 sx={{
                                                                     color: 'rgba(255, 255, 255, 0.6)',
-                                                                    '@media (max-width: 768px)': {
-                                                                        marginLeft: 25, // Hides the component under 768px
-                                                                        marginRight: 10
+
+                                                                    '@media (max-width: 800px)': {
+
+                                                                       
+                                                                        textAlign: 'right', 
+                                                                        
+
                                                                     },
+
                                                                 }}
                                                             >
                                                                 {song.track.duration_ms
