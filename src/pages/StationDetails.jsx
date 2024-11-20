@@ -4,7 +4,7 @@ import { SongList } from '../cmps/SongList.jsx'
 import { useEffect, useState } from 'react'
 import loaderIcon from '/assets/loader.svg'
 import { useNavigate, useParams } from 'react-router'
-import { loadStation, setBgColor } from '../store/actions/station.actions.js'
+import { loadStation, setBgColor ,getStationById} from '../store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color'
 import {  useSelector } from 'react-redux'
 import { SOCKET_EMIT_STATION_WATCH, SOCKET_EVENT_STATION_UPDATE, socketService } from '../services/socket.service.js'
@@ -16,12 +16,14 @@ const fac = new FastAverageColor()
 export function StationDetails() {
     
     const [showFindMoreSection, setShowFindMoreSection] = useState(false)
-    const station = useSelector(storeState => storeState.stationModule.currentStation)
+    let station = useSelector(storeState => storeState.stationModule.currentStation)
     const { stationId } = useParams()
-
+        
     useEffect(() => {
         setBgColorDetails(station)
-
+        if(!station){
+            getStationById(stationId)
+        }
     },[stationId])
 
     async function setBgColorDetails(station) {

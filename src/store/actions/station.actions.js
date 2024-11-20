@@ -41,6 +41,12 @@ export async function loadStation(station) {
     }
 }
 
+export async function  getStationById(stationId) {
+    console.log(stationId);
+    
+}
+
+
 export async function removeStation(stationId) {
     try {
         await stationService.removeStation(stationId)
@@ -180,8 +186,6 @@ export async function removeSong(song, station) {
         await stationService.removeSong(station._id, updatedStation)
         store.dispatch(getCmdUpdateStation(updatedStation))
         store.dispatch(getCmdSetStation(updatedStation))
-
-
     } catch (err) {
         console.log('Cannot remove song', err)
         throw err
@@ -195,7 +199,6 @@ export async function addSong(song, station) {
         await stationService.addSong(station._id, updatedStation)
         store.dispatch(getCmdUpdateStation(updatedStation))
         store.dispatch(getCmdSetStation(updatedStation))
-
     } catch (err) {
         console.log('Cannot add song to Liked Songs', err)
     }
