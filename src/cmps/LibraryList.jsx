@@ -5,13 +5,11 @@ import loaderIcon from '/assets/loader.svg'
 import { useSelector, } from 'react-redux'
 import { DeleteStationModal } from './DeleteStationModal';
 
-
-
-
 import { showSuccessMsg } from '../services/event-bus.service.js'
 
 export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
+    
     const navigate = useNavigate()
     
     const contextMenuRef = useRef(null)
@@ -46,9 +44,6 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
             console.log('No songs found in station')
         }
     }
-
-
-
 
     useEffect(() => {
         updateFilteredStations()

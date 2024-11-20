@@ -47,25 +47,10 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: [...state.stations, action.station] }
             break
         case UPDATE_STATION:
-            const stations = state.stations.map(station => {
-                if (station._id === action.station._id) {
-                    return {
-                        ...station,
-                        ...action.station,
-                        tracks: action.station.tracks
-                            ? station.tracks.map(track => {
-
-                                const updatedTrack = action.station.tracks.find(t => t.id === track.id);
-                                return updatedTrack ? { ...track, ...updatedTrack } : track;
-                            })
-                            : station.tracks 
-                    };
-                }
-                return station; 
-            });
-
-
-            newState = { ...state, stations }
+            stations = state.stations.map(station => {
+                return station._id === action.station._id ? action.station : station
+            })
+            newState = { ...state, stations}
             break
         case SET_SONG:
             newState = { ...state, currentSong: action.song }

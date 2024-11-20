@@ -76,8 +76,8 @@ export async function updateStation(station) {
 
 export async function addNewStation(stations) {
     try {
-
         // const savedStation = await stationLocalService.saveStation(newStation
+
         const newStation = await stationService.getNewStation(stations.length)
         store.dispatch(getCmdAddStation(newStation))
         store.dispatch(getCmdSetStation(newStation))
@@ -100,7 +100,6 @@ export async function loadSong(song) {
         const artistNames = songToPlay.artists.map((artist) => artist.name).join(', ')
         const songString = `${trackName} ${artistNames}`
         const youtubeId = await stationService.getYoutubeID(songString)
-
         songToPlay.youtubeId = youtubeId
         store.dispatch(getCmdSetSong(songToPlay))
     } catch (err) {
@@ -174,13 +173,12 @@ export async function search(query) {
     }
 }
 
-export async function removeSong(song, station, newStations) {
-    try {        
+export async function removeSong(song, station) {
+    try {
         const updatedTracks = station.tracks.filter(s => s.track.id !== song.track.id);
         const updatedStation = { ...station, tracks: updatedTracks };
         await stationService.removeSong(station._id, updatedStation)
-        const updatedStations = [...newStations, updatedStation];
-        store.dispatch(getCmdSetStations(updatedStations))
+        store.dispatch(getCmdUpdateStation(updatedStation))
         store.dispatch(getCmdSetStation(updatedStation))
 
 
@@ -190,13 +188,12 @@ export async function removeSong(song, station, newStations) {
     }
 }
 
-export async function addSong(song, station, newStations) {
+export async function addSong(song, station) {
     try {
         const updatedTracks = [...station.tracks, { track: song }];
         const updatedStation = { ...station, tracks: updatedTracks };
         await stationService.addSong(station._id, updatedStation)
-        const updatedStations = [...newStations, updatedStation];
-        store.dispatch(getCmdSetStations(updatedStations))
+        store.dispatch(getCmdUpdateStation(updatedStation))
         store.dispatch(getCmdSetStation(updatedStation))
 
     } catch (err) {

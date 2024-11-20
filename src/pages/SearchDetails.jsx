@@ -83,19 +83,17 @@ export function SearchDetails() {
 
     async function onLikedSong(song, station) {
         try {
-            const stationIdToRemove = station._id
-            const newStations = stations.filter(station => station._id !== stationIdToRemove);
             let songToCheck
             if (song.added_at) {
                 songToCheck = song.track
             } else {
                 songToCheck = song
             }
-            const existingSong = await stationService.isSongOnStation(songToCheck, station)
+            const existingSong = await stationService.isSongOnStation(songToCheck, station)            
             if (existingSong) {
-                await removeSong(songToCheck, station, newStations);
+                await removeSong(songToCheck, station);
             } else {
-                await addSong(songToCheck, station, newStations);
+                await addSong(songToCheck, station);
             }
 
         } catch (error) {
