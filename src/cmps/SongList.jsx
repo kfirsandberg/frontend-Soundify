@@ -6,10 +6,17 @@ import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { stationService } from '../services/station'
 import { useSelector } from 'react-redux'
+import { SOCKET_EMIT_STATION_WATCH, SOCKET_EVENT_STATION_UPDATE, socketService } from '../services/socket.service.js'
+import { store } from '../store/store.js'
+import { showSuccessMsg } from '../services/event-bus.service.js'
 import { useNavigate } from 'react-router'
-export function SongList({ }) {
+
+
+export function SongList() {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
     const stations = useSelector(storeState => storeState.stationModule.stations)
+
+    console.log('station:', station)
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
@@ -30,6 +37,37 @@ export function SongList({ }) {
 
     const menuWidth = contextMenuRef.current?.offsetWidth || 150;
     const menuHeight = contextMenuRef.current?.offsetHeight || 100;
+
+
+
+    useEffect(() => {
+        console.log('station.',station)
+
+    },[station])
+
+
+    useEffect(() => {
+
+        socketService.emit(SOCKET_EMIT_STATION_WATCH, station._id)
+        socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+
+        return () => {
+            socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+        }
+    }, [station._id, station])
+
+    function onStationUpdate(station) {
+        console.log('station:', station)
+        showSuccessMsg('Playlist Updated.')
+
+        store.dispatch({ type: 'UPDATE_STATION' , station})
+        store.dispatch({ type: 'SET_STATION' , currentStation:station})
+
+        setCurrStation(station)
+        setSongs(station.tracks)
+        console.log('station.tracks',station.tracks)
+    }
+
 
     useEffect(() => {
         setSongs(station.tracks);

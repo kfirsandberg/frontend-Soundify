@@ -11,8 +11,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { stationService } from '../services/station/'
 
 export function StationHeader() {
-    const [isModalOpen, setIsModalOpen] = useState(false)
     const station = useSelector(storeState => storeState.stationModule.currentStation)
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [updatedImgURL, setUpdatedImgURL] = useState(station?.images?.[0]?.url)
     const [openFileUpload, setOpenFileUpload] = useState(false)
     const totalDuration = stationService.calculateTotalDuration(station.tracks)
@@ -166,9 +167,7 @@ export function StationHeader() {
                             letterSpacing: { xs: '-3px' },
                             textAlign: { xs: 'left', sm: 'left' },
                             whiteSpace: 'nowrap',
-
-
-                            overflow: 'hidden',
+                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                         }}
                         onClick={onEditStation}
@@ -190,8 +189,22 @@ export function StationHeader() {
                                 whiteSpace: 'nowrap',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
-                                display: 'block',
+                                display: 'inline-block',
+                                '@media (max-width: 1100px)': {
+                                    maxWidth: '90%',
+    
+                                    },
+                                    '@media (max-width: 950px)': {
+                                        maxWidth: '70%',
+        
+                                        },
+                                        '@media (max-width: 800px)': {
+                                            maxWidth: '60%',
+            
+                                            },
                                 '@media (max-width: 600px)': {
+                                maxWidth: '60%',
+
                                     fontSize: '1rem',
                                 },
                                 '@media (max-width: 400px)': {

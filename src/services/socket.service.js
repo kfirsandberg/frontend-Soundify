@@ -13,6 +13,8 @@ export const SOCKET_EVENT_REVIEW_ABOUT_YOU = 'review-about-you'
 const SOCKET_EMIT_LOGIN = 'set-user-socket'
 const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
 
+export const SOCKET_EMIT_STATION_WATCH = 'station-watch'
+export const SOCKET_EVENT_STATION_UPDATE = 'station-updated'
 
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 export const socketService = createSocketService()
