@@ -81,14 +81,24 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: em(18px);
+        gap: em(16px);
         margin-bottom: 6px;
 
         .next-btn,
-        .back-btn {
+        .back-btn,
+        .repaet-btn,
+        .loop-btn {
             background-color: $player-background;
             border: none;
             padding-top: 5px;
+        }
+
+        .next-btn{
+            margin-left:2px;
+        }
+
+        .back-btn{
+            margin-right:2px;
         }
 
         .svg-fill {
@@ -118,7 +128,7 @@
             cursor: pointer;
 
             &:hover {
-                background-color: #ffffffc5;
+                background-color: #ffffff;
                 transform: scale(1.05);
                 transition: transform 0.2s ease;
             }
