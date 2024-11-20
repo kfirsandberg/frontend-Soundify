@@ -39,7 +39,7 @@ export function SongList() {
 
 
     useEffect(() => {
-        console.log('station.',station)
+        // console.log('station.',station)
 
         },[station])
 

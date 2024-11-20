@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux'
 
 export function ArtistPage() {
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
+    console.log(artist);
+    
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
 
@@ -55,7 +57,8 @@ export function ArtistPage() {
     return (
         <section className="artist-details-main">
             <ArtistHeader />
-            <ArtistSongList station={{ tracks: artist.tracks }} />
+            {/* <ArtistSongList station={{ tracks: artist.tracks }} /> */}
+            <ArtistSongList artist={artist} />
         </section>
     );
 }

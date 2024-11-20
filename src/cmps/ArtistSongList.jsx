@@ -14,20 +14,20 @@ import { FastAverageColor } from 'fast-average-color'
 const fac = new FastAverageColor()
 
 
-export function ArtistSongList({ }) {
-    const station = useSelector(storeState => storeState.stationModule.currentStation)
+export function ArtistSongList({ artist}) {
+    const currStation = useSelector(storeState => storeState.stationModule.currentStation)
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const dispatch = useDispatch()
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
-    const [currStation, setCurrStation] = useState(station);
-    const [songs, setSongs] = useState(station.tracks);
+    // const [currStation, setCurrStation] = useState(station);
+    const [songs, setSongs] = useState();
     const [contextMenu, setContextMenu] = useState(null)
     const [currentSong, setCurrentSong] = useState(null);
 
-    const artist = useSelector(storeState => storeState.stationModule.currentArtist)
+    // const artist = useSelector(storeState => storeState.stationModule.currentArtist)
     // console.log(artist);
 
 
@@ -35,22 +35,20 @@ export function ArtistSongList({ }) {
 
     const navigate = useNavigate()
 
-
-
     useEffect(() => {
-        setSongs(station.tracks);
-        setCurrStation(station);
+        // setSongs(station.tracks);
+        // setCurrStation(station);
         if (!contextMenu) return
         document.addEventListener('click', handleOutsideClick);
         return () => {
             document.removeEventListener('click', handleOutsideClick);
         };
 
-    }, [station, contextMenu]);
+    }, [ contextMenu]);
 
-    useEffect(() => {
-        setSongs(currStation.tracks);
-    }, [currStation.tracks]);
+    // useEffect(() => {
+    //     setSongs(currStation.tracks);
+    // }, [currStation]);
 
 
     function handlePlayClick(song, index) {
@@ -127,16 +125,6 @@ export function ArtistSongList({ }) {
     }
 
 
-    async function handleDragEnd(result) {
-        if (!result.destination) return;
-        const reorderedSongs = songs.slice();
-        const [movedSong] = reorderedSongs.splice(result.source.index, 1);
-        reorderedSongs.splice(result.destination.index, 0, movedSong);
-        setSongs(reorderedSongs);
-        const updatedStation = { ...currStation, tracks: reorderedSongs };
-        await updateStation(updatedStation);
-        setCurrStation(updatedStation);
-    }
     async function onArtistClick(song) {
 
         const artistId = song.track.artists[0].id
@@ -146,10 +134,13 @@ export function ArtistSongList({ }) {
 
         navigate(`/artist/${artistId}`)
     }
+    if (!artist) {
+        return <div>No artist found.</div>;
+    }
 
 
     return (
-        <DragDropContext onDragEnd={handleDragEnd}>
+        <DragDropContext>
             <section className="song-list" style={{ borderRadius: '8px', marginRight: 40 }}>
                 <Box
                     sx={{
