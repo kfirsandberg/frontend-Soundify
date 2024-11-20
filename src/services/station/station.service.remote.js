@@ -37,7 +37,8 @@ function saveStation(station) {
 }
 
 function getYoutubeID(songName) {
-    return httpService.get('youtube/search?q=' + songName).then(((res => res.data)))
+    return
+    // return httpService.get('youtube/search?q=' + songName).then(((res => res.data)))
 }
 
 function getNewStation(stationsNum) {

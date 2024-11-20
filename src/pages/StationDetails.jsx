@@ -14,6 +14,7 @@ import { showSuccessMsg } from '../services/event-bus.service.js'
 const fac = new FastAverageColor()
 
 export function StationDetails() {
+    
     const [showFindMoreSection, setShowFindMoreSection] = useState(false)
     const station = useSelector(storeState => storeState.stationModule.currentStation)
     const { stationId } = useParams()
@@ -22,25 +23,6 @@ export function StationDetails() {
         setBgColorDetails(station)
 
     },[stationId])
-
-    // useEffect(() => {
-    //     setBgColorDetails(station)
-
-    //     socketService.emit(SOCKET_EMIT_STATION_WATCH, stationId)
-    //     socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
-
-    //     return () => {
-    //         socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
-    //     }
-    // }, [stationId, station])
-
-    // function onStationUpdate(station) {
-    //     console.log('station:', station)
-    //     showSuccessMsg('Playlist Updated.')
-
-    //     store.dispatch({ type: 'UPDATE_STATION' }, station)
-    //     store.dispatch({ type: 'SET_CURRENT_TIME' }, station)
-    // }
 
     async function setBgColorDetails(station) {
 
