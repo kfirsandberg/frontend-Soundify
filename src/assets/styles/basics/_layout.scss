@@ -12,10 +12,16 @@
     margin-inline: auto;
 }
 
-.mobile-navbar{
+.mobile-navbar {
     grid-area: n;
     display: none !important;
-   
+
+}
+
+main{
+    &::-webkit-scrollbar {
+        display: none;
+       }
 }
 
 @media (max-width: 768px) {
@@ -26,19 +32,20 @@
             'm'
             'p'
             'n';
-        grid-template-rows: auto 1fr auto; 
-        padding: 0; 
-        gap: 0; 
+        grid-template-rows: auto 1fr auto;
+        padding: 0;
+        gap: 0;
     }
 
-    .station-index-route{
+    .station-index-route {
         margin: 0 !important;
-        
+
     }
 
 
     .mobile-navbar {
-        display: block !important; /* Force visibility on mobile */
+        display: block !important;
+        /* Force visibility on mobile */
         visibility: visible;
     }
 
@@ -51,7 +58,7 @@
         width: 0;
         overflow: hidden;
     }
-    
+
     .app-header {
         display: none !important;
         visibility: hidden;
@@ -63,79 +70,61 @@
 
 
 
-    .app-player.full  {
+    .app-player.full {
         bottom: 0;
         width: 100%;
         background-color: rgba(42, 42, 42, 0.722);
-
-
         border-radius: 10px;
-        
-
-    }
-
-    .next-btn{
-
-        background-color: rgba(42, 42, 42, 0) !important;
 
 
     }
-    .back-btn{
+
+    .next-btn {
 
         background-color: rgba(42, 42, 42, 0) !important;
 
 
     }
 
-    .progress-bar{
+    .back-btn {
+
+        background-color: rgba(42, 42, 42, 0) !important;
+
+
+    }
+
+    .progress-bar {
 
         width: 300px !important;
     }
 
-    .image-container{
+    .image-container {
 
         width: 40px !important;
         height: 50px !important;
         margin-bottom: 10px !important;
     }
 
-    .volume-control{
+    .volume-control {
 
         width: 90px;
         transform: translateX(-20px);
     }
-
-
- 
-
 }
+
 @media (max-width: 400px) {
 
-    .station-index-route{
+    .station-index-route {
         margin: 0 !important;
         border-radius: 0px !important;
     }
-
-
-
-
-
-    .app-player.full  {
+    .app-player.full {
         bottom: 0;
         width: 100%;
         background-color: rgba(42, 42, 42, 0.722);
         border-radius: 0px;
-        
-
     }
-
-   
- 
-
 }
-
-
-
 
 
 .library-route {
@@ -150,9 +139,10 @@
     grid-area: p;
 }
 
-.app-header{
+.app-header {
     grid-area: h;
 }
+
 .station-index-route {
     overflow-y: scroll;
     grid-area: m;
@@ -161,5 +151,3 @@
     align-self: start;
     height: 100%;
 }
-
-

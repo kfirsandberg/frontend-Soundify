@@ -50,7 +50,7 @@ export function stationReducer(state = initialState, action) {
             stations = state.stations.map(station => {
                 return station._id === action.station._id ? action.station : station
             })
-            newState = { ...state, stations}
+            newState = { ...state, stations }
             break
         case SET_SONG:
             newState = { ...state, currentSong: action.song }
