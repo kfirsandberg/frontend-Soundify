@@ -73,11 +73,11 @@ export function ArtistSongList({ }) {
     }, [artist])
 
     async function setBgColorDetails(artist) {
-        console.log(artist);
+        // console.log(artist);
         if (artist && artist.images[0]?.url) {
             try {
                 const color = await fac.getColorAsync(artist.images[0]?.url)
-                console.log(color);
+                // console.log(color);
                 
                 setBgColor(artist, color.rgb)
             } catch (error) {

@@ -13,12 +13,22 @@ export function ArtistPage() {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
 
+
+    async function onArtistClick(song) {
+
+        const artistId = song.track.artists[0].id
+        await getArtist(artistId)
+        console.log(artist);
+
+        navigate(`/artist/${artistId}`)
+    }
+
     useEffect(() => {
         if (artist) {
             setIsLoading(false)
         } else {
             
-            artistService.getArtistDetails()
+            onArtistClick()
                 .then(data => {
            
                     setIsLoading(false)

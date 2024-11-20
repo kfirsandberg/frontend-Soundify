@@ -38,8 +38,8 @@ export function SongList() {
 
 
 
-    // useEffect(() => {
-    //     console.log('station.',station)
+    useEffect(() => {
+        // console.log('station.',station)
 
     // },[station])
 
