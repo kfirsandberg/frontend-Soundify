@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Box, Button, Typography, IconButton, Modal, TextField, Grid, Avatar } from '@mui/material'
+import { Box, Button, Typography, IconButton, Modal, useMediaQuery } from '@mui/material'
 import { setIsPlaying, loadSong } from '../store/actions/station.actions.js'
 import EditIcon from '@mui/icons-material/Edit'
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
@@ -17,7 +17,12 @@ export function StationHeader() {
     const [updatedImgURL, setUpdatedImgURL] = useState(station?.images?.[0]?.url)
     const [openFileUpload, setOpenFileUpload] = useState(false)
     const totalDuration = stationService.calculateTotalDuration(station.tracks)
-    
+
+
+    const isMobile = useMediaQuery('(max-width: 400px)'); // 8 letters
+    const isFlexScreen = useMediaQuery('(max-width: 900px)'); // 14 letters
+    const defaultMaxLength = 22;
+
 
     const dispatch = useDispatch()
 
@@ -38,6 +43,11 @@ export function StationHeader() {
     function handleImageUpload(url) {
         setUpdatedImgURL(url)
     }
+
+    function truncateText(text, maxLength) {
+        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    }
+
 
 
     function handlePlayFirstSong() {
@@ -167,13 +177,17 @@ export function StationHeader() {
                             letterSpacing: { xs: '-3px' },
                             textAlign: { xs: 'left', sm: 'left' },
                             whiteSpace: 'nowrap',
-                             overflow: 'hidden',
+                            overflow: 'hidden',
                             textOverflow: 'ellipsis',
                         }}
                         onClick={onEditStation}
                     >
 
-                        {station.name}
+                        {isMobile
+                            ? truncateText(station.name, 14) // Truncate to 8 letters on mobile
+                            : isFlexScreen
+                                ? truncateText(station.name, 14) // Truncate to 14 letters on flex screen
+                                : truncateText(station.name, 22)}
                     </Typography>
 
                     {station.description && (
@@ -192,18 +206,18 @@ export function StationHeader() {
                                 display: 'inline-block',
                                 '@media (max-width: 1100px)': {
                                     maxWidth: '90%',
-    
-                                    },
-                                    '@media (max-width: 950px)': {
-                                        maxWidth: '70%',
-        
-                                        },
-                                        '@media (max-width: 800px)': {
-                                            maxWidth: '60%',
-            
-                                            },
+
+                                },
+                                '@media (max-width: 950px)': {
+                                    maxWidth: '70%',
+
+                                },
+                                '@media (max-width: 800px)': {
+                                    maxWidth: '60%',
+
+                                },
                                 '@media (max-width: 600px)': {
-                                maxWidth: '60%',
+                                    maxWidth: '60%',
 
                                     fontSize: '1rem',
                                 },
@@ -216,7 +230,11 @@ export function StationHeader() {
                                 },
                             }}
                         >
-                            {station.description}
+                            {isMobile
+                                ? truncateText(station.description, 30) // Truncate to 8 letters on mobile
+                                : isFlexScreen
+                                    ? truncateText(station.description, 40) // Truncate to 14 letters on flex screen
+                                    : truncateText(station.description, 70)}
                         </Typography>
                     )}
 
