@@ -16,7 +16,7 @@ export function SongList() {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
     const stations = useSelector(storeState => storeState.stationModule.stations)
 
-    console.log('station:', station)
+    // console.log('station:', station)
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
@@ -27,7 +27,7 @@ export function SongList() {
     const [currentSong, setCurrentSong] = useState(null);
 
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
-    console.log(artist);
+    // console.log(artist);
 
 
     const contextMenuRef = useRef(null)
@@ -41,7 +41,7 @@ export function SongList() {
 
 
     useEffect(() => {
-        console.log('station.',station)
+        // console.log('station.',station)
 
     },[station])
 
