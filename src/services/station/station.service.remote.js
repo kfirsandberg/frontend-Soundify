@@ -29,8 +29,6 @@ function removeSong(stationId, updatedData) {
     return httpService.put(BASE_URL + stationId, updatedData).then(((res => res.data)))
 }
 function addSong(stationId, updatedData) {
-    console.log(updatedData);
-
     return httpService.put(BASE_URL + stationId, updatedData).then(((res => res.data)))
 }
 function saveStation(station) {

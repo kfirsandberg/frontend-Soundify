@@ -11,6 +11,7 @@ export function SearchDetails() {
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
 
     const stations = useSelector(storeState => storeState.stationModule.stations)
+    const currentStation = useSelector(storeState => storeState.stationModule.currentStation)
     const [currentSong, setCurrentSong] = useState(null);
 
 
@@ -76,28 +77,32 @@ export function SearchDetails() {
         setContextMenu(null)
     }
 
-    function handlePlayClick(song){
+    function handlePlayClick(song) {
         loadSong(song);
         setIsPlaying(true);
     }
 
-
     async function onLikedSong(song, station) {
         try {
-            const existingSong = await stationService.isSongOnStation(song, station);
-            console.log(existingSong);
-            
-            if (existingSong) {
-                await removeSong(song, station);
+            const stationIdToRemove = station._id
+            const newStations = stations.filter(station => station._id !== stationIdToRemove);
+            let songToCheck
+            if (song.added_at) {
+                songToCheck = song.track
             } else {
-                await addSong(song, station);
+                songToCheck = song
+            }
+            const existingSong = await stationService.isSongOnStation(songToCheck, station);
+            if (existingSong) {
+                await removeSong(songToCheck, station, newStations);
+            } else {
+                await addSong(songToCheck, station, newStations);
             }
 
         } catch (error) {
             console.error('Error toggling like:', error);
         }
     }
-
 
     if (!searchedSongs || searchedSongs.length === 0) return
 
@@ -110,14 +115,14 @@ export function SearchDetails() {
                     .map((song) => (
                         <div key={song._id} className="song-item">
                             {/* Song Image */}
-                            <div  onClick={() => handlePlayClick(song)}
-                             className="song-img">
-                                
+                            <div onClick={() => handlePlayClick(song)}
+                                className="song-img">
+
                                 <button>
                                     <img
                                         src={song.album.images[0]?.url}
                                         alt={`${song.name} cover`}
-                                      
+
                                     />
                                     <div className="img-overlay">
                                         <div className="play-icon"></div>

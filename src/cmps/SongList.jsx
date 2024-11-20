@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { loadSong, setIsPlaying, updateStation, getArtist,addSong,removeSong } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation, getArtist, addSong, removeSong } from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router'
 
 export function SongList() {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
+    const stations = useSelector(storeState => storeState.stationModule.stations)
 
     console.log('station:', station)
 
@@ -26,6 +27,8 @@ export function SongList() {
     const [currentSong, setCurrentSong] = useState(null);
 
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
+    console.log(artist);
+
 
     const contextMenuRef = useRef(null)
 
@@ -81,6 +84,18 @@ export function SongList() {
         setSongs(currStation.tracks);
     }, [currStation.tracks]);
 
+
+    async function onArtistClick(song) {
+        const artistId = song.track.artists[0].id
+
+        await getArtist(artistId)
+
+        console.log('res', artist)
+
+
+        navigate(`/artist/${artistId}`)
+    }
+
     function handlePlayClick(song, index) {
         loadSong(song);
         setIsPlaying(true);
@@ -127,20 +142,25 @@ export function SongList() {
     }
 
     function onStationClick() {
-        console.log('Station clicked:', station);
         onLikedSong(currentSong, station)
         closeContextMenu();
     }
 
     async function onLikedSong(song, station) {
         try {
-            const existingSong = await stationService.isSongOnStation(song, station);
-            console.log(existingSong);
-
-            if (existingSong) {
-                await removeSong(song, station);
+            const stationIdToRemove = station._id
+            const newStations = stations.filter(station => station._id !== stationIdToRemove);
+            let songToCheck
+            if (song.added_at) {
+                songToCheck = song.track
             } else {
-                await addSong(song, station);
+                songToCheck = song
+            }
+            const existingSong = await stationService.isSongOnStation(songToCheck, station);
+            if (existingSong) {
+                await removeSong(songToCheck, station, newStations);
+            } else {
+                await addSong(songToCheck, station, newStations);
             }
 
         } catch (error) {
@@ -160,10 +180,13 @@ export function SongList() {
         setCurrStation(updatedStation);
     }
     async function onArtistClick(song) {
+
         const artistId = song.track.artists[0].id
         await getArtist(artistId)
-        console.log(artist);
-        // navigate(`/artist/${artistId}`)
+        // console.log(artist);
+
+
+        navigate(`/artist/${artistId}`)
     }
 
 

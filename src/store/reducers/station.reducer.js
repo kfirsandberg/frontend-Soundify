@@ -21,7 +21,7 @@ const initialState = {
     currentSong: null,
     currentTime: 0,
     songDuration: 0,
-    volume: 40, 
+    volume: 40,
     prevVolume: 40,
     isPlaying: false,
     bgColor: '#121212',
@@ -47,11 +47,24 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: [...state.stations, action.station] }
             break
         case UPDATE_STATION:
-            console.log('stations',state.stations)
-            console.log('-----------------------------------------------')
+            const stations = state.stations.map(station => {
+                if (station._id === action.station._id) {
+                    return {
+                        ...station,
+                        ...action.station,
+                        tracks: action.station.tracks
+                            ? station.tracks.map(track => {
 
-            console.log('action.station',action.station)
-            stations = state.stations.map(station => (station._id === action.station._id ? action.station : station))
+                                const updatedTrack = action.station.tracks.find(t => t.id === track.id);
+                                return updatedTrack ? { ...track, ...updatedTrack } : track;
+                            })
+                            : station.tracks 
+                    };
+                }
+                return station; 
+            });
+
+
             newState = { ...state, stations }
             break
         case SET_SONG:
