@@ -33,7 +33,7 @@ function addSong(stationId, updatedData) {
 }
 function saveStation(station) {
     const method = station._id ? 'put' : 'post'
-    return httpService[method](BASE_URL, station)
+    return httpService[method](BASE_URL + (station._id || ''), station)
 }
 
 function getYoutubeID(songName) {

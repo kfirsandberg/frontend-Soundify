@@ -5,11 +5,12 @@ import { loadSong, setIsPlaying ,getArtist} from '../store/actions/station.actio
 import { stationService } from '../services/station/index.js';
 import { removeSong, addSong } from '../store/actions/station.actions.js';
 import { useNavigate } from 'react-router-dom'
+import { getArtist } from '../store/actions/station.actions'
 export function SearchDetails() {
 
     const navigate = useNavigate()
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
-
+    const artist = useSelector(storeState => storeState.stationModule.currentArtist)
     const stations = useSelector(storeState => storeState.stationModule.stations)
     const currentStation = useSelector(storeState => storeState.stationModule.currentStation)
     const [currentSong, setCurrentSong] = useState(null);

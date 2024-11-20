@@ -233,7 +233,7 @@ export function StationHeader() {
                                 color: '#b3b3b3',
 
                             }}>
-                            • {station.songs?.length || 0} {station.songs?.length === 1 ? 'song' : 'songs'}
+                            • {station.tracks?.length || 0} {station.tracks?.length === 1 ? 'song' : 'songs'}
                             {totalDuration ? `, ${totalDuration}` : ''}
                         </Typography>
 

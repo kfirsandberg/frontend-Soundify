@@ -1,7 +1,3 @@
-
-import { FastAverageColor } from 'fast-average-color'
-import { setBgColor } from './store/actions/station.actions.js'
-
 const fac = new FastAverageColor()
 
 
@@ -23,6 +19,8 @@ export function StationDetails() {
         }
     }
 }
+
+
 
 export function RootCmp() {
 
