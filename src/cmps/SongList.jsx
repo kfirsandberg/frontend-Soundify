@@ -26,7 +26,7 @@ export function SongList() {
     const [currentSong, setCurrentSong] = useState(null);
 
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
-    
+
 
     const contextMenuRef = useRef(null)
 
@@ -39,468 +39,468 @@ export function SongList() {
 
 
     useEffect(() => {
-        // console.log('station.',station)
+        console.log('station.',station)
 
-    // },[station])
-
-
-    useEffect(() => {
-
-        socketService.emit(SOCKET_EMIT_STATION_WATCH, station._id)
-        socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
-
-        return () => {
-            socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
-        }
-    }, [station._id, station])
-
-    function onStationUpdate(station) {
-        showSuccessMsg('Playlist Updated.')
-
-        store.dispatch({ type: 'UPDATE_STATION' , station})
-        store.dispatch({ type: 'SET_STATION' , currentStation:station})
-
-        setCurrStation(station)
-        setSongs(station.tracks)
-    }
+        },[station])
 
 
-    useEffect(() => {
-        setSongs(station.tracks);
-        setCurrStation(station);
-        if (!contextMenu) return
-        document.addEventListener('click', handleOutsideClick);
-        return () => {
-            document.removeEventListener('click', handleOutsideClick);
-        };
+        useEffect(() => {
 
-    }, [station, contextMenu]);
+            socketService.emit(SOCKET_EMIT_STATION_WATCH, station._id)
+            socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
 
-    useEffect(() => {
-        setSongs(currStation.tracks);
-    }, [currStation.tracks]);
+            return () => {
+                socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+            }
+        }, [station._id, station])
 
+        function onStationUpdate(station) {
+            showSuccessMsg('Playlist Updated.')
 
-    async function onArtistClick(song) {
-        const artistId = song.track.artists[0].id
-       
-        await getArtist(artistId)
+            store.dispatch({ type: 'UPDATE_STATION', station })
+            store.dispatch({ type: 'SET_STATION', currentStation: station })
 
-        console.log('res' ,artist)
-        
-        
-        navigate(`/artist/${artistId}`)
-    }
-
-    function handlePlayClick(song, index) {
-        loadSong(song);
-        setIsPlaying(true);
-        setActiveIndex(index);
-        setPlayingIndex(index);
-    }
-
-    function handlePauseClick() {
-        setIsPlaying(false);
-        setPlayingIndex(null);
-    }
-
-    async function toggleLike(ev, song) {
-        ev.stopPropagation();
-
-        const menuWidth = 290;
-        const menuHeight = 390;
-
-        let x = ev.pageX;
-        let y = ev.pageY;
-
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
-        if (x + menuWidth > screenWidth) {
-            x = screenWidth - menuWidth;
+            setCurrStation(station)
+            setSongs(station.tracks)
         }
 
-        if (y + menuHeight > screenHeight) {
-            y = screenHeight - menuHeight;
-        }
-        setContextMenu({ x, y, song });
-        setCurrentSong(song)
-    }
 
-    function handleOutsideClick(event) {
-        if (!contextMenu || !contextMenuRef.current) return;
-        if (!contextMenuRef.current.contains(event.target)) {
+        useEffect(() => {
+            setSongs(station.tracks);
+            setCurrStation(station);
+            if (!contextMenu) return
+            document.addEventListener('click', handleOutsideClick);
+            return () => {
+                document.removeEventListener('click', handleOutsideClick);
+            };
+
+        }, [station, contextMenu]);
+
+        useEffect(() => {
+            setSongs(currStation.tracks);
+        }, [currStation.tracks]);
+
+
+        async function onArtistClick(song) {
+            const artistId = song.track.artists[0].id
+
+            await getArtist(artistId)
+
+            console.log('res', artist)
+
+
+            navigate(`/artist/${artistId}`)
+        }
+
+        function handlePlayClick(song, index) {
+            loadSong(song);
+            setIsPlaying(true);
+            setActiveIndex(index);
+            setPlayingIndex(index);
+        }
+
+        function handlePauseClick() {
+            setIsPlaying(false);
+            setPlayingIndex(null);
+        }
+
+        async function toggleLike(ev, song) {
+            ev.stopPropagation();
+
+            const menuWidth = 290;
+            const menuHeight = 390;
+
+            let x = ev.pageX;
+            let y = ev.pageY;
+
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            if (x + menuWidth > screenWidth) {
+                x = screenWidth - menuWidth;
+            }
+
+            if (y + menuHeight > screenHeight) {
+                y = screenHeight - menuHeight;
+            }
+            setContextMenu({ x, y, song });
+            setCurrentSong(song)
+        }
+
+        function handleOutsideClick(event) {
+            if (!contextMenu || !contextMenuRef.current) return;
+            if (!contextMenuRef.current.contains(event.target)) {
+                closeContextMenu();
+            }
+        }
+
+        function closeContextMenu() {
+            setContextMenu(null)
+        }
+
+        function onStationClick() {
+            onLikedSong(currentSong, station)
             closeContextMenu();
         }
-    }
 
-    function closeContextMenu() {
-        setContextMenu(null)
-    }
+        async function onLikedSong(song, station) {
+            try {
+                const stationIdToRemove = station._id
+                const newStations = stations.filter(station => station._id !== stationIdToRemove);
+                let songToCheck
+                if (song.added_at) {
+                    songToCheck = song.track
+                } else {
+                    songToCheck = song
+                }
+                const existingSong = await stationService.isSongOnStation(songToCheck, station);
+                if (existingSong) {
+                    await removeSong(songToCheck, station, newStations);
+                } else {
+                    await addSong(songToCheck, station, newStations);
+                }
 
-    function onStationClick() {
-        onLikedSong(currentSong, station)
-        closeContextMenu();
-    }
-
-    async function onLikedSong(song, station) {
-        try {
-            const stationIdToRemove = station._id
-            const newStations = stations.filter(station => station._id !== stationIdToRemove);
-            let songToCheck
-            if (song.added_at) {
-                songToCheck = song.track
-            } else {
-                songToCheck = song
+            } catch (error) {
+                console.error('Error toggling like:', error);
             }
-            const existingSong = await stationService.isSongOnStation(songToCheck, station);
-            if (existingSong) {
-                await removeSong(songToCheck, station, newStations);
-            } else {
-                await addSong(songToCheck, station, newStations);
-            }
-
-        } catch (error) {
-            console.error('Error toggling like:', error);
         }
-    }
 
 
-    async function handleDragEnd(result) {
-        if (!result.destination) return;
-        const reorderedSongs = songs.slice();
-        const [movedSong] = reorderedSongs.splice(result.source.index, 1);
-        reorderedSongs.splice(result.destination.index, 0, movedSong);
-        setSongs(reorderedSongs);
-        const updatedStation = { ...currStation, tracks: reorderedSongs };
-        await updateStation(updatedStation);
-        setCurrStation(updatedStation);
-    }
-    async function onArtistClick(song) {
+        async function handleDragEnd(result) {
+            if (!result.destination) return;
+            const reorderedSongs = songs.slice();
+            const [movedSong] = reorderedSongs.splice(result.source.index, 1);
+            reorderedSongs.splice(result.destination.index, 0, movedSong);
+            setSongs(reorderedSongs);
+            const updatedStation = { ...currStation, tracks: reorderedSongs };
+            await updateStation(updatedStation);
+            setCurrStation(updatedStation);
+        }
+        async function onArtistClick(song) {
 
-        const artistId = song.track.artists[0].id
-        await getArtist(artistId)
-        // console.log(artist);
-
-
-        navigate(`/artist/${artistId}`)
-    }
+            const artistId = song.track.artists[0].id
+            await getArtist(artistId)
+            // console.log(artist);
 
 
-    return (
-        <DragDropContext onDragEnd={handleDragEnd}>
-            <section className="song-list" style={{ borderRadius: '8px', marginRight: 40 }}>
-                <Box
-                    sx={{
-                        display: 'grid',
-                        gridTemplateRows: 'auto 1fr',
-                        gridTemplateAreas: "'nav' 'songs'",
-                        padding: 0,
-                    }}
-                >
-                    {/* Header row */}
+            navigate(`/artist/${artistId}`)
+        }
+
+
+        return (
+            <DragDropContext onDragEnd={handleDragEnd}>
+                <section className="song-list" style={{ borderRadius: '8px', marginRight: 40 }}>
                     <Box
                         sx={{
-                            gridArea: 'nav',
                             display: 'grid',
-                            gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
-                            gridGap: 1,
-
-                            '@media (max-width: 768px)': {
-                                gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
-                                gridTemplateRows: '7fr 7.3fr 0.2fr',
-                                textAlign: 'center',
-                            },
+                            gridTemplateRows: 'auto 1fr',
+                            gridTemplateAreas: "'nav' 'songs'",
+                            padding: 0,
                         }}
                     >
-                        <Typography
-                            variant="body2"
-                            sx={{ paddingRight: '1em', paddingLeft: '1.4em', opacity: 0.6, color: 'white' }}
-                        >
-                            #
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            sx={{ paddingLeft: '0.4em', margin: 0, opacity: 0.6, color: 'white' }}
-                        >
-                            Title
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            sx={{ opacity: 0.6, color: 'white', '@media (max-width: 768px)': { marginLeft: 0, display: 'none', } }}
-                        >
-                            Album
-                        </Typography>
-                        <Typography
-                            variant="body2"
+                        {/* Header row */}
+                        <Box
                             sx={{
-                                opacity: 0.6,
-                                color: 'white',
-                                '@media (max-width: 768px)': {
-                                    marginLeft: 25,
-                                    marginRight: 1
+                                gridArea: 'nav',
+                                display: 'grid',
+                                gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
+                                gridGap: 1,
 
+                                '@media (max-width: 768px)': {
+                                    gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
+                                    gridTemplateRows: '7fr 7.3fr 0.2fr',
+                                    textAlign: 'center',
                                 },
                             }}
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                data-encore-id="icon"
-                                role="img"
-                                aria-hidden="true"
-                                viewBox="0 0 16 16"
-                                className="duration-icon Svg-sc-ytk21e-0 dYnaPI"
+                            <Typography
+                                variant="body2"
+                                sx={{ paddingRight: '1em', paddingLeft: '1.4em', opacity: 0.6, color: 'white' }}
                             >
-                                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
-                                <path d="M8 3.25a.75.75 0 0 1 .75.75v3.25H11a.75.75 0 0 1 0 1.5H7.25V4A.75.75 0 0 1 8 3.25z" />
-                            </svg>
-                        </Typography>
-                    </Box>
+                                #
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{ paddingLeft: '0.4em', margin: 0, opacity: 0.6, color: 'white' }}
+                            >
+                                Title
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{ opacity: 0.6, color: 'white', '@media (max-width: 768px)': { marginLeft: 0, display: 'none', } }}
+                            >
+                                Album
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{
+                                    opacity: 0.6,
+                                    color: 'white',
+                                    '@media (max-width: 768px)': {
+                                        marginLeft: 25,
+                                        marginRight: 1
 
-                    {/* Song list */}
-                    <Droppable droppableId="songs">
-                        {provided => {
-                            return (
-                                <Box
-                                    ref={provided.innerRef}
-                                    {...provided.droppableProps}
-                                    sx={{ gridArea: 'songs', marginTop: 0 }}
+                                    },
+                                }}
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    data-encore-id="icon"
+                                    role="img"
+                                    aria-hidden="true"
+                                    viewBox="0 0 16 16"
+                                    className="duration-icon Svg-sc-ytk21e-0 dYnaPI"
                                 >
-                                    <hr style={{ opacity: 0.1 }} />
-                                    {station?.tracks?.map((song, idx) => (
-                                        <Draggable key={song.track.id} draggableId={song.track.id} index={idx}>
-                                            {(provided, snapshot) => (
-                                                <Box
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    className="song-item"
-                                                    sx={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        borderRadius: 1,
-                                                        padding: '3px 12px',
-                                                        marginTop: '15px',
-                                                        marginBottom: 1,
-                                                        cursor: 'pointer',
-                                                        width: '100%',
-                                                        backgroundColor: activeIndex === idx
-                                                            ? 'rgba(144, 144, 144, 0.6)'
-                                                            : snapshot.isDragging
-                                                                ? 'rgba(144, 144, 144, 0.3)'
-                                                                : 'inherit',
-                                                        '&:hover': { backgroundColor: 'rgba(144, 144, 144, 0.2)' },
-                                                    }}
-                                                    onMouseEnter={() => setHoveredIndex(idx)}
-                                                    onMouseLeave={() => setHoveredIndex(null)}
-                                                >
+                                    <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+                                    <path d="M8 3.25a.75.75 0 0 1 .75.75v3.25H11a.75.75 0 0 1 0 1.5H7.25V4A.75.75 0 0 1 8 3.25z" />
+                                </svg>
+                            </Typography>
+                        </Box>
+
+                        {/* Song list */}
+                        <Droppable droppableId="songs">
+                            {provided => {
+                                return (
+                                    <Box
+                                        ref={provided.innerRef}
+                                        {...provided.droppableProps}
+                                        sx={{ gridArea: 'songs', marginTop: 0 }}
+                                    >
+                                        <hr style={{ opacity: 0.1 }} />
+                                        {station?.tracks?.map((song, idx) => (
+                                            <Draggable key={song.track.id} draggableId={song.track.id} index={idx}>
+                                                {(provided, snapshot) => (
                                                     <Box
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        className="song-item"
                                                         sx={{
                                                             display: 'flex',
-                                                            justifyContent: 'center',
                                                             alignItems: 'center',
-                                                            width: '40px',
-                                                            marginLeft: '-1.5em',
+                                                            borderRadius: 1,
+                                                            padding: '3px 12px',
+                                                            marginTop: '15px',
+                                                            marginBottom: 1,
+                                                            cursor: 'pointer',
+                                                            width: '100%',
+                                                            backgroundColor: activeIndex === idx
+                                                                ? 'rgba(144, 144, 144, 0.6)'
+                                                                : snapshot.isDragging
+                                                                    ? 'rgba(144, 144, 144, 0.3)'
+                                                                    : 'inherit',
+                                                            '&:hover': { backgroundColor: 'rgba(144, 144, 144, 0.2)' },
                                                         }}
+                                                        onMouseEnter={() => setHoveredIndex(idx)}
+                                                        onMouseLeave={() => setHoveredIndex(null)}
                                                     >
-                                                        {activeIndex === idx &&
-                                                            playingIndex === idx &&
-                                                            hoveredIndex === idx ? (
-                                                            <IconButton
-                                                                onClick={handlePauseClick}
-                                                                sx={{ marginLeft: 4, color: 'white' }}
-                                                                title="pause"
-                                                            >
-                                                                <Pause />
-                                                            </IconButton>
-                                                        ) : activeIndex === idx && playingIndex === idx ? (
-                                                            <img
-                                                                src={playingGif}
-                                                                alt="Playing"
-                                                                className="playing-gif"
-                                                                style={{ width: '14px', height: '14px' }} />
-                                                        ) : hoveredIndex === idx ? (
-                                                            <IconButton
-                                                                onClick={() => handlePlayClick(song, idx)}
-                                                                sx={{
-                                                                    marginLeft: 4,
-                                                                    width: '14px',
-                                                                    height: '14px',
-                                                                    color: 'white',
-                                                                }}
-                                                                title={`Play ${song.track.name} by ${song.track.artists[0].name}`}
-                                                            >
-                                                                <PlayArrow />
-                                                            </IconButton>
-                                                        ) : (
-                                                            <Typography
-                                                                variant="body2"
-                                                                sx={{
-                                                                    marginLeft: 4,
-                                                                    opacity: 0.7,
-                                                                    color: activeIndex === idx ? '#1ed760' : 'white',
-                                                                }}
-                                                            >
-                                                                {idx + 1}
-                                                            </Typography>
-                                                        )}
-                                                    </Box>
-
-                                                    {/* Song details */}
-                                                    <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
-                                                        <Box
-                                                            component="img"
-                                                            src={song.track.album.images[0].url}
-                                                            alt={`${song.track.name} cover`}
-                                                            sx={{
-                                                                width: 40,
-                                                                height: 40,
-                                                                borderRadius: 1,
-                                                                objectFit: 'cover',
-                                                            }} />
                                                         <Box
                                                             sx={{
                                                                 display: 'flex',
-                                                                flexDirection: 'column',
-                                                                marginLeft: '20px',
+                                                                justifyContent: 'center',
+                                                                alignItems: 'center',
+                                                                width: '40px',
+                                                                marginLeft: '-1.5em',
                                                             }}
                                                         >
-                                                            <Typography
-                                                                variant="body1"
-                                                                sx={{
-                                                                    fontWeight: 600,
-                                                                    cursor: 'pointer',
-                                                                    color: activeIndex === idx ? '#1ed760' : 'white',
-
-                                                                }}
-                                                                title={` ${song.track.name}`}
-                                                            >
-                                                                {song.track.name}
-                                                            </Typography>
-                                                            <Typography
-                                                                onClick={() => onArtistClick(song)}
-                                                                variant="body2"
-                                                                sx={{
-                                                                    cursor: 'pointer',
-                                                                    color: 'rgba(255, 255, 255, 0.7)',
-                                                                    '&:hover': {
+                                                            {activeIndex === idx &&
+                                                                playingIndex === idx &&
+                                                                hoveredIndex === idx ? (
+                                                                <IconButton
+                                                                    onClick={handlePauseClick}
+                                                                    sx={{ marginLeft: 4, color: 'white' }}
+                                                                    title="pause"
+                                                                >
+                                                                    <Pause />
+                                                                </IconButton>
+                                                            ) : activeIndex === idx && playingIndex === idx ? (
+                                                                <img
+                                                                    src={playingGif}
+                                                                    alt="Playing"
+                                                                    className="playing-gif"
+                                                                    style={{ width: '14px', height: '14px' }} />
+                                                            ) : hoveredIndex === idx ? (
+                                                                <IconButton
+                                                                    onClick={() => handlePlayClick(song, idx)}
+                                                                    sx={{
+                                                                        marginLeft: 4,
+                                                                        width: '14px',
+                                                                        height: '14px',
                                                                         color: 'white',
-                                                                        textDecoration: 'underline',
-                                                                    },
-                                                                }}
-                                                                title={` ${song.track.artists[0].name}`}
-                                                            >
-                                                                {song.track.artists[0].name}
-                                                            </Typography>
+                                                                    }}
+                                                                    title={`Play ${song.track.name} by ${song.track.artists[0].name}`}
+                                                                >
+                                                                    <PlayArrow />
+                                                                </IconButton>
+                                                            ) : (
+                                                                <Typography
+                                                                    variant="body2"
+                                                                    sx={{
+                                                                        marginLeft: 4,
+                                                                        opacity: 0.7,
+                                                                        color: activeIndex === idx ? '#1ed760' : 'white',
+                                                                    }}
+                                                                >
+                                                                    {idx + 1}
+                                                                </Typography>
+                                                            )}
                                                         </Box>
-                                                    </Box>
 
-                                                    {/* Album, Like Button, and Duration columns */}
-                                                    <Box
-                                                        sx={{
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            justifyContent: 'space-between',
-                                                            marginLeft: 'auto',
-                                                            width: '50%',
-                                                        }}
-                                                    >
-                                                        <Typography
-                                                            variant="body2"
-                                                            sx={{
-                                                                textAlign: 'left',
-                                                                color: 'rgba(255, 255, 255, 0.6)',
-                                                                marginRight: 10,
-                                                                cursor: 'pointer',
-                                                                '&:hover': {
-                                                                    textDecoration: 'underline',
-                                                                },
-                                                                '@media (max-width: 768px)': {
-                                                                    display: 'none',
-                                                                },
-                                                            }}
-                                                        // title={` ${song.album}`}
-                                                        >
-                                                            {/* {song.album} */}
-                                                        </Typography>
+                                                        {/* Song details */}
+                                                        <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
+                                                            <Box
+                                                                component="img"
+                                                                src={song.track.album.images[0].url}
+                                                                alt={`${song.track.name} cover`}
+                                                                sx={{
+                                                                    width: 40,
+                                                                    height: 40,
+                                                                    borderRadius: 1,
+                                                                    objectFit: 'cover',
+                                                                }} />
+                                                            <Box
+                                                                sx={{
+                                                                    display: 'flex',
+                                                                    flexDirection: 'column',
+                                                                    marginLeft: '20px',
+                                                                }}
+                                                            >
+                                                                <Typography
+                                                                    variant="body1"
+                                                                    sx={{
+                                                                        fontWeight: 600,
+                                                                        cursor: 'pointer',
+                                                                        color: activeIndex === idx ? '#1ed760' : 'white',
+
+                                                                    }}
+                                                                    title={` ${song.track.name}`}
+                                                                >
+                                                                    {song.track.name}
+                                                                </Typography>
+                                                                <Typography
+                                                                    onClick={() => onArtistClick(song)}
+                                                                    variant="body2"
+                                                                    sx={{
+                                                                        cursor: 'pointer',
+                                                                        color: 'rgba(255, 255, 255, 0.7)',
+                                                                        '&:hover': {
+                                                                            color: 'white',
+                                                                            textDecoration: 'underline',
+                                                                        },
+                                                                    }}
+                                                                    title={` ${song.track.artists[0].name}`}
+                                                                >
+                                                                    {song.track.artists[0].name}
+                                                                </Typography>
+                                                            </Box>
+                                                        </Box>
+
+                                                        {/* Album, Like Button, and Duration columns */}
                                                         <Box
                                                             sx={{
                                                                 display: 'flex',
                                                                 alignItems: 'center',
-                                                                gap: '10px',
+                                                                justifyContent: 'space-between',
+                                                                marginLeft: 'auto',
+                                                                width: '50%',
                                                             }}
                                                         >
-                                                            <button
-                                                                onClick={(event) => toggleLike(event, song)}
-                                                                title={song.liked ? 'Remove from liked songs' : 'Add to liked songs'}
-                                                                className="liked-songs-btn"
-                                                            >
-                                                                {song.liked ? (
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 16 16" className="liked-icon">
-                                                                        <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z" />
-                                                                    </svg>
-                                                                ) : (
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 24 24" className="not-liked-icon">
-                                                                        <path d="M11.999 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm-11 9c0-6.075 4.925-11 11-11s11 4.925 11 11-4.925 11-11 11-11-4.925-11-11z" />
-                                                                        <path d="M17.999 12a1 1 0 0 1-1 1h-4v4a1 1 0 1 1-2 0v-4h-4a1 1 0 1 1 0-2h4V7a1 1 0 1 1 2 0v4h4a1 1 0 0 1 1 1z" />
-                                                                    </svg>
-                                                                )}
-                                                            </button>
                                                             <Typography
                                                                 variant="body2"
                                                                 sx={{
+                                                                    textAlign: 'left',
                                                                     color: 'rgba(255, 255, 255, 0.6)',
+                                                                    marginRight: 10,
+                                                                    cursor: 'pointer',
+                                                                    '&:hover': {
+                                                                        textDecoration: 'underline',
+                                                                    },
                                                                     '@media (max-width: 768px)': {
-                                                                        marginLeft: 25, // Hides the component under 768px
-                                                                        marginRight: 10
+                                                                        display: 'none',
                                                                     },
                                                                 }}
+                                                            // title={` ${song.album}`}
                                                             >
-                                                                {song.track.duration_ms
-                                                                    ? stationService.formatSongDuration(song.track.duration_ms)
-                                                                    : "0:00"}
-
+                                                                {/* {song.album} */}
                                                             </Typography>
-                                                        </Box>
-                                                    </Box>
+                                                            <Box
+                                                                sx={{
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    gap: '10px',
+                                                                }}
+                                                            >
+                                                                <button
+                                                                    onClick={(event) => toggleLike(event, song)}
+                                                                    title={song.liked ? 'Remove from liked songs' : 'Add to liked songs'}
+                                                                    className="liked-songs-btn"
+                                                                >
+                                                                    {song.liked ? (
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 16 16" className="liked-icon">
+                                                                            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z" />
+                                                                        </svg>
+                                                                    ) : (
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 24 24" className="not-liked-icon">
+                                                                            <path d="M11.999 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm-11 9c0-6.075 4.925-11 11-11s11 4.925 11 11-4.925 11-11 11-11-4.925-11-11z" />
+                                                                            <path d="M17.999 12a1 1 0 0 1-1 1h-4v4a1 1 0 1 1-2 0v-4h-4a1 1 0 1 1 0-2h4V7a1 1 0 1 1 2 0v4h4a1 1 0 0 1 1 1z" />
+                                                                        </svg>
+                                                                    )}
+                                                                </button>
+                                                                <Typography
+                                                                    variant="body2"
+                                                                    sx={{
+                                                                        color: 'rgba(255, 255, 255, 0.6)',
+                                                                        '@media (max-width: 768px)': {
+                                                                            marginLeft: 25, // Hides the component under 768px
+                                                                            marginRight: 10
+                                                                        },
+                                                                    }}
+                                                                >
+                                                                    {song.track.duration_ms
+                                                                        ? stationService.formatSongDuration(song.track.duration_ms)
+                                                                        : "0:00"}
 
-                                                </Box>
-                                            )}
-                                        </Draggable>
-                                    ))}
-                                    {provided.placeholder}
-                                </Box>
-                            )
-                        }}
-                    </Droppable>
-                </Box>
-                {contextMenu && (
-                    <ul
-                        className="delete-song-btn"
-                        ref={contextMenuRef}
-                        style={{
-                            position: 'absolute',
-                            top: `${contextMenu.y}px`,
-                            left: `${contextMenu.x}px`,
-                            zIndex: 100,
-                        }}
-                    >
-                        <li onClick={onStationClick}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                data-encore-id="icon"
-                                role="img"
-                                aria-hidden="true"
-                                viewBox="0 0 16 16"
-                                className="delete-icon Svg-sc-ytk21e-0 bmPLlI"
-                            >
-                                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
-                                <path d="M12 8.75H4v-1.5h8v1.5z" />
-                            </svg>
-                            <span>Delete</span>
-                        </li>
-                    </ul>
-                )}
-                {/* 
+                                                                </Typography>
+                                                            </Box>
+                                                        </Box>
+
+                                                    </Box>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </Box>
+                                )
+                            }}
+                        </Droppable>
+                    </Box>
+                    {contextMenu && (
+                        <ul
+                            className="delete-song-btn"
+                            ref={contextMenuRef}
+                            style={{
+                                position: 'absolute',
+                                top: `${contextMenu.y}px`,
+                                left: `${contextMenu.x}px`,
+                                zIndex: 100,
+                            }}
+                        >
+                            <li onClick={onStationClick}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    data-encore-id="icon"
+                                    role="img"
+                                    aria-hidden="true"
+                                    viewBox="0 0 16 16"
+                                    className="delete-icon Svg-sc-ytk21e-0 bmPLlI"
+                                >
+                                    <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+                                    <path d="M12 8.75H4v-1.5h8v1.5z" />
+                                </svg>
+                                <span>Delete</span>
+                            </li>
+                        </ul>
+                    )}
+                    {/* 
                 {contextMenu && (
                     <ul
                         className="add-stations-menu"
@@ -518,7 +518,8 @@ export function SongList() {
                         </li>
                     </ul>
                 )} */}
-            </section>
-        </DragDropContext>
-    )
-}
+                </section>
+            </DragDropContext>
+        )
+    }
+
