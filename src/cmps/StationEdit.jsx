@@ -4,13 +4,15 @@ import { uploadService } from '../services/upload.service'
 
 const StationEdit = forwardRef(({ station, onClose, onImageUpload, openFileUpload }, ref) => {
     const [editedStation, setEditedStation] = useState({ ...station })
-    const [uploadedImgURL, setUploadedImgURL] = useState(station.imgURL)
+    const [uploadedImgURL, setUploadedImgURL] = useState(station?.images[0]?.url)
 
     useEffect(() => {
         if (openFileUpload) {
             document.getElementById('imgUpload').click()
         }
     }, [openFileUpload])
+
+    console.log(station)
 
     function handleInputChange(event) {
         const { name, value } = event.target
@@ -33,17 +35,21 @@ const StationEdit = forwardRef(({ station, onClose, onImageUpload, openFileUploa
     }
 
     function handleSave() {
-        updateStation(editedStation)
-        setEditedStation(prevState => ({
-            ...prevState,
-            imgURL: uploadedImgURL,
-        }))
-        updateStation({ ...editedStation, imgURL: uploadedImgURL })
-        onClose()
+        const updatedStation = {
+            ...editedStation,
+            images: uploadedImgURL ? [{ url: uploadedImgURL }] : editedStation.images, 
+        };
+    
+    
+        updateStation(updatedStation);
+        onClose();
     }
+    
 
     function renderStationImage() {
         if (station.imgURL === null) {
+            const imageSrc = uploadedImgURL || station?.images?.[0]?.url || '';
+
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +64,7 @@ const StationEdit = forwardRef(({ station, onClose, onImageUpload, openFileUploa
                 </svg>
             )
         }
-        return <img className="playlist-image" src={editedStation.imgURL} alt="playlist image" />
+        return <img className="playlist-image" src={imageSrc} alt="playlist image" />
     }
 
     return (

@@ -84,7 +84,6 @@ async function saveStation(station) {
 }
 
 async function removeSong(stationId, updatedData) {
-    console.log(stationId, updatedData);
 }
 function addSong(stationId, updatedData) {
     return httpService.put(BASE_URL + stationId, updatedData);
