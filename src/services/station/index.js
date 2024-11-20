@@ -28,7 +28,7 @@ function calculateTotalDuration(songs) {
 }
 
 
-function formatSongDuration(durationMs) {
+export function formatSongDuration(durationMs) {
     const totalSeconds = Math.floor(durationMs / 1000)
     const minutes = Math.floor(totalSeconds / 60)
     const seconds = totalSeconds % 60

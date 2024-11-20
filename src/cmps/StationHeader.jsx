@@ -152,7 +152,7 @@ export function StationHeader() {
                 </Box>
 
                 {/* Playlist Info */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', marginLeft: '10px' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', marginBottom: '10px' }}>
                     <Typography variant="subtitle2" color="white">
                         Playlist
                     </Typography>
@@ -180,7 +180,7 @@ export function StationHeader() {
                         <Typography
                             variant="body1"
                             sx={{
-                                marginTop: 1,
+                              
                                 fontSize: '1.2rem',
                                 fontFamily: 'SpotifyMix',
                                 fontWeight: '400',

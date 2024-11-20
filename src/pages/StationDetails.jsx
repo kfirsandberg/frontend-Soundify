@@ -17,6 +17,7 @@ export function StationDetails() {
     
     const [showFindMoreSection, setShowFindMoreSection] = useState(false)
     let station = useSelector(storeState => storeState.stationModule.currentStation)
+      
     const { stationId } = useParams()
         
     useEffect(() => {

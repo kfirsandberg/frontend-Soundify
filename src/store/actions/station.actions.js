@@ -42,8 +42,14 @@ export async function loadStation(station) {
 }
 
 export async function  getStationById(stationId) {
-    console.log(stationId);
-    
+    try{
+        const station = await stationService.getById(stationId)
+        store.dispatch(getCmdSetStation(station))
+        return station
+    } catch (err) {
+        console.log('Cannot find station', err)
+        throw err
+    }
 }
 
 

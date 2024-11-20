@@ -6,6 +6,8 @@ import { stationService } from '../services/station/index.js';
 import { removeSong, addSong } from '../store/actions/station.actions.js';
 import { useNavigate } from 'react-router-dom'
 import { getArtist } from '../store/actions/station.actions'
+import { formatSongDuration } from '../services/station'
+
 export function SearchDetails() {
 
     const navigate = useNavigate()
@@ -186,7 +188,7 @@ export function SearchDetails() {
                                         </svg>
                                     )}
                                 </button>
-                                <div className="song-duration">{formatTime(song.duration_ms)}</div>
+                                <div className="song-duration">{formatSongDuration(song.duration_ms)}</div>
                             </div>
                         </div>
                     ))}

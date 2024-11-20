@@ -1,8 +1,9 @@
-.song-list{
-    padding-top: 10.5px;
-    padding-left: 21px;
+.song-list {
+    padding-top:11px;
+    padding-left: 23px;
     height: 100%;
 }
+
 .playing-gif {
     position: relative;
     left: em(18px);
@@ -13,8 +14,8 @@
     position: relative;
     right: em(18px);
     fill: #b3b3b3;
-    width:16px;
-    height:16px;
+    width: 16px;
+    height: 16px;
 }
 
 .liked-songs-btn {
@@ -23,26 +24,28 @@
     cursor: pointer;
 
     .liked-icon {
-        fill: #1ed760; 
+        fill: #1ed760;
         width: 16px;
         height: 16px;
     }
+
     .not-liked-icon {
         width: 16px;
         height: 16px;
         display: none;
         fill: #b3b3b3;
-        &:hover{
+
+        &:hover {
 
             fill: #ffffff;
         }
-        
+
     }
 
 }
 
 .song-item:hover .not-liked-icon {
-        display: block;
+    display: block;
 }
 
 .delete-song-btn {
