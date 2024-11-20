@@ -5,18 +5,19 @@ import { Box, Typography, IconButton } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { stationService } from '../services/station'
-import { useSelector } from 'react-redux'
-import { SOCKET_EMIT_STATION_WATCH, SOCKET_EVENT_STATION_UPDATE, socketService } from '../services/socket.service.js'
-import { store } from '../store/store.js'
-import { showSuccessMsg } from '../services/event-bus.service.js'
+import { useSelector,useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
+import {setBgColor } from '../store/actions/station.actions.js'
+
+import { FastAverageColor } from 'fast-average-color'
+
+const fac = new FastAverageColor()
 
 
-export function SongList() {
+export function ArtistSongList({ }) {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
     const stations = useSelector(storeState => storeState.stationModule.stations)
-
-    console.log('station:', station)
+    const dispatch = useDispatch()
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
@@ -27,46 +28,13 @@ export function SongList() {
     const [currentSong, setCurrentSong] = useState(null);
 
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
-    console.log(artist);
-    
+    // console.log(artist);
+
 
     const contextMenuRef = useRef(null)
 
     const navigate = useNavigate()
 
-
-    const menuWidth = contextMenuRef.current?.offsetWidth || 150;
-    const menuHeight = contextMenuRef.current?.offsetHeight || 100;
-
-
-
-    useEffect(() => {
-        console.log('station.',station)
-
-    },[station])
-
-
-    useEffect(() => {
-
-        socketService.emit(SOCKET_EMIT_STATION_WATCH, station._id)
-        socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
-
-        return () => {
-            socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
-        }
-    }, [station._id, station])
-
-    function onStationUpdate(station) {
-        console.log('station:', station)
-        showSuccessMsg('Playlist Updated.')
-
-        store.dispatch({ type: 'UPDATE_STATION' , station})
-        store.dispatch({ type: 'SET_STATION' , currentStation:station})
-
-        setCurrStation(station)
-        setSongs(station.tracks)
-        console.log('station.tracks',station.tracks)
-    }
 
 
     useEffect(() => {
@@ -85,17 +53,6 @@ export function SongList() {
     }, [currStation.tracks]);
 
 
-    async function onArtistClick(song) {
-        const artistId = song.track.artists[0].id
-       
-        await getArtist(artistId)
-
-        console.log('res' ,artist)
-        
-        
-        navigate(`/artist/${artistId}`)
-    }
-
     function handlePlayClick(song, index) {
         loadSong(song);
         setIsPlaying(true);
@@ -108,27 +65,28 @@ export function SongList() {
         setPlayingIndex(null);
     }
 
-    async function toggleLike(ev, song) {
-        ev.stopPropagation();
 
-        const menuWidth = 290;
-        const menuHeight = 390;
+    useEffect(() => {
+        setBgColorDetails(artist)
+        
+        
+    }, [artist])
 
-        let x = ev.pageX;
-        let y = ev.pageY;
-
-        const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight;
-        if (x + menuWidth > screenWidth) {
-            x = screenWidth - menuWidth;
+    async function setBgColorDetails(artist) {
+        console.log(artist);
+        if (artist && artist.images[0]?.url) {
+            try {
+                const color = await fac.getColorAsync(artist.images[0]?.url)
+                console.log(color);
+                
+                setBgColor(artist, color.rgb)
+            } catch (error) {
+                
+            }
         }
-
-        if (y + menuHeight > screenHeight) {
-            y = screenHeight - menuHeight;
-        }
-        setContextMenu({ x, y, song });
-        setCurrentSong(song)
     }
+
+
 
     function handleOutsideClick(event) {
         if (!contextMenu || !contextMenuRef.current) return;
@@ -206,63 +164,28 @@ export function SongList() {
                         sx={{
                             gridArea: 'nav',
                             display: 'grid',
-                            gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
+                            gridTemplateColumns: 'auto  0.0100fr',
                             gridGap: 1,
 
                             '@media (max-width: 768px)': {
-                                gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
-                                gridTemplateRows: '7fr 7.3fr 0.2fr',
+                                gridTemplateColumns: 'auto 7fr  0.2fr',
+        
                                 textAlign: 'center',
                             },
                         }}
                     >
                         <Typography
                             variant="body2"
-                            sx={{ paddingRight: '1em', paddingLeft: '1.4em', opacity: 0.6, color: 'white' }}
+                            sx={{ paddingRight: '1em', color: 'white' , fontSize:25, fontFamily: '"SpotifyMix", sans-serif'}}
                         >
-                            #
+                            Popular
                         </Typography>
-                        <Typography
-                            variant="body2"
-                            sx={{ paddingLeft: '0.4em', margin: 0, opacity: 0.6, color: 'white' }}
-                        >
-                            Title
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            sx={{ opacity: 0.6, color: 'white', '@media (max-width: 768px)': { marginLeft: 0, display: 'none', } }}
-                        >
-                            Album
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            sx={{
-                                opacity: 0.6,
-                                color: 'white',
-                                '@media (max-width: 768px)': {
-                                    marginLeft: 25,
-                                    marginRight: 1
-
-                                },
-                            }}
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                data-encore-id="icon"
-                                role="img"
-                                aria-hidden="true"
-                                viewBox="0 0 16 16"
-                                className="duration-icon Svg-sc-ytk21e-0 dYnaPI"
-                            >
-                                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
-                                <path d="M8 3.25a.75.75 0 0 1 .75.75v3.25H11a.75.75 0 0 1 0 1.5H7.25V4A.75.75 0 0 1 8 3.25z" />
-                            </svg>
-                        </Typography>
+                
                     </Box>
 
                     {/* Song list */}
                     <Droppable droppableId="songs">
-                        {provided => {
+                        {(provided) => {
                             return (
                                 <Box
                                     ref={provided.innerRef}
@@ -270,8 +193,8 @@ export function SongList() {
                                     sx={{ gridArea: 'songs', marginTop: 0 }}
                                 >
                                     <hr style={{ opacity: 0.1 }} />
-                                    {station?.tracks?.map((song, idx) => (
-                                        <Draggable key={song.track.id} draggableId={song.track.id} index={idx}>
+                                    {artist?.tracks?.map((track, idx) => (
+                                        <Draggable key={track.id} draggableId={track.id} index={idx}>
                                             {(provided, snapshot) => (
                                                 <Box
                                                     ref={provided.innerRef}
@@ -312,7 +235,7 @@ export function SongList() {
                                                             <IconButton
                                                                 onClick={handlePauseClick}
                                                                 sx={{ marginLeft: 4, color: 'white' }}
-                                                                title="pause"
+                                                                title="Pause"
                                                             >
                                                                 <Pause />
                                                             </IconButton>
@@ -324,14 +247,15 @@ export function SongList() {
                                                                 style={{ width: '14px', height: '14px' }} />
                                                         ) : hoveredIndex === idx ? (
                                                             <IconButton
-                                                                onClick={() => handlePlayClick(song, idx)}
+                                                                onClick={() => handlePlayClick(track, idx)}
                                                                 sx={{
                                                                     marginLeft: 4,
                                                                     width: '14px',
                                                                     height: '14px',
                                                                     color: 'white',
+                                                                    
                                                                 }}
-                                                                title={`Play ${song.track.name} by ${song.track.artists[0].name}`}
+                                                                title={`Play ${track.name}`}
                                                             >
                                                                 <PlayArrow />
                                                             </IconButton>
@@ -353,8 +277,8 @@ export function SongList() {
                                                     <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
                                                         <Box
                                                             component="img"
-                                                            src={song.track.album.images[0].url}
-                                                            alt={`${song.track.name} cover`}
+                                                            src={track.album?.images[0]?.url }
+                                                            alt={`${track.name} cover`}
                                                             sx={{
                                                                 width: 40,
                                                                 height: 40,
@@ -374,36 +298,21 @@ export function SongList() {
                                                                     fontWeight: 600,
                                                                     cursor: 'pointer',
                                                                     color: activeIndex === idx ? '#1ed760' : 'white',
-
+                                                                    fontFamily: '"SpotifyMix", sans-serif'
                                                                 }}
-                                                                title={` ${song.track.name}`}
+                                                                title={track.name}
                                                             >
-                                                                {song.track.name}
-                                                            </Typography>
-                                                            <Typography
-                                                                onClick={() => onArtistClick(song)}
-                                                                variant="body2"
-                                                                sx={{
-                                                                    cursor: 'pointer',
-                                                                    color: 'rgba(255, 255, 255, 0.7)',
-                                                                    '&:hover': {
-                                                                        color: 'white',
-                                                                        textDecoration: 'underline',
-                                                                    },
-                                                                }}
-                                                                title={` ${song.track.artists[0].name}`}
-                                                            >
-                                                                {song.track.artists[0].name}
+                                                                {track.name}
                                                             </Typography>
                                                         </Box>
                                                     </Box>
 
-                                                    {/* Album, Like Button, and Duration columns */}
+                                                    {/* Duration */}
                                                     <Box
                                                         sx={{
                                                             display: 'flex',
-                                                            alignItems: 'center',
-                                                            justifyContent: 'space-between',
+                                                            alignItems: 'end',
+                                                            justifyContent: 'flex-end',
                                                             marginLeft: 'auto',
                                                             width: '50%',
                                                         }}
@@ -411,100 +320,25 @@ export function SongList() {
                                                         <Typography
                                                             variant="body2"
                                                             sx={{
-                                                                textAlign: 'left',
                                                                 color: 'rgba(255, 255, 255, 0.6)',
-                                                                marginRight: 10,
-                                                                cursor: 'pointer',
-                                                                '&:hover': {
-                                                                    textDecoration: 'underline',
-                                                                },
-                                                                '@media (max-width: 768px)': {
-                                                                    display: 'none',
-                                                                },
+                                                             
                                                             }}
-                                                        // title={` ${song.album}`}
                                                         >
-                                                            {/* {song.album} */}
+                                                            {stationService.formatSongDuration(track.duration_ms) || "0:00"}
                                                         </Typography>
-                                                        <Box
-                                                            sx={{
-                                                                display: 'flex',
-                                                                alignItems: 'center',
-                                                                gap: '10px',
-                                                            }}
-                                                        >
-                                                            <button
-                                                                onClick={(event) => toggleLike(event, song)}
-                                                                title={song.liked ? 'Remove from liked songs' : 'Add to liked songs'}
-                                                                className="liked-songs-btn"
-                                                            >
-                                                                {song.liked ? (
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 16 16" className="liked-icon">
-                                                                        <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm11.748-1.97a.75.75 0 0 0-1.06-1.06l-4.47 4.47-1.405-1.406a.75.75 0 1 0-1.061 1.06l2.466 2.467 5.53-5.53z" />
-                                                                    </svg>
-                                                                ) : (
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" viewBox="0 0 24 24" className="not-liked-icon">
-                                                                        <path d="M11.999 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm-11 9c0-6.075 4.925-11 11-11s11 4.925 11 11-4.925 11-11 11-11-4.925-11-11z" />
-                                                                        <path d="M17.999 12a1 1 0 0 1-1 1h-4v4a1 1 0 1 1-2 0v-4h-4a1 1 0 1 1 0-2h4V7a1 1 0 1 1 2 0v4h4a1 1 0 0 1 1 1z" />
-                                                                    </svg>
-                                                                )}
-                                                            </button>
-                                                            <Typography
-                                                                variant="body2"
-                                                                sx={{
-                                                                    color: 'rgba(255, 255, 255, 0.6)',
-                                                                    '@media (max-width: 768px)': {
-                                                                        marginLeft: 25, // Hides the component under 768px
-                                                                        marginRight: 10
-                                                                    },
-                                                                }}
-                                                            >
-                                                                {song.track.duration_ms
-                                                                    ? stationService.formatSongDuration(song.track.duration_ms)
-                                                                    : "0:00"}
-
-                                                            </Typography>
-                                                        </Box>
                                                     </Box>
-
                                                 </Box>
                                             )}
                                         </Draggable>
                                     ))}
                                     {provided.placeholder}
                                 </Box>
-                            )
+                            );
                         }}
                     </Droppable>
                 </Box>
-                {contextMenu && (
-                    <ul
-                        className="delete-song-btn"
-                        ref={contextMenuRef}
-                        style={{
-                            position: 'absolute',
-                            top: `${contextMenu.y}px`,
-                            left: `${contextMenu.x}px`,
-                            zIndex: 100,
-                        }}
-                    >
-                        <li onClick={onStationClick}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                data-encore-id="icon"
-                                role="img"
-                                aria-hidden="true"
-                                viewBox="0 0 16 16"
-                                className="delete-icon Svg-sc-ytk21e-0 bmPLlI"
-                            >
-                                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
-                                <path d="M12 8.75H4v-1.5h8v1.5z" />
-                            </svg>
-                            <span>Delete</span>
-                        </li>
-                    </ul>
-                )}
-                {/* 
+
+
                 {contextMenu && (
                     <ul
                         className="add-stations-menu"
@@ -521,7 +355,7 @@ export function SongList() {
                             Delete
                         </li>
                     </ul>
-                )} */}
+                )}
             </section>
         </DragDropContext>
     )

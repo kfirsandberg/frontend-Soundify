@@ -148,6 +148,7 @@ export function setIsPlaying(isPlaying) {
 export function setBgColor(bgColor) {
     try {
         store.dispatch(getCmdSetBgColor(bgColor))
+        
     } catch (err) {
         console.log('Cannot set is playing', err)
         throw err

@@ -5,6 +5,7 @@ import loaderIcon from '/assets/loader.svg'
 
 import { ArtistHeader } from '../cmps/ArtistHeader.jsx'
 import { SongList } from '../cmps/SongList.jsx'
+import { ArtistSongList } from '../cmps/ArtistSongList.jsx'
 import { useSelector } from 'react-redux'
 
 export function ArtistPage() {
@@ -44,7 +45,7 @@ export function ArtistPage() {
     return (
         <section className="artist-details-main">
             <ArtistHeader />
-            <SongList station={{ tracks: artist.tracks }} />
+            <ArtistSongList station={{ tracks: artist.tracks }} />
         </section>
     );
 }

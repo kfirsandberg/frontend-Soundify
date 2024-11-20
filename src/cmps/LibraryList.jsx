@@ -120,7 +120,6 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
     }
 
     async function handleDeleteStation() {
-        console.log('selectedStation:', selectedStation)
         if (!selectedStation?._id) return
         try {
             await removeStation(selectedStation._id)
