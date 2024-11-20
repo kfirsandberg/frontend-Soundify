@@ -8,6 +8,7 @@ export function AppHeader() {
     const [focused, setFocused] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isAI, setIsAI] = useState(false); 
 
     const inputWrapperRef = useRef(null)
     const inputTextRef = useRef(null)
@@ -91,11 +92,13 @@ export function AppHeader() {
     const debouncedSearch = debounce(async (value) => {
         if (!value) return;
         try {
-            const results = await chatSearch(value);
-            navigate(`/playlist/${results._id}`)
-            
-            // const results = await search(value);
-            // navigate('/search');
+            if (isAI) {
+                const results = await chatSearch(value);
+                navigate(`/playlist/${results._id}`);
+            } else {
+                const results = await search(value);
+                navigate('/search');
+            }
         } catch (error) {
             console.error('Error during search:', error);
         }
@@ -150,6 +153,29 @@ export function AppHeader() {
                         )}
                     </button>
                 </Link>
+                <button
+                        className={`header-ai-btn ${isAI ? 'active' : ''}`}
+                        title="Search with AI"
+                        onClick={() => setIsAI(!isAI)}
+                    >
+<svg fill="#000000" height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 490 490" xml:space="preserve">
+<g>
+	<g>
+		<path d="M416,0H74C33.3,0,0,33.4,0,74v342c0,40.7,33.4,74,74,74h342c40.7,0,74-33.4,74-74V74C490,33.4,456.6,0,416,0z M449.3,416
+			c0,18.8-14.6,33.4-33.4,33.4H74c-18.8,0-33.4-14.6-33.4-33.4V74c0-18.8,14.6-33.4,33.4-33.4h342c18.8,0,33.4,14.6,33.4,33.4v342
+			H449.3z"/>
+		<g>
+			<path d="M234.8,169.8c-2.4-5.5-7.8-9-13.8-9s-11.4,3.5-13.8,9L147,308.3c-3.3,7.6,0.2,16.4,7.8,19.7c2,0.9,4,1.3,6,1.3
+				c5.8,0,11.3-3.4,13.8-9l13.2-30.2h66.9l13.2,30.2c3.3,7.6,12.1,11.1,19.7,7.8c7.6-3.3,11.1-12.2,7.8-19.7L234.8,169.8z
+				 M200.7,260l20.4-46.8l20.4,46.8H200.7z"/>
+			<path d="M329.3,217.9c-8.3,0-15,6.7-15,15v81.4c0,8.3,6.7,15,15,15s15-6.7,15-15v-81.4C344.3,224.6,337.6,217.9,329.3,217.9z"/>
+			<path d="M329.3,166.4c-8.3,0-15,6.7-15,15v4c0,8.3,6.7,15,15,15s15-6.7,15-15v-4C344.3,173.1,337.6,166.4,329.3,166.4z"/>
+		</g>
+	</g>
+</g>
+</svg>
+                    </button>
 
                 <div className={`input-wrapper ${focused ? 'focused' : ''}`} ref={inputWrapperRef}>
                     <button className="header-search-btn" title="Search">
@@ -164,6 +190,7 @@ export function AppHeader() {
                             <path d="M10.533 1.27893C5.35215 1.27893 1.12598 5.41887 1.12598 10.5579C1.12598 15.697 5.35215 19.8369 10.533 19.8369C12.767 19.8369 14.8235 19.0671 16.4402 17.7794L20.7929 22.132C21.1834 22.5226 21.8166 22.5226 22.2071 22.132C22.5976 21.7415 22.5976 21.1083 22.2071 20.7178L17.8634 16.3741C19.1616 14.7849 19.94 12.7634 19.94 10.5579C19.94 5.41887 15.7138 1.27893 10.533 1.27893ZM3.12598 10.5579C3.12598 6.55226 6.42768 3.27893 10.533 3.27893C14.6383 3.27893 17.94 6.55226 17.94 10.5579C17.94 14.5636 14.6383 17.8369 10.533 17.8369C6.42768 17.8369 3.12598 14.5636 3.12598 10.5579Z" />
                         </svg>
                     </button>
+                    
                     <input
                         ref={inputTextRef}
                         type="text"
