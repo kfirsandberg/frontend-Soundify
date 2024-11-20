@@ -21,7 +21,7 @@ export function SongList({ }) {
 
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
     console.log(artist);
-    
+
 
     const contextMenuRef = useRef(null)
 
@@ -49,12 +49,12 @@ export function SongList({ }) {
 
     async function onArtistClick(song) {
         const artistId = song.track.artists[0].id
-       
+
         await getArtist(artistId)
 
-        console.log('res' ,artist)
-        
-        
+        console.log('res', artist)
+
+
         navigate(`/artist/${artistId}`)
     }
 
@@ -142,22 +142,13 @@ export function SongList({ }) {
         setCurrStation(updatedStation);
     }
     async function onArtistClick(song) {
-<<<<<<< HEAD
+
         const artistId = song.track.artists[0].id
         await getArtist(artistId)
-        console.log(artist);
-        navigate(`/artist/${artistId}`)
-=======
-        try {
-            const artistId = song.track.artists[0].id
-            await getArtist(artistId)
-            console.log(artist);
-        } catch (error) {
-            console.error('Error toggling like:', error);
-        }
+        // console.log(artist);
 
-        // navigate(`/artist/${artistId}`)
->>>>>>> 71e58f8c1c0004fecf44a7adfe08ccc6b00c13c9
+
+        navigate(`/artist/${artistId}`)
     }
 
 
