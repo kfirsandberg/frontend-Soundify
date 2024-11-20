@@ -12,6 +12,7 @@ export const stationServiceRemote = {
     getYoutubeID,
     removeSong,
     addSong,
+    createNewStation
 }
 
 function query(filterBy = {}) {
@@ -25,7 +26,7 @@ function getById(stationId) {
 function removeStation(stationId) {
     return httpService.delete(BASE_URL + stationId)
 }
-function removeSong(stationId, updatedData) {    
+function removeSong(stationId, updatedData) {
     return httpService.put(BASE_URL + stationId, updatedData).then(((res => res.data)))
 }
 function addSong(stationId, updatedData) {
@@ -33,6 +34,8 @@ function addSong(stationId, updatedData) {
 }
 function saveStation(station) {
     const method = station._id ? 'put' : 'post'
+    console.log(station);
+
     return httpService[method](BASE_URL + (station._id || ''), station)
 }
 
@@ -43,6 +46,10 @@ function getYoutubeID(songName) {
 
 function getNewStation(stationsNum) {
     return httpService.post(`station/${stationsNum}`).then(((res => res.data)))
+}
+
+function createNewStation(station) {
+    return httpService.post(`chat/send`,station).then(((res => res.data)))
 }
 
 

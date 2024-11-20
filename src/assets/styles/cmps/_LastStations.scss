@@ -14,6 +14,13 @@
     @media (min-width: 1200px) {
         grid-template-columns: repeat(4, 1fr);
     }
+    @media (max-width: 768px){
+        padding-left: 20px;
+        padding-bottom: 0;
+        gap: 5px;
+        padding-top: 8px;
+    }
+    
 
     .playlist-card {
         display: grid;
@@ -49,7 +56,9 @@
             }
             border-radius: 4px;
             object-fit: cover;
-
+        }
+        @media (max-width: 768px){
+            gap: 0;
         }
 
         .playlist-info {
@@ -83,6 +92,10 @@
             width: rem(32px);
             height: rem(32px);
         }
+        @media (max-width: 768px){
+            display: none;
+        }
+      
             margin-right: 5px;
             background-color: #1db954;
             border-radius: 50%;

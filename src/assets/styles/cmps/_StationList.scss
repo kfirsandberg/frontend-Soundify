@@ -6,12 +6,12 @@ $row-count: 1;
 }
 
 .station-index-route {
-  width: auto;
-  margin-left: 8px;
-  margin-right: 8px;
-  padding: 0;
-  border-radius: 0.5em;
-  
+    width: auto;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 0;
+    border-radius: 0.5em;
+
     .station-index {
         width: 100%;
 
@@ -33,6 +33,11 @@ $row-count: 1;
                     justify-self: start;
                 }
 
+                @media (max-width: 768px) {
+                    margin-top: 0;
+                    height: 50px;
+                }
+
                 .show-all-btn {
                     font-family: SpotifyMix-bold;
                     position: absolute;
@@ -45,7 +50,8 @@ $row-count: 1;
                     border: none;
                     color: #fff;
                     font-size: rem(15px);
-                    cursor: pointer;    
+                    cursor: pointer;
+
                     &:hover {
                         text-decoration: underline;
                     }
@@ -57,7 +63,7 @@ $row-count: 1;
                 grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
 
 
-                
+
 
                 .station-item {
                     flex: 1 1 $min-column-width;
@@ -74,7 +80,7 @@ $row-count: 1;
                     color: inherit;
 
                     &:hover {
-                        
+
                         transition: transform 0.2s ease;
                     }
                 }
@@ -110,42 +116,49 @@ $row-count: 1;
 }
 
 @media (min-width: 2075px) {
-    .station-list > button:nth-child(10) ~ * {
+    .station-list>button:nth-child(10)~* {
         display: none !important;
     }
 }
+
 @media (min-width: 1875px) and (max-width: 2074px) {
-    .station-list > button:nth-child(9) ~ * {
+    .station-list>button:nth-child(9)~* {
         display: none !important;
     }
 }
+
 @media (min-width: 1665px) and (max-width: 1874px) {
-    .station-list > button:nth-child(8) ~ * {
+    .station-list>button:nth-child(8)~* {
         display: none !important;
     }
 }
+
 @media (min-width: 1405px) and (max-width: 1664px) {
-    .station-list > button:nth-child(7) ~ * {
+    .station-list>button:nth-child(7)~* {
         display: none !important;
     }
 }
+
 @media (min-width: 1225px) and (max-width: 1404px) {
-    .station-list > button:nth-child(6) ~ * {
+    .station-list>button:nth-child(6)~* {
         display: none !important;
     }
 }
+
 @media (min-width: 1025px) and (max-width: 1224px) {
-    .station-list > button:nth-child(5) ~ * {
+    .station-list>button:nth-child(5)~* {
         display: none !important;
     }
 }
+
 @media (min-width: 845px) and (max-width: 1024px) {
-    .station-list > button:nth-child(4) ~ * {
+    .station-list>button:nth-child(4)~* {
         display: none !important;
     }
 }
+
 @media (min-width: 675px) and (max-width: 844px) {
-    .station-list > button:nth-child(3) ~ * {
+    .station-list>button:nth-child(3)~* {
         display: none !important;
     }
 }

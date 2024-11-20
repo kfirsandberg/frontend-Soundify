@@ -15,8 +15,7 @@ import { useNavigate } from 'react-router'
 export function SongList() {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
     const stations = useSelector(storeState => storeState.stationModule.stations)
-
-
+    
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);
     const [playingIndex, setPlayingIndex] = useState(null);
@@ -191,7 +190,7 @@ export function SongList() {
         const str = String(text);
         return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
     }
-    
+
 
 
     return (
@@ -243,11 +242,11 @@ export function SongList() {
                             sx={{
                                 opacity: 0.6,
                                 color: 'white',
-                          
+
                                 '@media (max-width: 400px)': {
 
                                     textAlign: 'right'
-                                   
+
 
                                 },
                             }}
@@ -419,6 +418,10 @@ export function SongList() {
                                                             justifyContent: 'space-between',
                                                             marginLeft: 'auto',
                                                             width: '50%',
+                                                            '@media (max-width: 768px)': {
+                                                                width: 'auto',
+                                                                justifyContent: 'none',
+                                                            }
                                                         }}
                                                     >
                                                         <Typography
@@ -490,9 +493,9 @@ export function SongList() {
 
                                                                     '@media (max-width: 800px)': {
 
-                                                                       
-                                                                        textAlign: 'right', 
-                                                                        
+
+                                                                        textAlign: 'right',
+
 
                                                                     },
 

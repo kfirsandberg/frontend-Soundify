@@ -194,7 +194,7 @@ export function StationHeader() {
                         <Typography
                             variant="body1"
                             sx={{
-                              
+
                                 fontSize: '1.2rem',
                                 fontFamily: 'SpotifyMix',
                                 fontWeight: '400',
@@ -238,7 +238,13 @@ export function StationHeader() {
                         </Typography>
                     )}
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{
+                        display: 'flex', alignItems: 'center', gap: 1 ,
+                        '@media (max-width: 768px)': {
+                            alignItems: 'baseline',
+                            flexDirection: 'column'
+                        }
+                    }}>
                         <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center' }}>
                             {station.owner.display_name || 'User'}
                         </Typography>

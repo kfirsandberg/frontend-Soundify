@@ -1,8 +1,10 @@
 import { stationLocalService } from '../../services/station/station.service.local.js'
 import { stationService } from '../../services/station/'
 import { spotifyService } from '../../services/search/spotify.service.remote.js'
-
+import { chatService } from '../../services/chat/chat.service.remote.js'
+import { detectLanguage } from '../../services/util.service.js'
 import { store } from '../store.js'
+
 import {
     ADD_STATION,
     REMOVE_STATION,
@@ -41,8 +43,8 @@ export async function loadStation(station) {
     }
 }
 
-export async function  getStationById(stationId) {
-    try{
+export async function getStationById(stationId) {
+    try {
         const station = await stationService.getById(stationId)
         store.dispatch(getCmdSetStation(station))
         return station
@@ -89,7 +91,6 @@ export async function updateStation(station) {
 export async function addNewStation(stations) {
     try {
         // const savedStation = await stationLocalService.saveStation(newStation
-
         const newStation = await stationService.getNewStation(stations.length)
         store.dispatch(getCmdAddStation(newStation))
         store.dispatch(getCmdSetStation(newStation))
@@ -159,7 +160,7 @@ export function setIsPlaying(isPlaying) {
 export function setBgColor(bgColor) {
     try {
         store.dispatch(getCmdSetBgColor(bgColor))
-        
+
     } catch (err) {
         console.log('Cannot set is playing', err)
         throw err
@@ -181,6 +182,86 @@ export async function search(query) {
         return searchedSongs
     } catch (err) {
         console.log('Cannot load stations', err)
+        throw err
+    }
+}
+
+export async function chatSearch(query) {
+    try {
+        // const language = detectLanguage(query);
+        const formattedQuery = `תייצר לי ${query} בפורמט JSON שיהיה רק חמשה שירים, עם המבנה הבא:
+        {
+            "playlist": [
+        {
+            "title": "שם השיר",
+            "artist": "שם האמן",
+            "genre": "הז'אנר",
+            "year": שנה
+        }
+        ]
+        }`;
+
+        const chatRes = await chatService.searchChat(formattedQuery);
+      
+        const songs = chatRes.songs || chatRes.playlist || chatRes.playlist.songs
+
+        const tracks = await Promise.all(
+            songs.map(async (track) => {
+                try {
+                    // יצירת query שמחבר את שם השיר ושם האמן
+                    const searchQuery = `${track.title} ${track.artist}`;
+                    return await spotifyService.searchSong(searchQuery);
+                } catch (err) {
+                    console.error(`Error fetching song details for ${track.name}:`, err);
+                    return null; // אם יש שגיאה, מחזירים null
+                }
+            })
+        );
+
+        // סינון שירים שלא נמצאו
+        const validTracks = tracks.filter((track) => track !== null);
+
+        // יצירת האובייקט המוגמר
+        const formattedResponse = {
+            owner: {
+                external_urls: {
+                    spotify: "https://open.spotify.com/user/liked",
+                },
+                display_name: "User",
+            },
+            images: [
+                {
+                    height: 640,
+                    width: 640,
+                    url: "https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png",
+                },
+                {
+                    height: 300,
+                    width: 300,
+                    url: "https://res.cloudinary.com/dummyimage/liked_songs_small.png",
+                },
+                {
+                    height: 64,
+                    width: 64,
+                    url: "https://res.cloudinary.com/dummyimage/liked_songs_tiny.png",
+                },
+            ],
+            collaborative: false,
+            name: "AI playlist:",
+            followers: {
+                href: null,
+                total: 0,
+            },
+            description: "",
+            tracks: validTracks, // השירים שנמצאו
+        }
+        const savedStation = await stationService.createNewStation(formattedResponse)
+        store.dispatch(getCmdAddStation(savedStation))
+        store.dispatch(getCmdSetStation(savedStation))
+
+        return savedStation;
+    } catch (err) {
+        console.log('Cannot get chatgpt', err)
         throw err
     }
 }
@@ -245,7 +326,7 @@ function getCmdAddStation(station) {
         station,
     }
 }
-function getCmdUpdateStation(station) {   
+function getCmdUpdateStation(station) {
     return {
         type: UPDATE_STATION,
         station,

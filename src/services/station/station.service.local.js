@@ -20,7 +20,8 @@ export const stationLocalService = {
     ensureSong,
     searchSongs,
     getYoutubeID,
-    getArtist
+    getArtist,
+    createNewStation
 }
 const gImg = 'https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png'
 _createStations()
@@ -190,3 +191,8 @@ function getYoutubeID(songName) {
 function getArtist(artistId) {    
     return httpService.post(`spotify/artists/${artistId}`).then(((res => res.data)))
 }
+
+function createNewStation(station) {
+    return httpService.post(`station/chat?q=${station}`).then(((res => res.data)))
+}
+

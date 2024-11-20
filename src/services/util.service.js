@@ -72,3 +72,9 @@ export async function readJsonFile(path) {
         throw error
     }
 }
+
+export function detectLanguage(text) {
+    // ביטוי רגולרי שמחפש תווים בעברית
+    const hebrewRegex = /[\u0590-\u05FF]/;
+    return hebrewRegex.test(text) ? "hebrew" : "english";
+}

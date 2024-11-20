@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { search } from '../store/actions/station.actions.js';
+import { search ,chatSearch} from '../store/actions/station.actions.js';
 import { userService } from '../services/user/user.service.remote.js'
 import { debounce } from '../services/util.service.js';
 
@@ -91,9 +91,11 @@ export function AppHeader() {
     const debouncedSearch = debounce(async (value) => {
         if (!value) return;
         try {
-            const results = await search(value);
-            // navigate(`/search/${value}`)
-            navigate('/search');
+            const results = await chatSearch(value);
+            navigate(`/playlist/${results._id}`)
+            
+            // const results = await search(value);
+            // navigate('/search');
         } catch (error) {
             console.error('Error during search:', error);
         }
