@@ -175,11 +175,10 @@ export async function search(query) {
 }
 
 export async function removeSong(song, station, newStations) {
-
     try {        
         const updatedTracks = station.tracks.filter(s => s.track.id !== song.track.id);
         const updatedStation = { ...station, tracks: updatedTracks };
-        const updateStation = await stationService.removeSong(station._id, updatedStation)
+        await stationService.removeSong(station._id, updatedStation)
         const updatedStations = [...newStations, updatedStation];
         store.dispatch(getCmdSetStations(updatedStations))
         store.dispatch(getCmdSetStation(updatedStation))
@@ -240,7 +239,7 @@ function getCmdAddStation(station) {
         station,
     }
 }
-function getCmdUpdateStation(station) {
+function getCmdUpdateStation(station) {   
     return {
         type: UPDATE_STATION,
         station,

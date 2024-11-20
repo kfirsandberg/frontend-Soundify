@@ -12,7 +12,7 @@ export function LastStations() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    function onClickStation(station) {
+    function onClickStation(station) {        
         loadStation(station)
         navigate(`/playlist/${station._id}`)
     }
@@ -37,9 +37,9 @@ export function LastStations() {
             {displayedStations.map((station, index) => (
                 <div
                     className="playlist-card"
-                    key={index}
+                    key={station._id}
                     onClick={() => onClickStation(station)}
-                    onMouseEnter={() => onHoverStation(station)} // Fetch color on hover
+                    onMouseEnter={() => onHoverStation(station)}r
                 >
                     <img src={station.images[0].url} alt={station.name} className="playlist-thumbnail" />
                     <div className="playlist-info">

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { formatTime } from '../services/util.service'
-import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying ,getArtist} from '../store/actions/station.actions.js'
 import { stationService } from '../services/station/index.js';
 import { removeSong, addSong } from '../store/actions/station.actions.js';
 import { useNavigate } from 'react-router-dom'
@@ -14,12 +14,10 @@ export function SearchDetails() {
     const currentStation = useSelector(storeState => storeState.stationModule.currentStation)
     const [currentSong, setCurrentSong] = useState(null);
 
-
     const contextMenuRef = useRef(null)
 
     const menuWidth = contextMenuRef.current?.offsetWidth || 150;
     const menuHeight = contextMenuRef.current?.offsetHeight || 100;
-
 
     const [contextMenu, setContextMenu] = useState(null)
 
@@ -92,7 +90,7 @@ export function SearchDetails() {
             } else {
                 songToCheck = song
             }
-            const existingSong = await stationService.isSongOnStation(songToCheck, station);
+            const existingSong = await stationService.isSongOnStation(songToCheck, station)
             if (existingSong) {
                 await removeSong(songToCheck, station, newStations);
             } else {
@@ -103,6 +101,16 @@ export function SearchDetails() {
             console.error('Error toggling like:', error);
         }
     }
+
+    async function onArtistClick(song) {
+
+        
+        const artistId = song.artists[0].id
+        await getArtist(artistId)
+        // console.log(artist);
+        navigate(`/artist/${artistId}`)
+    }
+
 
     if (!searchedSongs || searchedSongs.length === 0) return
 
@@ -138,7 +146,7 @@ export function SearchDetails() {
                                         <React.Fragment key={artist.id}>
                                             <span
                                                 className="artist-name"
-                                                onClick={() => navigate(`/artist/${artist.id}`)}
+                                                onClick={() =>onArtistClick(song)}
                                             >
                                                 {artist.name}
                                             </span>
