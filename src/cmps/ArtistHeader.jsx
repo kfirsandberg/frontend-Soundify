@@ -43,13 +43,13 @@ export function ArtistHeader() {
                             sm: '5rem',
                         },
                         fontWeight: 'bold',
-                        fontFamily: '"SpotifyMix", sans-serif',
+                        fontFamily: '"SpotifyMix-Bold", sans-serif',
                     }}
                 >
                     {artist.name || 'Unknown Artist'}
                 </Typography>
 
-                <Typography variant="body1" sx={{ fontSize: '1.2rem' }}>
+                <Typography variant="body1" sx={{ fontSize: '1.2rem', fontFamily: '"SpotifyMix", sans-serif' }}>
                     Followers: {artist.followers.total?.toLocaleString() || 'Unknown Followers'}
                 </Typography>
             </Box>
