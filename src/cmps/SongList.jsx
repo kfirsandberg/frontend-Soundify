@@ -188,8 +188,10 @@ export function SongList() {
     }
 
     function truncateText(text, maxLength) {
-        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        const str = String(text);
+        return str.length > maxLength ? str.substring(0, maxLength) + '...' : str;
     }
+    
 
 
     return (
