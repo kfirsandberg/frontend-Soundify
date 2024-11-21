@@ -11,7 +11,7 @@ import { SOCKET_EMIT_STATION_WATCH, SOCKET_EVENT_STATION_UPDATE, socketService }
 import { store } from '../store/store.js'
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import { debounce } from '../services/util.service.js';
-import { SearchDetails } from './SearchDetails.jsx'
+import { StationSearch } from '../cmps/StationSearch.jsx'
 const fac = new FastAverageColor()
 
 export function StationDetails() {
@@ -94,7 +94,7 @@ export function StationDetails() {
             <StationHeader />
             <SongList />
             {renderStationImage()}
-            <SearchDetails />
+            <StationSearch />
         </section>
     )
 }
