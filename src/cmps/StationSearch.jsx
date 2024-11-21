@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { formatTime } from '../services/util.service'
+import { formatTime } from '../services/util.service.js'
 import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
 import { stationService } from '../services/station/index.js';
 import { removeSong, addSong } from '../store/actions/station.actions.js';
 import { useNavigate } from 'react-router-dom'
-import { getArtist } from '../store/actions/station.actions'
-import { formatSongDuration } from '../services/station'
+import { getArtist } from '../store/actions/station.actions.js'
+import { formatSongDuration } from '../services/station/index.js'
 
-export function SearchDetails() {
+export function StationSearch() {
 
     const navigate = useNavigate()
     const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
@@ -91,7 +91,7 @@ export function SearchDetails() {
             } else {
                 songToCheck = song
             }
-            const existingSong = await stationService.isSongOnStation(songToCheck, station)
+            const existingSong = await stationService.isSongOnStation(songToCheck, station)            
             if (existingSong) {
                 await removeSong(songToCheck, station);
             } else {
@@ -105,43 +105,33 @@ export function SearchDetails() {
 
     async function onArtistClick(song) {
 
-
+        
         const artistId = song.artists[0].id
         await getArtist(artistId)
         // console.log(artist);
         navigate(`/artist/${artistId}`)
     }
-    console.log(searchedSongs);
 
 
     if (!searchedSongs || searchedSongs.length === 0) return
 
     return (
-        <section className="search-details">
-            <section className='artist-details'>
-
-                <div className='artist'>
-                    <h2>Top result</h2>
-                    <section className='artist-section'>
-                        <img className='artist-img' src={searchedSongs.artists[0].images[0].url} alt="" />
-                        <h1 className='artist-name'>{searchedSongs.artists[0].name}</h1>
-                        <h2>Artist</h2>
-                    </section>
-                </div>
-            </section>
+        <section className="search-details" style={{ display: 'block',paddingTop: 0 }}>
+            <h2>Songs</h2>
             <section className="song-list">
-                <h2>Songs</h2>
                 {searchedSongs.tracks
                     ?.filter((song) => song.duration_ms)
-                    .slice(0, 4) // Limit to the first five songs
                     .map((song) => (
                         <div key={song._id} className="song-item">
                             {/* Song Image */}
-                            <div onClick={() => handlePlayClick(song)} className="song-img">
+                            <div onClick={() => handlePlayClick(song)}
+                                className="song-img">
+
                                 <button>
                                     <img
                                         src={song.album.images[0]?.url}
                                         alt={`${song.name} cover`}
+
                                     />
                                     <div className="img-overlay">
                                         <div className="play-icon"></div>
@@ -157,7 +147,7 @@ export function SearchDetails() {
                                         <React.Fragment key={artist.id}>
                                             <span
                                                 className="artist-name"
-                                                onClick={() => onArtistClick(song)}
+                                                onClick={() =>onArtistClick(song)}
                                             >
                                                 {artist.name}
                                             </span>
@@ -165,16 +155,13 @@ export function SearchDetails() {
                                         </React.Fragment>
                                     ))}
                                 </span>
+
                             </div>
 
                             {/* Like Button and Duration */}
                             <div className="song-actions">
                                 <button
-                                    title={
-                                        song.liked
-                                            ? 'Remove from liked songs'
-                                            : 'Add to liked songs'
-                                    }
+                                    title={song.liked ? 'Remove from liked songs' : 'Add to liked songs'}
                                     className="liked-songs-btn"
                                     onClick={(event) => toggleLike(event, song)}
                                 >
@@ -201,36 +188,12 @@ export function SearchDetails() {
                                         </svg>
                                     )}
                                 </button>
-                                <div className="song-duration">
-                                    {formatSongDuration(song.duration_ms)}
-                                </div>
+                                <div className="song-duration">{formatSongDuration(song.duration_ms)}</div>
                             </div>
                         </div>
                     ))}
             </section>
 
-            <section className="Featuring-section">
-                <h2>Featuring</h2>
-                <section className="playlists-section">
-                    {searchedSongs.playlists
-                        ?.slice(0, 5) // Limit to the first 5 playlists
-                        .map((playlist) => (
-                            <div key={playlist.id} className="playlist-container">
-                                <section className="playlist-section">
-                                    <img
-                                        className="playlist-img"
-                                        src={playlist.images[0]?.url}
-                                        alt={`${playlist.name} cover`}
-                                    />
-                                    <section className='names'>
-                                        <h1 className="playlist-name">{playlist.name}</h1>
-                                        <h2 className="playlist-creator">{playlist.owner.display_name}</h2>
-                                    </section>
-                                </section>
-                            </div>
-                        ))}
-                </section>
-            </section>
 
 
             {contextMenu && (

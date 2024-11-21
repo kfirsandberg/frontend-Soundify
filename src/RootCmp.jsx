@@ -10,7 +10,7 @@ import { ArtistPage } from './pages/ArtistPage.jsx'
 import { Library } from './cmps/Library.jsx'
 import { YouTubeAudioPlayer } from './cmps/YouTubeAudioPlayer.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
-import { Login  } from './pages/Login.jsx'
+import { Login } from './pages/Login.jsx'
 import { Signup } from './pages/Signup.jsx'
 import { MobileNavbar } from './cmps/MoblieNavbar.jsx'
 
@@ -31,7 +31,7 @@ export function RootCmp() {
     const bgColor = useSelector(storeState => storeState.stationModule.bgColor)
 
     useEffect(() => {
-        
+
         const fetchBackgroundColor = async () => {
             if (stations && stations.length > 0 && stations[0].images[0].url) {
                 try {
@@ -58,20 +58,21 @@ export function RootCmp() {
                 className="station-index-route"
                 style={{
                     backgroundColor: `${bgColor}`,
-                zIndex:0
+                    zIndex: 0
                 }}
             >
-                <div
+                <div className = 'gradient-bg'
                     style={{
-                        background: `linear-gradient(to top, #121212 80%,  rgba(18, 18, 18, 0) 100%)`,
-                        zIndex:2
+                       
+                        background: `linear-gradient(to top, #121212 89%,  rgba(18, 18, 18, 0) 100%)`,
+                        zIndex: 2
                     }}
                 >
                     <Routes>
                         <Route path="/" element={<StationIndex />} />
                         <Route path="/browse" element={<BrowseIndex />} />
                         {/* <Route path="/search/:searchId" element={<SearchDetails/>} /> */}
-                        <Route path="/search/" element={<SearchDetails/>} />
+                        <Route path="/search/" element={<SearchDetails />} />
                         <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
                         <Route path="/playlist/:stationId" element={<StationDetails />} />
                         <Route path="/artist/:artistId" element={<ArtistPage />} />
@@ -84,7 +85,7 @@ export function RootCmp() {
             </main>
             <AppPlayer className="player" />
             <YouTubeAudioPlayer />
-            <UserMsg/>
+            <UserMsg />
             <MobileNavbar />
         </div>
     )

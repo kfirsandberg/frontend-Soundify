@@ -1,8 +1,61 @@
 .search-details {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
     padding: 20px;
     color: white;
     background-color: #121212;
     border-radius: 8px;
+    padding-top: 2em;
+    padding-left: 9px;
+
+    .artist-details {
+        min-width: 445px;
+        display: grid;
+        padding-top: 0;
+        padding-left: 1em;
+
+        .artist {
+            display: flex;
+            flex-direction: column;
+            grid-column: 1/2;
+
+            img {
+                max-width: 92px;
+                max-height: 92px;
+                border-radius: 50%;
+            }
+
+            .artist-name {
+                font-family: SpotifyMix-bold;
+                font-size: 2em;
+                margin: 0;
+                padding-top: 0.5em;
+            }
+
+            h2 {
+                padding-bottom: 6px;
+            }
+        }
+
+        .artist-section {
+            padding: 20px;
+
+            height: 226px;
+            background-color: #181818;
+            border-radius: 1em;
+            width: 100%;
+
+            h2 {
+                font-size: 1em;
+            }
+        }
+
+        h2 {
+            grid-column: 1/2;
+            margin: 0;
+        }
+    }
 
     h2 {
         margin-left: 10px;
@@ -19,16 +72,23 @@
         list-style-type: none;
         padding: 0;
         margin: 0;
+
+        h2 {
+            margin-left: 10px;
+            margin-bottom: 7px;
+            margin-top: 0;
+        }
     }
 
     .song-item {
         display: flex;
         align-items: center;
-        padding: 15px;
+        padding: 8px;
         margin: 0 10px;
         border-radius: 6px;
         position: relative;
         justify-content: space-between;
+        padding-top: 3px;
 
         &:hover {
             background-color: hsla(0, 0%, 100%, 0.1);
@@ -53,8 +113,8 @@
                 position: relative;
 
                 img {
-                    width: 50px;
-                    height: 50px;
+                    width: 45px;
+                    height: 45px;
                     border-radius: 5px;
                     object-fit: cover;
                 }
@@ -121,14 +181,12 @@
         .song-actions {
             display: flex;
             align-items: center;
-            gap: 15px; 
         }
 
         .liked-songs-btn {
             border: none;
             background: none;
             cursor: pointer;
-            margin-right: 20px;
 
             .liked-icon,
             .not-liked-icon {
@@ -150,17 +208,20 @@
         max-height: 390px;
         overflow-y: scroll;
         width: rem(290px);
+
         &::-webkit-scrollbar {
-            width: 0; 
+            width: 0;
             height: 0;
         }
-        .add-to-playlist{
+
+        .add-to-playlist {
             padding: 10px;
             font-family: SpotifyMix, Arial, sans-serif;
             font-size: 12px;
             color: #b3b3b3;
-    
+
         }
+
         .add-station {
             display: flex;
             flex-direction: row;
@@ -171,15 +232,58 @@
                 background-color: hsla(0, 0%, 100%, .1);
                 cursor: pointer;
             }
-            .station-add-name{
+
+            .station-add-name {
                 padding-left: 10px;
             }
         }
 
-        .station-thumbnail{
+        .station-thumbnail {
             max-width: 40px;
             max-height: 40px;
             border-radius: 20%;
         }
+    }
+
+}
+
+.Featuring-section {
+    grid-column: 1/-1;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    padding-top: 5px;
+    h2{
+        margin-left: 0;
+    }
+}
+
+.playlist-img {
+    max-width: 175px;
+    max-height: 175px;
+    border-radius: 0.5em;
+}
+
+.playlists-section {
+    min-height: 250px;
+    min-width: 200px;
+    display: flex;
+    gap: 1.5em;
+    h2{
+        margin: 0;
+        font-family: SpotifyMix-bold;
+        font-size: 12px;
+        padding-top: 5px;
+        color: #b3b3b3f5;
+    }
+    h1{
+        margin: 0;
+        font-family: SpotifyMix-bold;
+        font-size: 12px;
+        padding-top: 5px;
+        color: #ffffffdb;
+    }
+    .names{
+        padding-top: 8px;
     }
 }
