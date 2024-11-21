@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router'
 
 export function SongList() {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
-    const stations = useSelector(storeState => storeState.stationModule.stations)
+    const isPlaying = useSelector(storeState => storeState.stationModule.isPlaying)
     
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [activeIndex, setActiveIndex] = useState(null);

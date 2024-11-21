@@ -19,6 +19,10 @@ export function StationDetails() {
     const [showFindMoreSection, setShowFindMoreSection] = useState(false)
     const [searchResult, setsearchResult] = useState(false)
     let station = useSelector(storeState => storeState.stationModule.currentStation)
+    const [currentSong, setCurrentSong] = useState(null) 
+    const [isPlayingIndex, setIsPlayingIndex] = useState(null)
+    const [isPlaying, setIsPlaying] = useState(false)
+
     const { stationId } = useParams(null)
     useEffect(() => {
         setBgColorDetails(station)
@@ -66,6 +70,14 @@ export function StationDetails() {
 
     function handleClearInput() {
         setSearchValue('');
+    }
+
+    function handlePlayFirstSong() {
+        if (!station.tracks || station.tracks.length === 0) return
+        const firstSong = station.tracks[0]
+        setCurrentSong(firstSong)
+        setIsPlayingIndex(0)
+        setIsPlaying(true)
     }
 
     function renderStationImage() {
