@@ -33,7 +33,7 @@ export function StationDetails() {
             try {
                 const color = await fac.getColorAsync(station.images[0].url)
                 // console.log('colorL',color)
-                dispatch(setBgColor(color.hex)) // Dispatch color to update background
+                setBgColor(color.rgb) // Dispatch color to update background
             } catch (error) {
                 // console.error('Error fetching average color:', error)
             }
