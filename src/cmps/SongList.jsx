@@ -490,10 +490,8 @@ export function SongList() {
                                                                 variant="body2"
                                                                 sx={{
                                                                     color: 'rgba(255, 255, 255, 0.6)',
-
+                                                                    width: '2.8ch',
                                                                     '@media (max-width: 800px)': {
-
-
                                                                         textAlign: 'right',
 
 
