@@ -91,7 +91,7 @@
     padding: 0;
     display: flex;
     justify-content: center;
-    font-family: SpotifyMix;
+    font-family: SpotifyMix, Arial, sans-serif;
     font-weight: none;
     letter-spacing: 0.1px;
 }
@@ -340,7 +340,7 @@
             }
 
             span {
-                font-family: spotifyMix;
+                font-family: SpotifyMix, Arial, sans-serif;
                 color: #ffffff;
             }
 
@@ -460,7 +460,7 @@
 .station-name {
     font-size: 16px;
     font-weight: bold;
-    font-family: SpotifyMix-light,;
+    font-family: SpotifyMix-light,SpotifyMix, Arial, sans-serif;
     margin: 0;
     width: 88%;
     /* Remove margin to keep it close to the next element */
@@ -486,7 +486,7 @@
     font-size: 13px;
     color: #bbbbbbd7;
     margin: 0;
-    font-family: SpotifyMix;
+    font-family: SpotifyMix, Arial, sans-serif;
     /* Remove margin */
     white-space: nowrap;
     /* Prevent text from wrapping */
@@ -505,7 +505,7 @@
     overflow: hidden;
     /* Hide any overflow text */
     text-overflow: ellipsis;
-    font-family: SpotifyMix;
+    font-family: SpotifyMix, Arial, sans-serif;
     letter-spacing: 0.2px;
 
 
@@ -518,7 +518,7 @@
     padding-right: 3.5px;
     color: #bbb;
     font-size: 16px;
-    font-family: SpotifyMix;
+    font-family: SpotifyMix, Arial, sans-serif;
 
 }
 
@@ -699,5 +699,5 @@
 
 .selected-sort {
     max-width: max-content;
-    font-family: SpotifyMix;
+    font-family: SpotifyMix, Arial, sans-serif;
 }

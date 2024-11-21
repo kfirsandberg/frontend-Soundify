@@ -28,7 +28,7 @@ $row-count: 1;
                 margin: rem(5.2px) 0 0 1.4em;
 
                 .station-list-header {
-                    font-family: SpotifyMix;
+                    font-family: SpotifyMix, Arial, sans-serif;
                     font-size: 24px;
                     justify-self: start;
                 }
@@ -39,7 +39,7 @@ $row-count: 1;
                 }
 
                 .show-all-btn {
-                    font-family: SpotifyMix-bold;
+                    font-family: SpotifyMix-bold, SpotifyMix, Arial, sans-serif;
                     position: absolute;
                     bottom: 0;
                     right: 0;
