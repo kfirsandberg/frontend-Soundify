@@ -2,6 +2,8 @@ import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import { useSelector, useDispatch } from 'react-redux';
+import { setStations, } from '../store/actions/station.actions.js'; // Import your actions here
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -59,19 +61,59 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export function FilterLibrary({ setFilterCriteria, setSortBy }) {
+    const dispatch = useDispatch();
+
+    // Get stations and current station from the Redux store
+    const stations = useSelector((state) => state.stationModule.stations);
+    const currentStation = useSelector((state) => state.stationModule.currentStation);
+
     const [searchTerm, setSearchTerm] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [selectedSort, setSelectedSort] = useState('Recents');
 
+    // Handle search input changes
     function handleSearchChange(event) {
-        setSearchTerm(event.target.value);
-        setFilterCriteria(event.target.value); // Update the filter criteria when the search term changes
+        const term = event.target.value;
+        setSearchTerm(term);
+
+        // Update filter criteria and filter stations
+        setFilterCriteria(term); // Call parent function if needed
+        const filteredStations = stations.filter((station) =>
+            station.name.toLowerCase().includes(term.toLowerCase())
+        );
+
+        dispatch(setStations(filteredStations)); // Dispatch the filtered stations
     }
 
+    // Handle sorting
     function handleSortClick(sortType) {
-        setSortBy(sortType); // Call setSortBy to apply the sorting
-        setSelectedSort(sortType); // Set the selected sort option
-        setShowModal(false); // Close modal after selecting a sort option
+        let sortedStations;
+
+        switch (sortType) {
+            case 'Recents':
+                sortedStations = [...stations].sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                );
+                break;
+            case 'Recently Added':
+                sortedStations = [...stations].sort(
+                    (a, b) => new Date(b.addedAt) - new Date(a.addedAt)
+                );
+                break;
+            case 'Alphabetical':
+                sortedStations = [...stations].sort((a, b) =>
+                    a.name.localeCompare(b.name)
+                );
+                break;
+            default:
+                sortedStations = [...stations];
+                break;
+        }
+
+        setSortBy(sortType); // Call parent function if needed
+        setSelectedSort(sortType); // Update selected sort
+        setShowModal(false); // Close modal
+        dispatch(setStations(sortedStations)); // Dispatch sorted stations
     }
 
     return (
@@ -89,15 +131,20 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
                     <StyledInputBase
                         placeholder="Search…"
                         inputProps={{ 'aria-label': 'search' }}
-                        value={searchTerm} // Bind input value to state
-                        onChange={handleSearchChange} // Call handleSearchChange when input changes
+                        value={searchTerm}
+                        onChange={handleSearchChange} // Handle search input
                     />
                 </Search>
 
                 <div className="sort-container">
                     <div className="hamburger-menu">
-                        <button className="hamburger-btn" onClick={() => setShowModal(prev => !prev)}>
-                            {selectedSort && <span className="selected-sort">{selectedSort}</span>}
+                        <button
+                            className="hamburger-btn"
+                            onClick={() => setShowModal((prev) => !prev)}
+                        >
+                            {selectedSort && (
+                                <span className="selected-sort">{selectedSort}</span>
+                            )}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 data-encore-id="icon"
@@ -111,9 +158,15 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
                         </button>
 
                         <div className={`modal ${showModal ? 'open' : ''}`}>
-                            <button onClick={() => handleSortClick('Recents')}>Recents</button>
-                            <button onClick={() => handleSortClick('Recently Added')}>Recently Added</button>
-                            <button onClick={() => handleSortClick('Alphabetical')}>Alphabetical</button>
+                            <button onClick={() => handleSortClick('Recents')}>
+                                Recents
+                            </button>
+                            <button onClick={() => handleSortClick('Recently Added')}>
+                                Recently Added
+                            </button>
+                            <button onClick={() => handleSortClick('Alphabetical')}>
+                                Alphabetical
+                            </button>
                         </div>
                     </div>
                 </div>
