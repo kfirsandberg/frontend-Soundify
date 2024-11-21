@@ -47,7 +47,7 @@ export function StationHeader() {
     }
 
     function truncateText(text, maxLength) {
-        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
+        return text
     }
 
 
@@ -63,6 +63,7 @@ export function StationHeader() {
                 console.log("Playback paused.")
             });
         } else {
+
 
             new Promise((resolve) => {
                 if (!currentSong && station?.tracks?.length > 0) {
@@ -80,6 +81,7 @@ export function StationHeader() {
     }
 
 
+
     return (
         <Box
             className='header-station'
@@ -92,9 +94,10 @@ export function StationHeader() {
             }}
         >
             {/* Station Details */}
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box className='station-header' sx={{ display: 'flex', gap: 2 }}>
                 {/* Station Image with Edit Icon */}
                 <Box
+                    className='station-img'
                     sx={{
                         display: 'block',
                         position: 'relative',
@@ -110,6 +113,7 @@ export function StationHeader() {
                     }}
                 >
                     <Box
+
                         component="img"
                         src={station?.images[0]?.url}
                         onClick={onImageClick}
@@ -198,7 +202,7 @@ export function StationHeader() {
 
                 {/* Playlist Info */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', marginBottom: '10px' }}>
-                    <Typography variant="subtitle2" color="white">
+                    <Typography className='playlist-tag' variant="subtitle2" color="white">
                         Playlist
                     </Typography>
                     <Typography
@@ -227,13 +231,14 @@ export function StationHeader() {
 
                     {station.description && (
                         <Typography
+                            className='station-description'
                             variant="body1"
                             sx={{
 
-                                fontSize: '1.2rem',
+                                fontSize: '0.9rem',
                                 fontFamily: 'SpotifyMix',
                                 fontWeight: '400',
-                                color: 'white',
+                                color: '#ffffffa3',
                                 textAlign: { xs: 'center', sm: 'left' },
                                 whiteSpace: 'nowrap',
                                 overflow: 'hidden',
@@ -285,6 +290,7 @@ export function StationHeader() {
                         </Typography>
 
                         <Typography
+                        className='playlist-durations'
                             variant="body2"
                             sx={{
                                 fontSize: '0.875rem',
@@ -310,6 +316,7 @@ export function StationHeader() {
             {/* Playlist Actions */}
             <Box className="playlist-actions"
                 sx={{ display: 'flex', gap: 3 }}>
+                <button
                 <button
                     className="station-play-btn"
                     style={{

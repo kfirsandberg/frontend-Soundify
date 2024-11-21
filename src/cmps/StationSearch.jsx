@@ -59,12 +59,15 @@ export function StationSearch() {
             x = screenWidth - menuWidth;
         }
 
-        if (y + menuHeight > screenHeight) {
-            y = screenHeight - menuHeight;
+        if (y - menuHeight < 0) {
+            y = 0
+        } else {
+            y -= menuHeight
         }
 
+        // עדכון מצב התפריט עם המיקום החדש
         setContextMenu({ x, y, song });
-        setCurrentSong(song)
+        setCurrentSong(song);
     }
 
     function handleOutsideClick(event) {
@@ -91,7 +94,7 @@ export function StationSearch() {
             } else {
                 songToCheck = song
             }
-            const existingSong = await stationService.isSongOnStation(songToCheck, station)            
+            const existingSong = await stationService.isSongOnStation(songToCheck, station)
             if (existingSong) {
                 await removeSong(songToCheck, station);
             } else {
@@ -105,7 +108,7 @@ export function StationSearch() {
 
     async function onArtistClick(song) {
 
-        
+
         const artistId = song.artists[0].id
         await getArtist(artistId)
         // console.log(artist);
@@ -116,7 +119,7 @@ export function StationSearch() {
     if (!searchedSongs || searchedSongs.length === 0) return
 
     return (
-        <section className="search-details" style={{ display: 'block',paddingTop: 0 }}>
+        <section className="search-details" style={{ display: 'block', paddingTop: 0 }}>
             <h2>Songs</h2>
             <section className="song-list">
                 {searchedSongs.tracks
@@ -147,7 +150,7 @@ export function StationSearch() {
                                         <React.Fragment key={artist.id}>
                                             <span
                                                 className="artist-name"
-                                                onClick={() =>onArtistClick(song)}
+                                                onClick={() => onArtistClick(song)}
                                             >
                                                 {artist.name}
                                             </span>
