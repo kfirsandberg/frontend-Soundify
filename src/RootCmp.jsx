@@ -58,14 +58,13 @@ export function RootCmp() {
                 className="station-index-route"
                 style={{
                     backgroundColor: `${bgColor}`,
-                    
-                    
+                zIndex:0
                 }}
             >
                 <div
                     style={{
-                        background: `linear-gradient(to top, #121212 65%,  rgba(18, 18, 18, 0) 100%)`,
-                        height: '100%'
+                        background: `linear-gradient(to top, #121212 80%,  rgba(18, 18, 18, 0) 100%)`,
+                        zIndex:2
                     }}
                 >
                     <Routes>
