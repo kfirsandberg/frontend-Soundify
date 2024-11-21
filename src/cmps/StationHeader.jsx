@@ -20,7 +20,7 @@ export function StationHeader() {
 
     const isMobile = useMediaQuery('(max-width: 400px)')
     const isFlexScreen = useMediaQuery('(max-width: 900px)')
-    
+
 
 
     const dispatch = useDispatch()
@@ -54,15 +54,15 @@ export function StationHeader() {
         if (station?.tracks && station.tracks.length > 0) {
             const firstSong = station.tracks[0]
             console.log("Playing first song with ID:", firstSong.track.id)
-    
-            
+
+
             dispatch(loadSong(firstSong))
             dispatch(setIsPlaying(true))
         } else {
             console.log('No songs found in station');
         }
     }
-    
+
 
     return (
         <Box
@@ -240,7 +240,7 @@ export function StationHeader() {
                     )}
 
                     <Box sx={{
-                        display: 'flex', alignItems: 'center', gap: 1 ,
+                        display: 'flex', alignItems: 'center', gap: 1,
                         '@media (max-width: 768px)': {
                             alignItems: 'baseline',
                             flexDirection: 'column'
@@ -250,16 +250,23 @@ export function StationHeader() {
                             {station.owner.display_name || 'User'}
                         </Typography>
 
-                        <Typography variant="body2"
+                        <Typography
+                            variant="body2"
                             sx={{
                                 fontSize: '0.875rem',
                                 fontFamily: 'SpotifyMix',
                                 fontWeight: '400',
                                 color: '#b3b3b3',
-
-                            }}>
-                            • {station.tracks?.length || 0} {station.tracks?.length === 1 ? 'song' : 'songs'}
-                            {totalDuration ? `, ${totalDuration}` : ''}
+                            }}
+                        >
+                            • {station.tracks?.length || 0}{' '}
+                            {station.tracks?.length === 1 ? 'song' : 'songs'}
+                            {totalDuration ? `, ${isMobile
+                                ? truncateText(totalDuration, 15)
+                                : isFlexScreen
+                                    ? truncateText(totalDuration, 40)
+                                    : truncateText(totalDuration, 70)}`
+                                : ''}
                         </Typography>
 
                     </Box>
