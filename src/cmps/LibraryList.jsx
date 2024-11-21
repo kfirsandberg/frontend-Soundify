@@ -9,9 +9,9 @@ import { showSuccessMsg } from '../services/event-bus.service.js'
 
 export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed }) {
     const stations = useSelector(storeState => storeState.stationModule.stations)
-    
+
     const navigate = useNavigate()
-    
+
     const contextMenuRef = useRef(null)
 
     const [contextMenu, setContextMenu] = useState(null)
@@ -119,6 +119,8 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
         try {
             await removeStation(selectedStation._id)
             setIsModalOpen(false)
+            navigate(`/`)
+
             loadStations()
             showSuccessMsg('Removed from Your Library.');
         } catch (error) {

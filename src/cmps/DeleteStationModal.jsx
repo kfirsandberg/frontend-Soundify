@@ -1,7 +1,6 @@
 import React from 'react'
 
 export function DeleteStationModal({ playlistName, onConfirm, onCancel }) {
-    console.log('Rendering DeleteStationModal');
 
     return (
         <div className="delete-station-modal">
