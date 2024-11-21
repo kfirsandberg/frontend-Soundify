@@ -62,7 +62,6 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [selectedSort, setSelectedSort] = useState('Recents');
-    const [showSearch, setShowSearch] = useState(false); // New state for toggling search input visibility
 
     function handleSearchChange(event) {
         setSearchTerm(event.target.value);
@@ -83,21 +82,17 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
             </div>
 
             <div className="search-and-menu">
-                {/* New button to toggle search input visibility */}
-                
-                {showSearch && (
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                            value={searchTerm} // Bind input value to state
-                            onChange={handleSearchChange} // Call handleSearchChange when input changes
-                        />
-                    </Search>
-                )}
+                <Search>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
+                        value={searchTerm} // Bind input value to state
+                        onChange={handleSearchChange} // Call handleSearchChange when input changes
+                    />
+                </Search>
 
                 <div className="sort-container">
                     <div className="hamburger-menu">
