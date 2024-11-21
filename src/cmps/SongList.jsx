@@ -167,15 +167,32 @@ export function SongList() {
 
 
     async function handleDragEnd(result) {
+        
         if (!result.destination) return;
-        const reorderedSongs = songs.slice();
+    
+        
+        if (result.source.index === result.destination.index) return;
+    
+        
+        const reorderedSongs = [...songs];
+    
+        
         const [movedSong] = reorderedSongs.splice(result.source.index, 1);
+    
+       
         reorderedSongs.splice(result.destination.index, 0, movedSong);
+    
+        
         setSongs(reorderedSongs);
+    
+      
         const updatedStation = { ...currStation, tracks: reorderedSongs };
         await updateStation(updatedStation);
+    
+       
         setCurrStation(updatedStation);
     }
+    
     async function onArtistClick(song) {
 
         const artistId = song.track.artists[0].id
@@ -205,65 +222,62 @@ export function SongList() {
                     }}
                 >
                     {/* Header row */}
-                    <Box
-                        sx={{
-                            gridArea: 'nav',
-                            display: 'grid',
-                            gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
-                            gridGap: 1,
+                    {/* Header row */}
+<Box
+    sx={{
+        gridArea: 'nav',
+        display: 'grid',
+        gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
+        gridGap: 1,
+        '@media (max-width: 768px)': {
+            gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
+            gridTemplateRows: '7fr 7.3fr 0.2fr',
+            textAlign: 'center',
+        },
+    }}
+>
+    <Typography
+        variant="body2"
+        sx={{ paddingRight: '1em', paddingLeft: '1.4em', opacity: 0.6, color: 'white' }}
+    >
+        #
+    </Typography>
+    <Typography
+        variant="body2"
+        sx={{ paddingLeft: '0.4em', margin: 0, opacity: 0.6, color: 'white' }}
+    >
+        Title
+    </Typography>
+    <Typography
+        variant="body2"
+        sx={{ opacity: 0.6, color: 'white', '@media (max-width: 768px)': { marginLeft: 0, display: 'none' } }}
+    >
+        Album
+    </Typography>
+    {/* Instead of nesting Typography inside Typography, use Box for the SVG */}
+    <Box
+        sx={{
+            opacity: 0.6,
+            color: 'white',
+            '@media (max-width: 400px)': {
+                textAlign: 'right',
+            },
+        }}
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            data-encore-id="icon"
+            role="img"
+            aria-hidden="true"
+            viewBox="0 0 16 16"
+            className="duration-icon Svg-sc-ytk21e-0 dYnaPI"
+        >
+            <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+            <path d="M8 3.25a.75.75 0 0 1 .75.75v3.25H11a.75.75 0 0 1 0 1.5H7.25V4A.75.75 0 0 1 8 3.25z" />
+        </svg>
+    </Box>
+</Box>
 
-                            '@media (max-width: 768px)': {
-                                gridTemplateColumns: 'auto 7fr 7.3fr 0.2fr',
-                                gridTemplateRows: '7fr 7.3fr 0.2fr',
-                                textAlign: 'center',
-                            },
-                        }}
-                    >
-                        <Typography
-                            variant="body2"
-                            sx={{ paddingRight: '1em', paddingLeft: '1.4em', opacity: 0.6, color: 'white' }}
-                        >
-                            #
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            sx={{ paddingLeft: '0.4em', margin: 0, opacity: 0.6, color: 'white' }}
-                        >
-                            Title
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            sx={{ opacity: 0.6, color: 'white', '@media (max-width: 768px)': { marginLeft: 0, display: 'none', } }}
-                        >
-                            Album
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            sx={{
-                                opacity: 0.6,
-                                color: 'white',
-
-                                '@media (max-width: 400px)': {
-
-                                    textAlign: 'right'
-
-
-                                },
-                            }}
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                data-encore-id="icon"
-                                role="img"
-                                aria-hidden="true"
-                                viewBox="0 0 16 16"
-                                className="duration-icon Svg-sc-ytk21e-0 dYnaPI"
-                            >
-                                <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
-                                <path d="M8 3.25a.75.75 0 0 1 .75.75v3.25H11a.75.75 0 0 1 0 1.5H7.25V4A.75.75 0 0 1 8 3.25z" />
-                            </svg>
-                        </Typography>
-                    </Box>
 
                     {/* Song list */}
                     <Droppable droppableId="songs">
