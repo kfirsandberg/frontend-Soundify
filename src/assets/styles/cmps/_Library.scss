@@ -367,6 +367,16 @@
     overflow: hidden;
 }
 
+/* Prevent the li's onClick from triggering when hovering over the overlay icon */
+.station-card .overlay-icon {
+    pointer-events: none; /* Disable clicks on the overlay by default */
+}
+
+/* Enable clicking the overlay icon when hovered */
+.station-card:hover .overlay-icon {
+    pointer-events: auto; /* Enable clicks when hovering over the li */
+}
+
 .station-card:hover::before {
     content: '';
     position: absolute;
@@ -375,13 +385,10 @@
     right: 0;
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.1); /* White with 10% opacity */
-    pointer-events: none;
+    pointer-events: none; /* Disable pointer events for the hover effect */
     border-radius: 8px;
-    // width: 257px;
-    
 }
 
-/* Darken the image on hover */
 .station-card:hover .station-image::after {
     content: '';
     position: absolute;
@@ -391,10 +398,6 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5); /* Dark overlay with 50% opacity */
     border-radius: 3px;
-    
-    
-    
-    
 }
 
 .station-image {
@@ -404,14 +407,10 @@
     object-fit: cover;
     border-radius: 3px;
     transform: translateX(5px);
-    
-    
 }
 
-
 .station-card:hover .station-image {
-    opacity: 0.4; 
-    
+    opacity: 0.4;
 }
 
 /* Overlay Icon */
@@ -426,11 +425,10 @@
     align-items: center;
     opacity: 0;
     transform: translateX(10px);
-   
 }
 
 .station-card:hover .overlay-icon {
-    opacity: 1;
+    opacity: 1; /* Show the icon when the card is hovered */
 }
 
 /* Optional SVG Icon Styling */
@@ -441,45 +439,34 @@
     transform: translateX(-113px);
 }
 
-
 .station-info {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* Align items to the top */
-    margin-left:1.025rem;
+    margin-left: 1.025rem;
     color: #fff;
     height: auto;
-    /* Allow dynamic height */
     padding: 0;
-    /* Remove any default padding */
     width: 100%;
-    /* Ensure the width is consistent */
+    z-index: 999;
 }
 
 .station-name {
     font-size: 16px;
     font-weight: bold;
-    font-family: SpotifyMix-light,;
+    font-family: SpotifyMix-light;
     margin: 0;
     width: 88%;
-    /* Remove margin to keep it close to the next element */
     white-space: nowrap;
-    /* Prevent text from wrapping */
     overflow: hidden;
-    /* Hide any overflow text */
     text-overflow: ellipsis;
-    /* Add ellipsis (...) if the text overflows */
 }
 
 .station-details {
     display: flex;
     width: 100%;
-    /* Ensure it takes the full width */
     margin-top: 0;
-    /* Remove any space between station-name and station-details */
     padding: 0;
-    /* Remove any padding that might add extra space */
 }
 
 .station-kind {
@@ -487,31 +474,22 @@
     color: #bbbbbbd7;
     margin: 0;
     font-family: SpotifyMix;
-    /* Remove margin */
     white-space: nowrap;
-    /* Prevent text from wrapping */
     overflow: hidden;
-    /* Hide any overflow text */
     text-overflow: ellipsis;
     letter-spacing: 0.2px;
-    /* Add ellipsis (...) if the text overflows */
 }
 
 .station-creator {
     font-size: 13px;
     color: #bbb;
     margin: 0;
-    /* Remove margin */
     overflow: hidden;
-    /* Hide any overflow text */
     text-overflow: ellipsis;
     font-family: SpotifyMix;
     letter-spacing: 0.2px;
-
-
-
-    /* Add ellipsis (...) if the text overflows */
 }
+
 .dot {
     padding-left: 3.5px;
     margin-top: -6px;
@@ -519,8 +497,10 @@
     color: #bbb;
     font-size: 16px;
     font-family: SpotifyMix;
-
 }
+
+
+// ///////////////////////////////////////////////////////////////////////////////////////////////
 
 /* Collapsed State for Library Route */
 .library-content-collapsed .library-list-wrapper {

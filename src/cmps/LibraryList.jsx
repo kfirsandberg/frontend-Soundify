@@ -33,15 +33,18 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
 
     function handlePlayFirstSong(station) {
         if (station.tracks.length > 0) {
-            const firstSong = station.tracks[0]
+            const firstSong = station.tracks[0];
             if (firstSong) {
-                loadSong(firstSong)
-                setIsPlaying(true)
+                loadSong(firstSong);
+                setIsPlaying(true);
+    
+                // Update the current station to reflect the station being played
+                setCurrentStation(station._id);  // Set the current station here
             } else {
-                console.log('First song does not have a valid ID')
+                console.log('First song does not have a valid ID');
             }
         } else {
-            console.log('No songs found in station')
+            console.log('No songs found in station');
         }
     }
 
@@ -89,8 +92,8 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
         loadStation(station)
         navigate(`/playlist/${station._id}`)
 
-        setCurrentStation(station._id)
-        handlePlayFirstSong(station);
+     
+
     }
 
 
@@ -151,10 +154,18 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
                     <li
                         key={station._id}
                         className="station-card"
-                        onClick={() => onClickStation(station)}
+                        onClick={() => onClickStation(station)}  // Triggered only when clicking the li, not the overlay
                         onContextMenu={ev => handleContextMenu(ev, station)}
                     >
-                        <img src={station.images[0].url} alt={station.name} className="station-image" />
+                        <img
+                            src={station.images[0].url}
+                            alt={station.name}
+                            className="station-image"
+                            onClick={(e) => {
+                                e.stopPropagation();  // Prevent the click from propagating to the li
+                                handlePlayFirstSong(station);  // Call the play function
+                            }}
+                        />
                         {!isCollapsed && (
                             <div className="station-info">
                                 <h3
@@ -170,12 +181,23 @@ export function LibraryList({ filterCriteria, sortBy = 'Recents', isCollapsed })
                                     <span className='dot'>.</span>
                                     <p className="station-creator">Spotify</p>
                                 </div>
-                            </div>)}
+                            </div>
+                        )}
                         {/* SVG Icon overlay */}
-                        <div className="overlay-icon" onClick={() => handlePlayFirstSong(station)}>
-                            <img src="/assets/lib_player_btn.svg" alt="Play" />
+                        <div className="overlay-icon">
+                            <img
+                                src="/assets/lib_player_btn.svg"
+                                onClick={(e) => {
+                                    e.stopPropagation();  // Prevent the click from propagating to the li
+                                    handlePlayFirstSong(station);  // Call the play function
+                                }}
+                                alt="Play"
+                            />
                         </div>
                     </li>
+
+
+
                 ))}
             </ul>
             {/* </Scrollbar> */}
