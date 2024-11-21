@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Box, Button, Typography, IconButton, Modal, useMediaQuery } from '@mui/material'
+import { Box, Typography, IconButton, Modal, useMediaQuery } from '@mui/material'
 import { setIsPlaying, loadSong } from '../store/actions/station.actions.js'
 import EditIcon from '@mui/icons-material/Edit'
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
-import userIcon from '../../public/assets/user.svg'
 import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
@@ -14,14 +13,14 @@ export function StationHeader() {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [updatedImgURL, setUpdatedImgURL] = useState(station?.images?.[0]?.url)
+    const [setUpdatedImgURL] = useState(station?.images?.[0]?.url)
     const [openFileUpload, setOpenFileUpload] = useState(false)
     const totalDuration = stationService.calculateTotalDuration(station.tracks)
 
 
-    const isMobile = useMediaQuery('(max-width: 400px)'); // 8 letters
-    const isFlexScreen = useMediaQuery('(max-width: 900px)'); // 14 letters
-    const defaultMaxLength = 22;
+    const isMobile = useMediaQuery('(max-width: 400px)')
+    const isFlexScreen = useMediaQuery('(max-width: 900px)')
+    
 
 
     const dispatch = useDispatch()
@@ -45,7 +44,7 @@ export function StationHeader() {
     }
 
     function truncateText(text, maxLength) {
-        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
     }
 
 
