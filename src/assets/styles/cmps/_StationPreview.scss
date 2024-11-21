@@ -80,7 +80,7 @@
     }
 
     .play-button-title {
-        font-family: SpotifyMix-light;
+        font-family: SpotifyMix-light,SpotifyMix, Arial, sans-serif;
         font-size: 13px;
         text-align: start;
         color: #B3B3B3;
@@ -100,7 +100,7 @@
         padding-top: 0.6em;
 
         .station-name-description{
-            font-family: SpotifyMix;
+            font-family: SpotifyMix, Arial, sans-serif;
             font-size: 13px;
             font-weight: lighter;
             overflow: hidden;
