@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
@@ -33,68 +33,71 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
+    color: 'white',
     width: '100%',
     '& .MuiInputBase-input': {
-    //   padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '0', // Initially collapse input width
-      '&::placeholder': {
-        color: 'rgb(180, 180, 180)', // Placeholder in white
-        opacity: 0, // Hide placeholder by default
-      },
-      '&:focus': {
-        width: '1ch', // Expand width when focused
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        width: '0',
         '&::placeholder': {
-          opacity: 1, // Show placeholder only on focus
+            color: 'rgb(180, 180, 180)',
+            opacity: 0,
         },
-      },
-      [theme.breakpoints.up('sm')]: {
-        width: '0.2ch', // Slightly visible width on larger screens
         '&:focus': {
-          width: '10ch', // Expanded width on focus for larger screens
+            width: '1ch',
+            '&::placeholder': {
+                opacity: 1,
+            },
         },
-      },
+        [theme.breakpoints.up('sm')]: {
+            width: '0.2ch',
+            '&:focus': {
+                width: '10ch',
+            },
+        },
     },
-  }));
-  
+}));
 
 export function FilterLibrary({ setFilterCriteria, setSortBy }) {
-    const [searchTerm, setSearchTerm] = useState('')
-    const [showModal, setShowModal] = useState(false)
-    const [selectedSort, setSelectedSort] = useState('Recents')
-    const [showSearch, setShowSearch] = useState(false) // New state for toggling search input visibility
+    const [searchTerm, setSearchTerm] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [selectedSort, setSelectedSort] = useState('Recents');
+    const [showSearch, setShowSearch] = useState(false); // New state for toggling search input visibility
 
     function handleSearchChange(event) {
-        setSearchTerm(event.target.value)
-        setFilterCriteria(event.target.value)
+        setSearchTerm(event.target.value);
+        setFilterCriteria(event.target.value); // Update the filter criteria when the search term changes
     }
 
     function handleSortClick(sortType) {
-        setSortBy(sortType)
-        setSelectedSort(sortType)
-        setShowModal(false) // Close modal after selecting a sort option
+        setSortBy(sortType); // Call setSortBy to apply the sorting
+        setSelectedSort(sortType); // Set the selected sort option
+        setShowModal(false); // Close modal after selecting a sort option
     }
 
     return (
         <header className="filter-library">
             <div className="sort-buttons">
-                <button onClick={() => setSortBy('playlists')}>Playlists</button>
-                <button onClick={() => setSortBy('A')}>Artists</button>
+                <button onClick={() => handleSortClick('Playlists')}>Playlists</button>
+                <button onClick={() => handleSortClick('Artists')}>Artists</button>
             </div>
 
             <div className="search-and-menu">
                 {/* New button to toggle search input visibility */}
-                <Search>
-                    <SearchIconWrapper>
-                        <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder="Search…"
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
-                </Search>
+                
+                {showSearch && (
+                    <Search>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ 'aria-label': 'search' }}
+                            value={searchTerm} // Bind input value to state
+                            onChange={handleSearchChange} // Call handleSearchChange when input changes
+                        />
+                    </Search>
+                )}
 
                 <div className="sort-container">
                     <div className="hamburger-menu">
@@ -116,11 +119,10 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
                             <button onClick={() => handleSortClick('Recents')}>Recents</button>
                             <button onClick={() => handleSortClick('Recently Added')}>Recently Added</button>
                             <button onClick={() => handleSortClick('Alphabetical')}>Alphabetical</button>
-
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-    )
+    );
 }
