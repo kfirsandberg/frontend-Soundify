@@ -231,7 +231,7 @@ export function StationHeader() {
 
                     {station.description && (
                         <Typography
-                            className='station-description'
+                            className='station-descriptions playlist-descriptions'
                             variant="body1"
                             sx={{
 
@@ -258,7 +258,6 @@ export function StationHeader() {
                                 },
                                 '@media (max-width: 600px)': {
                                     maxWidth: '60%',
-
                                     fontSize: '1rem',
                                 },
                                 '@media (max-width: 400px)': {
