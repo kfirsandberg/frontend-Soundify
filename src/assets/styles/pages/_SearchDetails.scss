@@ -181,14 +181,12 @@
         .song-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
         }
 
         .liked-songs-btn {
             border: none;
             background: none;
             cursor: pointer;
-            margin-right: 20px;
 
             .liked-icon,
             .not-liked-icon {
