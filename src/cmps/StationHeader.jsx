@@ -54,7 +54,7 @@ export function StationHeader() {
 
     function handlePlayPause() {
         if (isPlaying) {
-           
+
             console.log("Pausing song:", currentSong?.track?.id || 'No song playing')
             new Promise((resolve) => {
                 dispatch(setIsPlaying(false))
@@ -63,7 +63,7 @@ export function StationHeader() {
                 console.log("Playback paused.")
             });
         } else {
-            
+
             new Promise((resolve) => {
                 if (!currentSong && station?.tracks?.length > 0) {
                     const firstSong = station.tracks[0];
@@ -78,7 +78,7 @@ export function StationHeader() {
             })
         }
     }
-    
+
 
     return (
         <Box
@@ -157,21 +157,39 @@ export function StationHeader() {
                             transition: 'opacity 0.3s ease',
                         }}
                     >
-                        <EditIcon sx={{ fontSize: 70 }} /> {/* Larger icon size */}
+                        <EditIcon
+                            sx={{
+                                fontSize: {
+                                    xs: 40, // Small screens
+                                    sm: 50, // Medium screens
+                                    md: 40, // Larger screens
+                                    lg: 70, // Largest screens
+                                },
+                            }}
+                        />
                     </IconButton>
 
                     {/* Choose Photo Text */}
                     <Box
                         className="choose-photo-text"
                         sx={{
+                            width: 120,
                             position: 'absolute',
-                            top: '70%', // Adjust based on where you want the text
-                            left: '50%',
+                            top: '70%',
+                            left: {
+                                xs: '65%',  // For xs (small screens), set left to 60%
+                                sm: '60%', 
+                                md: '50%' // For sm and larger, set left to 50%
+                            },
                             transform: 'translateX(-50%)',
                             color: 'white',
-                            fontSize: '16px',
+                            fontSize: {
+                                xs: '12px', // Small screens
+                                sm: '14px', // Medium screens
+                                md: '12px', // Larger screens
+                                lg: '18px', // Largest screens
+                            },
                             opacity: 0, // Initially hidden
-
                         }}
                     >
                         Choose photo
@@ -292,7 +310,7 @@ export function StationHeader() {
             {/* Playlist Actions */}
             <Box className="playlist-actions"
                 sx={{ display: 'flex', gap: 3 }}>
-             <button
+                <button
                     className="station-play-btn"
                     style={{
                         color: '#1ed760',
