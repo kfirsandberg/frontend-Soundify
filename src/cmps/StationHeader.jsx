@@ -3,6 +3,7 @@ import { Box, Typography, IconButton, Modal, useMediaQuery } from '@mui/material
 import { setIsPlaying, loadSong } from '../store/actions/station.actions.js'
 import EditIcon from '@mui/icons-material/Edit'
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
+import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled'
 import { MoreHoriz } from '@mui/icons-material'
 import HamburgerIcon from '../../public/assets/hamburger.svg'
 import { StationEdit } from './StationEdit'
@@ -11,6 +12,8 @@ import { stationService } from '../services/station/'
 
 export function StationHeader() {
     const station = useSelector(storeState => storeState.stationModule.currentStation)
+    const isPlaying = useSelector((storeState) => storeState.stationModule?.isPlaying || false)
+    const [currentSong, setCurrentSong] = useState(null)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [setUpdatedImgURL] = useState(station?.images?.[0]?.url)
@@ -49,20 +52,33 @@ export function StationHeader() {
 
 
 
-    function handlePlayFirstSong() {
-
-        if (station?.tracks && station.tracks.length > 0) {
-            const firstSong = station.tracks[0]
-            console.log("Playing first song with ID:", firstSong.track.id)
-
-
-            dispatch(loadSong(firstSong))
-            dispatch(setIsPlaying(true))
+    function handlePlayPause() {
+        if (isPlaying) {
+           
+            console.log("Pausing song:", currentSong?.track?.id || 'No song playing')
+            new Promise((resolve) => {
+                dispatch(setIsPlaying(false))
+                resolve()
+            }).then(() => {
+                console.log("Playback paused.")
+            });
         } else {
-            console.log('No songs found in station');
+            
+            new Promise((resolve) => {
+                if (!currentSong && station?.tracks?.length > 0) {
+                    const firstSong = station.tracks[0];
+                    console.log("Loading first song with ID:", firstSong.track.id)
+                    dispatch(loadSong(firstSong))
+                    setCurrentSong(firstSong)
+                }
+                resolve()
+            }).then(() => {
+                dispatch(setIsPlaying(true))
+                console.log("Playback started.")
+            })
         }
     }
-
+    
 
     return (
         <Box
@@ -276,7 +292,7 @@ export function StationHeader() {
             {/* Playlist Actions */}
             <Box className="playlist-actions"
                 sx={{ display: 'flex', gap: 3 }}>
-                <button
+             <button
                     className="station-play-btn"
                     style={{
                         color: '#1ed760',
@@ -287,9 +303,13 @@ export function StationHeader() {
                         padding: 0,
                         marginLeft: 5,
                     }}
-                    onClick={handlePlayFirstSong} // Add the play logic to this button
+                    onClick={handlePlayPause} // Toggle play/pause
                 >
-                    <PlayCircleFilledIcon style={{ fontSize: '66px' }} />
+                    {isPlaying ? (
+                        <PauseCircleFilledIcon style={{ fontSize: '66px' }} />
+                    ) : (
+                        <PlayCircleFilledIcon style={{ fontSize: '66px' }} />
+                    )}
                 </button>
 
                 <button
