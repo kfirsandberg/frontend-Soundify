@@ -317,7 +317,6 @@ export function StationHeader() {
             <Box className="playlist-actions"
                 sx={{ display: 'flex', gap: 3 }}>
                 <button
-                <button
                     className="station-play-btn"
                     style={{
                         color: '#1ed760',

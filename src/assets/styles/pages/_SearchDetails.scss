@@ -15,6 +15,7 @@
         padding-top: 0;
         padding-left: 1em;
 
+
         .artist {
             display: flex;
             flex-direction: column;
@@ -24,6 +25,7 @@
                 max-width: 92px;
                 max-height: 92px;
                 border-radius: 50%;
+                aspect-ratio: 1 / 1;
             }
 
             .artist-name {
@@ -45,6 +47,10 @@
             background-color: #181818;
             border-radius: 1em;
             width: 100%;
+
+            &:hover {
+                background-color: #282828;
+            }
 
             h2 {
                 font-size: 1em;
@@ -254,7 +260,8 @@
     flex-direction: column;
     padding: 1em;
     padding-top: 5px;
-    h2{
+
+    h2 {
         margin-left: 0;
     }
 }
@@ -270,21 +277,32 @@
     min-width: 200px;
     display: flex;
     gap: 1.5em;
-    h2{
+
+    h2 {
         margin: 0;
         font-family: SpotifyMix-bold;
         font-size: 12px;
         padding-top: 5px;
         color: #b3b3b3f5;
     }
-    h1{
+
+    h1 {
         margin: 0;
         font-family: SpotifyMix-bold;
         font-size: 12px;
         padding-top: 5px;
         color: #ffffffdb;
     }
-    .names{
+
+    .names {
         padding-top: 8px;
+    }
+
+}
+
+.playlist-container {
+    &:hover {
+        border-radius: 0.5em;
+        background-color: #282828;
     }
 }

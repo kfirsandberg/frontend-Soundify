@@ -177,7 +177,10 @@ export async function removeSongFromLiked(songId) {
 }
 export async function search(query) {
     try {
+        console.log(query);
+        
         const searchedSongs = await spotifyService.searchSongs(query)
+        
         store.dispatch(getCmdSongs(searchedSongs))
         return searchedSongs
     } catch (err) {
