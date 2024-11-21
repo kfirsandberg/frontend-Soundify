@@ -16,6 +16,11 @@ const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
 export const SOCKET_EMIT_STATION_WATCH = 'station-watch'
 export const SOCKET_EVENT_STATION_UPDATE = 'station-updated'
 
+export const SOCKET_EMIT_STATIONS_WATCH = 'stations-watch'
+
+export const SOCKET_EVENT_STATION_REMOVE = 'station-removed'
+export const SOCKET_EVENT_STATION_ADD = 'station-add'
+
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 export const socketService = createSocketService()
 // export const socketService = createDummySocketService()
