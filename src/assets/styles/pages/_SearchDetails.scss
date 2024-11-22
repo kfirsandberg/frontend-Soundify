@@ -300,8 +300,7 @@
 
     }
 
-    .artist{
-
+    .artist-section{
         position: relative;
         padding:10px;
         cursor: pointer;
@@ -315,7 +314,7 @@
         .play-button-container {
             position: absolute;
             right: em(29px);
-            bottom: em(10px);
+            bottom: em(-30px);
             z-index: 2; // Ensure button stays above the overlay and image
             width: 48px;
             height: 48px;
