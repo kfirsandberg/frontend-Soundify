@@ -300,9 +300,52 @@
 
     }
 
-    .Featuring-section {
+    .artist{
 
+        position: relative;
+        padding:10px;
+        cursor: pointer;
 
+        &:hover {
+            .play-button-container {
+                transform: translateY(-55px);
+                opacity: 1;
+            }
+        }
+        .play-button-container {
+            position: absolute;
+            right: em(29px);
+            bottom: em(10px);
+            z-index: 2; // Ensure button stays above the overlay and image
+            width: 48px;
+            height: 48px;
+            opacity: 0;
+            transform: translateY(-45px);
+            transition: opacity 0.3s ease, transform 0.5s ease;
+            background-color: #1ED760;
+            border-radius: 50%;
+
+            .play-button {
+                position: absolute;
+                bottom: em(15px);
+                right: em(7px);
+              
+                color: $spotify-light;
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                background-color: $spotify-green;
+                transition: background-color 0.3s ease;
+                .play{
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+
+    }
+
+    .Featuring-section{
         .playlist-container {
             position: relative;
         padding:10px;

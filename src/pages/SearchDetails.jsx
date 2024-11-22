@@ -112,7 +112,7 @@ export function SearchDetails() {
         navigate(`/artist/${artistId}`)
 
     }
-    console.log(searchedSongs);
+ 
 
 
     if (!searchedSongs || searchedSongs.length === 0) return
@@ -127,6 +127,11 @@ export function SearchDetails() {
                         <img className='artist-img' src={searchedSongs.artists[0].images[0].url} alt="" />
                         <h1 className='artist-name'>{searchedSongs.artists[0].name}</h1>
                         <h2>Artist</h2>
+                        <div className="play-button-container">
+                                        <button className="play-button" >
+                                            <img className="play" src={playIcon} alt="Play" />
+                                        </button>
+                                    </div>
                     </section>
                 </div>
             </section>
