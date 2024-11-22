@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { loadSong, setIsPlaying, updateStation, getArtist, addSong, removeSong } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, updateStation, getArtist, addSong, removeSong} from '../store/actions/station.actions.js'
 import { Box, Typography, IconButton, useMediaQuery } from '@mui/material'
 import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
@@ -85,13 +85,9 @@ export function SongList() {
 
     async function onArtistClick(song) {
         const artistId = song.track.artists[0].id
-
         await getArtist(artistId)
-
-        console.log('res', artist)
-
-
         navigate(`/artist/${artistId}`)
+
     }
 
     function handlePlayClick(song, index) {
@@ -194,12 +190,8 @@ export function SongList() {
     }
     
     async function onArtistClick(song) {
-
         const artistId = song.track.artists[0].id
         await getArtist(artistId)
-        // console.log(artist);
-
-
         navigate(`/artist/${artistId}`)
     }
 

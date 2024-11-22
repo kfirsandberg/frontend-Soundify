@@ -104,12 +104,10 @@ export function SearchDetails() {
     }
 
     async function onArtistClick(song) {
-
-
         const artistId = song.artists[0].id
         await getArtist(artistId)
-        // console.log(artist);
         navigate(`/artist/${artistId}`)
+
     }
     console.log(searchedSongs);
 

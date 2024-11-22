@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { formatTime } from '../services/util.service.js'
-import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying  } from '../store/actions/station.actions.js'
 import { stationService } from '../services/station/index.js';
 import { removeSong, addSong } from '../store/actions/station.actions.js';
 import { useNavigate } from 'react-router-dom'
@@ -107,12 +107,10 @@ export function StationSearch() {
     }
 
     async function onArtistClick(song) {
-
-
         const artistId = song.artists[0].id
         await getArtist(artistId)
-        // console.log(artist);
         navigate(`/artist/${artistId}`)
+
     }
 
 
