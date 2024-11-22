@@ -1,25 +1,28 @@
 import { useEffect, useState } from 'react'
+
+import { artistService } from '../services/artist/artistService.js'
 import loaderIcon from '/assets/loader.svg'
+
 import { ArtistHeader } from '../cmps/ArtistHeader.jsx'
+import { SongList } from '../cmps/SongList.jsx'
 import { ArtistSongList } from '../cmps/ArtistSongList.jsx'
 import { useSelector } from 'react-redux'
 
 export function ArtistPage() {
     const artist = useSelector(storeState => storeState.stationModule.currentArtist)
-    const isSearch = useSelector(storeState => storeState.stationModule.isSearch)
-
+    console.log(artist);
+    
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
 
 
     async function onArtistClick(song) {
+
         const artistId = song.track.artists[0].id
         await getArtist(artistId)
         console.log(artist);
 
         navigate(`/artist/${artistId}`)
-
-        
     }
 
     useEffect(() => {
@@ -46,12 +49,11 @@ export function ArtistPage() {
     if (error) {
         return <div className="error-message">{error}</div>;
     }
+
     if (!artist) {
         return <div>No artist found.</div>;
     }
-    if (isSearch) {
-        return <img src={loaderIcon} alt="Loading..." className="loader-icon" />
-    }
+
     return (
         <section className="artist-details-main">
             <ArtistHeader />

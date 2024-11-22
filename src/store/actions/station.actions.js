@@ -179,9 +179,7 @@ export async function removeSongFromLiked(songId) {
 export async function search(query) {
     try {
         const searchedSongs = await spotifyService.searchSongs(query)
-
         store.dispatch(getCmdSongs(searchedSongs))
-        return searchedSongs
     } catch (err) {
         console.log('Cannot load stations', err)
         throw err

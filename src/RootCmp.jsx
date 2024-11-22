@@ -31,7 +31,6 @@ export function RootCmp() {
     const bgColor = useSelector(storeState => storeState.stationModule.bgColor)
 
     useEffect(() => {
-
         const fetchBackgroundColor = async () => {
             if (stations && stations.length > 0 && stations[0].images[0].url) {
                 try {
@@ -72,7 +71,7 @@ export function RootCmp() {
                         <Route path="/" element={<StationIndex />} />
                         <Route path="/browse" element={<BrowseIndex />} />
                         {/* <Route path="/search/:searchId" element={<SearchDetails/>} /> */}
-                        <Route path="/search/" element={<SearchDetails />} />
+                        <Route path="/search/:searchValue" element={<SearchDetails />} />
                         <Route path="/all-stations" element={<AllStations />} /> {/* Add AllStations route */}
                         <Route path="/playlist/:stationId" element={<StationDetails />} />
                         <Route path="/artist/:artistId" element={<ArtistPage />} />

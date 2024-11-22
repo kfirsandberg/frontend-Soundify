@@ -1,46 +1,44 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { formatTime } from '../services/util.service'
-import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { formatTime } from '../services/util.service';
+import { loadSong, setIsPlaying, search } from '../store/actions/station.actions.js';
 import { stationService } from '../services/station/index.js';
 import { removeSong, addSong } from '../store/actions/station.actions.js';
-import { useNavigate } from 'react-router-dom'
-import { getArtist } from '../store/actions/station.actions'
-import { formatSongDuration } from '../services/station'
+import { useNavigate, useParams } from 'react-router-dom';
+import { getArtist } from '../store/actions/station.actions';
+import { formatSongDuration } from '../services/station';
 
 export function SearchDetails() {
-
-    const navigate = useNavigate()
-    const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
-    const artist = useSelector(storeState => storeState.stationModule.currentArtist)
-    const stations = useSelector(storeState => storeState.stationModule.stations)
-    const currentStation = useSelector(storeState => storeState.stationModule.currentStation)
+    const navigate = useNavigate();
+    const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs);
+    const artist = useSelector(storeState => storeState.stationModule.currentArtist);
+    const stations = useSelector(storeState => storeState.stationModule.stations);
+    const currentStation = useSelector(storeState => storeState.stationModule.currentStation);
     const [currentSong, setCurrentSong] = useState(null);
+    const { searchValue } = useParams();
+    const contextMenuRef = useRef(null);
 
-    const contextMenuRef = useRef(null)
+    const [contextMenu, setContextMenu] = useState(null);
 
-    const menuWidth = contextMenuRef.current?.offsetWidth || 150;
-    const menuHeight = contextMenuRef.current?.offsetHeight || 100;
-
-    const [contextMenu, setContextMenu] = useState(null)
 
     useEffect(() => {
-        if (!contextMenu) return
+        if (!contextMenu) return;
         document.addEventListener('click', handleOutsideClick);
         return () => {
             document.removeEventListener('click', handleOutsideClick);
         };
     }, [contextMenu]);
-    useEffect(() => {
 
-    }, [searchedSongs])
+    useEffect(() => {
+        if (!searchedSongs && searchValue) {
+            search(searchValue); // טוען את השירים עבור הערך בנתיב
+        }
+    }, [searchValue, searchedSongs]);
 
     function onStationClick(station) {
-        // console.log('Station clicked:', station);
-        onLikedSong(currentSong, station)
+        onLikedSong(currentSong, station);
         closeContextMenu();
     }
-
 
     async function toggleLike(ev, song) {
         ev.stopPropagation();
@@ -54,7 +52,6 @@ export function SearchDetails() {
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
 
-
         if (x + menuWidth > screenWidth) {
             x = screenWidth - menuWidth;
         }
@@ -64,7 +61,7 @@ export function SearchDetails() {
         }
 
         setContextMenu({ x, y, song });
-        setCurrentSong(song)
+        setCurrentSong(song);
     }
 
     function handleOutsideClick(event) {
@@ -75,7 +72,7 @@ export function SearchDetails() {
     }
 
     function closeContextMenu() {
-        setContextMenu(null)
+        setContextMenu(null);
     }
 
     function handlePlayClick(song) {
@@ -85,61 +82,62 @@ export function SearchDetails() {
 
     async function onLikedSong(song, station) {
         try {
-            let songToCheck
-            if (song.added_at) {
-                songToCheck = song.track
-            } else {
-                songToCheck = song
-            }
-            const existingSong = await stationService.isSongOnStation(songToCheck, station)
+            let songToCheck = song.added_at ? song.track : song;
+            const existingSong = await stationService.isSongOnStation(songToCheck, station);
             if (existingSong) {
                 await removeSong(songToCheck, station);
             } else {
                 await addSong(songToCheck, station);
             }
-
         } catch (error) {
             console.error('Error toggling like:', error);
         }
     }
 
     async function onArtistClick(song) {
-        const artistId = song.artists[0].id
-        await getArtist(artistId)
-        navigate(`/artist/${artistId}`)
-
+        const artistId = song?.artists?.[0]?.id;
+        if (artistId) {
+            await getArtist(artistId);
+            navigate(`/artist/${artistId}`);
+        }
     }
-    console.log(searchedSongs);
 
+    if (!searchedSongs || searchedSongs.length === 0) return null;
 
-    if (!searchedSongs || searchedSongs.length === 0) return
-  
     return (
         <section className="search-details">
             <section className='artist-details'>
-
                 <div className='artist'>
                     <h2>Top result</h2>
                     <section className='artist-section'>
-                        <img className='artist-img' src={searchedSongs.artists[0].images[0].url} alt="" />
-                        <h1 className='artist-name'>{searchedSongs.artists[0].name}</h1>
+                        <img
+                            className='artist-img'
+                            src={searchedSongs?.artists?.[0]?.images?.[0]?.url || 'default-artist.jpg'}
+                            alt={searchedSongs?.artists?.[0]?.name || 'Artist'}
+                        />
+                        <button className='play-search-btn'>
+                            <svg xmlns="http://www.w3.org/2000/svg" data-encore-id="icon" role="img" aria-hidden="true" className="Svg-sc-ytk21e-0 bneLcE zOsKPnD_9x3KJqQCSmAq" viewBox="0 0 24 24">
+                                <path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" />
+                            </svg>
+                        </button>
+                        <h1 className='artist-name'>{searchedSongs?.artists?.[0]?.name || 'Artist'}</h1>
                         <h2>Artist</h2>
                     </section>
                 </div>
             </section>
             <section className="song-list">
                 <h2>Songs</h2>
-                {searchedSongs.tracks
-                    ?.filter((song) => song.duration_ms)
-                    .slice(0, 4) // Limit to the first five songs
+                {searchedSongs?.tracks
+                    ?.filter((song) => song?.duration_ms)
+                    .slice(0, 4)
                     .map((song) => (
-                        <div key={song._id} className="song-item">
+                        <div key={song?._id || song?.id} className="song-item">
                             {/* Song Image */}
                             <div onClick={() => handlePlayClick(song)} className="song-img">
                                 <button>
                                     <img
-                                        src={song.album.images[0]?.url}
-                                        alt={`${song.name} cover`}
+                                        src={song?.album?.images?.[0]?.url || 'default-song.jpg'}
+                                        alt={`${song?.name || 'Song'} cover`}
                                     />
                                     <div className="img-overlay">
                                         <div className="play-icon"></div>
@@ -149,17 +147,17 @@ export function SearchDetails() {
 
                             {/* Song Details */}
                             <div className="song-details">
-                                <span className="song-title">{song.name}</span>
+                                <span className="song-title">{song?.name || 'Unknown Song'}</span>
                                 <span className="song-artist">
-                                    {song.artists.map((artist, index) => (
-                                        <React.Fragment key={artist.id}>
+                                    {song?.artists?.map((artist, index) => (
+                                        <React.Fragment key={artist?.id || index}>
                                             <span
                                                 className="artist-name"
                                                 onClick={() => onArtistClick(song)}
                                             >
-                                                {artist.name}
+                                                {artist?.name || 'Unknown Artist'}
                                             </span>
-                                            {index < song.artists.length - 1 && ', '}
+                                            {index < song?.artists?.length - 1 && ', '}
                                         </React.Fragment>
                                     ))}
                                 </span>
@@ -169,14 +167,14 @@ export function SearchDetails() {
                             <div className="song-actions">
                                 <button
                                     title={
-                                        song.liked
+                                        song?.liked
                                             ? 'Remove from liked songs'
                                             : 'Add to liked songs'
                                     }
                                     className="liked-songs-btn"
                                     onClick={(event) => toggleLike(event, song)}
                                 >
-                                    {song.liked ? (
+                                    {song?.liked ? (
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             role="img"
@@ -200,7 +198,7 @@ export function SearchDetails() {
                                     )}
                                 </button>
                                 <div className="song-duration">
-                                    {formatSongDuration(song.duration_ms)}
+                                    {formatSongDuration(song?.duration_ms) || '0:00'}
                                 </div>
                             </div>
                         </div>
@@ -210,26 +208,30 @@ export function SearchDetails() {
             <section className="Featuring-section">
                 <h2>Featuring</h2>
                 <section className="playlists-section">
-                    {searchedSongs.playlists
-                        ?.slice(0, 5) // Limit to the first 5 playlists
+                    {searchedSongs?.playlists
+                        ?.slice(0, 5)
                         .map((playlist) => (
-                            <div key={playlist.id} className="playlist-container">
+                            <div key={playlist?.id} className="playlist-container">
                                 <section className="playlist-section">
                                     <img
                                         className="playlist-img"
-                                        src={playlist.images[0]?.url}
-                                        alt={`${playlist.name} cover`}
+                                        src={playlist?.images?.[0]?.url || 'default-playlist.jpg'}
+                                        alt={`${playlist?.name || 'Playlist'} cover`}
                                     />
+                                    <button className='play-search-btn'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" data-encore-id="icon" role="img" aria-hidden="true" className="Svg-sc-ytk21e-0 bneLcE zOsKPnD_9x3KJqQCSmAq" viewBox="0 0 24 24">
+                                            <path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z" />
+                                        </svg>
+                                    </button>
                                     <section className='names'>
-                                        <h1 className="playlist-name">{playlist.name}</h1>
-                                        <h2 className="playlist-creator">{playlist.owner.display_name}</h2>
+                                        <h1 className="playlist-name">{playlist?.name || 'Unknown Playlist'}</h1>
+                                        <h2 className="playlist-creator">{playlist?.owner?.display_name || 'Unknown Creator'}</h2>
                                     </section>
                                 </section>
                             </div>
                         ))}
                 </section>
             </section>
-
 
             {contextMenu && (
                 <ul
@@ -247,17 +249,15 @@ export function SearchDetails() {
                     {stations.map((station) => (
                         <li className='add-station' key={station._id} onClick={() => onStationClick(station)}>
                             <img
-                                src={station.images[0].url || 'default-thumbnail.jpg'}
-                                alt={`${station.name} thumbnail`}
+                                src={station?.images?.[0]?.url || 'default-thumbnail.jpg'}
+                                alt={`${station?.name || 'Station'} thumbnail`}
                                 className="station-thumbnail"
                             />
-                            <span className='station-add-name'>{station.name}</span>
+                            <span className='station-add-name'>{station?.name}</span>
                         </li>
                     ))}
                 </ul>
             )}
-
-
         </section>
     );
 }

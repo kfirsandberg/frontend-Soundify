@@ -10,16 +10,37 @@
     padding-left: 9px;
 
     .artist-details {
+        position: relative;
         min-width: 445px;
         display: grid;
         padding-top: 0;
         padding-left: 1em;
 
+        .play-search-btn {
+            opacity: 0;
+            visibility: hidden;
+            height: 48px;
+            width: 48px;
+            position: absolute;
+            border: none;
+            border-radius: 50%;
+            background-color: $spotify-green;
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+            top: 190px;
+            left: 380px;
+            cursor: pointer;
+
+            svg {
+                height: 24px;
+                width: 24px;
+            }
+        }
 
         .artist {
             display: flex;
             flex-direction: column;
             grid-column: 1/2;
+            cursor: pointer;
 
             img {
                 max-width: 92px;
@@ -47,8 +68,14 @@
             background-color: #181818;
             border-radius: 1em;
             width: 100%;
-
             &:hover {
+                .play-search-btn {
+                    display: block;
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(-10px);
+                }
+
                 background-color: #282828;
             }
 
@@ -276,7 +303,6 @@
     min-height: 250px;
     min-width: 200px;
     display: flex;
-    gap: 1.5em;
 
     h2 {
         margin: 0;
@@ -301,8 +327,49 @@
 }
 
 .playlist-container {
+    position: relative;
+    padding: 10px;
+
     &:hover {
+        cursor: pointer;
         border-radius: 0.5em;
         background-color: #282828;
+
+        .play-search-btn {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-10px);
+        }
+    }
+
+    .playlist-section {
+        position: relative;
+    }
+
+    .playlist-img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .play-search-btn {
+        opacity: 0;
+        visibility: hidden;
+        height: 48px;
+        width: 48px;
+        position: absolute;
+        border: none;
+        border-radius: 50%;
+        background-color: $spotify-green;
+        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+        top: 125px;
+        left: 68%;
+        cursor: pointer;
+
+        svg {
+            height: 24px;
+            width: 24px;
+        }
     }
 }

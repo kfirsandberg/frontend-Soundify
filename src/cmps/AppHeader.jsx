@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { search, chatSearch,setIsSearch } from '../store/actions/station.actions.js';
+import { search, chatSearch, setIsSearch } from '../store/actions/station.actions.js';
 import { userService } from '../services/user/user.service.remote.js'
 import { debounce } from '../services/util.service.js';
 
@@ -9,7 +9,7 @@ export function AppHeader() {
     const [showModal, setShowModal] = useState(false)
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [isAI, setIsAI] = useState(false);
-
+    const [searchValue, setSearchValue] = useState('');
     const inputWrapperRef = useRef(null)
     const inputTextRef = useRef(null)
     const location = useLocation()
@@ -17,20 +17,19 @@ export function AppHeader() {
 
     const isHomePage = location.pathname === '/'
     useEffect(() => {
-        if (location.pathname !== '/search') {
-            clearSearchInput()
+        const pathSearchValue = location.pathname.startsWith('/search/')
+            ? location.pathname.split('/search/')[1]
+            : ''; // מחלץ את ערך החיפוש מהנתיב
+
+        if (pathSearchValue !== searchValue) {
+
         }
-    }, [location.pathname])
+    }, [location.pathname]);
 
     async function clearSearchInput() {
-        if (inputTextRef.current) {
-            inputTextRef.current.value = ''
-
-        }
-
-        await search('')
+        setSearchValue(''); // מאפס את הסטייט
+        await search(''); // מבצע חיפוש ריק
     }
-
     useEffect(() => {
         const checkLoginStatus = async () => {
             const token = localStorage.getItem('authToken');  // If you used localStorage
@@ -90,29 +89,30 @@ export function AppHeader() {
     }
 
     const debouncedSearch = debounce(async (value) => {
-        if (!value) return;
+        if (!value) {
+            if (location.pathname.startsWith('/search')) {
+                navigate('/'); // חזרה לדף הבית
+            }
+            return;
+        }
         try {
-            if (isAI) {
-                setIsSearch(true)
-                const results = await chatSearch(value);
-                setIsSearch(false)
-                navigate(`/playlist/${results._id}`);
-            } else {
-                setIsSearch(true)
-                const results = await search(value);
-                setIsSearch(false)
-                navigate('/search');
+            setIsSearch(true);
+            await search(value); // מבצע את החיפוש בפועל
+            setIsSearch(false);
+
+            if (location.pathname !== `/search/${value}`) {
+                navigate(`/search/${value}`); // מעדכן את ה-URL
             }
         } catch (error) {
             console.error('Error during search:', error);
         }
     }, 300);
 
+
     async function handleInputChange(ev) {
-
         const value = ev.target.value;
-        debouncedSearch(value);
-
+        setSearchValue(value); // מעדכן את ה-state מיידית
+        debouncedSearch(value); // מבצע את החיפוש לאחר דיבאונס
     }
 
     return (
@@ -174,12 +174,12 @@ export function AppHeader() {
                     </button>
 
                     <input
-                        ref={inputTextRef}
+                        value={searchValue}
                         type="text"
                         placeholder="What do you want to play?"
                         className="header-search-input"
-                        onFocus={handleFocus} // Handle focus
-                        onBlur={handleBlur} // Handle blur
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                         onChange={handleInputChange}
                     />
                     <Link to="/browse" style={{ zIndex: 1000 }}>
