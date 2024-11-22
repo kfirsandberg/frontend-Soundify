@@ -126,6 +126,7 @@
                     &:hover {
                         background-color: rgba(255, 255, 255, 0);
                     }
+
                     &::placeholder {
                         color: #b3b3b3;
                     }
@@ -161,6 +162,7 @@
                 .browse-icon {
                     fill: $icons;
                     background-color: transparent;
+
                     &:hover {
                         fill: #ffffff;
                     }
@@ -178,7 +180,7 @@
         width: 48px;
         height: 48px;
         margin-left: -11px;
-       
+
 
         &:hover {
             transform: scale(1.04);
@@ -211,12 +213,14 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+
             .header-icon {
                 width: 25px;
                 height: 25px;
                 object-fit: contain;
             }
-            &:hover{
+
+            &:hover {
                 scale: 1.05;
             }
         }
@@ -233,16 +237,18 @@
             width: 48px;
             height: 48px;
             margin-left: 0px;
-          
+
             .notification-icon {
                 width: 16px;
                 height: 16px;
                 fill: #ffffff9e;
-                &:hover{
+
+                &:hover {
                     width: 17px;
                     height: 17px;
                     fill: #ffffff;
                 }
+
                 // path{
                 //     &:hover{
                 //         fill: #ffffff;
@@ -262,36 +268,33 @@
         align-items: center;
         cursor: pointer;
 
-    
-    &:hover {
-        transform: scale(1.05);
-        svg {
-            fill: #fff; 
+
+        &:hover {
+            transform: scale(1.05);
+
+            svg {
+                fill: #fff;
+            }
         }
+        svg {
+            width: 36px;
+            height: 36px;
+            fill: #b3b3b3;
+        }
+
+
     }
-    
-  
-    
-    svg {
-        width: 36px;
-        height: 36px;
-        fill: #b3b3b3; 
-    }
-    
-    
-}
 }
 
 .header-ai-btn.active svg {
-    fill: #fff; 
+    fill: $spotify-green;
 }
+
 .browse-icon-empty:hover {
     fill: #ffffff;
 }
 
 
-/* Ensure dialog takes up full viewport */
-/* Ensure dialog takes up full viewport */
 .logout-modal {
     display: flex;
     justify-content: center;
@@ -309,18 +312,21 @@
     margin-top: 300px;
     overflow: hidden;
     border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Slight shadow for depth */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    /* Slight shadow for depth */
 }
 
 /* Styling the dialog content */
 .logout-modal .modal-content {
-    background: #1c1c1c; /* Dark background like Spotify */
+    background: #1c1c1c;
+    /* Dark background like Spotify */
     border-radius: 12px;
     padding: 2em;
     text-align: center;
     width: 90%;
-    max-width: 350px; /* Maximum width for the dialog */
-    
+    max-width: 350px;
+    /* Maximum width for the dialog */
+
     color: #fff;
     font-family: 'Arial', sans-serif;
 }
@@ -335,7 +341,8 @@
 /* Style for buttons inside the modal */
 .logout-modal .modal-content-btn {
     padding: 0.8em 1.5em;
-    background-color: #1db954; /* Spotify Green */
+    background-color: #1db954;
+    /* Spotify Green */
     color: black;
     font-size: 1.1em;
     border: none;
@@ -348,23 +355,28 @@
 
 /* Button hover effect */
 .logout-modal .modal-content-btn:hover {
-    background-color: #1aa34a; /* Slightly darker green on hover */
+    background-color: #1aa34a;
+    /* Slightly darker green on hover */
 }
 
 /* Secondary button (Cancel) - style it differently */
 .logout-modal .modal-content-btn:nth-child(2) {
-    background-color: #333; /* Dark gray for cancel button */
+    background-color: #333;
+    /* Dark gray for cancel button */
     color: #bbb;
 }
 
 .logout-modal .modal-content-btn:nth-child(2):hover {
-    background-color: #444; /* Darken cancel button on hover */
+    background-color: #444;
+    /* Darken cancel button on hover */
 }
 
 /* Dialog backdrop */
 .logout-modal::backdrop {
-    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for backdrop */
-    backdrop-filter: blur(5px); /* Optional blur effect */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Dark overlay for backdrop */
+    backdrop-filter: blur(5px);
+    /* Optional blur effect */
 }
 
 
@@ -372,40 +384,50 @@
 
     .app-header {
         * {
-            display: none !important; /* Hide all elements under .app-header */
+            display: none !important;
+            /* Hide all elements under .app-header */
         }
     }
 
 
     .app-header.full {
-        flex-direction: row; /* Stack header components vertically */
+        flex-direction: row;
+        /* Stack header components vertically */
         height: auto;
         padding: 10px;
         justify-content: center;
 
         .logo {
-            margin: 0 auto; /* Center logo */
+            margin: 0 auto;
+            /* Center logo */
         }
 
         .header-center-content {
-            position: relative; /* Adjust for stacking */
-            justify-content:center; /* Align input to the left */
+            position: relative;
+            /* Adjust for stacking */
+            justify-content: center;
+            /* Align input to the left */
             margin: 10px 0;
 
             .input-wrapper {
-                width: 300px; /* Full width input */
-                max-width: unset; /* Remove max width */
+                width: 300px;
+                /* Full width input */
+                max-width: unset;
+                /* Remove max width */
             }
         }
 
         .header-icon-btns {
-            margin-left: 0; /* Adjust alignment */
-            justify-content: center; /* Center buttons */
+            margin-left: 0;
+            /* Adjust alignment */
+            justify-content: center;
+
+            /* Center buttons */
             .header-icon-btn {
                 width: 32px;
                 height: 32px;
             }
-           
+
         }
     }
 }
