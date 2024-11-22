@@ -19,7 +19,8 @@ import {
     SET_BG_COLOR,
     SET_SEARCHED_SONGS,
     REMOVE_SONG,
-    SET_CURRENT_ARTIST
+    SET_CURRENT_ARTIST,
+    SET_IS_SEARCH
 } from '../reducers/station.reducer'
 
 
@@ -178,7 +179,7 @@ export async function removeSongFromLiked(songId) {
 export async function search(query) {
     try {
         const searchedSongs = await spotifyService.searchSongs(query)
-        
+
         store.dispatch(getCmdSongs(searchedSongs))
         return searchedSongs
     } catch (err) {
@@ -189,26 +190,57 @@ export async function search(query) {
 
 export async function chatSearch(query) {
     try {
-        // const language = detectLanguage(query);
         const formattedQuery = `תייצר לי ${query} בפורמט JSON שיהיה רק חמשה שירים, עם המבנה הבא:
         {
             "playlist": [
-        {
-            "title": "שם השיר",
-            "artist": "שם האמן",
-            "genre": "הז'אנר",
-            "year": שנה
-        }
-        ]
+                {
+                    "title": "שם השיר",
+                    "artist": "שם האמן",
+                    "genre": "הז'אנר",
+                    "year": שנה
+                }
+            ]
         }`;
 
-        const chatRes = await chatService.searchChat(formattedQuery);
-        const songs = chatRes.playlist
+        const chatRes = await chatService.searchChat(formattedQuery)
+        const backUpChat = {
+            "playlist": [
+                {
+                    "title": "Happy Birthday",
+                    "artist": "Stevie Wonder",
+                    "genre": "Pop",
+                    "year": 1980
+                },
+                {
+                    "title": "Celebration",
+                    "artist": "Kool & The Gang",
+                    "genre": "Funk",
+                    "year": 1980
+                },
+                {
+                    "title": "Party Rock Anthem",
+                    "artist": "LMFAO",
+                    "genre": "Electronic",
+                    "year": 2011
+                },
+                {
+                    "title": "Dancing Queen",
+                    "artist": "ABBA",
+                    "genre": "Disco",
+                    "year": 1976
+                },
+                {
+                    "title": "Can't Stop the Feeling!",
+                    "artist": "Justin Timberlake",
+                    "genre": "Pop",
+                    "year": 2016
+                }
+            ]
+        }
+        const songs = (chatRes?.playlist?.length > 0) ? chatRes.playlist : backUpChat.playlist;        
         const savedStation = await stationService.createNewStation(songs)
-        console.log(savedStation);
-        
-        // store.dispatch(getCmdAddStation(chatRes))
-        // store.dispatch(getCmdSetStation(chatRes))
+        store.dispatch(getCmdAddStation(savedStation))
+        store.dispatch(getCmdSetStation(savedStation))
         return savedStation;
     } catch (err) {
         console.log('Cannot get chatgpt', err)
@@ -245,6 +277,13 @@ export async function getArtist(artistId) {
     try {
         const artist = await spotifyService.getArtist(artistId)
         store.dispatch(getCmdArtist(artist))
+    } catch (err) {
+        console.log('Cannot find artist', err)
+    }
+}
+export async function setIsSearch(isSearch) {
+    try {
+        store.dispatch(setCmdIsSearch(isSearch))
     } catch (err) {
         console.log('Cannot find artist', err)
     }
@@ -341,6 +380,14 @@ export function getCmdArtist(currentArtist) {
     return {
         type: SET_CURRENT_ARTIST,
         currentArtist,
+    }
+}
+export function setCmdIsSearch(isSearch) {
+    console.log(isSearch);
+
+    return {
+        type: SET_IS_SEARCH,
+        isSearch,
     }
 }
 
