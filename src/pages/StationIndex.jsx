@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { StationList } from '../cmps/StationList.jsx'
-import { loadStations } from '../store/actions/station.actions.js'
+import { getCmdAddStation, getCmdRemoveStation, loadStations } from '../store/actions/station.actions.js'
 import { NavBtns } from '../cmps/NavBtns.jsx'
 import { LastStations } from '../cmps/LastStations.jsx'
 import loaderIcon from '/assets/loader.svg'
@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux'
 import { loadStation, setBgColor } from '../store/actions/station.actions.js'
 import { SOCKET_EMIT_STATIONS_WATCH, SOCKET_EVENT_STATION_ADD, SOCKET_EVENT_STATION_REMOVE, socketService } from '../services/socket.service.js'
 import { useDispatch } from 'react-redux'
+import { showSuccessMsg } from '../services/event-bus.service.js'
+
 
 export function StationIndex() {
     const stations = useSelector(storeState => storeState.stationModule.stations)
@@ -15,27 +17,28 @@ export function StationIndex() {
 
     const dispatch = useDispatch()
 
+    
     useEffect(() => {
-
-        socketService.emit(SOCKET_EVENT_STATION_ADD, station=>{
-           dispatch(getCmdAddStation(station))
-        showSuccessMsg('Playlist Addded.')
-
-        })
-        socketService.emit(SOCKET_EVENT_STATION_REMOVE, station=>{
-            dispatch(getCmdRemoveStation(station._id))
-        showSuccessMsg('Playlist Removed.')
-
-         })
+        socketService.on(SOCKET_EVENT_STATION_ADD, handleStationAdd)
+        socketService.on(SOCKET_EVENT_STATION_REMOVE, handleStationRemove)
+    
         return () => {
-            socketService.off(SOCKET_EVENT_STATION_ADD)
-            socketService.off(SOCKET_EVENT_STATION_REMOVE)
+            socketService.off(SOCKET_EVENT_STATION_ADD, handleStationAdd)
+            socketService.off(SOCKET_EVENT_STATION_REMOVE, handleStationRemove)
         }
-    }, [stations])
+    }, [dispatch, stations])
+    
 
+    function handleStationAdd  (station)  {
+        if (!station || stations.some((s) => s._id === station._id)) return
+        dispatch(getCmdAddStation(station))
+        showSuccessMsg('Playlist Added.');
+    }
 
-
-
+    function handleStationRemove ({ id })  {
+        dispatch(getCmdRemoveStation(id))
+        showSuccessMsg('Playlist Removed.')
+    }
 
     if (!stations) {
         return (

@@ -34,7 +34,12 @@ export function stationReducer(state = initialState, action) {
     var stations
     switch (action.type) {
         case SET_STATIONS:
-            newState = { ...state, stations: action.stations }
+            const uniqueStations = action.stations.filter(
+                (station, index, self) =>
+                    index === self.findIndex((s) => s._id === station._id)
+            )
+            console.log('uniqueStations:',uniqueStations)
+            newState = { ...state, stations: uniqueStations }
             break
         case SET_STATION:
             newState = { ...state, currentStation: action.currentStation }
@@ -44,7 +49,9 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations }
             break
         case ADD_STATION:
-            newState = { ...state, stations: [...state.stations, action.station] }
+            if (!state.stations.some((s) => s._id === action.station._id)) {
+                newState = { ...state, stations: [...state.stations, action.station] }}
+            // newState = { ...state, stations: [...state.stations, action.station] }
             break
         case UPDATE_STATION:
             stations = state.stations.map(station => {
