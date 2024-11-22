@@ -7,6 +7,9 @@ import { removeSong, addSong } from '../store/actions/station.actions.js';
 import { useNavigate } from 'react-router-dom'
 import { getArtist } from '../store/actions/station.actions'
 import { formatSongDuration } from '../services/station'
+import playIcon from '/assets/play.svg';
+
+
 
 export function SearchDetails() {
 
@@ -109,11 +112,11 @@ export function SearchDetails() {
         navigate(`/artist/${artistId}`)
 
     }
-    console.log(searchedSongs);
+ 
 
 
     if (!searchedSongs || searchedSongs.length === 0) return
-  
+
     return (
         <section className="search-details">
             <section className='artist-details'>
@@ -124,6 +127,11 @@ export function SearchDetails() {
                         <img className='artist-img' src={searchedSongs.artists[0].images[0].url} alt="" />
                         <h1 className='artist-name'>{searchedSongs.artists[0].name}</h1>
                         <h2>Artist</h2>
+                        <div className="play-button-container">
+                                        <button className="play-button" >
+                                            <img className="play" src={playIcon} alt="Play" />
+                                        </button>
+                                    </div>
                     </section>
                 </div>
             </section>
@@ -220,6 +228,11 @@ export function SearchDetails() {
                                         src={playlist.images[0]?.url}
                                         alt={`${playlist.name} cover`}
                                     />
+                                    <div className="play-button-container">
+                                        <button className="play-button" >
+                                            <img className="play" src={playIcon} alt="Play" />
+                                        </button>
+                                    </div>
                                     <section className='names'>
                                         <h1 className="playlist-name">{playlist.name}</h1>
                                         <h2 className="playlist-creator">{playlist.owner.display_name}</h2>

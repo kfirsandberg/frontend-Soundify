@@ -250,59 +250,147 @@
             max-height: 40px;
             border-radius: 20%;
         }
+
     }
 
-}
-
-.Featuring-section {
-    grid-column: 1/-1;
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-    padding-top: 5px;
-
-    h2 {
-        margin-left: 0;
-    }
-}
-
-.playlist-img {
-    max-width: 175px;
-    max-height: 175px;
-    border-radius: 0.5em;
-}
-
-.playlists-section {
-    min-height: 250px;
-    min-width: 200px;
-    display: flex;
-    gap: 1.5em;
-
-    h2 {
-        margin: 0;
-        font-family: SpotifyMix-bold;
-        font-size: 12px;
+    .Featuring-section {
+        grid-column: 1/-1;
+        display: flex;
+        flex-direction: column;
         padding-top: 5px;
-        color: #b3b3b3f5;
-    }
-
-    h1 {
+        padding: 0;
         margin: 0;
-        font-family: SpotifyMix-bold;
-        font-size: 12px;
-        padding-top: 5px;
-        color: #ffffffdb;
+
+        h2 {
+            margin-left: 0;
+        }
     }
 
-    .names {
-        padding-top: 8px;
-    }
-
-}
-
-.playlist-container {
-    &:hover {
+    .playlist-img {
+        max-width: 175px;
+        max-height: 175px;
         border-radius: 0.5em;
-        background-color: #282828;
+    }
+
+    .playlists-section {
+        min-height: 250px;
+        min-width: 200px;
+        display: flex;
+        // gap: 0.5em;
+
+        h2 {
+            margin: 0;
+            font-family: SpotifyMix-bold;
+            font-size: 12px;
+            padding-top: 5px;
+            color: #b3b3b3f5;
+        }
+
+        h1 {
+            margin: 0;
+            font-family: SpotifyMix-bold;
+            font-size: 12px;
+            padding-top: 5px;
+            color: #ffffffdb;
+        }
+
+        .names {
+            padding-top: 8px;
+        }
+
+    }
+
+    .artist-section{
+        position: relative;
+        padding:10px;
+        cursor: pointer;
+
+        &:hover {
+            .play-button-container {
+                transform: translateY(-55px);
+                opacity: 1;
+            }
+        }
+        .play-button-container {
+            position: absolute;
+            right: em(29px);
+            bottom: em(-30px);
+            z-index: 2; // Ensure button stays above the overlay and image
+            width: 48px;
+            height: 48px;
+            opacity: 0;
+            transform: translateY(-45px);
+            transition: opacity 0.3s ease, transform 0.5s ease;
+            background-color: #1ED760;
+            border-radius: 50%;
+
+            .play-button {
+                position: absolute;
+                bottom: em(15px);
+                right: em(7px);
+              
+                color: $spotify-light;
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                background-color: $spotify-green;
+                transition: background-color 0.3s ease;
+                .play{
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+
+    }
+
+    .Featuring-section{
+        .playlist-container {
+            position: relative;
+        padding:10px;
+        cursor: pointer;
+
+            &:hover {
+                border-radius: 0.5em;
+                background-color: #282828;
+
+                .play-button-container {
+                    transform: translateY(-55px);
+                    opacity: 1;
+                }
+            }
+
+            .play-button-container {
+                position: absolute;
+                right: em(15px);
+                z-index: 2; // Ensure button stays above the overlay and image
+                width: 48px;
+                height: 48px;
+                opacity: 0;
+                transform: translateY(-45px);
+                transition: opacity 0.3s ease, transform 0.5s ease;
+                background-color: #1ED760;
+                border-radius: 50%;
+
+                .play-button {
+                    position: absolute;
+                    bottom: em(15px);
+                    right: em(7px);
+                  
+                    color: $spotify-light;
+                    border: none;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    background-color: $spotify-green;
+                    transition: background-color 0.3s ease;
+                    .play{
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+            }
+
+
+        }
     }
 }
