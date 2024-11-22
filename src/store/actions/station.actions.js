@@ -178,8 +178,6 @@ export async function removeSongFromLiked(songId) {
 }
 export async function search(query) {
     try {
-        console.log(query);
-
         const searchedSongs = await spotifyService.searchSongs(query)
 
         store.dispatch(getCmdSongs(searchedSongs))
@@ -305,19 +303,19 @@ function getCmdSetStation(currentStation) {
     }
 }
 
-function getCmdRemoveStation(stationId) {
+export function getCmdRemoveStation(stationId) {
     return {
         type: REMOVE_STATION,
         stationId,
     }
 }
-function getCmdAddStation(station) {
+export function getCmdAddStation(station) {
     return {
         type: ADD_STATION,
         station,
     }
 }
-function getCmdUpdateStation(station) {
+export function getCmdUpdateStation(station) {
     return {
         type: UPDATE_STATION,
         station,

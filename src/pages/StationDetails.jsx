@@ -7,11 +7,12 @@ import { useNavigate, useParams } from 'react-router'
 import { loadStation, setBgColor, getStationById, search } from '../store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color'
 import { useSelector } from 'react-redux'
-import { SOCKET_EMIT_STATION_WATCH, SOCKET_EVENT_STATION_UPDATE, socketService } from '../services/socket.service.js'
-import { store } from '../store/store.js'
-import { showSuccessMsg } from '../services/event-bus.service.js'
 import { debounce } from '../services/util.service.js';
 import { StationSearch } from '../cmps/StationSearch.jsx'
+import { SOCKET_EMIT_STATION_WATCH, SOCKET_EVENT_STATION_REMOVE, SOCKET_EVENT_STATION_UPDATE, socketService } from '../services/socket.service.js'
+import { store } from '../store/store.js'
+import { showSuccessMsg } from '../services/event-bus.service.js'
+
 const fac = new FastAverageColor()
 
 export function StationDetails() {
@@ -21,11 +22,23 @@ export function StationDetails() {
     let station = useSelector(storeState => storeState.stationModule.currentStation)
     const { stationId } = useParams(null)
     useEffect(() => {
+        socketService.on(SOCKET_EVENT_STATION_REMOVE, onStationRemove);
+
         setBgColorDetails(station)
         if (!station) {
             getStationById(stationId)
         }
+        return () => {
+            socketService.off(SOCKET_EVENT_STATION_REMOVE, onStationRemove);
+        };
     }, [stationId])
+
+    function onStationRemove(removedStationid) {
+        if (removedStationid === stationId) {
+            navigate('/');
+        }
+    }
+
 
     async function setBgColorDetails(station) {
 
@@ -39,6 +52,28 @@ export function StationDetails() {
             }
         }
     }
+
+
+    useEffect(() => {
+
+        socketService.emit(SOCKET_EMIT_STATION_WATCH, station._id)
+        socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+
+        return () => {
+            socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+        }
+    }, [station._id, station])
+
+    function onStationUpdate(station) {
+        showSuccessMsg('Playlist Updated.')
+
+        store.dispatch({ type: 'UPDATE_STATION', station })
+        store.dispatch({ type: 'SET_STATION', currentStation: station })
+
+        setCurrStation(station)
+        setSongs(station.tracks)
+    }
+
 
 
     function onFindMore() {

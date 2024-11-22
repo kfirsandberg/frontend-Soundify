@@ -6,9 +6,7 @@ import { PlayArrow, Pause } from '@mui/icons-material'
 import playingGif from '../../public/assets/playing.gif'
 import { stationService } from '../services/station'
 import { useSelector } from 'react-redux'
-import { SOCKET_EMIT_STATION_WATCH, SOCKET_EVENT_STATION_UPDATE, socketService } from '../services/socket.service.js'
-import { store } from '../store/store.js'
-import { showSuccessMsg } from '../services/event-bus.service.js'
+
 import { useNavigate } from 'react-router'
 
 
@@ -45,26 +43,6 @@ export function SongList() {
 
     }, [station])
 
-
-    useEffect(() => {
-
-        socketService.emit(SOCKET_EMIT_STATION_WATCH, station._id)
-        socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
-
-        return () => {
-            socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
-        }
-    }, [station._id, station])
-
-    function onStationUpdate(station) {
-        showSuccessMsg('Playlist Updated.')
-
-        store.dispatch({ type: 'UPDATE_STATION', station })
-        store.dispatch({ type: 'SET_STATION', currentStation: station })
-
-        setCurrStation(station)
-        setSongs(station.tracks)
-    }
 
 
     useEffect(() => {
