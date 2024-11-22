@@ -18,7 +18,7 @@
         padding-left: 20px;
         padding-bottom: 0;
         gap: 5px;
-        padding-top: 8px;
+        padding-top: 13px;
     }
     
 
@@ -81,6 +81,7 @@
                 margin: 0 6px 0;
                 @media (max-width: 768px) {
                     font-size: 12px;
+                    font-family: SpotifyMix-bold, Arial, sans-serif;
                  }
 
             }

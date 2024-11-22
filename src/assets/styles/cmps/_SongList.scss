@@ -5,6 +5,17 @@
 
     @media (max-width: 768px) {
         padding-top: 0;
+        padding-left: 0;
+        margin-right: 0 !important;
+        hr{
+            display: none;
+        }
+        .num-play-icon{
+            display: none !important;
+        }
+        .song-img-mobile{
+            margin-left: 0;
+        }
     }
 }
 

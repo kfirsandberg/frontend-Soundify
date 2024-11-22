@@ -183,7 +183,7 @@ export function ArtistSongList({ artist}) {
                                     {...provided.droppableProps}
                                     sx={{ gridArea: 'songs', marginTop: 0 }}
                                 >
-                                    <hr style={{ opacity: 0.1 }} />
+                                    <hr className ='hr-song-list'style={{ opacity: 0.1 }} />
                                     {artist?.tracks?.map((track, idx) => (
                                         <Draggable key={track.id} draggableId={track.id} index={idx}>
                                             {(provided, snapshot) => (
@@ -212,6 +212,7 @@ export function ArtistSongList({ artist}) {
                                                     onMouseLeave={() => setHoveredIndex(null)}
                                                 >
                                                     <Box
+                                                        
                                                         sx={{
                                                             display: 'flex',
                                                             justifyContent: 'center',

@@ -287,6 +287,7 @@ export function SongList() {
                                                     onMouseLeave={() => setHoveredIndex(null)}
                                                 >
                                                     <Box
+                                                        className= 'num-play-icon'
                                                         sx={{
                                                             display: 'flex',
                                                             justifyContent: 'center',
@@ -339,7 +340,7 @@ export function SongList() {
                                                     </Box>
 
                                                     {/* Song details */}
-                                                    <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
+                                                    <Box className='song-img-mobile' sx={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
                                                         <Box
                                                             component="img"
                                                             src={song.track.album.images[0].url}
