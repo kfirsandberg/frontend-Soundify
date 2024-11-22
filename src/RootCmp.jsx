@@ -61,9 +61,10 @@ export function RootCmp() {
                     zIndex: 0
                 }}
             >
-                <div
+                <div className = 'gradient-bg'
                     style={{
-                        background: `linear-gradient(to top, #121212 80%,  rgba(18, 18, 18, 0) 100%)`,
+                       minHeight: '100%',
+                        background: `linear-gradient(to top, #121212 89%,  rgba(18, 18, 18, 0) 100%)`,
                         zIndex: 2
                     }}
                 >

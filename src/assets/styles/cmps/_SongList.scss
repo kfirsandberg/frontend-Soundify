@@ -1,7 +1,11 @@
 .song-list {
-    padding-top:11px;
+    padding-top: 10px;
     padding-left: 23px;
     height: 100%;
+
+    @media (max-width: 768px) {
+        padding-top: 0;
+    }
 }
 
 .playing-gif {
@@ -22,6 +26,7 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+    display: contents;
 
     .liked-icon {
         fill: #1ed760;

@@ -177,7 +177,10 @@ export async function removeSongFromLiked(songId) {
 }
 export async function search(query) {
     try {
+        console.log(query);
+        
         const searchedSongs = await spotifyService.searchSongs(query)
+        
         store.dispatch(getCmdSongs(searchedSongs))
         return searchedSongs
     } catch (err) {
@@ -202,63 +205,12 @@ export async function chatSearch(query) {
         }`;
 
         const chatRes = await chatService.searchChat(formattedQuery);
-      
-        const songs = chatRes.songs || chatRes.playlist || chatRes.playlist.songs
-
-        const tracks = await Promise.all(
-            songs.map(async (track) => {
-                try {
-                    // יצירת query שמחבר את שם השיר ושם האמן
-                    const searchQuery = `${track.title} ${track.artist}`;
-                    return await spotifyService.searchSong(searchQuery);
-                } catch (err) {
-                    console.error(`Error fetching song details for ${track.name}:`, err);
-                    return null; // אם יש שגיאה, מחזירים null
-                }
-            })
-        );
-
-        // סינון שירים שלא נמצאו
-        const validTracks = tracks.filter((track) => track !== null);
-
-        // יצירת האובייקט המוגמר
-        const formattedResponse = {
-            owner: {
-                external_urls: {
-                    spotify: "https://open.spotify.com/user/liked",
-                },
-                display_name: "User",
-            },
-            images: [
-                {
-                    height: 640,
-                    width: 640,
-                    url: "https://res.cloudinary.com/dwzeothxl/image/upload/v1731394907/Screenshot_2024-11-12_085302_pmlaey.png",
-                },
-                {
-                    height: 300,
-                    width: 300,
-                    url: "https://res.cloudinary.com/dummyimage/liked_songs_small.png",
-                },
-                {
-                    height: 64,
-                    width: 64,
-                    url: "https://res.cloudinary.com/dummyimage/liked_songs_tiny.png",
-                },
-            ],
-            collaborative: false,
-            name: "AI playlist:",
-            followers: {
-                href: null,
-                total: 0,
-            },
-            description: "",
-            tracks: validTracks, // השירים שנמצאו
-        }
-        const savedStation = await stationService.createNewStation(formattedResponse)
-        store.dispatch(getCmdAddStation(savedStation))
-        store.dispatch(getCmdSetStation(savedStation))
-
+        const songs = chatRes.playlist
+        const savedStation = await stationService.createNewStation(songs)
+        console.log(savedStation);
+        
+        // store.dispatch(getCmdAddStation(chatRes))
+        // store.dispatch(getCmdSetStation(chatRes))
         return savedStation;
     } catch (err) {
         console.log('Cannot get chatgpt', err)

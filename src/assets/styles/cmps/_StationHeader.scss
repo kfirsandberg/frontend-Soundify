@@ -1,16 +1,54 @@
-.header-station{
+.header-station {
     padding: 22px;
-    margin-top:10.5px;
+    margin-top: 10.5px;
     margin-bottom: 0;
     padding-bottom: 0;
 
-    .playlist-actions{
-        margin-top: 33px;
+    .playlist-actions {
+        margin-top: 20px;
         margin-left: -13px;
+        @media (max-width: 768px) {
+            margin-top: 0 ;
+
+        } 
     }
+
     @media (max-width: 768px) {
         margin-top: 0;
-       
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+
+    }
+
+}
+
+.station-header {
+    @media (max-width: 768px) {
+        align-items: center;
+        flex-direction: column;
+
+    }
+
+}
+
+.station-img {
+    @media (max-width: 768px) {
+        width: 250px !important;
+        height: 250px !important;
+    }
+}
+
+.playlist-tag {
+    @media (max-width: 768px) {
+       display: none;
+    }
+
+}
+
+.playlist-durations {
+    @media (max-width: 768px) {
+       display: none !important;
     }
 
 }

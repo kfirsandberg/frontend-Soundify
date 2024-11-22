@@ -13,11 +13,11 @@
     &:hover .play-button-container {
         transform: translateY(-55px);
         opacity: 1;
-        
+
     }
 
     &:hover:before {
-        
+
         opacity: 1; // On hover, show the background overlay
     }
 
@@ -80,7 +80,7 @@
     }
 
     .play-button-title {
-        font-family: SpotifyMix-light,SpotifyMix, Arial, sans-serif;
+        font-family: SpotifyMix-light, SpotifyMix, Arial, sans-serif;
         font-size: 13px;
         text-align: start;
         color: #B3B3B3;
@@ -98,23 +98,24 @@
         justify-content: center;
         align-items: baseline;
         padding-top: 0.6em;
-
-        .station-name-description{
+       
+        .station-name-description {
             font-family: SpotifyMix, Arial, sans-serif;
             font-size: 13px;
             font-weight: lighter;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-        }   
-        
+        }
+
 
         .station-name {
             z-index: 1;
-        &:hover {
-            cursor: pointer;
-            text-decoration: underline
-         }
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline
+            }
 
             white-space: nowrap;
             overflow: hidden;
@@ -122,4 +123,10 @@
         }
     }
 
+}
+
+.playlist-descriptions{
+    @media (max-width: 768px){
+        display: none !important;
+    }
 }

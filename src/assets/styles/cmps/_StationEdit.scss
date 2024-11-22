@@ -37,6 +37,9 @@
             .close-btn-icon {
                 width: 1rem;
                 height: 1rem;
+                &:hover{
+                    scale: 1.1;
+                }
             }
         }
     }

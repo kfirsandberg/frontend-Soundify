@@ -47,14 +47,14 @@ export function StationHeader() {
     }
 
     function truncateText(text, maxLength) {
-        return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
+        return text
     }
 
 
 
     function handlePlayPause() {
         if (isPlaying) {
-           
+
             console.log("Pausing song:", currentSong?.track?.id || 'No song playing')
             new Promise((resolve) => {
                 dispatch(setIsPlaying(false))
@@ -63,7 +63,8 @@ export function StationHeader() {
                 console.log("Playback paused.")
             });
         } else {
-            
+
+
             new Promise((resolve) => {
                 if (!currentSong && station?.tracks?.length > 0) {
                     const firstSong = station.tracks[0];
@@ -78,7 +79,8 @@ export function StationHeader() {
             })
         }
     }
-    
+
+
 
     return (
         <Box
@@ -92,9 +94,10 @@ export function StationHeader() {
             }}
         >
             {/* Station Details */}
-            <Box sx={{ display: 'flex', gap: 2 }}>
+            <Box className='station-header' sx={{ display: 'flex', gap: 2 }}>
                 {/* Station Image with Edit Icon */}
                 <Box
+                    className='station-img'
                     sx={{
                         display: 'block',
                         position: 'relative',
@@ -110,6 +113,7 @@ export function StationHeader() {
                     }}
                 >
                     <Box
+
                         component="img"
                         src={station?.images[0]?.url}
                         onClick={onImageClick}
@@ -157,21 +161,39 @@ export function StationHeader() {
                             transition: 'opacity 0.3s ease',
                         }}
                     >
-                        <EditIcon sx={{ fontSize: 70 }} /> {/* Larger icon size */}
+                        <EditIcon
+                            sx={{
+                                fontSize: {
+                                    xs: 40, // Small screens
+                                    sm: 50, // Medium screens
+                                    md: 40, // Larger screens
+                                    lg: 70, // Largest screens
+                                },
+                            }}
+                        />
                     </IconButton>
 
                     {/* Choose Photo Text */}
                     <Box
                         className="choose-photo-text"
                         sx={{
+                            width: 120,
                             position: 'absolute',
-                            top: '70%', // Adjust based on where you want the text
-                            left: '50%',
+                            top: '70%',
+                            left: {
+                                xs: '65%',  // For xs (small screens), set left to 60%
+                                sm: '60%', 
+                                md: '50%' // For sm and larger, set left to 50%
+                            },
                             transform: 'translateX(-50%)',
                             color: 'white',
-                            fontSize: '16px',
+                            fontSize: {
+                                xs: '12px', // Small screens
+                                sm: '14px', // Medium screens
+                                md: '12px', // Larger screens
+                                lg: '18px', // Largest screens
+                            },
                             opacity: 0, // Initially hidden
-
                         }}
                     >
                         Choose photo
@@ -180,7 +202,7 @@ export function StationHeader() {
 
                 {/* Playlist Info */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', marginBottom: '10px' }}>
-                    <Typography variant="subtitle2" color="white">
+                    <Typography className='playlist-tag' variant="subtitle2" color="white">
                         Playlist
                     </Typography>
                     <Typography
@@ -209,13 +231,14 @@ export function StationHeader() {
 
                     {station.description && (
                         <Typography
+                            className='station-descriptions playlist-descriptions'
                             variant="body1"
                             sx={{
 
-                                fontSize: '1.2rem',
+                                fontSize: '0.9rem',
                                 fontFamily: 'SpotifyMix',
                                 fontWeight: '400',
-                                color: 'white',
+                                color: '#ffffffa3',
                                 textAlign: { xs: 'center', sm: 'left' },
                                 whiteSpace: 'nowrap',
                                 overflow: 'hidden',
@@ -235,7 +258,6 @@ export function StationHeader() {
                                 },
                                 '@media (max-width: 600px)': {
                                     maxWidth: '60%',
-
                                     fontSize: '1rem',
                                 },
                                 '@media (max-width: 400px)': {
@@ -267,6 +289,7 @@ export function StationHeader() {
                         </Typography>
 
                         <Typography
+                        className='playlist-durations'
                             variant="body2"
                             sx={{
                                 fontSize: '0.875rem',
@@ -292,7 +315,7 @@ export function StationHeader() {
             {/* Playlist Actions */}
             <Box className="playlist-actions"
                 sx={{ display: 'flex', gap: 3 }}>
-             <button
+                <button
                     className="station-play-btn"
                     style={{
                         color: '#1ed760',

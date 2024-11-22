@@ -1,22 +1,24 @@
 import { useState } from 'react'
-import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search'
+import { styled, alpha } from '@mui/material/styles'
+import InputBase from '@mui/material/InputBase'
+import { useSelector, useDispatch } from 'react-redux'
+import { setStations } from '../store/actions/station.actions.js'
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0),
     '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
+        backgroundColor: alpha(theme.palette.common.white, 0.15)
     },
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
+        width: 'auto'
+    }
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 0.2),
@@ -28,64 +30,89 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
     color: 'rgb(180, 180, 180)',
     '&:hover': {
-        color: 'white',
-    },
-}));
+        color: 'white'
+    }
+}))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
+    color: 'white',
     width: '100%',
     '& .MuiInputBase-input': {
-    //   padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '0', // Initially collapse input width
-      '&::placeholder': {
-        color: 'rgb(180, 180, 180)', // Placeholder in white
-        opacity: 0, // Hide placeholder by default
-      },
-      '&:focus': {
-        width: '1ch', // Expand width when focused
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        width: '0',
         '&::placeholder': {
-          opacity: 1, // Show placeholder only on focus
+            color: 'rgb(180, 180, 180)',
+            opacity: 0
         },
-      },
-      [theme.breakpoints.up('sm')]: {
-        width: '0.2ch', // Slightly visible width on larger screens
         '&:focus': {
-          width: '10ch', // Expanded width on focus for larger screens
+            width: '1ch',
+            '&::placeholder': {
+                opacity: 1
+            }
         },
-      },
-    },
-  }));
-  
+        [theme.breakpoints.up('sm')]: {
+            width: '0.2ch',
+            '&:focus': {
+                width: '10ch'
+            }
+        }
+    }
+}))
 
 export function FilterLibrary({ setFilterCriteria, setSortBy }) {
+    const dispatch = useDispatch()
+    const stations = useSelector((state) => state.stationModule.stations)
     const [searchTerm, setSearchTerm] = useState('')
     const [showModal, setShowModal] = useState(false)
     const [selectedSort, setSelectedSort] = useState('Recents')
-    const [showSearch, setShowSearch] = useState(false) // New state for toggling search input visibility
 
     function handleSearchChange(event) {
-        setSearchTerm(event.target.value)
-        setFilterCriteria(event.target.value)
+        const term = event.target.value
+        setSearchTerm(term)
+        setFilterCriteria(term)
+        const filteredStations = stations.filter((station) =>
+            station.name.toLowerCase().includes(term.toLowerCase())
+        )
+        dispatch(setStations(filteredStations))
     }
 
     function handleSortClick(sortType) {
+        // console.log('Stations:', stations)
+        let sortedStations
+        switch (sortType) {
+            case 'Recents':
+                sortedStations = [...stations].sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                )
+                break
+            case 'Recently Added':
+                sortedStations = [...stations].sort(
+                    (a, b) => new Date(b.addedAt) - new Date(a.addedAt)
+                )
+                break
+            case 'Alphabetical':
+                sortedStations = [...stations].sort((a, b) =>
+                    a.name.localeCompare(b.name)
+                )
+                break
+            default:
+                sortedStations = [...stations]
+                break
+        }
         setSortBy(sortType)
         setSelectedSort(sortType)
-        setShowModal(false) // Close modal after selecting a sort option
+        setShowModal(false)
+        dispatch(setStations(sortedStations))
     }
 
     return (
         <header className="filter-library">
             <div className="sort-buttons">
-                <button onClick={() => setSortBy('playlists')}>Playlists</button>
-                <button onClick={() => setSortBy('A')}>Artists</button>
+                <button onClick={() => handleSortClick('Playlists')}>Playlists</button>
+                <button onClick={() => handleSortClick('Artists')}>Artists</button>
             </div>
-
             <div className="search-and-menu">
-                {/* New button to toggle search input visibility */}
                 <Search>
                     <SearchIconWrapper>
                         <SearchIcon />
@@ -93,13 +120,19 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
                     <StyledInputBase
                         placeholder="Search…"
                         inputProps={{ 'aria-label': 'search' }}
+                        value={searchTerm}
+                        onChange={handleSearchChange}
                     />
                 </Search>
-
                 <div className="sort-container">
                     <div className="hamburger-menu">
-                        <button className="hamburger-btn" onClick={() => setShowModal(prev => !prev)}>
-                            {selectedSort && <span className="selected-sort">{selectedSort}</span>}
+                        <button
+                            className="hamburger-btn"
+                            onClick={() => setShowModal((prev) => !prev)}
+                        >
+                            {selectedSort && (
+                                <span className="selected-sort">{selectedSort}</span>
+                            )}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 data-encore-id="icon"
@@ -111,12 +144,14 @@ export function FilterLibrary({ setFilterCriteria, setSortBy }) {
                                 <path d="M15 14.5H5V13h10v1.5zm0-5.75H5v-1.5h10v1.5zM15 3H5V1.5h10V3zM3 3H1V1.5h2V3zm0 11.5H1V13h2v1.5zm0-5.75H1v-1.5h2v1.5z" />
                             </svg>
                         </button>
-
                         <div className={`modal ${showModal ? 'open' : ''}`}>
                             <button onClick={() => handleSortClick('Recents')}>Recents</button>
-                            <button onClick={() => handleSortClick('Recently Added')}>Recently Added</button>
-                            <button onClick={() => handleSortClick('Alphabetical')}>Alphabetical</button>
-
+                            <button onClick={() => handleSortClick('Recently Added')}>
+                                Recently Added
+                            </button>
+                            <button onClick={() => handleSortClick('Alphabetical')}>
+                                Alphabetical
+                            </button>
                         </div>
                     </div>
                 </div>
