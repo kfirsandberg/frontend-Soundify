@@ -38,7 +38,6 @@ export function stationReducer(state = initialState, action) {
                 (station, index, self) =>
                     index === self.findIndex((s) => s._id === station._id)
             )
-            console.log('uniqueStations:',uniqueStations)
             newState = { ...state, stations: uniqueStations }
             break
         case SET_STATION:

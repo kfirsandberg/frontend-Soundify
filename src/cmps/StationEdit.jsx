@@ -9,6 +9,11 @@ const StationEdit = forwardRef(({ station, onClose, onImageUpload, openFileUploa
     const [uploadedImgURL, setUploadedImgURL] = useState(station?.images[0]?.url);
 
     useEffect(() => {
+        setEditedStation({ ...station });
+        setUploadedImgURL(station?.images[0]?.url);
+    }, [station]);
+
+    useEffect(() => {
         if (openFileUpload) {
             document.getElementById('imgUpload').click();
         }
@@ -33,13 +38,14 @@ const StationEdit = forwardRef(({ station, onClose, onImageUpload, openFileUploa
         }
     }
 
-    function handleSave() {
+   async function handleSave() {
         const updatedStation = {
             ...editedStation,
             images: uploadedImgURL ? [{ url: uploadedImgURL }] : editedStation.images,
         };
-
         updateStation(updatedStation);
+        setEditedStation({ ...station });
+        setUploadedImgURL(station?.images[0]?.url);
         onClose();
     }
 
