@@ -115,7 +115,7 @@ export function SearchDetails() {
 
 
     if (!searchedSongs || searchedSongs.length === 0) return
-
+  
     return (
         <section className="search-details">
             <section className='artist-details'>

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { search, chatSearch } from '../store/actions/station.actions.js';
+import { search, chatSearch,setIsSearch } from '../store/actions/station.actions.js';
 import { userService } from '../services/user/user.service.remote.js'
 import { debounce } from '../services/util.service.js';
 
@@ -93,10 +93,14 @@ export function AppHeader() {
         if (!value) return;
         try {
             if (isAI) {
+                setIsSearch(true)
                 const results = await chatSearch(value);
+                setIsSearch(false)
                 navigate(`/playlist/${results._id}`);
             } else {
+                setIsSearch(true)
                 const results = await search(value);
+                setIsSearch(false)
                 navigate('/search');
             }
         } catch (error) {
@@ -153,7 +157,7 @@ export function AppHeader() {
                         )}
                     </button>
                 </Link>
-             
+
 
                 <div className={`input-wrapper ${focused ? 'focused' : ''}`} ref={inputWrapperRef}>
                     <button className="header-search-btn" title="Search">
