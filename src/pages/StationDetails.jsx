@@ -3,7 +3,7 @@ import { SongList } from '../cmps/SongList.jsx'
 
 import { useEffect, useState } from 'react'
 import loaderIcon from '/assets/loader.svg'
-import { useNavigate, useParams } from 'react-router'
+import {  useParams } from 'react-router'
 import { loadStation, setBgColor, getStationById, search } from '../store/actions/station.actions.js'
 import { FastAverageColor } from 'fast-average-color'
 import { useSelector } from 'react-redux'
@@ -16,95 +16,72 @@ import { showSuccessMsg } from '../services/event-bus.service.js'
 const fac = new FastAverageColor()
 
 export function StationDetails() {
-
-    const [showFindMoreSection, setShowFindMoreSection] = useState(false)
-    const [searchResult, setsearchResult] = useState(false)
     let station = useSelector(storeState => storeState.stationModule.currentStation)
     const { stationId } = useParams(null)
     useEffect(() => {
-        socketService.on(SOCKET_EVENT_STATION_REMOVE, onStationRemove);
-
-        setBgColorDetails(station)
         if (!station) {
             getStationById(stationId)
         }
+        socketService.on(SOCKET_EVENT_STATION_REMOVE, onStationRemove);
+        setBgColorDetails(station)
         return () => {
             socketService.off(SOCKET_EVENT_STATION_REMOVE, onStationRemove);
         };
-    }, [stationId])
+    }, [station])
 
-    function onStationRemove(removedStationid) {
-        if (removedStationid === stationId) {
+    function onStationRemove(removedStationId) {
+        if (removedStationId === stationId) {
             navigate('/');
         }
     }
-
 
     async function setBgColorDetails(station) {
 
         if (station && station.images[0].url) {
             try {
                 const color = await fac.getColorAsync(station.images[0].url)
-                // console.log('colorL',color)
-                setBgColor(color.rgb) // Dispatch color to update background
+                setBgColor(color.rgb)
             } catch (error) {
-                // console.error('Error fetching average color:', error)
+                console.error('Error fetching average color:', error)
             }
         }
     }
 
-
     useEffect(() => {
-
-        socketService.emit(SOCKET_EMIT_STATION_WATCH, station._id)
-        socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
-
-        return () => {
-            socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+        if(station){
+            socketService.emit(SOCKET_EMIT_STATION_WATCH, station._id)
+            socketService.on(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+    
+            return () => {
+                socketService.off(SOCKET_EVENT_STATION_UPDATE, onStationUpdate)
+            }
         }
-    }, [station._id, station])
+    }, [station])
 
     function onStationUpdate(station) {
         showSuccessMsg('Playlist Updated.')
-
         store.dispatch({ type: 'UPDATE_STATION', station })
         store.dispatch({ type: 'SET_STATION', currentStation: station })
-
         setCurrStation(station)
         setSongs(station.tracks)
-    }
-
-
-
-    function onFindMore() {
-        setShowFindMoreSection(prevState => !prevState)
     }
 
     const debouncedSearch = debounce(async (value) => {
         if (!value) return;
         try {
-            const results = await search(value);
-            setsearchResult(results)
-
-            // navigate(`/search/${value}`)
-            // navigate('/search');
+            await search(value);
         } catch (error) {
             console.error('Error during search:', error);
         }
     }, 300);
-
 
     async function handleInputChange(ev) {
         const value = ev.target.value;
         debouncedSearch(value);
     }
 
-    function handleClearInput() {
-        setSearchValue('');
-    }
-
     function renderStationImage() {
-        if (!station.songs || station.songs.length === 0 || showFindMoreSection) {
+        if (!station.songs || station.songs.length === 0) {
             return (
                 <section>
                     <div className="add-station-container">
