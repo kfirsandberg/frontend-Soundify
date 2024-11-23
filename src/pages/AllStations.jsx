@@ -6,23 +6,8 @@ import { loadStations, setStations } from '../store/actions/station.actions.js' 
 
 export function AllStations() {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
     const stations = useSelector(state => state.stationModule.stations)
 
-    useEffect(() => {
-        loadStations()
-    }, [])
-
-    async function loadStations() {
-        try {
-            const data = await stationLocalService.query()
-            setStations(data)
-            setLoading(false)
-        } catch (error) {
-            console.error('Error fetching stations:', error)
-            setLoading(false)
-        }
-    }
     function onClickStation(station) {
         navigate(`/playlist/${station._id}`)
     }

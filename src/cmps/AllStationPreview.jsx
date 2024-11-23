@@ -12,7 +12,7 @@ export function AllStationPreview({ station }) {
   }
   return (
     <section className="all-station-preview-container">
-      <img className="all-station-preview-img" src={imgURL} alt={name} />
+      <img className="all-station-preview-img" src={station.images[0].url} alt={name} />
       <div className="all-play-button-container">
         <button className="all-play-button" onClick={onPlay}>
           <img className="all-play" src={playIcon} alt="Play" />
