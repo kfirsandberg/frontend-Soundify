@@ -40,7 +40,12 @@ export function stationReducer(state = initialState, action) {
                 (station, index, self) =>
                     index === self.findIndex((s) => s._id === station._id)
             )
-            newState = { ...state, stations: uniqueStations }
+            const sortedStations = uniqueStations.sort((a, b) => {
+                if (a.name === 'Liked Songs') return -1
+                if (b.name === 'Liked Songs') return 1
+                return 0;
+            })
+            newState = { ...state, stations: sortedStations }
             break
         case SET_STATION:
             newState = { ...state, currentStation: action.currentStation }
@@ -51,8 +56,18 @@ export function stationReducer(state = initialState, action) {
             break
         case ADD_STATION:
             if (!state.stations.some((s) => s._id === action.station._id)) {
-                newState = { ...state, stations: [...state.stations, action.station] }}
             // newState = { ...state, stations: [...state.stations, action.station] }
+            const updatedStations = [action.station, ...state.stations]
+            newState = {
+                ...state,
+                stations: updatedStations.sort((a, b) => {
+                    if (a.name === 'Liked Songs') return -1
+                    if (b.name === 'Liked Songs') return 1
+                    return 0;
+                }),
+            }
+        }
+
             break
         case UPDATE_STATION:
             stations = state.stations.map(station => {
