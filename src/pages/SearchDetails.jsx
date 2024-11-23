@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { formatTime } from '../services/util.service'
-import { loadSong, setIsPlaying } from '../store/actions/station.actions.js'
+import { loadSong, setIsPlaying, search } from '../store/actions/station.actions.js'
 import { stationService } from '../services/station/index.js';
 import { removeSong, addSong } from '../store/actions/station.actions.js';
 import { useNavigate } from 'react-router-dom'
 import { getArtist } from '../store/actions/station.actions'
 import { formatSongDuration } from '../services/station'
+import { useParams } from 'react-router'
+
 import playIcon from '/assets/play.svg';
 
 
@@ -14,17 +15,13 @@ import playIcon from '/assets/play.svg';
 export function SearchDetails() {
 
     const navigate = useNavigate()
-    const searchedSongs = useSelector(storeState => storeState.stationModule.searchedSongs)
-    const artist = useSelector(storeState => storeState.stationModule.currentArtist)
+    const searchedRes = useSelector(storeState => storeState.stationModule.searchedSongs)
+    const { searchValue } = useParams(null)
     const stations = useSelector(storeState => storeState.stationModule.stations)
-    const currentStation = useSelector(storeState => storeState.stationModule.currentStation)
     const [currentSong, setCurrentSong] = useState(null);
-
     const contextMenuRef = useRef(null)
-
     const menuWidth = contextMenuRef.current?.offsetWidth || 150;
     const menuHeight = contextMenuRef.current?.offsetHeight || 100;
-
     const [contextMenu, setContextMenu] = useState(null)
 
     useEffect(() => {
@@ -34,12 +31,17 @@ export function SearchDetails() {
             document.removeEventListener('click', handleOutsideClick);
         };
     }, [contextMenu]);
-    useEffect(() => {
 
-    }, [searchedSongs])
+    useEffect(() => {
+        const fetchSearchResults = async () => {
+            if (!searchedRes) {
+                await search(searchValue);
+            }
+        }
+        fetchSearchResults();
+    }, [searchedRes, searchValue])
 
     function onStationClick(station) {
-        // console.log('Station clicked:', station);
         onLikedSong(currentSong, station)
         closeContextMenu();
     }
@@ -47,17 +49,12 @@ export function SearchDetails() {
 
     async function toggleLike(ev, song) {
         ev.stopPropagation();
-
         const menuWidth = 290;
         const menuHeight = 390;
-
         let x = ev.pageX;
         let y = ev.pageY;
-
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
-
-
         if (x + menuWidth > screenWidth) {
             x = screenWidth - menuWidth;
         }
@@ -112,10 +109,7 @@ export function SearchDetails() {
         navigate(`/artist/${artistId}`)
 
     }
- 
-
-
-    if (!searchedSongs || searchedSongs.length === 0) return
+    if (!searchedRes || searchedRes.length === 0) return
 
     return (
         <section className="search-details">
@@ -124,20 +118,20 @@ export function SearchDetails() {
                 <div className='artist'>
                     <h2>Top result</h2>
                     <section className='artist-section'>
-                        <img className='artist-img' src={searchedSongs.artists[0].images[0].url} alt="" />
-                        <h1 className='artist-name'>{searchedSongs.artists[0].name}</h1>
+                        <img className='artist-img' src={searchedRes.artists[0].images[0].url} alt="" />
+                        <h1 className='artist-name'>{searchedRes.artists[0].name}</h1>
                         <h2>Artist</h2>
                         <div className="play-button-container">
-                                        <button className="play-button" >
-                                            <img className="play" src={playIcon} alt="Play" />
-                                        </button>
-                                    </div>
+                            <button className="play-button" >
+                                <img className="play" src={playIcon} alt="Play" />
+                            </button>
+                        </div>
                     </section>
                 </div>
             </section>
             <section className="song-list">
                 <h2>Songs</h2>
-                {searchedSongs.tracks
+                {searchedRes.tracks
                     ?.filter((song) => song.duration_ms)
                     .slice(0, 4) // Limit to the first five songs
                     .map((song) => (
@@ -218,7 +212,7 @@ export function SearchDetails() {
             <section className="Featuring-section">
                 <h2>Featuring</h2>
                 <section className="playlists-section">
-                    {searchedSongs.playlists
+                    {searchedRes.playlists
                         ?.slice(0, 5) // Limit to the first 5 playlists
                         .map((playlist) => (
                             <div key={playlist.id} className="playlist-container">

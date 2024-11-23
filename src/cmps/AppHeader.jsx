@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { search, chatSearch,setIsSearch } from '../store/actions/station.actions.js';
+import { search, chatSearch, setIsSearch } from '../store/actions/station.actions.js';
 import { userService } from '../services/user/user.service.remote.js'
 import { debounce } from '../services/util.service.js';
 
@@ -17,7 +17,7 @@ export function AppHeader() {
 
     const isHomePage = location.pathname === '/'
     useEffect(() => {
-        if (location.pathname !== '/search') {
+        if (location.pathname === '/') {
             clearSearchInput()
         }
     }, [location.pathname])
@@ -25,25 +25,22 @@ export function AppHeader() {
     async function clearSearchInput() {
         if (inputTextRef.current) {
             inputTextRef.current.value = ''
-
         }
-
         await search('')
     }
 
     useEffect(() => {
         const checkLoginStatus = async () => {
-            const token = localStorage.getItem('authToken');  // If you used localStorage
-            const user = JSON.parse(localStorage.getItem('loggedInUser')); // If you used localStorage
-
+            const token = localStorage.getItem('authToken')
+            const user = JSON.parse(localStorage.getItem('loggedInUser'))
             if (!token || !user) {
                 setIsLoggedIn(false);
                 return;
             }
 
             try {
-                const response = await userService.validateToken(token);  // Validate the token with the server
-                console.log('Token validation response:', response);  // Log the response for debugging
+                const response = await userService.validateToken(token)  
+                console.log('Token validation response:', response)
 
 
                 setIsLoggedIn(response.isLoggedIn)
@@ -53,21 +50,20 @@ export function AppHeader() {
             }
         }
 
-        checkLoginStatus() // Call the checkLoginStatus function on component mount
+        checkLoginStatus() 
     }, [])
 
 
 
     const handleLogout = async () => {
-
         try {
-            await userService.logout();  // Call your logout service
-            localStorage.removeItem('authToken') // Remove the token from localStorage
-            localStorage.removeItem('loggedInUser')  // Remove the token from localStorage
-            setIsLoggedIn(false) // Update the login status
-            setShowModal(false) // Optionally close modal after logout
-            socketService.logout() // Log out from the socket
-            navigate('/') // Redirect to the homepage or login page
+            await userService.logout();  
+            localStorage.removeItem('authToken') 
+            localStorage.removeItem('loggedInUser')  
+            setIsLoggedIn(false) 
+            setShowModal(false) 
+            socketService.logout() 
+            navigate('/') 
         } catch (err) {
             console.error('Logout failed', err)
         }
@@ -75,9 +71,9 @@ export function AppHeader() {
 
     const handleUserClick = () => {
         if (isLoggedIn) {
-            setShowModal(true);  // Show logout modal when logged in
+            setShowModal(true)
         } else {
-            navigate('/LoginSignup') // Navigate to login/signup if not logged in
+            navigate('/LoginSignup')
         }
     };
 
@@ -99,9 +95,9 @@ export function AppHeader() {
                 navigate(`/playlist/${results._id}`);
             } else {
                 setIsSearch(true)
-                const results = await search(value);
+                await search(value);
                 setIsSearch(false)
-                navigate('/search');
+                navigate(`/search/${value}`);
             }
         } catch (error) {
             console.error('Error during search:', error);
